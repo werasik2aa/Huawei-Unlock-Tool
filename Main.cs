@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.IO;
 using HuaweiUnlocker;
+using System.Diagnostics;
 namespace HuaweiUnlocker
 {
     public partial class Huawei : Form
@@ -9,19 +10,26 @@ namespace HuaweiUnlocker
         public Huawei()
         {
             InitializeComponent();
-            if (!File.Exists("log.txt")) File.Create("log.txt");
+            foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
+            tool.progr = Pg;
+            tool.PORTER = PORTER;
+            tool.LOGGE = LOGGER;
             if (!Directory.Exists("UnlockFiles")) Directory.CreateDirectory("UnlockFiles");
             if (!Directory.Exists("LOGS")) Directory.CreateDirectory("LOGS");
+            Application.ApplicationExit += new EventHandler(this.OnApplicationExit);
         }
-        private void Huawei_Deactivate(object sender, EventArgs e)
+        private void OnApplicationExit(object sender, EventArgs e)
         {
+            if (!File.Exists("log.txt")) return;
+            tool.se.Close();
             File.Copy("log.txt", "LOGS\\" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "=LOG.txt", true);
+            File.Delete("log.txt");
         }
 
         private void gs_Click(object sender, EventArgs e)
         {
-            FlashTool fl = new FlashTool();
-            fl.Show();
+            tool.Fl = new FlashTool();
+            tool.Fl.Show();
         }
 
         private void Checker_Tick(object sender, EventArgs e)
@@ -31,8 +39,13 @@ namespace HuaweiUnlocker
 
         private void UnlockTool_Click(object sender, EventArgs e)
         {
-            Unlock u = new Unlock();
-            u.Show();
+            tool.Un = new Unlock();
+            tool.Un.Show();
+        }
+
+        private void debugs(object sender, EventArgs e)
+        {
+            tool.debug = checkBox1.Checked;
         }
     }
 }

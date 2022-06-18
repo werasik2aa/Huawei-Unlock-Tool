@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace HuaweiUnlocker
 {
@@ -16,8 +17,6 @@ namespace HuaweiUnlocker
         public FlashTool()
         {
             InitializeComponent();
-            tool.LOGGE = LOGS;
-            tool.PORTER = PORTER;
             tool.LOGGE.Text = "Version 2.0 beta";
             tool.LOG("INFO: Qualcom Flash Tool (c)");
             tool.LOG("INFO: This tool can Flash Firmware");
@@ -54,34 +53,35 @@ namespace HuaweiUnlocker
 
         private void Flash_Click(object sender, EventArgs e)
         {
-            Flash.Enabled = false;
+            tool.progr.Value = 0;
+            tool.all();
             tool.error = false;
-            tool.debug = debs.Checked;
-            if (Xm.Text == "")
+            if (Xm.Text.Length < 4 && !RAW.Checked)
             {
                 tool.LOG("ERROR: Please Select (Rawprogram0.xml)!");
                 tool.error = true;
-                return;
             }
-            if (Ld.Text == "")
+            if (Ld.Text.Length < 4)
             {
                 tool.LOG("ERROR: Please Select Loader! (LOADER.ELF | LOADER.MBN | LOADER.HEX)!");
                 tool.error = true;
-                return;
             }
-            if (!RAW.Checked)
-                if (!tool.FlashPartsXml(Xm.Text, Ld.Text, pather.Text))
-                {
-                    tool.LOG("ERROR: WRONG RAWPROGRAM0? OR DEVICE DISCONNECTED!"); tool.error = true;
-                }
-                else ;
-            else
-                if (!tool.FlashPartsRaw(Ld.Text, pather.Text))
-                {
-                    tool.LOG("ERROR: WRONG RAWPROGRAM0? OR DEVICE DISCONNECTED!"); tool.error = true;
-                }
+            if (!tool.error) if (!RAW.Checked)
+                    if (!tool.FlashPartsXml(Xm.Text, Ld.Text, pather.Text))
+                    {
+                        tool.LOG("ERROR: WRONG RAWPROGRAM0? OR DEVICE DISCONNECTED!"); tool.error = true;
+                    }
+                    else ;
+                else
+                    if (!tool.FlashPartsRaw(Ld.Text, pather.Text))
+                    {
+                        tool.LOG("ERROR: HUGE BIN? OR DEVICE DISCONNECTED!"); tool.error = true;
+                    }
             if (!tool.error) tool.LOG("INFO: FLASHING " + pather.Text + " DONE");
-            Flash.Enabled = true;
+            else
+                foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
+            tool.all();
+            tool.progr.Value = 100;
         }
 
         private void FlashTool_Deactivate(object sender, EventArgs e)
@@ -121,11 +121,11 @@ namespace HuaweiUnlocker
                 OpenFileDialog openFileDialog = new OpenFileDialog();
 
                 openFileDialog.InitialDirectory = Xm.Text;
-                if (Xm.Text == "") openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.InitialDirectory = "c:\\";
                 openFileDialog.Filter = "Sector DUMP files (*.img;*.bin)|*.img;*.bin;*.emmc|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
-                if (openFileDialog.ShowDialog() == DialogResult.OK) Xm.Text = openFileDialog.FileName;
+                if (openFileDialog.ShowDialog() == DialogResult.OK) pather.Text = openFileDialog.FileName;
             }
         }
 
@@ -139,6 +139,35 @@ namespace HuaweiUnlocker
             button2.Enabled = !RAW.Checked;
             DETECTED.Enabled = !RAW.Checked;
             Xm.Enabled = !RAW.Checked;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            tool.progr.Value = 0;
+            tool.all();
+            tool.error = false;
+            if (Ld.Text.Length < 4)
+            {
+                tool.LOG("ERROR: Please Select Loader! (LOADER.ELF | LOADER.MBN | LOADER.HEX)!");
+                tool.error = true;
+            }
+            FolderBrowserDialog openFileDialog = new FolderBrowserDialog();
+            if (!tool.error) if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                pather.Text = openFileDialog.SelectedPath+"\\DUMP.APP";
+                if (!tool.error)
+                    if (!tool.Dump(Ld.Text, pather.Text))
+                    {
+                        tool.LOG("ERROR: Failed Dump All!"); tool.error = true;
+                    }
+                    else ;
+                if (!tool.error) tool.LOG("INFO: DUMPING " + pather.Text + " DONE");
+                else
+                    foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
+            }
+            tool.all();
+            tool.progr.Value = 100;
+            tool.getgpt = false;
         }
     }
 }

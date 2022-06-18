@@ -28,45 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.LOGS = new System.Windows.Forms.TextBox();
             this.Flash = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.PORTER = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.pather = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.DETECTED = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Xm = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.Ld = new System.Windows.Forms.ComboBox();
             this.AutoXml = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.AutoLdr = new System.Windows.Forms.CheckBox();
-            this.debs = new System.Windows.Forms.CheckBox();
+            this.Xm = new System.Windows.Forms.TextBox();
             this.RAW = new System.Windows.Forms.CheckBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // LOGS
-            // 
-            this.LOGS.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.LOGS.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LOGS.Location = new System.Drawing.Point(12, 12);
-            this.LOGS.Multiline = true;
-            this.LOGS.Name = "LOGS";
-            this.LOGS.ReadOnly = true;
-            this.LOGS.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LOGS.Size = new System.Drawing.Size(474, 488);
-            this.LOGS.TabIndex = 10;
             // 
             // Flash
             // 
             this.Flash.BackColor = System.Drawing.Color.AliceBlue;
             this.Flash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Flash.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Flash.Location = new System.Drawing.Point(492, 461);
+            this.Flash.Location = new System.Drawing.Point(496, 69);
             this.Flash.Name = "Flash";
             this.Flash.Size = new System.Drawing.Size(466, 39);
             this.Flash.TabIndex = 11;
@@ -74,37 +59,12 @@
             this.Flash.UseVisualStyleBackColor = false;
             this.Flash.Click += new System.EventHandler(this.Flash_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.MintCream;
-            this.label2.Location = new System.Drawing.Point(626, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(197, 24);
-            this.label2.TabIndex = 21;
-            this.label2.Text = "CONNECTED PORT";
-            // 
-            // PORTER
-            // 
-            this.PORTER.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.PORTER.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PORTER.Location = new System.Drawing.Point(492, 36);
-            this.PORTER.Name = "PORTER";
-            this.PORTER.ReadOnly = true;
-            this.PORTER.Size = new System.Drawing.Size(466, 28);
-            this.PORTER.TabIndex = 20;
-            this.PORTER.Text = "Connect Your device";
-            this.PORTER.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.AliceBlue;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(877, 66);
+            this.button3.Location = new System.Drawing.Point(881, 35);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(81, 29);
             this.button3.TabIndex = 23;
@@ -114,7 +74,7 @@
             // 
             // pather
             // 
-            this.pather.Location = new System.Drawing.Point(492, 70);
+            this.pather.Location = new System.Drawing.Point(496, 39);
             this.pather.Name = "pather";
             this.pather.Size = new System.Drawing.Size(379, 22);
             this.pather.TabIndex = 22;
@@ -126,7 +86,7 @@
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.Color.MintCream;
-            this.label3.Location = new System.Drawing.Point(492, 95);
+            this.label3.Location = new System.Drawing.Point(492, 11);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(176, 24);
             this.label3.TabIndex = 24;
@@ -157,13 +117,6 @@
             this.label1.Size = new System.Drawing.Size(196, 24);
             this.label1.TabIndex = 15;
             this.label1.Text = "MSM LOADER.MBN";
-            // 
-            // Xm
-            // 
-            this.Xm.Location = new System.Drawing.Point(3, 35);
-            this.Xm.Name = "Xm";
-            this.Xm.Size = new System.Drawing.Size(379, 22);
-            this.Xm.TabIndex = 16;
             // 
             // button1
             // 
@@ -225,7 +178,7 @@
             this.panel1.Controls.Add(this.Xm);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.DETECTED);
-            this.panel1.Location = new System.Drawing.Point(489, 330);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(478, 131);
             this.panel1.TabIndex = 25;
@@ -244,45 +197,52 @@
             this.AutoLdr.UseVisualStyleBackColor = true;
             this.AutoLdr.CheckStateChanged += new System.EventHandler(this.Ldr);
             // 
-            // debs
+            // Xm
             // 
-            this.debs.AutoSize = true;
-            this.debs.Font = new System.Drawing.Font("Arial", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.debs.Location = new System.Drawing.Point(877, 101);
-            this.debs.Name = "debs";
-            this.debs.Size = new System.Drawing.Size(76, 20);
-            this.debs.TabIndex = 26;
-            this.debs.Text = "Debug";
-            this.debs.UseVisualStyleBackColor = true;
+            this.Xm.Location = new System.Drawing.Point(3, 35);
+            this.Xm.Name = "Xm";
+            this.Xm.Size = new System.Drawing.Size(379, 22);
+            this.Xm.TabIndex = 16;
             // 
             // RAW
             // 
             this.RAW.AutoSize = true;
-            this.RAW.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RAW.Location = new System.Drawing.Point(717, 97);
+            this.RAW.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RAW.ForeColor = System.Drawing.Color.Cornsilk;
+            this.RAW.Location = new System.Drawing.Point(846, 12);
             this.RAW.Name = "RAW";
-            this.RAW.Size = new System.Drawing.Size(106, 22);
+            this.RAW.Size = new System.Drawing.Size(116, 23);
             this.RAW.TabIndex = 27;
             this.RAW.Text = "Raw Image";
             this.RAW.UseVisualStyleBackColor = true;
             this.RAW.CheckedChanged += new System.EventHandler(this.RAW_CheckedChanged);
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.AliceBlue;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Location = new System.Drawing.Point(496, 114);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(466, 39);
+            this.button4.TabIndex = 28;
+            this.button4.Text = "Dump Firmware";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // FlashTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(970, 512);
+            this.ClientSize = new System.Drawing.Size(998, 166);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.RAW);
-            this.Controls.Add(this.debs);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.pather);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.PORTER);
             this.Controls.Add(this.Flash);
-            this.Controls.Add(this.LOGS);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FlashTool";
             this.Text = "FlashTool";
@@ -296,23 +256,20 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox LOGS;
         private System.Windows.Forms.Button Flash;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox PORTER;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox pather;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label DETECTED;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox Xm;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox Ld;
         private System.Windows.Forms.CheckBox AutoXml;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox AutoLdr;
-        private System.Windows.Forms.CheckBox debs;
         private System.Windows.Forms.CheckBox RAW;
+        private System.Windows.Forms.TextBox Xm;
+        private System.Windows.Forms.Button button4;
     }
 }
