@@ -117,6 +117,7 @@
             this.DEVICER.Size = new System.Drawing.Size(384, 27);
             this.DEVICER.TabIndex = 8;
             this.DEVICER.Text = "ATU-L31";
+            this.DEVICER.SelectedIndexChanged += new System.EventHandler(this.DEVICER_SelectedIndexChanged);
             // 
             // UnlockFrp
             // 

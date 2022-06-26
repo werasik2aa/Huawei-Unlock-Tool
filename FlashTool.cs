@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using static HuaweiUnlocker.tool;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
@@ -13,19 +8,18 @@ namespace HuaweiUnlocker
 {
     public partial class FlashTool : Form
     {
-        private tool a = new tool();
         public FlashTool()
         {
             InitializeComponent();
-            tool.LOGGE.Text = "Version 2.0 beta";
-            tool.LOG("INFO: Qualcom Flash Tool (c)");
-            tool.LOG("INFO: This tool can Flash Firmware");
-            tool.LOG("INFO: Select Files");
-            tool.LOG("INFO: Connect device via EDL (9008 mode)");
+            LOGGE.Text = "Version 4.0";
+            LOG(I("SMAIN1"));
+            LOG(I("SMAIN2"));
+            LOG(I("SMAIN3"));
+            LOG(I("Tutr"));
             foreach (var a in Directory.GetDirectories(Directory.GetCurrentDirectory() + "\\qc_boot"))
             {
                 String[] es = a.Split('\\');
-                Ld.Items.Add(tool.PickLoader(es[es.Length - 1]));
+                Ld.Items.Add(PickLoader(es[es.Length - 1]));
             }
         }
 
@@ -53,35 +47,34 @@ namespace HuaweiUnlocker
 
         private void Flash_Click(object sender, EventArgs e)
         {
-            tool.progr.Value = 0;
-            tool.all();
-            tool.error = false;
+            progr.Value = 0;
+            all();
+            error = false;
             if (Xm.Text.Length < 4 && !RAW.Checked)
             {
-                tool.LOG("ERROR: Please Select (Rawprogram0.xml)!");
-                tool.error = true;
+                LOG(E("ErrXML"));
+                error = true;
             }
             if (Ld.Text.Length < 4)
             {
-                tool.LOG("ERROR: Please Select Loader! (LOADER.ELF | LOADER.MBN | LOADER.HEX)!");
-                tool.error = true;
+                LOG(E("ErrLdr"));
+                error = true;
             }
-            if (!tool.error) if (!RAW.Checked)
-                    if (!tool.FlashPartsXml(Xm.Text, Ld.Text, pather.Text))
-                    {
-                        tool.LOG("ERROR: WRONG RAWPROGRAM0? OR DEVICE DISCONNECTED!"); tool.error = true;
-                    }
-                    else ;
+            if (!error) if (!RAW.Checked)
+                {
+                    if (!FlashPartsXml(Xm.Text, Ld.Text, pather.Text))
+                        LOG(E("ErrXML2")); error = true;
+                }
                 else
-                    if (!tool.FlashPartsRaw(Ld.Text, pather.Text))
-                    {
-                        tool.LOG("ERROR: HUGE BIN? OR DEVICE DISCONNECTED!"); tool.error = true;
-                    }
-            if (!tool.error) tool.LOG("INFO: FLASHING " + pather.Text + " DONE");
+                {
+                    if (!FlashPartsRaw(Ld.Text, pather.Text))
+                        LOG(E("ErrBin")); error = true;
+                }
+            if (!error) LOG(I("Flashing") + pather.Text + L("Done"));
             else
                 foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
-            tool.all();
-            tool.progr.Value = 100;
+            all();
+            progr.Value = 100;
         }
 
         private void FlashTool_Deactivate(object sender, EventArgs e)
@@ -109,7 +102,7 @@ namespace HuaweiUnlocker
                     {
                         foreach (var a in Directory.GetFiles(openFileDialog.SelectedPath))
                         {
-                            //tool.LOG(a);
+                            //LOG(a);
                             if (AutoXml.Checked && a.EndsWith(".xml")) Xm.Text = a;
                             if (AutoLdr.Checked && a.EndsWith(".mbn") || a.EndsWith(".elf") || a.EndsWith(".hex")) Ld.Text = a;
                         }
@@ -143,31 +136,31 @@ namespace HuaweiUnlocker
 
         private void button4_Click(object sender, EventArgs e)
         {
-            tool.progr.Value = 0;
-            tool.all();
-            tool.error = false;
+            progr.Value = 0;
+            all();
+            error = false;
             if (Ld.Text.Length < 4)
             {
-                tool.LOG("ERROR: Please Select Loader! (LOADER.ELF | LOADER.MBN | LOADER.HEX)!");
-                tool.error = true;
+                LOG(E("ErrLdr"));
+                error = true;
             }
             FolderBrowserDialog openFileDialog = new FolderBrowserDialog();
-            if (!tool.error) if (openFileDialog.ShowDialog() == DialogResult.OK)
+            if (!error) if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 pather.Text = openFileDialog.SelectedPath+"\\DUMP.APP";
-                if (!tool.error)
-                    if (!tool.Dump(Ld.Text, pather.Text))
+                if (!error)
+                    if (!Dump(Ld.Text, pather.Text))
                     {
-                        tool.LOG("ERROR: Failed Dump All!"); tool.error = true;
+                        LOG("ERROR: Failed Dump All!"); error = true;
                     }
                     else ;
-                if (!tool.error) tool.LOG("INFO: DUMPING " + pather.Text + " DONE");
+                if (!error) LOG(I("Dumping") + pather.Text + L("Done"));
                 else
                     foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
             }
-            tool.all();
-            tool.progr.Value = 100;
-            tool.getgpt = false;
+            all();
+            progr.Value = 100;
+            getgpt = false;
         }
     }
 }

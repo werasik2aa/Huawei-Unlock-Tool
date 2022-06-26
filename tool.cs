@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
 using System.IO.Ports;
-using System.Threading.Tasks;
 
 namespace HuaweiUnlocker
 {
-    public class tool
+    public static class tool
     {
         public static TextBox LOGGE, PORTER;
         public static bool loadedhose = false;
@@ -24,10 +21,11 @@ namespace HuaweiUnlocker
         public static bool getgpt = false;
         private static string newline = Environment.NewLine;
         public static ProgressBar progr;
-        private static string log, EndStor, DevPart, FrpPart;
+        private static string log, EndStor, DevPart, FrpPart, KernelPart;
         public static Unlock Un;
         public static FlashTool Fl;
-
+        public static QXDterminal QXD;
+        private static Dictionary<string, string> lang = new Dictionary<string, string>();
         public static bool LoadLoader(string device, string pathloader)
         {
             string command = "Tools\\emmcdl.exe";
@@ -35,7 +33,7 @@ namespace HuaweiUnlocker
             if (debug) { LOG("===FLASHLOADER===" + newline + newline + command + newline + subcommand); }
             try
             {
-                LOG("INFO: Flashing Loader to: " + device);
+                LOG(I("FireHose") + device);
                 var state = RUN(command, subcommand, false);
                 loadedhose = state;
                 progr.Value = 20;
@@ -58,7 +56,7 @@ namespace HuaweiUnlocker
             try
             {
                 progr.Value = 40;
-                LOG("INFO: Trying to unlock: " + device);
+                LOG(I("Unlocker") + device);
                 return RUN(command, subcommand, false);
             }
             catch (Exception e)
@@ -79,7 +77,7 @@ namespace HuaweiUnlocker
             try
             {
                 progr.Value = 50;
-                LOG("INFO: Trying to erase: " + partition);
+                LOG(I("Eraser") + partition);
                 return RUN(command, subcommand, false);
             }
             catch (Exception e)
@@ -100,7 +98,7 @@ namespace HuaweiUnlocker
             try
             {
                 progr.Value = 50;
-                LOG("INFO: Trying to erase: " + partition);
+                LOG(I("Eraser") + partition);
                 return RUN(command, subcommand, false);
             }
             catch (Exception e)
@@ -116,19 +114,19 @@ namespace HuaweiUnlocker
             string subcommand = "-p " + port + " -f " + '"' + loader + '"' + " -gpt";
             if (debug) { LOG("===UNLOCKER FRP===" + newline + newline + command + newline + subcommand); }
             if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; tool.getgpt = false; tool.LOG("ERROR: Device failed to load loader or port occupied"); return false; }
+                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; tool.getgpt = false; tool.LOG(E("Fail")); return false; }
                 else loadedhose = true;
             try
             {
                 progr.Value = 30;
                 getgpt = true;
-                LOG("INFO: Trying to unlock frp: Universal" + newline + "GETGPT: " + getgpt);
+                LOG(I("Unlocker") +"FRP: Universal" + newline + "GETGPT: " + getgpt);
                 var a = RUN(command, subcommand, false);
-                if (!a) { getgpt = false; tool.error = true; LOGGE.AppendText(newline + "ERROR: FRP PARTITION DOESN'T EXIST"); return true; }
+                if (!a) { getgpt = false; tool.error = true; LOGGE.AppendText(newline + E("FailFrpD")); return true; }
                 progr.Value = 50;
                 command = "Tools\\emmcdl.exe";
                 subcommand = "-p " + port + " -f " + '"' + loader + '"' + " -e " + FrpPart;
-                LOGGE.AppendText(newline + "INFO: Erasing Partition: " + FrpPart + newline);
+                LOGGE.AppendText(newline + I("Eraser") + FrpPart + newline);
                 return RUN(command, subcommand, false);
             }
             catch (Exception e)
@@ -149,7 +147,7 @@ namespace HuaweiUnlocker
             try
             {
                 progr.Value = 0;
-                LOG("INFO: Flashing RAW partitions: " + path);
+                LOG(I("Flasher") + path);
                 return RUN(command, subcommand, false);
             }
             catch (Exception e)
@@ -187,20 +185,20 @@ namespace HuaweiUnlocker
             string subcommand = "-p " + port + " -f " + '"' + loader + '"' + " -gpt";
             if (debug) { LOG("===UNLOCKER FRP===" + newline + newline + command + newline + subcommand); }
             if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { tool.getgpt = false; loadedhose = false; tool.LOG("ERROR: Device failed to load loader or port occupied"); return false; }
+                if (!LoadLoader("HUAWEI", loader)) { tool.getgpt = false; loadedhose = false; tool.LOG(E("Fail")); return false; }
                 else loadedhose = true;
             try
             {
                 progr.Value = 30;
-                LOG("INFO: Trying TO dump Firmware: " + newline);
+                LOG(I("DumpTr") + newline);
                 getgpt = true;
                 var a = RUN(command, subcommand, false);
-                if (!a) { getgpt = false; tool.error = true; LOGGE.AppendText(newline + "ERROR: FAILED UNKNOWN ERROR"); return true; }
+                if (!a) { getgpt = false; tool.error = true; LOGGE.AppendText(newline + E("Unknown")); return true; }
                 progr.Maximum = int.Parse(EndStor);
                 progr.Value = int.Parse(EndStor);
                 command = "Tools\\emmcdl.exe";
                 subcommand = "-p " + port + " -f " + '"' + loader + '"' + " -d 0 " + EndStor + " -o " + savepath;
-                LOGGE.AppendText(newline + "INFO: Dumping FROM: 0" + "<-TO->" + EndStor);
+                LOGGE.AppendText(newline + I("Dump") + "0" + "<-TO->" + EndStor);
                 return RUN(command, subcommand, true);
             }
             catch (Exception e)
@@ -214,6 +212,7 @@ namespace HuaweiUnlocker
             log = "";
             bool state = false;
             i = i.ToLower();
+            if (!getgpt) { FrpPart = ""; DevPart = ""; KernelPart = ""; EndStor = ""; }
             if (i.Contains("failed") || i.Contains("error") || i.Contains("fail") || i.Contains("status: 2")) state = true;
             return state;
         }
@@ -234,10 +233,10 @@ namespace HuaweiUnlocker
             {
                 current.Add(a);
                 if (first) notdevice.Add(a);
-                if (!notdevice.Contains(a) && !first && port != a) { PORTER.Text = "Device port: " + a; port = a; LOG("INFO: Connected PORT: " + a); break; }
+                if (!notdevice.Contains(a) && !first && port != a) { PORTER.Text = "Device port: " + a; port = a; LOG(I("CPort") + a); break; }
             }
             if (first) first = false;
-            if (!current.Contains(port)) { if (port != "NaN") LOG("INFO: Disconnected PORT: " + port); port = "NaN"; PORTER.Text = "Connect Your Device"; loadedhose = false; }
+            if (!current.Contains(port)) { if (port != "NaN") LOG(I("DPort") + port); port = "NaN"; PORTER.Text = L("CLabel"); loadedhose = false; }
         }
         public static string PickLoader(string dev)
         {
@@ -266,32 +265,55 @@ namespace HuaweiUnlocker
                         DevPart = "devinfo";
                     if (outtext.ToLower().Contains("userdata"))
                         EndStor = outtext.Split(' ')[6];
+                    if (outtext.ToLower().Contains("kernel"))
+                        FrpPart = "frp";
                 }
                 if (big)
                 {
                     if (outtext.Contains("%"))
                     {
-                        string a = outtext.Split(' ')[outtext.Split(' ').Length-1].Replace("%}", "");
-                        if (!debug) LOGGE.AppendText((newline + "INFO: File sended:-") + a + "%");
+                        string a = outtext.Split(' ')[outtext.Split(' ').Length - 1].Replace("%}", "");
+                        if (!debug) LOGGE.AppendText((newline + "INFO: Percent:-") + a + "%");
                         try { progr.Value = Convert.ToInt32(a); }
                         catch { }
                     }
                     if (outtext.ToLower().Contains("remain"))
                     {
-                        if (!debug) LOGGE.AppendText(newline + "INFO: File dumped: " + int.Parse(outtext.Split(' ')[2]));
+                        if (!debug) LOGGE.AppendText(newline + "INFO: Sectors: " + int.Parse(outtext.Split(' ')[2]));
                         progr.Value = int.Parse(outtext.Split(' ')[2]);
                     }
                 }
 
                 log = log + newline + outtext;
-                if(debug) LOGGE.AppendText((newline + outtext));
+                if (debug) LOGGE.AppendText((newline + outtext));
             }
             if (!getgpt) return !isError(log); else return true;
         }
+        public static void readlng()
+        {
+            Stream ss = File.OpenRead("lang.ini");
+            StreamReader readerL = new StreamReader(ss);
+            string line = readerL.ReadLine();
+            while ((line = readerL.ReadLine()) != null)
+                lang.Add(line.Split(',')[0], line.Split(',')[1]);
+            readerL.Close();
+        }
         public static void all()
         {
-            Un.Enabled = !Un.Enabled;
-            Fl.Enabled = !Fl.Enabled;
+            if (Un != null) Un.Enabled = !Un.Enabled;
+            if (Fl != null) Fl.Enabled = !Fl.Enabled;
+        }
+        public static string I(string data)
+        {
+            return lang["Info"] + " " + lang[data];
+        }
+        public static string E(string data)
+        {
+            return lang["Error"] + " " + lang[data];
+        }
+        public static string L(string data)
+        {
+            return lang[data];
         }
     }
 }

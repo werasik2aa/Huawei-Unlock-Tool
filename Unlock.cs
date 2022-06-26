@@ -1,13 +1,12 @@
 ﻿using System;
-using System.IO.Ports;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Threading;
 using System.Diagnostics;
 using System.Net;
-using System.IO.Compression;
 using Ionic.Zip;
 using System.IO;
+using System.ComponentModel;
+using static HuaweiUnlocker.tool;
 namespace HuaweiUnlocker
 {
     public partial class Unlock : Form
@@ -15,81 +14,92 @@ namespace HuaweiUnlocker
         private static string device;
         private static string loader;
         public static string Path;
+        private Dictionary<string, string> source = new Dictionary<string, string>();
+        private Dictionary<string, string> lang = new Dictionary<string, string>();
         public Unlock()
         {
             InitializeComponent();
-            tool.LOGGE.Text = "Version 2.0 beta";
-            tool.LOG("INFO: Huawei Unlock Tool v1");
-            tool.LOG("INFO: Author: moongamer");
-            tool.LOG("INFO: This tool uses Board bootloader!");
-            tool.LOG("INFO: Connect device via EDL (9008 mode)");
-            tool.error = true;
-
+            //log
+            LOGGE.Text = "Version 4.0 (C) MOONGAMER";
+            LOG(I("MAIN1"));
+            LOG(I("MAIN2"));
+            LOG(I("MAIN3"));
+            LOG(I("Tutr"));
+            error = true;
             WebClient client = new WebClient();
+            //DEVICE FROM WEB
             Stream stream = client.OpenRead("http://igriastranomier.ucoz.ru/hwlock/devices.txt");
-            StreamReader reader = new StreamReader(stream);
-            string line = reader.ReadLine();
-            while ((line = reader.ReadLine()) != null) DEVICER.Items.Add(line);
+            StreamReader readerD = new StreamReader(stream);
+            string line = readerD.ReadLine();
+            while ((line = readerD.ReadLine()) != null)
+            {
+                string[] a = line.Split(' ');
+                DEVICER.Items.Add(a[0]);
+                if (!source.ContainsKey(a[0])) source.Add(a[0], a[1]);
+            }
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
+            if (!Directory.Exists(Path)) button1.Text = "Download then Unlock"; else button1.Text = "Unlock";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            tool.progr.Value = 0;
-            tool.error = false;
+            progr.Value = 0;
+            error = false;
             device = DEVICER.Text.ToUpper();
             Path = "UnlockFiles\\" + device;
-            tool.all();
-            tool.progr.Value = 1;
+            if (!DEVICER.Text.Contains("-")) { LOG("INFO: "+ I("SelDev")); return; }
+            progr.Value = 1;
+            all();
             if (!Directory.Exists(Path))
             {
-                tool.LOG("INFO: Downloading Unlock Files for: " + device);
-                WebClient client = new WebClient();
-                client.DownloadFile("https://igriastranomier.ucoz.ru/hwlock/" + device + ".zip", device + ".zip");
-                if (!File.Exists(device + ".zip"))
+                LOG(I("DownloadFor") + device);
+                LOG("URL: " + source[device]);
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                using (WebClient client = new WebClient())
                 {
-                    tool.error = true;
-                    tool.LOG("tool.error: UNLOCK FILES DOESN'T DOWNLOADED");
+                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_finish);
+                    client.DownloadFileAsync(new Uri(source[device]), device + ".zip");
+                    button1.Text = L("UnlockBTN");
+                    return;
                 }
-                else UnZip(device + ".zip", "UnlockFiles\\" + device);
-                button1.Text = "Unlock Device";
             }
-            tool.LOG("INFO: Checking connection...");
-            if (ISA.Checked) loader = tool.PickLoader(device.Split('-')[0]);
-            else loader = tool.PickLoader(Loaders.Text);
+            LOG(I("CheckCon"));
+            if (ISA.Checked) loader = PickLoader(device.Split('-')[0]);
+            else loader = PickLoader(Loaders.Text);
             Loaders.Text = loader;
-            if (!tool.port.StartsWith("COM"))
+            if (!port.StartsWith("COM"))
             {
-                tool.error = true;
-                tool.LOG("tool.error: DEVICE NOT CONNECTED");
+                error = true;
+                LOG(E("DeviceNotCon"));
             }
-            if (!tool.error)
+            if (!error)
             {
-                tool.LOG("INFO: Sending command...");
-                if (!tool.Unlock(device, Loaders.Text, Path))
+                LOG(I("SendingCmd"));
+                if (!Unlock(device, Loaders.Text, Path))
                 {
-                    tool.error = true;
-                    tool.LOG("ERROR: FAILED TO UNLOCK BOOTLOADER");
+                    error = true;
+                    LOG(E("FailUnl"));
                 }
-                else tool.LOG("INFO: SUCCESS");
+                else LOG(I("SUCCESS"));
             }
             else
                 foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
-            tool.progr.Value = 100;
-            tool.port = "NaN";
-            tool.all();
+            progr.Value = 100;
+            port = "NaN";
+            all();
         }
 
         private void SS(object sender, EventArgs e)
         {
-            tool.PORTFIND();
-            if (!Directory.Exists("UnlockFiles\\" + DEVICER.Text.ToUpper())) button1.Text = "Download Package And Unlock";
+            PORTFIND();
+            if (!Directory.Exists("UnlockFiles\\" + DEVICER.Text.ToUpper())) button1.Text = L("DdBtn");
             else button1.Text = "Unlock Device";
         }
+
         private void UnZip(string zipFile, string folderPath)
         {
-            ZipFile zip = ZipFile.Read(zipFile);
-            zip.ExtractAll(folderPath, ExtractExistingFileAction.OverwriteSilently);
+            ZipFile.Read(zipFile).ExtractAll(folderPath, ExtractExistingFileAction.OverwriteSilently);
         }
 
         private void ISAS(object sender, EventArgs e)
@@ -108,65 +118,92 @@ namespace HuaweiUnlocker
 
         private void UnlockFrp_Click(object sender, EventArgs e)
         {
-            tool.progr.Value = 0;
-            tool.error = false;
-            tool.all();
+            progr.Value = 0;
+            error = false;
+            if (!DEVICER.Text.Contains("-")) { LOG(E("SelDev")); return; }
+            all();
             device = DEVICER.Text.ToUpper();
-            tool.LOG("INFO: Checking connection...");
-            if (ISA.Checked) loader = tool.PickLoader(device.Split('-')[0]);
-            else loader = tool.PickLoader(Loaders.Text);
+            LOG(I("CheckCon"));
+            if (ISA.Checked) loader = PickLoader(device.Split('-')[0]);
+            else loader = PickLoader(Loaders.Text);
             Loaders.Text = loader;
-            if (!tool.port.StartsWith("COM"))
+            if (!port.StartsWith("COM"))
             {
-                tool.error = true;
-                tool.LOG("tool.error: DEVICE NOT CONNECTED");
+                error = true;
+                LOG(E("DeviceNotCon"));
             }
-            if (!tool.error)
+            if (!error)
             {
-                tool.LOG("INFO: Sending command...");
-                if (!tool.UnlockFrp(Loaders.Text))
+                LOG(I("SendingCmd"));
+                if (!UnlockFrp(Loaders.Text))
                 {
-                    tool.error = true;
-                    tool.LOG("ERROR: FAILED TO UNLOCK FRP");
+                    error = true;
+                    LOG(E("FailFrp"));
                 }
-                else tool.LOG("INFO: SUCCESS");
+                else LOG(I("Success"));
             }
             else
                 foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
-            tool.all();
-            tool.progr.Value = 100;
-            tool.getgpt = false;
+            all();
+            progr.Value = 100;
+            getgpt = false;
         }
 
         private void Erasda_Click(object sender, EventArgs e)
         {
-            tool.progr.Value = 0;
-            tool.error = false;
-            tool.all();
+            progr.Value = 0;
+            error = false;
+            all();
             device = DEVICER.Text.ToUpper();
-            tool.LOG("INFO: Checking connection...");
-            if (ISA.Checked) loader = tool.PickLoader(device.Split('-')[0]);
-            else loader = tool.PickLoader(Loaders.Text);
+            LOG(I("CheckCon"));
+            if (ISA.Checked) loader = PickLoader(device.Split('-')[0]);
+            else loader = PickLoader(Loaders.Text);
             Loaders.Text = loader;
-            if (!tool.port.StartsWith("COM"))
+            if (!port.StartsWith("COM"))
             {
-                tool.error = true;
-                tool.LOG("tool.error: DEVICE NOT CONNECTED");
+                error = true;
+                LOG(E("DeviceNotCon"));
             }
-            if (!tool.error)
+            if (!error)
             {
-                tool.LOG("INFO: Sending command...");
-                if (!tool.Erase("userdata", Loaders.Text))
+                LOG(I("SendingCmd"));
+                if (!Erase("userdata", Loaders.Text))
                 {
-                    tool.error = true;
-                    tool.LOG("ERROR: FAILED TO ERASE USERDATA");
+                    error = true;
+                    LOG(E("FailUsrData"));
                 }
-                else tool.LOG("INFO: SUCCESS");
+                else LOG(I("Success"));
             }
             else
                 foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
-            tool.all();
-            tool.progr.Value = 100;
+            all();
+            progr.Value = 100;
+        }
+
+        void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            double bytesIn = e.BytesReceived;
+            double totalBytes = e.TotalBytesToReceive;
+            double percentage = bytesIn / totalBytes * 100;
+            progr.Value = (int)percentage;
+        }
+        void client_finish(object sender, AsyncCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                LOG(E("FailCon"));
+                LOG(L("Error") +e.Error);
+                return;
+            }
+                LOG(I("Downloaded") + DEVICER.Text.ToUpper() + ".zip");
+            UnZip(DEVICER.Text.ToUpper() + ".zip", "UnlockFiles\\" + device);
+            File.Delete(DEVICER.Text.ToUpper() + ".zip");
+            button1_Click(sender, e);
+        }
+        private void DEVICER_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
+            if (!Directory.Exists(Path)) button1.Text = L("DdBtn"); else button1.Text = L("DdBtnE");
         }
     }
 }

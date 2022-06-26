@@ -37,6 +37,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.PORTER = new System.Windows.Forms.TextBox();
             this.Pg = new System.Windows.Forms.ProgressBar();
+            this.msmdm = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // gs
@@ -64,7 +65,7 @@
             this.UnlockTool.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UnlockTool.Location = new System.Drawing.Point(12, 55);
             this.UnlockTool.Name = "UnlockTool";
-            this.UnlockTool.Size = new System.Drawing.Size(510, 37);
+            this.UnlockTool.Size = new System.Drawing.Size(305, 37);
             this.UnlockTool.TabIndex = 1;
             this.UnlockTool.Text = "UnlockTool";
             this.UnlockTool.UseVisualStyleBackColor = false;
@@ -115,12 +116,26 @@
             this.Pg.Size = new System.Drawing.Size(386, 37);
             this.Pg.TabIndex = 22;
             // 
+            // msmdm
+            // 
+            this.msmdm.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.msmdm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.msmdm.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.msmdm.Location = new System.Drawing.Point(323, 55);
+            this.msmdm.Name = "msmdm";
+            this.msmdm.Size = new System.Drawing.Size(199, 37);
+            this.msmdm.TabIndex = 23;
+            this.msmdm.Text = "QXDM Terminal";
+            this.msmdm.UseVisualStyleBackColor = false;
+            this.msmdm.Click += new System.EventHandler(this.msmdm_Click);
+            // 
             // Huawei
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(924, 468);
+            this.Controls.Add(this.msmdm);
             this.Controls.Add(this.Pg);
             this.Controls.Add(this.PORTER);
             this.Controls.Add(this.LOGGER);
@@ -146,6 +161,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox PORTER;
         private System.Windows.Forms.ProgressBar Pg;
+        private System.Windows.Forms.Button msmdm;
     }
 }
 

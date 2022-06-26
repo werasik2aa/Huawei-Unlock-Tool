@@ -10,6 +10,7 @@ namespace HuaweiUnlocker
         public Huawei()
         {
             InitializeComponent();
+            tool.readlng();
             foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
             tool.progr = Pg;
             tool.PORTER = PORTER;
@@ -21,7 +22,6 @@ namespace HuaweiUnlocker
         private void OnApplicationExit(object sender, EventArgs e)
         {
             if (!File.Exists("log.txt")) return;
-            tool.se.Close();
             File.Copy("log.txt", "LOGS\\" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "=LOG.txt", true);
             File.Delete("log.txt");
         }
@@ -46,6 +46,12 @@ namespace HuaweiUnlocker
         private void debugs(object sender, EventArgs e)
         {
             tool.debug = checkBox1.Checked;
+        }
+
+        private void msmdm_Click(object sender, EventArgs e)
+        {
+            tool.QXD = new QXDterminal();
+            tool.QXD.Show();
         }
     }
 }
