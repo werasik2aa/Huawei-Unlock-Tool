@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using HuaweiUnlocker;
-using System.Threading;
-using System.IO;
 using System.IO.Ports;
 namespace HuaweiUnlocker
 {
@@ -11,78 +8,28 @@ namespace HuaweiUnlocker
         public QXDterminal()
         {
             InitializeComponent();
-            QCDM.CL = A2;
-            QCDM.CR = A1;
-            QCDM.Ads = Ads;
-            QCDM.ass = ass;
-            comboBox1.Items.Clear();
-            foreach (var a in SerialPort.GetPortNames()) comboBox1.Items.Add(a);
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (!QCDM.opened || (QCDM.opened && QCDM.OpenedPortName != comboBox1.Text)) if (connect("COM13"))
-                    tool.LOG("Connected To port");
-                else
-                {
-                    tool.LOG("ERROR: Cann't connect to port");
-                    return;
-                }
-            
-            QCDM.SendMessge(cline.Text);
-            cline.Text = "";
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (!QCDM.opened || (QCDM.opened && QCDM.OpenedPortName != comboBox1.Text)) if (connect(comboBox1.Text))
-                    tool.LOG("Connected To port");
-                else
-                {
-                    tool.LOG("ERROR: Cann't connect to port");
-                    return;
-                }
-            if (!QCDM.opened) return;
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = "c:\\";
-            openFileDialog.Filter = "HEX LINES text file (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            PCUI.Items.Clear();
+            foreach (var a in SerialPort.GetPortNames())
             {
-                if (openFileDialog.FileName.EndsWith(".txt"))
-                {
-                    StreamReader reader = new StreamReader(openFileDialog.FileName);
-                    string line = reader.ReadLine();
-                    while ((line = reader.ReadLine()) != null) QCDM.SendMessge(line);
-                }
-                else
-                    QCDM.SendMessge(File.ReadAllBytes(openFileDialog.FileName));
+                PCUI.Items.Add(a);
+                DBadapt.Items.Add(a);
             }
-            cline.Text = "";
-        }
-        private bool connect(string port)
-        {
-            if (!comboBox1.Text.StartsWith("COM")) { tool.LOG("Select COM PORT. First"); return false; }
-            if (QCDM.opened) { QCDM.OpenedPort.Close(); QCDM.opened = false; }
-            if (QCDM.Open(comboBox1.Text, 115200, System.IO.Ports.Parity.None, 8, System.IO.Ports.StopBits.One, System.IO.Ports.Handshake.RequestToSendXOnXOff))
-            { QCDM.OpenedPortName = comboBox1.Text; return true; }
-            else
-                return false;
-        }
-        private byte[] file(string path)
-        {
-            return File.ReadAllBytes(path);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            comboBox1.Items.Clear();
-            foreach (var a in SerialPort.GetPortNames()) comboBox1.Items.Add(a);
+            PCUI.Items.Clear();
+            foreach (var a in SerialPort.GetPortNames())
+            {
+                PCUI.Items.Add(a);
+                DBadapt.Items.Add(a);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             QCDM.OpenedPort.Close();
+            QCDM.OpenedPort = null;
             QCDM.opened = false;
         }
 
@@ -90,6 +37,48 @@ namespace HuaweiUnlocker
         {
             button4.Enabled = QCDM.opened;
             button4.Visible = QCDM.opened;
+        }
+        private bool connect(string port)
+        {
+            QCDM.tohex = hex.Checked;
+            QCDM.encode = coder.Checked;
+
+            if (!DBadapt.Text.StartsWith("COM"))
+            {
+                tool.LOG("ERROR: SELECT DBadapter port!");
+                return false;
+            }
+            if (!PCUI.Text.StartsWith("COM"))
+            {
+                tool.LOG("ERROR: SELECT PCUI port!");
+                return false;
+            }
+            if (QCDM.OpenedPortName != port || !QCDM.opened) {
+                tool.LOG("CONNECTING: "+port);
+                if (QCDM.Open(port, 115200, Parity.None, 8, StopBits.Two, Handshake.RequestToSendXOnXOff))
+                    return true;
+            }
+            if (!QCDM.opened)
+            {
+                tool.LOG("ERROR: CAN'T CONNECT TO PORT! -> "+port);
+                return false;
+            }
+            return true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (connect(PCUI.Text)) {
+            QCDM.SendMessge(textBox3.Text);
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            //WinUsb.ListDevice(false);
+            if (connect(DBadapt.Text)) {
+                QCDM.SendMessge(textBox3.Text);
+            }
         }
     }
 }

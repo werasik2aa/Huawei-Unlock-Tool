@@ -305,15 +305,15 @@ namespace HuaweiUnlocker
         }
         public static string I(string data)
         {
-            return lang["Info"] + " " + lang[data];
+            return (lang["Info"] + " " + lang[data]).Replace("/n", Environment.NewLine);
         }
         public static string E(string data)
         {
-            return lang["Error"] + " " + lang[data];
+            return (lang["Error"] + " " + lang[data]).Replace("/n", Environment.NewLine);
         }
         public static string L(string data)
         {
-            return lang[data];
+            return lang[data].Replace("/n", Environment.NewLine);
         }
     }
 }

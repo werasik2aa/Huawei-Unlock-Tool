@@ -81,7 +81,7 @@ namespace HuaweiUnlocker
                     error = true;
                     LOG(E("FailUnl"));
                 }
-                else LOG(I("SUCCESS"));
+                else LOG(I("Success"));
             }
             else
                 foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
@@ -197,7 +197,6 @@ namespace HuaweiUnlocker
             }
                 LOG(I("Downloaded") + DEVICER.Text.ToUpper() + ".zip");
             UnZip(DEVICER.Text.ToUpper() + ".zip", "UnlockFiles\\" + device);
-            File.Delete(DEVICER.Text.ToUpper() + ".zip");
             button1_Click(sender, e);
         }
         private void DEVICER_SelectedIndexChanged(object sender, EventArgs e)
