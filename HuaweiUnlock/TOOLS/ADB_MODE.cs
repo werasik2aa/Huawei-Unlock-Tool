@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HuaweiUnlocker.Utils
+namespace HuaweiUnlocker.TOOLS
 {
     public class ADB_MODE
     {

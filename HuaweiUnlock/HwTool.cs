@@ -2,30 +2,40 @@
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
-using System.Data;
 using System.Collections.Generic;
-using System.Windows;
-using System.Reflection;
-using System.Collections.Concurrent;
-using static HuaweiUnlocker.Utils.FlashTool;
-using static HuaweiUnlocker.MISC;
+using static HuaweiUnlocker.TOOLS.FlashTool;
+using static HuaweiUnlocker.LangProc;
 using System.ComponentModel;
 using System.Net;
 using Ionic.Zip;
 using static HuaweiUnlocker.CMD;
 using HuaweiUnlocker.Utils;
+using HuaweiUnlocker.TOOLS;
+using LibUsbDotNet;
+using HuaweiUnlocker;
 
 namespace HuaweiUnlocker
 {
-    public partial class FRAME : Form
+
+    public partial class HwTool : Form
     {
         private static string device;
         private static string loader;
         public static string Path;
         private Dictionary<string, string> source = new Dictionary<string, string>();
-        public FRAME()
+        public HwTool()
         {
             InitializeComponent();
+            LOGGBOX = LOGGER;
+            progr = PGG;
+            ReadLngFile();
+            Application.ApplicationExit += new EventHandler(this.OnApplicationExit);
+
+            foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); }
+            foreach (var process in Process.GetProcessesByName("fh_loader.exe")) { process.Kill(); }
+            if (!Directory.Exists("UnlockFiles")) Directory.CreateDirectory("UnlockFiles");
+            if (!Directory.Exists("LOGS")) Directory.CreateDirectory("LOGS");
+            DBB.Text = LangProc.L("DebugLbl");
             LOGGBOX.Text = "Version 6.0 (C) MOONGAMER";
             LOG(I("SMAIN1"));
             LOG(I("SMAIN2"));
@@ -36,26 +46,36 @@ namespace HuaweiUnlocker
             LOG(I("MAIN2"));
             LOG(I("MAIN3"));
             LOG(I("Tutr"));
-            progr = PGG;
-            WebClient client = new WebClient();
-            //DEVICE FROM WEB
-            Stream stream = client.OpenRead("http://igriastranomier.ucoz.ru/hwlock/devices.txt");
-            StreamReader readerD = new StreamReader(stream);
-            string line = readerD.ReadLine();
-            while ((line = readerD.ReadLine()) != null)
+
+            //DEVICE LIST FROM WEB
+            try
             {
-                string[] a = line.Split(' ');
-                DEVICER.Items.Add(a[0]);
-                if (!source.ContainsKey(a[0])) source.Add(a[0], a[1]);
+                WebClient client = new WebClient();
+                Stream stream = client.OpenRead("http://igriastranomier.ucoz.ru/hwlock/devices.txt");
+                StreamReader readerD = new StreamReader(stream);
+                string line = readerD.ReadLine();
+                while ((line = readerD.ReadLine()) != null)
+                {
+                    string[] a = line.Split(' ');
+                    DEVICER.Items.Add(a[0]);
+                    if (!source.ContainsKey(a[0])) source.Add(a[0], a[1]);
+                }
             }
+            catch { LOG("Connect to WEB SERVER !ERROR!"); }
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
             if (!Directory.Exists(Path)) BoardU.Text = L("DdBtn"); else BoardU.Text = L("DdBtnE");
             Lang();
+            foreach (var a in Directory.GetDirectories(Directory.GetCurrentDirectory() + "\\qc_boot"))
+            {
+                String[] es = a.Split('\\');
+                Ld.Items.Add(es[es.Length - 1]);
+            }
+            LangProc.Tab = Tab;
         }
         public void Lang()
         {
             ReadLngFile();
-            button1.Text = button2.Text = button3.Text = L("SelBtn");
+            Selecty1.Text = Selecty2.Text = Selecty3.Text = L("SelBtn");
             AutoXml.Text = L("AutoLBL");
             AutoLdr.Text = L("AutoLBL");
             Flash.Text = L("FlBtn");
@@ -68,6 +88,11 @@ namespace HuaweiUnlocker
             EraseDA.Text = L("EraseDA");
             BoardU.Text = L("UnlockBTN");
             UnlockFrp.Text = L("UnlockBTN");
+            HomeTag.Text = L("HomeTag");
+            BackupRestoreTag.Text = L("BackupRestoreTag");
+            UnlockTag.Text = L("UnlockTag");
+            GPTtag.Text = L("GPTtag");
+            HISItag.Text = L("HISItag");
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
             if (!Directory.Exists(Path)) BoardU.Text = L("DdBtn"); else BoardU.Text = L("DdBtnE");
         }
@@ -96,6 +121,7 @@ namespace HuaweiUnlocker
         private void Flash_Click(object sender, EventArgs e)
         {
             TxSide = GETPORT("qdloader 9008");
+            if (!CheckDevice(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text)) return;
             progr.Value = 0;
             if (Xm.Text.Length < 5 && !RAW.Checked)
             {
@@ -107,32 +133,27 @@ namespace HuaweiUnlocker
                 LOG(E("ErrBin"));
                 return;
             }
-            Tab.Enabled = !Tab.Enabled;
+            Tab.Enabled = false;
             if (!RAW.Checked)
             {
-                if (!FlashPartsXml(Xm.Text, AutoLdr.Checked? PickLoader(Ld.Text) : Ld.Text, pather.Text))
+                if (!FlashPartsXml(Xm.Text, AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text, pather.Text))
                     LOG(E("ErrXML2"));
-                else LOG(I("Flashing") + pather.Text + L("Done"));
+                else 
+                    LOG(I("Flashing") + pather.Text);
             }
             else
             {
-                if (!FlashPartsRaw(AutoLdr.Checked? PickLoader(Ld.Text) : Ld.Text, pather.Text))
+                if (!FlashPartsRaw(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text, pather.Text))
                     LOG(E("ErrBin2"));
-                else LOG(I("Flashing2") + pather.Text + L("Done"));
+                else
+                    LOG(I("Flashing2") + pather.Text);
             }
-            foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
-            Tab.Enabled = !Tab.Enabled;
+            
             progr.Value = 100;
         }
 
-        private void Xml(object sender, EventArgs e)
+        private void PATHTOFIRMWARE_Clck(object sender, EventArgs e)
         {
-            button2.Enabled = !AutoXml.Checked;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            TxSide = GETPORT("qdloader 9008");
             if (!RAW.Checked)
             {
                 FolderBrowserDialog openFileDialog = new FolderBrowserDialog();
@@ -162,56 +183,38 @@ namespace HuaweiUnlocker
             }
         }
 
-        private void RAW_CheckedChanged(object sender, EventArgs e)
-        {
-            Xm.Visible = !RAW.Checked;
-            DETECTED.Visible = !RAW.Checked;
-            AutoXml.Visible = !RAW.Checked;
-            button2.Visible = !RAW.Checked;
-            AutoXml.Enabled = !RAW.Checked;
-            button2.Enabled = !RAW.Checked;
-            DETECTED.Enabled = !RAW.Checked;
-            Xm.Enabled = !RAW.Checked;
-        }
-
-        private void button4_Click(object sender, EventArgs e)
+        private void DumpALL_CLK(object sender, EventArgs e)
         {
             TxSide = GETPORT("qdloader 9008");
+            if (!CheckDevice(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text)) return;
             progr.Value = 0;
-            Tab.Enabled = !Tab.Enabled;
+            
             FolderBrowserDialog openFileDialog = new FolderBrowserDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                Tab.Enabled = false;
                 pather.Text = openFileDialog.SelectedPath + "\\DUMP.APP";
-                if (!Dump(AutoLdr.Checked? PickLoader(Ld.Text) : Ld.Text, pather.Text))
-                {
+                if (!Dump(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text, pather.Text))
                     LOG("ERROR: Failed Dump All!");
-                    foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
-                }
-                else LOG(I("Dumping") + pather.Text + L("Done"));
+                else
+                    LOG(I("Dumping") + pather.Text);
             }
-            Tab.Enabled = !Tab.Enabled;
+            
             progr.Value = 100;
         }
 
         private void AutoLdr_CheckedChanged(object sender, EventArgs e)
         {
-            button1.Enabled = AutoLdr.Checked;
-        }
-
-        private void AutoXml_CheckedChanged(object sender, EventArgs e)
-        {
-            button2.Enabled = AutoXml.Checked;
+            Selecty1.Enabled = AutoLdr.Checked;
         }
 
         private void RdGPT_Click(object sender, EventArgs e)
         {
             TxSide = GETPORT("qdloader 9008");
-            RdGPT.Visible = false;
-            RdGPT.Enabled = false;
+            if (!CheckDevice(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text)) return;
             LOG(I("ReadGPT"));
             GPTTABLE = new Dictionary<string, int[]>();
-            bool gpt = ReadGPT(AutoLdr.Checked? PickLoader(Ld.Text) : Ld.Text);
+            bool gpt = ReadGPT(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text);
             if (gpt)
             {
                 foreach (var obj in GPTTABLE) PARTLIST.Rows.Add(obj.Key, obj.Value[0], obj.Value[1]);
@@ -219,8 +222,6 @@ namespace HuaweiUnlocker
                 LOG(I("SUCC_ReadGPT"));
             }
             else { LOG(I("ERR_ReadGPT")); }
-            RdGPT.Visible = !gpt;
-            RdGPT.Enabled = !gpt;
             progr.Value = 100;
         }
 
@@ -248,10 +249,11 @@ namespace HuaweiUnlocker
         private void ERASEevent_Click(object sender, EventArgs e)
         {
             TxSide = GETPORT("qdloader 9008");
-            DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(L("AreY")+WHAT.Text, "WARNING: CAN CAUSE DAMAGE", MessageBoxButtons.YesNo);
+            if (!CheckDevice(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text)) return;
+            DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(L("AreY") + WHAT.Text, "WARNING: CAN CAUSE DAMAGE", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                if (Erase(WHAT.Text, AutoLdr.Checked? PickLoader(Ld.Text) : Ld.Text))
+                if (Erase(WHAT.Text, AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text))
                     LOG(I("ErPS") + WHAT.Text);
                 else
                     LOG(E("ErPE") + WHAT.Text);
@@ -264,7 +266,7 @@ namespace HuaweiUnlocker
             OpenFileDialog file = new OpenFileDialog();
             if (file.ShowDialog() == DialogResult.OK)
             {
-                if (Write(WHAT.Text, AutoLdr.Checked? PickLoader(Ld.Text) : Ld.Text, file.FileName))
+                if (Write(WHAT.Text, AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text, file.FileName))
                     LOG(I("EwPS") + WHAT.Text);
                 else
                     LOG(E("EwPE") + WHAT.Text);
@@ -279,8 +281,8 @@ namespace HuaweiUnlocker
             {
                 int i = GPTTABLE[WHAT.Text][0];
                 int j = GPTTABLE[WHAT.Text][1];
-                if (Dump(i, j, WHAT.Text, AutoLdr.Checked? PickLoader(Ld.Text) : Ld.Text, folder.SelectedPath))
-                    LOG(I("EdPS") + WHAT.Text);
+                if (Dump(i, j, WHAT.Text, AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text, folder.SelectedPath))
+                    LOG(I("EdPS") + WHAT.Text + newline);
                 else
                     LOG(E("EdPE") + WHAT.Text);
                 progr.Value = 100;
@@ -322,13 +324,14 @@ namespace HuaweiUnlocker
             }
             LOG(I("Downloaded") + DEVICER.Text.ToUpper() + ".zip");
             UnZip(DEVICER.Text.ToUpper() + ".zip", "UnlockFiles\\" + device);
-            button1_Click(sender, e);
+            UNLBTN_Click(sender, e);
         }
         private void Erasda_Click(object sender, EventArgs e)
         {
             TxSide = GETPORT("qdloader 9008");
+            if (!CheckDevice(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text)) return;
             progr.Value = 0;
-            Tab.Enabled = !Tab.Enabled;
+            
             LOG(I("CheckCon"));
             loader = PickLoader(DEVICER.Text.ToUpper().Split('-')[0]);
             LOG(I("EraserD"));
@@ -336,8 +339,7 @@ namespace HuaweiUnlocker
                 LOG(E("FailUsrData"));
 
             else LOG(I("Success"));
-            foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
-            Tab.Enabled = !Tab.Enabled;
+            
             progr.Value = 100;
         }
         private void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -347,9 +349,10 @@ namespace HuaweiUnlocker
             double percentage = bytesIn / totalBytes * 100;
             progr.Value = (int)percentage;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void UNLBTN_Click(object sender, EventArgs e)
         {
             TxSide = GETPORT("qdloader 9008");
+            if (!CheckDevice(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text)) return;
             progr.Value = 0;
             device = DEVICER.Text.ToUpper();
             Path = "UnlockFiles\\" + device;
@@ -360,18 +363,16 @@ namespace HuaweiUnlocker
                 LOG(I("DownloadFor") + device);
                 LOG("URL: " + source[device]);
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                using (WebClient client = new WebClient())
-                {
+                WebClient client = new WebClient();
                     client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
                     client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_finish);
                     client.DownloadFileAsync(new Uri(source[device]), device + ".zip");
-                    button1.Text = L("UnlockBTN");
+                    BoardU.Text = L("UnlockBTN");
                     return;
-                }
             }
             loader = PickLoader(device.Split('-')[0]);
             LOG(I("CheckCon"));
-            Tab.Enabled = !Tab.Enabled;
+            
             LOG(I("SendingCmd"));
 
             if (!Unlock(device, loader, Path))
@@ -379,27 +380,26 @@ namespace HuaweiUnlocker
             else
                 LOG(I("Success"));
 
-            foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
             progr.Value = 100;
-            Tab.Enabled = !Tab.Enabled;
+            
         }
 
         private void UnlockFrp_Click(object sender, EventArgs e)
         {
             TxSide = GETPORT("qdloader 9008");
+            if (!CheckDevice(AutoLdr.Checked ? PickLoader(Ld.Text) : Ld.Text)) return;
             progr.Value = 0;
             if (!DEVICER.Text.Contains("-")) { LOG(E("SelDev")); return; }
             device = DEVICER.Text.ToUpper();
             LOG(I("CheckCon"));
             loader = PickLoader(device.Split('-')[0]);
-            Tab.Enabled = !Tab.Enabled;
+            
             LOG(I("SendingCmd"));
             if (!UnlockFrp(loader))
                 LOG(E("FailFrp"));
 
             else LOG(I("Success"));
-            foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); break; }
-            Tab.Enabled = !Tab.Enabled;
+            
             progr.Value = 100;
         }
         private bool Find()
@@ -414,23 +414,28 @@ namespace HuaweiUnlocker
 
             return DIAG.DBDA != "NaN" && DIAG.PCUI != "NaN";
         }
-        private void Read_Click(object sender, EventArgs e)
+        private void ReadINFOdiag_Click(object sender, EventArgs e)
         {
-            if (!Find()) return;
-            LOG(I("TrDaI"));
-            if (DIAG.DBDA != "") {
-                IMEIbox.Text = DIAG.GET_IMEI1();
+            try
+            {
+                if (!Find()) return;
+                LOG(I("TrDaI"));
+                if (DIAG.DBDA != "")
+                {
+                    IMEIbox.Text = DIAG.GET_IMEI1();
 
-                string[] DATA = DIAG.GET_FIRMWAREINFO();
-                SNbox.Text = DATA[0];
-                BIDbox.Text = DATA[1];
+                    string[] DATA = DIAG.GET_FIRMWAREINFO();
+                    SNbox.Text = DATA[0];
+                    BIDbox.Text = DATA[1];
 
-                DATA = DIAG.GET_BOARDINFO();
-                CHIPbox.Text = DATA[0];
-                VERbox.Text = DATA[1];
+                    DATA = DIAG.GET_BOARDINFO();
+                    CHIPbox.Text = DATA[0];
+                    VERbox.Text = DATA[1];
 
-                RSAka.Text = DIAG.GET_SECRET_KEY_CRYPTED();
+                    RSAka.Text = DIAG.GET_SECRET_KEY_CRYPTED();
+                }
             }
+            catch { }
         }
 
         private void RB_Click(object sender, EventArgs e)
@@ -447,11 +452,11 @@ namespace HuaweiUnlocker
             DIAG.To_Three_Recovery();
         }
 
-        private void button4_Click_1(object sender, EventArgs e)
+        private void TryAUTH_CLCK(object sender, EventArgs e)
         {
             if (!Find()) return;
             LOG("TRYING TO AUTH PHONE FUCK THE HW: !!!BETA TEST NOT WORKING!!!");
-            DIAG.AUTH();
+            CPUbox.Text = DIAG.AUTH();
         }
 
         private void BRTFRC_Click(object sender, EventArgs e)
@@ -459,6 +464,101 @@ namespace HuaweiUnlocker
             if (!Find()) return;
             LOG("TRYING TO AUTH PHONE FUCK THE HW");
             DIAG.BROOTFORCE_HW_CMD();
+        }
+        public static UsbDevice MyUsbDevice;
+        private void FlashF_Click(object sender, EventArgs e)
+        {
+            HDB f = new HDB();
+            try
+            {
+                f.ALLdev();
+                f.Mafin();
+            }
+            catch (Exception eee)
+            {
+                LOG("ERROR: " + eee);
+            }
+        }
+
+        private void Teeth_Click(object sender, EventArgs e)
+        {
+            if (!Find()) return;
+            DIAG.DIAG_SEND(CPUbox.Text, "", CMD.LENDB, true, true);
+            byte[] msg = DIAG.READ();
+            LOG(CRC.HexDump(msg));
+        }
+
+        private void BURGBTN_Click(object sender, EventArgs e)
+        {
+            if (BURG.MaximumSize.Width > BURG.Size.Width)
+                while (BURG.MaximumSize.Width > BURG.Size.Width)
+                {
+                    BURG.Width += 1;
+                    BURGBTN.Width += 1;
+                }
+            else if (BURG.MinimumSize.Width < BURG.Size.Width)
+                while (BURG.MinimumSize.Width < BURG.Size.Width)
+                {
+                    BURG.Width -= 3;
+                    BURGBTN.Width -= 3;
+                }
+        }
+
+        private void RAW_CheckedChanged(object sender, EventArgs e)
+        {
+            Selecty2.Visible = !RAW.Checked;
+            AutoXml.Enabled = !RAW.Checked;
+            Selecty2.Enabled = !RAW.Checked;
+            DETECTED.Enabled = !RAW.Checked;
+            Xm.Enabled = !RAW.Checked;
+        }
+
+        private void AutoXml_CheckedChanged(object sender, EventArgs e)
+        {
+            Selecty2.Enabled = !AutoXml.Checked;
+        }
+        private void OnApplicationExit(object sender, EventArgs e)
+        {
+            if (!File.Exists("log.txt")) return;
+            File.Copy("log.txt", "LOGS\\" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "=LOG.txt", true);
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Tab.SelectTab(0);
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Tab.SelectTab(1);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Tab.SelectTab(2);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Tab.SelectTab(3);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Tab.SelectTab(4);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Tab.SelectTab(5);
+        }
+
+        private void DebugE_ch(object sender, EventArgs e)
+        {
+            debug = DBB.Checked;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (GETPORT("qdloader 9008").ComName == "NaN") loadedhose = false;
         }
     }
 }

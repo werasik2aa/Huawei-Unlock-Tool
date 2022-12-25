@@ -14,6 +14,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,12 +27,11 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
@@ -57,14 +57,17 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>HuaweiUnlocker.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
+    <Reference Include="LibUsbDotNet.LibUsbDotNet, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c677239abe1e02a9, processorArchitecture=MSIL">
+      <HintPath>..\packages\LibUsbDotNet.2.2.29\lib\net45\LibUsbDotNet.LibUsbDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -72,6 +75,7 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,31 +83,46 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main\CMDS.cs" />
-    <Compile Include="Main\CRC.cs" />
+    <Compile Include="DIAG\CRC.cs" />
     <Compile Include="Main\SerialManager.cs" />
-    <Compile Include="Utils\ADB_MODE.cs" />
-    <Compile Include="Utils\DIAG.cs" />
-    <Compile Include="Utils\FlashTool.cs" />
-    <Compile Include="Main\MISC.cs" />
-    <Compile Include="FRAME.cs">
+    <Compile Include="UI\Animation\Animation.cs" />
+    <Compile Include="UI\Animation\Animator.cs" />
+    <Compile Include="UI\Controls\NProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\NRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Controls\NButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Drawer.cs" />
+    <Compile Include="TOOLS\ADB_MODE.cs" />
+    <Compile Include="HW_COM\CRC.cs" />
+    <Compile Include="DIAG\DIAG.cs" />
+    <Compile Include="TOOLS\Fastboot.cs" />
+    <Compile Include="TOOLS\FlashTool.cs" />
+    <Compile Include="Main\LangProc.cs" />
+    <Compile Include="HwTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FRAME.Designer.cs">
-      <DependentUpon>FRAME.cs</DependentUpon>
+    <Compile Include="HwTool.Designer.cs">
+      <DependentUpon>HwTool.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="FRAME.resx">
-      <DependentUpon>FRAME.cs</DependentUpon>
+    <Compile Include="HW_COM\ComFlash.cs" />
+    <Compile Include="TOOLS\HDB.cs" />
+    <Compile Include="UI\FlatColors.cs" />
+    <Compile Include="USBapi.cs" />
+    <EmbeddedResource Include="HwTool.resx">
+      <DependentUpon>HwTool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -115,20 +134,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

@@ -136,7 +136,7 @@ namespace HuaweiUnlocker
                 return str3;
             }
             catch (Exception e)
-            { MISC.LOG("ERROR: " + e); }
+            { LangProc.LOG("ERROR: " + e); }
             return "";
         }
         public static string HexStringFormatter(string hexStr)
@@ -148,7 +148,7 @@ namespace HuaweiUnlocker
                     builder.Append(hexStr.Substring(i, 2) + " ");
             }
             catch (Exception e)
-            { MISC.LOG("ERROR: " + e); }
+            { LangProc.LOG("ERROR: " + e); }
             return builder.ToString().TrimEnd(new char[0]);
         }
         public static byte[] HexStringToBytes(string strInput)
@@ -166,7 +166,7 @@ namespace HuaweiUnlocker
             }
             catch (Exception)
             {
-                MISC.LOG("ERROR: Hex String To Byte Array Conversion Error!");
+                LangProc.LOG("ERROR: Hex String To Byte Array Conversion Error!");
             }
             return null;
         }
@@ -261,7 +261,7 @@ namespace HuaweiUnlocker
             }
             catch (Exception ex)
             {
-                MISC.LOG("ERROR: " + ex);
+                LangProc.LOG("ERROR: " + ex);
                 text = "-1";
             }
             return text;

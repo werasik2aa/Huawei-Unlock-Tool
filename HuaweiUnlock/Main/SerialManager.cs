@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO.Ports;
 using System.IO;
-using static HuaweiUnlocker.MISC;
+using static HuaweiUnlocker.LangProc;
 using System.Threading;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -23,7 +23,7 @@ namespace HuaweiUnlocker
             Port.Handshake = Handshake.RequestToSendXOnXOff;
             if (isFileStream)
                 Port.DataReceived += new SerialDataReceivedEventHandler(FileWritter);
-            if (MISC.debug)
+            if (LangProc.debug)
                 Port.DataReceived += new SerialDataReceivedEventHandler(LogWritter);
             Port.ReadBufferSize = 500;
             Port.WriteTimeout = 1000;
@@ -77,6 +77,7 @@ namespace HuaweiUnlocker
         {
             LOG("Clossing Connection To Port: " + Port.PortName);
             Port.Close();
+            Port.Dispose();
         }
         public static byte[] Read(bool tofile, string path)
         {
@@ -89,7 +90,7 @@ namespace HuaweiUnlocker
             List<byte> msg = new List<byte>();
             try
             {
-                if (MISC.debug) LOG("[DBG] Reading:");
+                if (LangProc.debug) LOG("[DBG] Reading:");
                 while (Port.BytesToRead > 0)
                 {
                     if (!Port.IsOpen)
@@ -124,16 +125,17 @@ namespace HuaweiUnlocker
                     if (crc)
                     {
                         byte[] encoded = ENCODE(decoded);
-                        if (MISC.debug) LOG("[DBG] Writing: CRCdata:" + newline + CRC.HexDump(encoded));
+                        if (LangProc.debug) LOG("[DBG] Writing: CRCdata:" + newline + CRC.HexDump(encoded));
                         Port.Write(encoded, 0, encoded.Length);
                     }
                     else
                     {
-                        if (MISC.debug) LOG("[DBG] Writing:" + newline + CRC.HexDump(decoded));
+                        if (LangProc.debug) LOG("[DBG] Writing:" + newline + CRC.HexDump(decoded));
                         Port.Write(decoded, 0, decoded.Length);
                     }
                 }
                 else Port.Write(hexstr + "\n\r~");
+                Thread.Sleep(500);
             }
             catch { return false; }
             return true;
@@ -181,6 +183,7 @@ namespace HuaweiUnlocker
                         Port.Write(decoded, 0, decoded.Length);
                     }
                 }
+                Thread.Sleep(500);
             }
             catch { return false; }
             return true;
