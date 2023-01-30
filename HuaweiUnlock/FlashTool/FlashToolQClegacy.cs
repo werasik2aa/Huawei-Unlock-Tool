@@ -1,12 +1,13 @@
 ﻿using System;
 using static HuaweiUnlocker.LangProc;
 using System.Collections.Generic;
-using static HuaweiUnlocker.CMD;
 using System.Threading;
+using HuaweiUnlocker.DIAGNOS;
+using System.Collections.Concurrent;
 
-namespace HuaweiUnlocker.TOOLS
+namespace HuaweiUnlocker.FlashTool
 {
-    public static class FlashTool
+    public static class FlashToolQClegacy
     {
         public static Port_D TxSide;
         public static bool LoadLoader(string device, string pathloader)
@@ -14,6 +15,7 @@ namespace HuaweiUnlocker.TOOLS
             if (TxSide.ComName == "NaN" || TxSide.ComName == "")
             {
                 LOG(E("NoDEVICE"));
+                loadedhose = false;
                 return false;
             }
             LOG(I("CPort") + TxSide.DeviceName);
@@ -23,10 +25,10 @@ namespace HuaweiUnlocker.TOOLS
             try
             {
                 LOG(I("FireHose") + device);
-                var state = SyncRUN(command, subcommand);
-                loadedhose = state;
+                if (!loadedhose)
+                    loadedhose = SyncRUN(command, subcommand);
                 progr.Value = 20;
-                return state;
+                return loadedhose;
             }
             catch (Exception e)
             {
@@ -39,9 +41,7 @@ namespace HuaweiUnlocker.TOOLS
             string command = "Tools\\fh_loader.exe";
             string subcommand = "--port=\\\\.\\" + TxSide.ComName + " --sendxml=" + '"' + path + "\\rawprogram0.xml" + '"' + " --search_path=" + '"' + path + '"';
             if (debug) { LOG("===UNLOCKER===" + newline + newline + command + newline + subcommand); }
-            if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; return false; }
-                else loadedhose = true;
+            if (!LoadLoader("PHONE", loader)) { loadedhose = false; return false; }
             try
             {
                 Thread.Sleep(500);
@@ -61,14 +61,12 @@ namespace HuaweiUnlocker.TOOLS
             string command = "Tools\\emmcdl.exe";
             string subcommand = "-p " + TxSide.ComName + " -f " + '"' + loader + '"' + " -b " + partition + " " + '"' + path + '"';
             if (debug) { LOG("===WRITE PARTITION===" + newline + newline + command + newline + subcommand); }
-            if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; return false; }
-                else loadedhose = true;
+            if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
             try
             {
                 progr.Value = 50;
                 LOG(I("Writer") + partition);
-                return SyncRUN(command, subcommand);
+                return AsyncRUN(command, subcommand);
             }
             catch (Exception e)
             {
@@ -82,9 +80,7 @@ namespace HuaweiUnlocker.TOOLS
             string command = "Tools\\emmcdl.exe";
             string subcommand = "-p " + TxSide.ComName + " -f " + '"' + loader + '"' + " -e " + partition;
             if (debug) { LOG("===ERASE PARTITION===" + newline + newline + command + newline + subcommand); }
-            if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; return false; }
-                else loadedhose = true;
+            if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
             try
             {
                 progr.Value = 50;
@@ -105,9 +101,7 @@ namespace HuaweiUnlocker.TOOLS
             {
                 GPTTABLE = new Dictionary<string, int[]>();
                 if (debug) { LOG("===READ GPT===" + newline + newline + command + newline + subcommand); }
-                if (!loadedhose)
-                    if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
-                    else loadedhose = true;
+                if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
                 return SyncRUN(command, subcommand);
             }
             catch { }
@@ -119,20 +113,36 @@ namespace HuaweiUnlocker.TOOLS
             string command = "Tools\\emmcdl.exe";
             string subcommand = "-p " + TxSide.ComName + " -f " + '"' + loader + '"' + " -e frp";
             if (debug) { LOG("===UNLOCK FRP===" + newline + newline + command + newline + subcommand); }
-            if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
-                else loadedhose = true;
+            if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
             try
             {
                 progr.Value = 30;
                 LOG(I("Unlocker") + "FRP: Universal" + newline + "GETGPT: INIT!");
                 if (GPTTABLE.Count == 0)
-                    if (!ReadGPT(loader))
-                    { LOG(E("FailFrpD")); return false; }
-                progr.Value = 50;
-                cur = GPTTABLE["frp"][1];
-                LOG(I("Eraser") + "FRP: " + GPTTABLE["frp"][1] + newline);
-                return SyncRUN(command, subcommand);
+                    if (!ReadGPT(loader)) { LOG(E("FailFrpD")); return false; }
+
+                bool status = false;
+                if (GPTTABLE.ContainsKey("devinfo"))
+                {
+                    LOG(I("Writer") + "DEVINFO lenght: " + GPTTABLE["frp"][1]);
+                    command = "Tools\\emmcdl.exe";
+                    subcommand = "-p " + TxSide.ComName + " -f " + '"' + loader + '"' + " -b devinfo " + "Tools/frpUnlocked.img";
+                    status = SyncRUN(command, subcommand);
+                }
+                else
+                    LOG(I("FailFrpD") + "NO DEVINFO Partition CONTINUING!!!");
+
+                if (GPTTABLE.ContainsKey("frp"))
+                {
+                    progr.Value = 50;
+                    cur = GPTTABLE["frp"][1];
+                    LOG(I("Eraser") + "FRP lenght: " + GPTTABLE["frp"][1]);
+                    status = SyncRUN(command, subcommand);
+                }
+                else
+                    LOG(I("FailFrpD") + "NO FRP Partition!!!");
+
+                return status;
             }
             catch (Exception e)
             {
@@ -146,9 +156,7 @@ namespace HuaweiUnlocker.TOOLS
             string command = "Tools\\fh_loader.exe";
             string subcommand = "--port=\\\\.\\" + TxSide.ComName + " --sendxml=" + '"' + xml + '"' + " --search_path=" + '"' + path + '"';
             if (debug) { LOG("===Flash Partitions XML===" + newline + newline + command + newline + subcommand); }
-            if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; LOG("ERROR: Device failed to load loader orTxSide.ComNameoccupied"); return false; }
-                else loadedhose = true;
+            if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
             try
             {
                 progr.Value = 0;
@@ -167,9 +175,7 @@ namespace HuaweiUnlocker.TOOLS
             string command = "Tools\\fh_loader.exe";
             string subcommand = " --port=\\\\.\\" + TxSide.ComName + " --sendimage=" + '"' + file + '"' + " --noprompt --showpercentagecomplete --zlpawarehost=1 --memoryname=eMMC";
             if (debug) { LOG("===Flash Partitions RAW===" + newline + newline + command + newline + subcommand); }
-            if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; LOG("ERROR: Device failed to load loader orTxSide.ComNameoccupied"); return false; }
-                else loadedhose = true;
+            if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
             try
             {
                 progr.Value = 0;
@@ -189,9 +195,7 @@ namespace HuaweiUnlocker.TOOLS
             string command = "Tools\\emmcdl.exe";
             string subcommand = "-p " + TxSide.ComName + " -f " + '"' + loader + '"' + " -d 0 " + GPTTABLE["userdata"][0] + " -o " + '"' + savepath + '"';
             if (debug) { LOG("===DUMPER===" + newline + newline + command + newline + subcommand); }
-            if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
-                else loadedhose = true;
+            if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
             try
             {
                 progr.Value = 30;
@@ -215,9 +219,7 @@ namespace HuaweiUnlocker.TOOLS
             string command = "Tools\\emmcdl.exe";
             string subcommand = "-p " + TxSide.ComName + " -f " + '"' + loader + '"' + " -d " + i + " " + o + " -o " + '"' + savepath + '"' + "\\" + partition;
             if (debug) { LOG("===DUMPER PARTITION===" + newline + newline + command + newline + subcommand); }
-            if (!loadedhose)
-                if (!LoadLoader("HUAWEI", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
-                else loadedhose = true;
+            if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
             try
             {
                 progr.Value = 30;

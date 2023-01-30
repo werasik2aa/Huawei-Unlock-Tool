@@ -31,10 +31,10 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -52,8 +52,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Screenshot_1.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -67,12 +66,16 @@
       <HintPath>..\packages\LibUsbDotNet.2.2.29\lib\net45\LibUsbDotNet.LibUsbDotNet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Potato.ImageFlasher, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Potato.ImageFlasher.1.0.1\lib\net472\Potato.ImageFlasher.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
     <Reference Include="System.Xaml" />
@@ -88,15 +91,15 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main\CMDS.cs" />
-    <Compile Include="DIAG\CRC.cs" />
-    <Compile Include="Main\SerialManager.cs" />
+    <Compile Include="DIAGNOS\CMDS.cs" />
+    <Compile Include="DIAGNOS\CRC.cs" />
+    <Compile Include="DIAGNOS\HDB.cs" />
+    <Compile Include="FlashTool\FlashToolLib.cs" />
+    <Compile Include="TOOLS\UpgradeMode.cs" />
+    <Compile Include="TOOLS\SerialManager.cs" />
     <Compile Include="UI\Animation\Animation.cs" />
     <Compile Include="UI\Animation\Animator.cs" />
     <Compile Include="UI\Controls\NProgressBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UI\Controls\NRadioButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Controls\NButton.cs">
@@ -104,23 +107,18 @@
     </Compile>
     <Compile Include="UI\Drawer.cs" />
     <Compile Include="TOOLS\ADB_MODE.cs" />
-    <Compile Include="HW_COM\CRC.cs" />
-    <Compile Include="DIAG\DIAG.cs" />
-    <Compile Include="TOOLS\Fastboot.cs" />
-    <Compile Include="TOOLS\FlashTool.cs" />
-    <Compile Include="Main\LangProc.cs" />
+    <Compile Include="DIAGNOS\DIAG.cs" />
+    <Compile Include="FlashTool\FlashToolQClegacy.cs" />
+    <Compile Include="LangProc.cs" />
     <Compile Include="HwTool.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HwTool.Designer.cs">
       <DependentUpon>HwTool.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main\Program.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HW_COM\ComFlash.cs" />
-    <Compile Include="TOOLS\HDB.cs" />
     <Compile Include="UI\FlatColors.cs" />
-    <Compile Include="USBapi.cs" />
     <EmbeddedResource Include="HwTool.resx">
       <DependentUpon>HwTool.cs</DependentUpon>
     </EmbeddedResource>
@@ -159,7 +157,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Screenshot_1.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

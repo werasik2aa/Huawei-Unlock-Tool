@@ -4,9 +4,9 @@ using System.IO;
 using static HuaweiUnlocker.LangProc;
 using System.Threading;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using HuaweiUnlocker.DIAGNOS;
 
-namespace HuaweiUnlocker
+namespace HuaweiUnlocker.TOOLS
 {
     public class SerialManager
     {
@@ -23,8 +23,6 @@ namespace HuaweiUnlocker
             Port.Handshake = Handshake.RequestToSendXOnXOff;
             if (isFileStream)
                 Port.DataReceived += new SerialDataReceivedEventHandler(FileWritter);
-            if (LangProc.debug)
-                Port.DataReceived += new SerialDataReceivedEventHandler(LogWritter);
             Port.ReadBufferSize = 500;
             Port.WriteTimeout = 1000;
             try
@@ -86,11 +84,9 @@ namespace HuaweiUnlocker
                 LOG(E("DeviceNotCon"));
                 return null;
             }
-            //Thread.Sleep(100);
             List<byte> msg = new List<byte>();
             try
             {
-                if (LangProc.debug) LOG("[DBG] Reading:");
                 while (Port.BytesToRead > 0)
                 {
                     if (!Port.IsOpen)
@@ -105,7 +101,9 @@ namespace HuaweiUnlocker
                 {
                     FileStream file = new FileStream(path, FileMode.OpenOrCreate);
                     file.WriteAsync(decoded, decoded.Length, decoded.Length);
-                }
+                } else
+                if(debug)
+                    LOG("[DBG] Reading: " + decoded.Length + " bytes" + Environment.NewLine + CRC.HexDump(decoded) + Environment.NewLine);
                 return decoded;
             }
             catch { return null; }
@@ -125,12 +123,12 @@ namespace HuaweiUnlocker
                     if (crc)
                     {
                         byte[] encoded = ENCODE(decoded);
-                        if (LangProc.debug) LOG("[DBG] Writing: CRCdata:" + newline + CRC.HexDump(encoded));
+                        if (debug) LOG("[DBG] Writing: CRCdata:" + newline + CRC.HexDump(encoded));
                         Port.Write(encoded, 0, encoded.Length);
                     }
                     else
                     {
-                        if (LangProc.debug) LOG("[DBG] Writing:" + newline + CRC.HexDump(decoded));
+                        if (debug) LOG("[DBG] Writing:" + newline + CRC.HexDump(decoded));
                         Port.Write(decoded, 0, decoded.Length);
                     }
                 }

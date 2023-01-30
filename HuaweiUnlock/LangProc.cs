@@ -4,12 +4,11 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
 using System.Management;
-using static HuaweiUnlocker.CMD;
 using HuaweiUnlocker.UI;
-using HuaweiUnlocker.TOOLS;
-using System.Windows;
+using HuaweiUnlocker.FlashTool;
 using System.Linq;
 using System.Threading;
+using HuaweiUnlocker.DIAGNOS;
 
 namespace HuaweiUnlocker
 {
@@ -18,7 +17,7 @@ namespace HuaweiUnlocker
         public static TextBox LOGGBOX;
         public static bool loadedhose = false;
         public static bool debug = false;
-        public static string log, newline = Environment.NewLine;
+        public static string log, loge, newline = Environment.NewLine;
         private static StreamWriter se;
         public static NProgressBar progr;
         public static TabControl Tab;
@@ -27,9 +26,11 @@ namespace HuaweiUnlocker
         public static Dictionary<string, int[]> GPTTABLE = new Dictionary<string, int[]>();
         private static Action action;
         private static Dictionary<string, string> lang = new Dictionary<string, string>();
+        public static string CURRENTlanguage = "English";
         public static bool AsyncRUN(string command, string subcommand)
         {
-            log = "SUCCESS";
+            loge = "SUCCESS";
+            Tab.Enabled = false;
             LOG("===START EVENT===");
             Process p = new Process();
             p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -45,6 +46,7 @@ namespace HuaweiUnlocker
         }
         public static bool SyncRUN(string command, string subcommand)
         {
+            log = "SUCCESS";
             Process p = new Process();
             p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             p.StartInfo.CreateNoWindow = true;
@@ -86,15 +88,17 @@ namespace HuaweiUnlocker
             if (!String.IsNullOrEmpty(e.Data))
             {
                 string outtext = e.Data.ToLower();
-                string log = e.Data;
+                int percent = 10;
                 if (outtext.Contains("%") || outtext.ToLower().Contains("remain"))
                 {
-                    log = log + outtext;
-                    int percent =10;
                     if (outtext.Contains("%"))
                         percent = int.Parse(outtext.Split(' ').Last().Replace("%}", "").Split('.')[0]);
                     else if (outtext.Contains("remain"))
-                        percent = (int)Math.Round((double)(100 * (cur - int.Parse(outtext.Split(' ')[2])) / cur));
+                    {
+                        int dS = cur - int.Parse(outtext.Split(' ')[2]);
+                        if (dS < 0) dS = 1;
+                        percent = (int)Math.Round((double)(100 * dS / cur));
+                    }
 
                     if (percent < 0) percent = 1;
                     action = () => { LOGGBOX.Text = LOGGBOX.Text.Remove(LOGGBOX.Text.LastIndexOf(Environment.NewLine)); LOGGBOX.AppendText((newline + "INFO: Percent: '") + percent + "'%"); };
@@ -109,12 +113,19 @@ namespace HuaweiUnlocker
                     else
                         action();
                 }
-                log = log + outtext;
-                if (debug) LOGGBOX.AppendText((newline + outtext));
-                Thread.Sleep(5);
-                if (outtext.Contains("success") || outtext.Contains("complete") || outtext.Contains("status 0"))
+                loge = loge + outtext;
+                if (debug)
                 {
-                    action = () => { LOGGBOX.Text = LOGGBOX.Text.Remove(LOGGBOX.Text.LastIndexOf(Environment.NewLine)); LOGGBOX.AppendText((newline + "INFO: Percent: '") + 100 + "'%"); };
+                    action = () => { LOGGBOX.AppendText((newline + outtext)); };
+                    if (LOGGBOX.InvokeRequired)
+                        LOGGBOX.Invoke(action);
+                    else
+                        action();
+                }
+                Thread.Sleep(10);
+                if (outtext.Contains("success") || outtext.Contains("complete") || outtext.Contains("status 0") || percent >=99)
+                {
+                    action = () => { LOGGBOX.Text = LOGGBOX.Text.Remove(LOGGBOX.Text.LastIndexOf(Environment.NewLine)); LOGGBOX.AppendText((newline + "INFO: Percent: '") + 100 + "'%"); LOGGBOX.AppendText(newline + "===END EVENT==="); };
                     if (LOGGBOX.InvokeRequired)
                         LOGGBOX.Invoke(action);
                     else
@@ -126,18 +137,30 @@ namespace HuaweiUnlocker
                     else
                         action();
 
-                    action = () => LOGGBOX.AppendText(newline + "===END EVENT===");
-                    if (LOGGBOX.InvokeRequired)
-                        LOGGBOX.Invoke(action);
+                    action = () => Tab.Enabled = true;
+                    if (Tab.InvokeRequired)
+                        Tab.Invoke(action);
                     else
                         action();
                     p.Dispose();
                 }
-                else if(!isError(log))
+                else if(isError(loge) && percent == 10)
                 {
-                    action = () => LOGGBOX.AppendText("ERROR: unknown ERROR" + newline + E("===END EVENT==="));
+                    action = () => LOGGBOX.AppendText("ERROR: unknown ERROR" + newline + "===END EVENT===");
                     if (LOGGBOX.InvokeRequired)
                         LOGGBOX.Invoke(action);
+                    else
+                        action();
+
+                    action = () => progr.Value = 100;
+                    if (progr.InvokeRequired)
+                        progr.Invoke(action);
+                    else
+                        action();
+
+                    action = () => Tab.Enabled = true;
+                    if (Tab.InvokeRequired)
+                        Tab.Invoke(action);
                     else
                         action();
                     p.Dispose();
@@ -193,7 +216,7 @@ namespace HuaweiUnlocker
         public static void ReadLngFile()
         {
             lang = new Dictionary<string, string>();
-            Stream ss = File.OpenRead("lang.ini");
+            Stream ss = File.OpenRead("Languages\\"+CURRENTlanguage+".ini");
             StreamReader readerL = new StreamReader(ss);
             string line = readerL.ReadLine();
             while ((line = readerL.ReadLine()) != null)
@@ -217,7 +240,7 @@ namespace HuaweiUnlocker
             LOG(I("CheckCon"));
             foreach (var process in Process.GetProcessesByName("emmcdl.exe")) { process.Kill(); }
             foreach (var process in Process.GetProcessesByName("fh_loader.exe")) { process.Kill(); }
-            if (FlashTool.TxSide.ComName == "NaN")
+            if (FlashToolQClegacy.TxSide.ComName == "NaN")
             {
                 LOG(E("DeviceNotCon"));
                 loadedhose = false;

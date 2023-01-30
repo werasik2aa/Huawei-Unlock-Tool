@@ -117,11 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label2.Text" xml:space="preserve">
-    <value>                                                          Tutorial-&gt;
-This section used for flash firmware from EMMC_DUMP.bin Or with .xml flat context.
-Checkbox(Raw Image/XML) -&gt;If checked: EMMC MODE| if not checked: XML MODE</value>
-  </data>
   <metadata name="P.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -6433,7 +6428,62 @@ Checkbox(Raw Image/XML) -&gt;If checked: EMMC MODE| if not checked: XML MODE</va
         6x/8g/8PdNJVtRvOpy4AAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
 </root>

@@ -5,8 +5,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows.Input;
 
-namespace HuaweiUnlocker
+namespace HuaweiUnlocker.DIAGNOS
 {
     public class CRC
     {
@@ -44,7 +48,8 @@ namespace HuaweiUnlocker
     0x6b46, 0x7acf, 0x4854, 0x59dd, 0x2d62, 0x3ceb, 0x0e70, 0x1ff9,
     0xf78f, 0xe606, 0xd49d, 0xc514, 0xb1ab, 0xa022, 0x92b9, 0x8330,
     0x7bc7, 0x6a4e, 0x58d5, 0x495c, 0x3de3, 0x2c6a, 0x1ef1, 0x0f78,
-    0x62A7, 0x5E28, 0x1479, 0xDE98, 0x1027, 0x62A7, 0x0C0B, 0x11B3
+    0x62A7, 0x5E28, 0x1479, 0xDE98, 0x1027, 0x62A7, 0x0C0B, 0x11B3,
+    0xD1A7
     };
         private static bool CheckByte(ref byte result, byte chkByte)
         {
@@ -266,5 +271,41 @@ namespace HuaweiUnlocker
             }
             return text;
         }
-    }
+        public static byte[] Encryption(byte[] Data, RSAParameters RSAKey, bool DoOAEPPadding)
+        {
+            try
+            {
+                byte[] encryptedData;
+                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+                {
+                    RSA.ImportParameters(RSAKey);
+                    encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
+                }
+                return encryptedData;
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+        public static byte[] Decryption(byte[] Data, RSAParameters RSAKey, bool DoOAEPPadding)
+        {
+            try
+            {
+                byte[] decryptedData;
+                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+                {
+                    RSA.ImportParameters(RSAKey);
+                    decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
+                }
+                return decryptedData;
+            }
+            catch (CryptographicException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
+        }
+    } 
 }
