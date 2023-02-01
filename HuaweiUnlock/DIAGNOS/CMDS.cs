@@ -20,7 +20,7 @@ namespace HuaweiUnlocker.DIAGNOS
     {
         public static bool GetStatus(byte[] buff)
         {
-            if (buff.Length == 0) return false;
+            if (buff.Length == null) return false;
             return !(buff[0] == 19 || buff[0] == 21);
         }
         public static string REBOOT_OR_3RECOVERY = "3A";
@@ -33,8 +33,7 @@ namespace HuaweiUnlocker.DIAGNOS
         public static int AUTHL = 512;
         public static int LENPC = 256;
 
-        public static string DONGLEINFO = "75EE000008004F43544F504C555300000000000000001027010001000008";
-        public static string DONGLEAUTH = "3E5827593A05CD3AE1CA0F8A61B1FAA78F1E187111BF34AAFC6ED23C6B965D7D5D000000000000000000000000000000000000000000000000000000000000000009";
+        public static string DONGLEINFO = "75EE00000800345044414841434B00000000000000001027010001000008";
         public struct PCUI
         {
             public static string AT_GET_INFO = "ATI\r";

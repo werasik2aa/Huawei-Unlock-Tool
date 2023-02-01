@@ -10,6 +10,8 @@ using System.Net;
 using Ionic.Zip;
 using HuaweiUnlocker.DIAGNOS;
 using System.Linq;
+using HuaweiUnlocker.TOOLS;
+using System.Security.Cryptography;
 
 namespace HuaweiUnlocker
 {
@@ -119,7 +121,7 @@ namespace HuaweiUnlocker
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
             if (!Directory.Exists(Path)) BoardU.Text = L("DdBtn"); else BoardU.Text = L("DdBtnE");
             DBB.Text = LangProc.L("DebugLbl");
-            LOGGBOX.Text = "Version 8.0 (C) MOONGAMER - 4PDA";
+            LOGGBOX.Text = "Version 10.0 (C) MOONGAMER - 4PDA";
             LOG(I("SMAIN1"));
             LOG(I("SMAIN2"));
             LOG(I("SMAIN3"));
@@ -437,7 +439,7 @@ namespace HuaweiUnlocker
             LOG(I("SendingCmd"));
             if (!UnlockFrp(loader))
                 LOG(E("FailFrp"));
-            else 
+            else
                 LOG(I("Success"));
 
             progr.Value = 100;
@@ -445,12 +447,18 @@ namespace HuaweiUnlocker
         private bool Find()
         {
             Port_D data = GETPORT("android adapter pcui");
-            LOG(L("Error") + "PCUI PORT: " + data.DeviceName);
-            diag.PCUI = data.ComName;
+            if (diag.PCUI != data.ComName)
+            {
+                diag.PCUI = data.ComName;
+                LOG(data.ComName != "NaN" ? L("Info") + "PCUI PORT: " + data.DeviceName : L("Error") + "PCUI PORT not found");
+            }
 
             data = GETPORT("dbadapter reserved interface");
-            diag.DBDA = data.ComName;
-            LOG(L("Error") + "DBADAPTER PORT: " + data.DeviceName);
+            if (diag.DBDA != data.ComName)
+            {
+                diag.DBDA = data.ComName;
+                LOG(data.ComName != "NaN" ? L("Info") + "DBADAPTER PORT: " + data.DeviceName : L("Error") + "DBADAPTER PORT not found");
+            }
 
             return diag.DBDA != "NaN" && diag.PCUI != "NaN";
         }
@@ -599,12 +607,29 @@ namespace HuaweiUnlocker
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void DBB_CheckedChanged(object sender, EventArgs e)
         {
             LangProc.debug = DBB.Checked;
+        }
+
+        private void FrBTN_Click(object sender, EventArgs e)
+        {
+            diag.FACTORY_RESET();
+        }
+
+        private void AUthBtn_Click(object sender, EventArgs e)
+        {
+            if (!Find()) return;
+            byte[] oha = diag.GET_SECRET_KEY_CRYPTED();
+            //string sn = diag.GET_FIRMWAREINFO()[0];
+            CMD.Text = CRC.BytesToHexString(oha);
+            /*if (!String.IsNullOrEmpty(CMD.Text))
+                CMD.Text = CRC.HexDump(diag.OEM_AUTH_WITH(CRC.HexStringToBytes(CMD.Text)));
+            else
+                CMD.Text = CRC.HexDump(diag.OEM_AUTH_WITH(oha));*/
         }
     }
 }

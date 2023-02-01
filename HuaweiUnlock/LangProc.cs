@@ -97,7 +97,7 @@ namespace HuaweiUnlocker
                     {
                         int dS = cur - int.Parse(outtext.Split(' ')[2]);
                         if (dS < 0) dS = 1;
-                        percent = (int)Math.Round((double)(100 * dS / cur));
+                        if(cur != 0)percent = (int)Math.Round((double)(100 * dS / cur));
                     }
 
                     if (percent < 0) percent = 1;

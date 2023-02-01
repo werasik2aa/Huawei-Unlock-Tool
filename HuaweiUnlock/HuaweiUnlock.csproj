@@ -93,7 +93,6 @@
   <ItemGroup>
     <Compile Include="DIAGNOS\CMDS.cs" />
     <Compile Include="DIAGNOS\CRC.cs" />
-    <Compile Include="DIAGNOS\HDB.cs" />
     <Compile Include="FlashTool\FlashToolLib.cs" />
     <Compile Include="TOOLS\UpgradeMode.cs" />
     <Compile Include="TOOLS\SerialManager.cs" />

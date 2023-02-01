@@ -132,6 +132,11 @@ namespace HuaweiUnlocker.DIAGNOS
             byte[] bytes = BitConverter.GetBytes((long)(-1L ^ num));
             return new byte[] { bytes[1], bytes[0] };
         }
+        public static byte[] InverseBytes(byte[] bytes)
+        {
+            Array.Reverse(bytes, 0, bytes.Length);
+            return bytes;
+        }
         public static string BytesToHexString(byte[] byteInput)
         {
             try

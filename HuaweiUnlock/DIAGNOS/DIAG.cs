@@ -89,14 +89,16 @@ namespace HuaweiUnlocker.DIAGNOS
             if (status)
             {
                 if (CMDS.GetStatus(DIAG_SEND(CMDS.REBOOT_OR_3RECOVERY, "", 0, false, true)))
+                {
                     LOG(I("RbQC1"));
+                    if (!String.IsNullOrEmpty(path))
+                    {
+                        byte[] filedata = File.ReadAllBytes(path);
+                        DIAG_SEND(CRC.BytesToHexString(filedata), "", 0, false, true);
+                    }
+                }
                 else
                     LOG(E("ERbQC1"));
-                if (!String.IsNullOrEmpty(path))
-                {
-                    byte[] filedata = File.ReadAllBytes(path);
-                    DIAG_SEND(CRC.BytesToHexString(filedata), "", 0, false, true);
-                }
             }
             else
             {
@@ -167,18 +169,17 @@ namespace HuaweiUnlocker.DIAGNOS
             }
             return null;
         }
-        public bool OEM_AUTH_WITH(byte[] data)
+        public byte[] OEM_AUTH_WITH(byte[] data)
         {
             if (debug) LOG("=================OEM_AUTH_WITH()=====================");
-            byte[] status = DIAG_SEND(CMDS.HW_CMD, CMDS.DBADAPTER.OEM_AUTH_WITH + CRC.BytesToHexString(data), 512, true, true);
-            return status.Length >= 40;
+            return DIAG_SEND(CMDS.HW_CMD, CMDS.DBADAPTER.OEM_AUTH_WITH + CRC.BytesToHexString(data), 512, true, true);
         }
         public bool OEM_REWRITE_KEY(string KEY)
         {
             if (debug) LOG("=================OEM_REWRITE_KEY()=====================");
             RSACryptoServiceProvider v = new RSACryptoServiceProvider(128);
             v.FromXmlString("<RSAKeyValue><Modulus>" + File.ReadAllText("Tools/key.pub").Replace(" @unknown", "") + "</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>");
-            byte[] status = DIAG_SEND(CMDS.HW_CMD, CMDS.DONGLEINFO + CRC.BytesToHexString(Encoding.ASCII.GetBytes(KEY)) + CMDS.DONGLEAUTH + CRC.BytesToHexString(v.Encrypt(Encoding.ASCII.GetBytes("OCTOPLUS"), RSAEncryptionPadding.Pkcs1)), 510, true, true);
+            byte[] status = DIAG_SEND(CMDS.HW_CMD, CMDS.DONGLEINFO + CRC.BytesToHexString(Encoding.ASCII.GetBytes(KEY)) + CRC.BytesToHexString(v.Encrypt(Encoding.ASCII.GetBytes("OCTOPLUS"), RSAEncryptionPadding.Pkcs1)), 512, true, true);
             return CMDS.GetStatus(status);
         }
     }

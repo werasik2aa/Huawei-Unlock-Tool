@@ -28,6 +28,9 @@ namespace HuaweiUnlocker.TOOLS
             try
             {
                 Port.Open();
+                Port.DiscardInBuffer();
+                Port.DiscardOutBuffer();
+                Port.InitializeLifetimeService();
             }
             catch
             {
