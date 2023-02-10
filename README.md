@@ -1,7 +1,7 @@
 # Huawei-Unlock-Tool
-Unlock bootloader Huawei
-1. FRP UNLOCK TOOL
-2. BOOTLOADER UNLOCKER
-3. FLASH TOOL
-4. Partition Flasher
-5. Full ROM Flash/Backup!
+Unlock bootloader/FRP Huawei
+1. BOOTLOADER UNLOCKER
+2. FLASH TOOL
+3. Partition Flasher
+4. Full ROM Flash/Backup!
+<a href="https://ibb.co/jWGcqwN"><img src="https://i.ibb.co/jWGcqwN/Screenshot-1.png" alt="Screenshot-1" border="0"></a> <a href="https://ibb.co/k5CFL2j"><img src="https://i.ibb.co/k5CFL2j/Screenshot-2.png" alt="Screenshot-2" border="0"></a>
