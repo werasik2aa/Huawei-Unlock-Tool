@@ -21,7 +21,7 @@ namespace HuaweiUnlocker.FlashTool
             LOG(I("CPort") + TxSide.DeviceName);
             string command = "Tools\\emmcdl.exe";
             string subcommand = "-p " + TxSide.ComName + " -f " + '"' + pathloader + '"';
-            if (debug) { LOG("===FLASHLOADER===" + newline + newline + command + newline + subcommand); }
+            if (debug) { LOG("===.ELF / .MBN SECTOR===" + newline + newline + command + newline + subcommand); }
             try
             {
                 LOG(I("FireHose") + device);
@@ -41,10 +41,9 @@ namespace HuaweiUnlocker.FlashTool
             string command = "Tools\\fh_loader.exe";
             string subcommand = "--port=\\\\.\\" + TxSide.ComName + " --sendxml=" + '"' + path + "\\rawprogram0.xml" + '"' + " --search_path=" + '"' + path + '"';
             if (debug) { LOG("===UNLOCKER===" + newline + newline + command + newline + subcommand); }
-            if (!LoadLoader("PHONE", loader)) { loadedhose = false; return false; }
+            if (!LoadLoader(device, loader)) { loadedhose = false; return false; }
             try
             {
-                Thread.Sleep(500);
                 progr.Value = 40;
                 LOG(I("Unlocker") + device);
                 return AsyncRUN(command, subcommand);
@@ -124,7 +123,7 @@ namespace HuaweiUnlocker.FlashTool
                 bool status = false;
                 if (GPTTABLE.ContainsKey("devinfo"))
                 {
-                    LOG(I("Writer") + "DEVINFO lenght: " + GPTTABLE["frp"][1]);
+                    LOG(I("Writer") + "DEVINFO Write lenght: " + GPTTABLE["frp"][1]);
                     command = "Tools\\emmcdl.exe";
                     subcommand = "-p " + TxSide.ComName + " -f " + '"' + loader + '"' + " -b devinfo " + "Tools/frpUnlocked.img";
                     status = SyncRUN(command, subcommand);
@@ -136,7 +135,9 @@ namespace HuaweiUnlocker.FlashTool
                 {
                     progr.Value = 50;
                     cur = GPTTABLE["frp"][1];
-                    LOG(I("Eraser") + "FRP lenght: " + GPTTABLE["frp"][1]);
+                    LOG(I("Eraser") + "FRP erase lenght: " + GPTTABLE["frp"][1]);
+                    command = "Tools\\emmcdl.exe";
+                    subcommand = "-p " + TxSide.ComName + " -f " + '"' + loader + '"' + " -e frp";
                     status = SyncRUN(command, subcommand);
                 }
                 else

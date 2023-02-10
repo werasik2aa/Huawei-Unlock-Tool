@@ -88,7 +88,7 @@ namespace HuaweiUnlocker
             if (!String.IsNullOrEmpty(e.Data))
             {
                 string outtext = e.Data.ToLower();
-                int percent = 10;
+                int percent = 1;
                 if (outtext.Contains("%") || outtext.ToLower().Contains("remain"))
                 {
                     if (outtext.Contains("%"))
@@ -96,11 +96,10 @@ namespace HuaweiUnlocker
                     else if (outtext.Contains("remain"))
                     {
                         int dS = cur - int.Parse(outtext.Split(' ')[2]);
-                        if (dS < 0) dS = 1;
-                        if(cur != 0)percent = (int)Math.Round((double)(100 * dS / cur));
+                        percent = (dS == 0 ? 100 : (int)Math.Round((double)(100 * dS / cur)));
                     }
 
-                    if (percent < 0) percent = 1;
+                    if (percent <= 0) percent = 1;
                     action = () => { LOGGBOX.Text = LOGGBOX.Text.Remove(LOGGBOX.Text.LastIndexOf(Environment.NewLine)); LOGGBOX.AppendText((newline + "INFO: Percent: '") + percent + "'%"); };
                     if (LOGGBOX.InvokeRequired)
                         LOGGBOX.Invoke(action);
@@ -123,7 +122,7 @@ namespace HuaweiUnlocker
                         action();
                 }
                 Thread.Sleep(10);
-                if (outtext.Contains("success") || outtext.Contains("complete") || outtext.Contains("status 0") || percent >=99)
+                if (outtext.Contains("success") || outtext.Contains("complete") || outtext.Contains("status 0"))
                 {
                     action = () => { LOGGBOX.Text = LOGGBOX.Text.Remove(LOGGBOX.Text.LastIndexOf(Environment.NewLine)); LOGGBOX.AppendText((newline + "INFO: Percent: '") + 100 + "'%"); LOGGBOX.AppendText(newline + "===END EVENT==="); };
                     if (LOGGBOX.InvokeRequired)
@@ -144,7 +143,7 @@ namespace HuaweiUnlocker
                         action();
                     p.Dispose();
                 }
-                else if(isError(loge) && percent == 10)
+                else if(isError(loge) && percent < 99)
                 {
                     action = () => LOGGBOX.AppendText("ERROR: unknown ERROR" + newline + "===END EVENT===");
                     if (LOGGBOX.InvokeRequired)
@@ -167,7 +166,6 @@ namespace HuaweiUnlocker
                 }
             }
         }
-
         public static bool isError(string i)
         {
             i = i.ToLower();
@@ -177,7 +175,16 @@ namespace HuaweiUnlocker
         }
         public static void LOG(string i)
         {
-            LOGGBOX.AppendText((newline + i));
+            LOGGBOX.AppendText(newline + i);
+            LOGWRITE();
+        }
+        public static void LOG(string i, string j)
+        {
+            LOGGBOX.AppendText((newline + i).Replace("{0}", j));
+            LOGWRITE();
+        }
+        private static void LOGWRITE()
+        {
             se = new StreamWriter("log.txt");
             se.WriteLine(LOGGBOX.Text);
             se.Close();

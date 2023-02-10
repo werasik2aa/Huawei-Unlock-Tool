@@ -12,7 +12,7 @@ namespace HuaweiUnlocker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new HwTool());
+            Application.Run(new Window());
         }
     }
 }

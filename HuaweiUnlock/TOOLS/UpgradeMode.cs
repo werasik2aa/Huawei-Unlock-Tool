@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Activation;
 
 namespace HuaweiUnlocker.DIAGNOS
 {

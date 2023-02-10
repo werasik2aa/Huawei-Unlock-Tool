@@ -20,7 +20,7 @@ namespace HuaweiUnlocker.DIAGNOS
     {
         public static bool GetStatus(byte[] buff)
         {
-            if (buff.Length == null) return false;
+            if (buff == null) return false;
             return !(buff[0] == 19 || buff[0] == 21);
         }
         public static string REBOOT_OR_3RECOVERY = "3A";
