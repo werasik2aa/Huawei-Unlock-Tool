@@ -33,6 +33,17 @@ namespace HuaweiUnlocker.DIAGNOS
             Random e = new Random(6666);
             return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 16).Select(s => s[e.Next(s.Length)]).ToArray());
         }
+        public void HACKdbPort()
+        {
+            LOG("================MANUFACTURE HACK PORT HCU METHOD================");
+            LOG("================OLD METHOD================");
+            byte[] status = DIAG_SEND("", "4BC954EE4BC9EDEE00000000000000000000000000000000000000000000000000000000000400005E197E", 0, true, false);
+            if (status != null)
+                LOG(CRC.BytesToHexString(status));
+            status = DIAG_SEND("", "4BC954EE4BC9B2EE000000000000000000000000000000000000000000000000000000000004000007D97E", 0, true, false);
+            if(status != null)
+                LOG(CRC.BytesToHexString(status));
+        }
         public byte[] AUTHCODE(byte[] data)
         {
             SHA256 sha256 = SHA256.Create();

@@ -143,7 +143,10 @@ namespace HuaweiUnlocker
             groupBox2.Text = DevInfoQCBox.Text = L("DeviceInfoTag");
             TUTR2.Text = L("Tutr2");
             ACTBOX.Text = L("Action");
-
+            RDinf.Text = L("DiagTagRead");
+            UpgradMDbtn.Text = L("DiagTagUpgradeMode");
+            ReBbtn.Text = L("DiagTagReboot");
+            FrBTN.Text = L("DiagTagFactoryReset");
             //HISI TEXT
             CpuHISIBox.Text = L("HISISelectCpu");
             RdHISIinfo.Text = L("HISIReadFB");
@@ -511,6 +514,7 @@ namespace HuaweiUnlocker
             try
             {
                 if (!Find()) return;
+                diag.HACKdbPort();
                 LOG(I("TrDaI"));
                 if (diag.DBDA != "")
                 {
@@ -656,6 +660,8 @@ namespace HuaweiUnlocker
 
         private void FrBTN_Click(object sender, EventArgs e)
         {
+            if (!Find()) return;
+            diag.HACKdbPort();
             diag.FACTORY_RESET();
         }
 

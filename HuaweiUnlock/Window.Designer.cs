@@ -1354,7 +1354,7 @@
             this.PGG.BackColorProgressLeft = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
             this.PGG.BackColorProgressRight = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(188)))), ((int)(((byte)(156)))));
             this.PGG.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.PGG.Location = new System.Drawing.Point(4, 351);
+            this.PGG.Location = new System.Drawing.Point(5, 352);
             this.PGG.Margin = new System.Windows.Forms.Padding(2);
             this.PGG.Name = "PGG";
             this.PGG.Size = new System.Drawing.Size(1235, 18);
@@ -1768,7 +1768,7 @@
             this.RdGPT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RdGPT.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RdGPT.ForeColor = System.Drawing.Color.White;
-            this.RdGPT.Location = new System.Drawing.Point(6, 265);
+            this.RdGPT.Location = new System.Drawing.Point(7, 266);
             this.RdGPT.Name = "RdGPT";
             this.RdGPT.RippleColor = System.Drawing.Color.Black;
             this.RdGPT.RoundingEnable = false;
