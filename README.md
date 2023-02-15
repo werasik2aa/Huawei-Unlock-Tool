@@ -16,7 +16,6 @@ Copyright (C) 2018-2023 Moongamer on 4PDA
 
 # HISI UNLOCKER (BASED ON SOURCE CODE OF POTATO_NV)
 Copyright (C) 2019  Penn Mackintosh (penn5)
-
 Copyright (C) 2020  Andrey Smirnoff (mashed-potatoes)
 
 This program is free software: you can redistribute it and/or modify
