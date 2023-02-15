@@ -153,7 +153,7 @@ namespace HuaweiUnlocker
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
             if (!Directory.Exists(Path)) BoardU.Text = L("DdBtn"); else BoardU.Text = L("DdBtnE");
             DBB.Text = LangProc.L("DebugLbl");
-            LOGGBOX.Text = "Version 10.0 (C) MOONGAMER - 4PDA";
+            LOGGBOX.Text = "Version 12F BETA/n(C) MOONGAMER (QUALCOMM UNLOCKER)/n(C) MASHED-POTATOES (KIRIN UNLOCKER)".Replace("/n", Environment.NewLine);
             LOG(I("SMAIN1"));
             LOG(I("SMAIN2"));
             LOG(I("SMAIN3"));
