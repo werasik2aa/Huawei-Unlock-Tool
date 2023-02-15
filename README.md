@@ -8,7 +8,7 @@ Unlock bootloader/FRP Huawei | EN/RU
 5. HISI UNLOCKER -> Uses Source Code from <a href="https://github.com/mashed-potatoes/PotatoNV">Potato_NV</a> For mergering programms.
 So much editions in code base for allow to work with phone in this tool. ALL in ONE Tool! Multi Language...
 For peoples who need like dongle box tool... But without dongle...
-<a href="https://ibb.co/jWGcqwN"><img src="https://i.ibb.co/gPw5QW2/Screenshot-1.png" alt="Screenshot-1" border="0"></a>
+<a href="https://ibb.co/jWGcqwN"><img src="https://i.ibb.co/4KyjxRW/Screenshot-2.png" alt="Screenshot-1" border="0"></a>
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/TY35QM6/Screenshot-2.png" alt="Screenshot-2" border="0"></a>
 
 # QCOM UNLOCKER
