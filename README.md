@@ -11,12 +11,12 @@ For peoples who need like dongle box tool... But without dongle...
 <a href="https://ibb.co/jWGcqwN"><img src="https://i.ibb.co/gPw5QW2/Screenshot-1.png" alt="Screenshot-1" border="0"></a>
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/TY35QM6/Screenshot-2.png" alt="Screenshot-2" border="0"></a>
 
-## QCOM UNLOCKER
+# QCOM UNLOCKER
 Copyright (C) 2018-2023 Moongamer on 4PDA
 
-## HISI UNLOCKER (BASED ON SOURCE CODE OF POTATO_NV)
-# Copyright (C) 2019  Penn Mackintosh (penn5)
-# Copyright (C) 2020  Andrey Smirnoff (mashed-potatoes)
+# HISI UNLOCKER (BASED ON SOURCE CODE OF POTATO_NV)
+Copyright (C) 2019  Penn Mackintosh (penn5)
+ Copyright (C) 2020  Andrey Smirnoff (mashed-potatoes)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
