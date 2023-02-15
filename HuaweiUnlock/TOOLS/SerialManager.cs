@@ -12,25 +12,28 @@ namespace HuaweiUnlocker.TOOLS
     {
         public static SerialPort Port = new SerialPort();
         private static FileStream ReadTempFile;
-        public static bool Open(string port, int baudrate, Parity parity, int bits, StopBits stopbits, Handshake handsh, bool isFileStream)
+        public static bool Open(string port, int baudrate, bool isFileStream)
         {
             if (Port.IsOpen)
                 if (Port.PortName != port)
                     CloseSerial();
                 else return true;
 
-            Port = new SerialPort(port, baudrate, parity, bits, stopbits);
+            Port = new SerialPort();
             Port.Handshake = Handshake.RequestToSendXOnXOff;
             if (isFileStream)
-                Port.DataReceived += new SerialDataReceivedEventHandler(FileWritter);
+            Port.DataReceived += new SerialDataReceivedEventHandler(FileWritter);
             Port.ReadBufferSize = 500;
+            Port.DtrEnable = true;
+            Port.RtsEnable = true;
+            Port.ReadTimeout = 1000;
             Port.WriteTimeout = 1000;
             try
             {
                 Port.Open();
+                Port.InitializeLifetimeService();
                 Port.DiscardInBuffer();
                 Port.DiscardOutBuffer();
-                Port.InitializeLifetimeService();
             }
             catch
             {
@@ -223,7 +226,7 @@ namespace HuaweiUnlocker.TOOLS
         public static bool OpenPort(string port, bool isFileStream)
         {
             if(debug)LOG("[DBG] PORT INTERACT: "+port);
-            return Open(port, 115200, Parity.None, 8, StopBits.OnePointFive, Handshake.None, isFileStream);
+            return Open(port, 115200, isFileStream);
         }
     }
 }

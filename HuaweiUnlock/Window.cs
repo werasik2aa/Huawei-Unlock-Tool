@@ -10,8 +10,8 @@ using System.Net;
 using Ionic.Zip;
 using HuaweiUnlocker.DIAGNOS;
 using System.Linq;
+using HuaweiUnlocker.FlashTool;
 using HuaweiUnlocker.TOOLS;
-using System.Security.Cryptography;
 
 namespace HuaweiUnlocker
 {
@@ -22,6 +22,7 @@ namespace HuaweiUnlocker
         private static string loader;
         public static string Path;
         public static DIAG diag = new DIAG();
+        public static HISI HISI = new HISI();
         private Dictionary<string, string> source = new Dictionary<string, string>();
         private Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\4PDA_HUAWEI_UNLOCK", true);
         private static string tempsel;
@@ -67,7 +68,11 @@ namespace HuaweiUnlocker
                 while ((line = readerD.ReadLine()) != null)
                 {
                     string[] a = line.Split(' ');
-                    DEVICER.Items.Add(a[0]);
+                    if (!a[0].StartsWith("KIRIN"))
+                        DEVICER.Items.Add(a[0]);
+                    else
+                        HISIbootloaders.Items.Add(a[0]);
+
                     if (!source.ContainsKey(a[0])) source.Add(a[0], a[1]);
                 }
             }
@@ -396,7 +401,6 @@ namespace HuaweiUnlocker
         private void UNLBTN_Click(object sender, EventArgs e)
         {
             TxSide = GETPORT("qdloader 9008");
-            LOG(I("CheckCon"));
             progr.Value = 0;
             device = DEVICER.Text.ToUpper();
             Path = "UnlockFiles\\" + device;
@@ -434,7 +438,6 @@ namespace HuaweiUnlocker
             TxSide = GETPORT("qdloader 9008");
             if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text)) return;
             progr.Value = 0;
-            if (!DEVICER.Text.Contains("-")) { LOG(E("SelDev")); return; }
             device = DEVICER.Text.ToUpper();
             LOG(I("CheckCon"));
             loader = PickLoader(device.Split('-')[0]);
@@ -625,8 +628,118 @@ namespace HuaweiUnlocker
 
         private void AUthBtn_Click(object sender, EventArgs e)
         {
-            USBhack.TRY();
-            
+
+        }
+
+        private void EraseDA_Click(object sender, EventArgs e)
+        {
+            TxSide = GETPORT("qdloader 9008");
+            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text)) return;
+            DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(L("AreY") + tempsel, "WARNING: CAN CAUSE DAMAGE", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (Erase("userdata", AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text))
+                    LOG(I("ErPS") + tempsel);
+                else
+                    LOG(E("ErPE") + tempsel);
+                progr.Value = 100;
+            }
+        }
+
+        private void RdHISIinfo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LOG("=============READ INFO (FASTBOOT)=============");
+                if (HISI.ReadInfo(false))
+                {
+                    BSNhi.Text = HISI.BSN;
+                    BUIDhi.Text = HISI.BVER;
+                    AVERhi.Text = HISI.AVER;
+                    BLkeyHI.Text = HISI.BLKEY;
+                    ASERhisi.Text = HISI.ASerial;
+                }
+            }
+            catch (Exception esd)
+            {
+                LOG("ERROR: " + esd);
+            }
+        }
+
+        private void RewriteBLkey_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (BLkeyHI.Text.Length == 16)
+                {
+                    if (isVCOM.Checked)
+                    {
+                        if (String.IsNullOrEmpty(HISIbootloaders.Text))
+                        {
+                            LOG("Select CPU First");
+                            return;
+                        }
+                        Port_D data = GETPORT("huawei usb com");
+                        if (data.ComName != "NaN")
+                        {
+                            FlashToolHisi.FlashBootloader(Bootloader.ParseBootloader("UnlockFiles/" + HISIbootloaders.Text), data.ComName);
+                            LOG("[FastBoot] Waiting for any device...");
+                            if (HISI.ReadInfo(true))
+                            {
+                                BSNhi.Text = HISI.BSN;
+                                BUIDhi.Text = HISI.BVER;
+                                AVERhi.Text = HISI.AVER;
+                                BLkeyHI.Text = HISI.BLKEY;
+                                HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
+                            }
+                            else LOG("Failed To Unlock");
+                        }
+                    }
+                    else
+                    {
+                        LOG("=============REWRITE KEY (FASTBOOT)=============");
+                        LOG("=============> KEY: " + BLkeyHI.Text + " <=============");
+                        LOG("=============> LENGHT: " + BLkeyHI.Text + " <=============");
+                        if (HISI.ReadInfo(false))
+                        {
+                            HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
+                            BSNhi.Text = HISI.BSN;
+                            BUIDhi.Text = HISI.BVER;
+                            AVERhi.Text = HISI.AVER;
+                            BLkeyHI.Text = HISI.BLKEY;
+                        }
+                        else LOG("FAILED");
+                        return;
+                    }
+                }
+                LOG("Key lenght ERROR. Please input any key of lenght - 16");
+            }
+            catch (Exception se)
+            {
+                LOG("ERR: " + se);
+            }
+        }
+
+        private void FBLstHISI_Click(object sender, EventArgs e)
+        {
+            LOG("=============WRITE FBLOCK (FASTBOOT)=============");
+            LOG("=============> VALUE: " + (EnDisFBLOCK.Checked ? 1 : 0) + " <=============");
+            try
+            {
+                if (HISI.ReadInfo(false))
+                {
+                    BSNhi.Text = HISI.BSN;
+                    BUIDhi.Text = HISI.BVER;
+                    AVERhi.Text = HISI.AVER;
+                    BLkeyHI.Text = HISI.BLKEY;
+                    ASERhisi.Text = HISI.ASerial;
+                    HISI.SetFBLOCK(EnDisFBLOCK.Checked ? 1 : 0);
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

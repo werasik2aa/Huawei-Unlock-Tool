@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace HuaweiUnlocker.DIAGNOS
+namespace HuaweiUnlocker.TOOLS
 {
     public class UpgradeMode
     {

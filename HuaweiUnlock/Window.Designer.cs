@@ -17,9 +17,9 @@
 
                                         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window));
             this.pather = new System.Windows.Forms.TextBox();
             this.DETECTED = new System.Windows.Forms.Label();
@@ -89,11 +89,30 @@
             this.L = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Diag = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.AUthBtn = new System.Windows.Forms.Button();
             this.CLEARDD = new System.Windows.Forms.Button();
             this.FlashF = new System.Windows.Forms.Button();
             this.CMD = new System.Windows.Forms.TextBox();
             this.NC = new System.Windows.Forms.TabPage();
+            this.CpuHISIBox = new System.Windows.Forms.GroupBox();
+            this.HISIbootloaders = new System.Windows.Forms.ComboBox();
+            this.DSGSDG = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.EnDisFBLOCK = new System.Windows.Forms.CheckBox();
+            this.FBLstHISI = new HuaweiUnlocker.UI.NButton();
+            this.nButton3 = new HuaweiUnlocker.UI.NButton();
+            this.RdHISIinfo = new HuaweiUnlocker.UI.NButton();
+            this.isVCOM = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.ASERhisi = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.AVERhi = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.BLkeyHI = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.BUIDhi = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.BSNhi = new System.Windows.Forms.TextBox();
             this.MTK1 = new System.Windows.Forms.TabPage();
             this.LOGGER = new System.Windows.Forms.TextBox();
             this.BURG = new System.Windows.Forms.Panel();
@@ -128,6 +147,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.PARTLIST)).BeginInit();
             this.Diag.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.NC.SuspendLayout();
+            this.CpuHISIBox.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.BURG.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -805,7 +828,7 @@
             this.EraseDA.UseRippleEffect = true;
             this.EraseDA.UseVisualStyleBackColor = false;
             this.EraseDA.UseZoomEffectOnHover = false;
-            this.EraseDA.Click += new System.EventHandler(this.ERASEevent_Click);
+            this.EraseDA.Click += new System.EventHandler(this.EraseDA_Click);
             // 
             // BoardU
             // 
@@ -1159,40 +1182,40 @@
             this.PARTLIST.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.PARTLIST.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.Menu;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.Menu;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.PARTLIST.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PARTLIST.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.P,
             this.O,
             this.L});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Snow;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle5;
             this.PARTLIST.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ImeMode = System.Windows.Forms.ImeMode.Close;
             this.PARTLIST.Location = new System.Drawing.Point(-2, -2);
             this.PARTLIST.Name = "PARTLIST";
             this.PARTLIST.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.PARTLIST.RowHeadersVisible = false;
             this.PARTLIST.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.PARTLIST.RowTemplate.ReadOnly = true;
@@ -1236,7 +1259,6 @@
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
-            this.groupBox5.Controls.Add(this.AUthBtn);
             this.groupBox5.Controls.Add(this.CLEARDD);
             this.groupBox5.Controls.Add(this.FlashF);
             this.groupBox5.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
@@ -1247,18 +1269,6 @@
             this.groupBox5.TabIndex = 23;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Action";
-            // 
-            // AUthBtn
-            // 
-            this.AUthBtn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.AUthBtn.Location = new System.Drawing.Point(5, 16);
-            this.AUthBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.AUthBtn.Name = "AUthBtn";
-            this.AUthBtn.Size = new System.Drawing.Size(167, 25);
-            this.AUthBtn.TabIndex = 2;
-            this.AUthBtn.Text = "Try Auth";
-            this.AUthBtn.UseVisualStyleBackColor = true;
-            this.AUthBtn.Click += new System.EventHandler(this.AUthBtn_Click);
             // 
             // CLEARDD
             // 
@@ -1275,10 +1285,10 @@
             // FlashF
             // 
             this.FlashF.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FlashF.Location = new System.Drawing.Point(176, 16);
+            this.FlashF.Location = new System.Drawing.Point(5, 16);
             this.FlashF.Margin = new System.Windows.Forms.Padding(2);
             this.FlashF.Name = "FlashF";
-            this.FlashF.Size = new System.Drawing.Size(453, 25);
+            this.FlashF.Size = new System.Drawing.Size(624, 25);
             this.FlashF.TabIndex = 0;
             this.FlashF.Text = "TEST";
             this.FlashF.UseVisualStyleBackColor = true;
@@ -1300,12 +1310,285 @@
             // NC
             // 
             this.NC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
+            this.NC.Controls.Add(this.CpuHISIBox);
+            this.NC.Controls.Add(this.DSGSDG);
+            this.NC.Controls.Add(this.groupBox3);
+            this.NC.Controls.Add(this.groupBox2);
             this.NC.Location = new System.Drawing.Point(4, 25);
             this.NC.Margin = new System.Windows.Forms.Padding(2);
             this.NC.Name = "NC";
             this.NC.Size = new System.Drawing.Size(673, 317);
             this.NC.TabIndex = 6;
             this.NC.Text = "HW_COM";
+            // 
+            // CpuHISIBox
+            // 
+            this.CpuHISIBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
+            this.CpuHISIBox.Controls.Add(this.HISIbootloaders);
+            this.CpuHISIBox.ForeColor = System.Drawing.Color.Cornsilk;
+            this.CpuHISIBox.Location = new System.Drawing.Point(3, 3);
+            this.CpuHISIBox.Name = "CpuHISIBox";
+            this.CpuHISIBox.Size = new System.Drawing.Size(306, 57);
+            this.CpuHISIBox.TabIndex = 20;
+            this.CpuHISIBox.TabStop = false;
+            this.CpuHISIBox.Text = "Select Cpu";
+            // 
+            // HISIbootloaders
+            // 
+            this.HISIbootloaders.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.HISIbootloaders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HISIbootloaders.Font = new System.Drawing.Font("Arial", 9.8F, System.Drawing.FontStyle.Bold);
+            this.HISIbootloaders.Location = new System.Drawing.Point(5, 20);
+            this.HISIbootloaders.Margin = new System.Windows.Forms.Padding(2);
+            this.HISIbootloaders.Name = "HISIbootloaders";
+            this.HISIbootloaders.Size = new System.Drawing.Size(296, 24);
+            this.HISIbootloaders.TabIndex = 16;
+            // 
+            // DSGSDG
+            // 
+            this.DSGSDG.BackColor = System.Drawing.Color.DarkMagenta;
+            this.DSGSDG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DSGSDG.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.DSGSDG.ForeColor = System.Drawing.Color.Yellow;
+            this.DSGSDG.Location = new System.Drawing.Point(3, 292);
+            this.DSGSDG.Multiline = true;
+            this.DSGSDG.Name = "DSGSDG";
+            this.DSGSDG.ReadOnly = true;
+            this.DSGSDG.Size = new System.Drawing.Size(667, 22);
+            this.DSGSDG.TabIndex = 15;
+            this.DSGSDG.Text = "ALL RIGHTS OF METHOD TO HISI UNLOCKER BELONG TO POTATONV";
+            this.DSGSDG.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.EnDisFBLOCK);
+            this.groupBox3.Controls.Add(this.FBLstHISI);
+            this.groupBox3.Controls.Add(this.nButton3);
+            this.groupBox3.Controls.Add(this.RdHISIinfo);
+            this.groupBox3.Controls.Add(this.isVCOM);
+            this.groupBox3.ForeColor = System.Drawing.Color.Cornsilk;
+            this.groupBox3.Location = new System.Drawing.Point(315, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(355, 283);
+            this.groupBox3.TabIndex = 14;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Action";
+            // 
+            // EnDisFBLOCK
+            // 
+            this.EnDisFBLOCK.AutoSize = true;
+            this.EnDisFBLOCK.Checked = true;
+            this.EnDisFBLOCK.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.EnDisFBLOCK.Location = new System.Drawing.Point(6, 255);
+            this.EnDisFBLOCK.Name = "EnDisFBLOCK";
+            this.EnDisFBLOCK.Size = new System.Drawing.Size(79, 20);
+            this.EnDisFBLOCK.TabIndex = 20;
+            this.EnDisFBLOCK.Text = "FBLOCK";
+            this.EnDisFBLOCK.UseVisualStyleBackColor = true;
+            // 
+            // FBLstHISI
+            // 
+            this.FBLstHISI.BackColor = System.Drawing.Color.Tomato;
+            this.FBLstHISI.BackColorAdditional = System.Drawing.Color.Gray;
+            this.FBLstHISI.BackColorGradientEnabled = false;
+            this.FBLstHISI.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.FBLstHISI.BorderColor = System.Drawing.Color.Tomato;
+            this.FBLstHISI.BorderColorEnabled = false;
+            this.FBLstHISI.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.FBLstHISI.BorderColorOnHoverEnabled = false;
+            this.FBLstHISI.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FBLstHISI.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold);
+            this.FBLstHISI.ForeColor = System.Drawing.Color.White;
+            this.FBLstHISI.Location = new System.Drawing.Point(6, 220);
+            this.FBLstHISI.Name = "FBLstHISI";
+            this.FBLstHISI.RippleColor = System.Drawing.Color.Black;
+            this.FBLstHISI.RoundingEnable = false;
+            this.FBLstHISI.Size = new System.Drawing.Size(343, 28);
+            this.FBLstHISI.TabIndex = 19;
+            this.FBLstHISI.Text = "Write FBLOCK STATE(FASTBOOT)";
+            this.FBLstHISI.TextHover = null;
+            this.FBLstHISI.UseDownPressEffectOnClick = false;
+            this.FBLstHISI.UseRippleEffect = true;
+            this.FBLstHISI.UseVisualStyleBackColor = false;
+            this.FBLstHISI.UseZoomEffectOnHover = false;
+            this.FBLstHISI.Click += new System.EventHandler(this.FBLstHISI_Click);
+            // 
+            // nButton3
+            // 
+            this.nButton3.BackColor = System.Drawing.Color.CadetBlue;
+            this.nButton3.BackColorAdditional = System.Drawing.Color.Gray;
+            this.nButton3.BackColorGradientEnabled = false;
+            this.nButton3.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.nButton3.BorderColor = System.Drawing.Color.Tomato;
+            this.nButton3.BorderColorEnabled = false;
+            this.nButton3.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.nButton3.BorderColorOnHoverEnabled = false;
+            this.nButton3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.nButton3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold);
+            this.nButton3.ForeColor = System.Drawing.Color.White;
+            this.nButton3.Location = new System.Drawing.Point(6, 52);
+            this.nButton3.Name = "nButton3";
+            this.nButton3.RippleColor = System.Drawing.Color.Black;
+            this.nButton3.RoundingEnable = false;
+            this.nButton3.Size = new System.Drawing.Size(343, 28);
+            this.nButton3.TabIndex = 17;
+            this.nButton3.Text = "Rewrite Bootloader + Key";
+            this.nButton3.TextHover = null;
+            this.nButton3.UseDownPressEffectOnClick = false;
+            this.nButton3.UseRippleEffect = true;
+            this.nButton3.UseVisualStyleBackColor = false;
+            this.nButton3.UseZoomEffectOnHover = false;
+            this.nButton3.Click += new System.EventHandler(this.RewriteBLkey_Click);
+            // 
+            // RdHISIinfo
+            // 
+            this.RdHISIinfo.BackColor = System.Drawing.Color.CadetBlue;
+            this.RdHISIinfo.BackColorAdditional = System.Drawing.Color.Gray;
+            this.RdHISIinfo.BackColorGradientEnabled = false;
+            this.RdHISIinfo.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.RdHISIinfo.BorderColor = System.Drawing.Color.Tomato;
+            this.RdHISIinfo.BorderColorEnabled = false;
+            this.RdHISIinfo.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.RdHISIinfo.BorderColorOnHoverEnabled = false;
+            this.RdHISIinfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RdHISIinfo.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold);
+            this.RdHISIinfo.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.RdHISIinfo.Location = new System.Drawing.Point(6, 18);
+            this.RdHISIinfo.Name = "RdHISIinfo";
+            this.RdHISIinfo.RippleColor = System.Drawing.Color.Black;
+            this.RdHISIinfo.RoundingEnable = false;
+            this.RdHISIinfo.Size = new System.Drawing.Size(343, 28);
+            this.RdHISIinfo.TabIndex = 15;
+            this.RdHISIinfo.Text = "Read Info (FASTBOOT)";
+            this.RdHISIinfo.TextHover = null;
+            this.RdHISIinfo.UseDownPressEffectOnClick = false;
+            this.RdHISIinfo.UseRippleEffect = true;
+            this.RdHISIinfo.UseVisualStyleBackColor = false;
+            this.RdHISIinfo.UseZoomEffectOnHover = false;
+            this.RdHISIinfo.Click += new System.EventHandler(this.RdHISIinfo_Click);
+            // 
+            // isVCOM
+            // 
+            this.isVCOM.AutoSize = true;
+            this.isVCOM.Checked = true;
+            this.isVCOM.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.isVCOM.Location = new System.Drawing.Point(244, 255);
+            this.isVCOM.Name = "isVCOM";
+            this.isVCOM.Size = new System.Drawing.Size(105, 20);
+            this.isVCOM.TabIndex = 14;
+            this.isVCOM.Text = "VCOM mode";
+            this.isVCOM.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.ASERhisi);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.AVERhi);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.BLkeyHI);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.BUIDhi);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.BSNhi);
+            this.groupBox2.ForeColor = System.Drawing.Color.Cornsilk;
+            this.groupBox2.Location = new System.Drawing.Point(3, 66);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(306, 220);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Device Info";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label2.Location = new System.Drawing.Point(240, 85);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 16);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "ASERIAL";
+            // 
+            // ASERhisi
+            // 
+            this.ASERhisi.Location = new System.Drawing.Point(5, 82);
+            this.ASERhisi.Name = "ASERhisi";
+            this.ASERhisi.ReadOnly = true;
+            this.ASERhisi.Size = new System.Drawing.Size(232, 22);
+            this.ASERhisi.TabIndex = 15;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label3.Location = new System.Drawing.Point(240, 113);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 16);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "MODEL";
+            // 
+            // AVERhi
+            // 
+            this.AVERhi.Location = new System.Drawing.Point(5, 110);
+            this.AVERhi.Name = "AVERhi";
+            this.AVERhi.ReadOnly = true;
+            this.AVERhi.Size = new System.Drawing.Size(232, 22);
+            this.AVERhi.TabIndex = 12;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label9.Location = new System.Drawing.Point(4, 173);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(103, 16);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "Bootloader key";
+            // 
+            // BLkeyHI
+            // 
+            this.BLkeyHI.BackColor = System.Drawing.SystemColors.Control;
+            this.BLkeyHI.Location = new System.Drawing.Point(5, 192);
+            this.BLkeyHI.Name = "BLkeyHI";
+            this.BLkeyHI.Size = new System.Drawing.Size(295, 22);
+            this.BLkeyHI.TabIndex = 10;
+            this.BLkeyHI.Text = "0000000000000000";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label12.Location = new System.Drawing.Point(240, 54);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(58, 16);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "BUILDid";
+            // 
+            // BUIDhi
+            // 
+            this.BUIDhi.Location = new System.Drawing.Point(5, 51);
+            this.BUIDhi.Name = "BUIDhi";
+            this.BUIDhi.ReadOnly = true;
+            this.BUIDhi.Size = new System.Drawing.Size(232, 22);
+            this.BUIDhi.TabIndex = 4;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label13.Location = new System.Drawing.Point(240, 25);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(34, 16);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "BSN";
+            // 
+            // BSNhi
+            // 
+            this.BSNhi.Location = new System.Drawing.Point(5, 23);
+            this.BSNhi.Name = "BSNhi";
+            this.BSNhi.ReadOnly = true;
+            this.BSNhi.Size = new System.Drawing.Size(232, 22);
+            this.BSNhi.TabIndex = 2;
             // 
             // MTK1
             // 
@@ -1620,6 +1903,13 @@
             this.Diag.ResumeLayout(false);
             this.Diag.PerformLayout();
             this.groupBox5.ResumeLayout(false);
+            this.NC.ResumeLayout(false);
+            this.NC.PerformLayout();
+            this.CpuHISIBox.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.BURG.ResumeLayout(false);
             this.BURG.PerformLayout();
             this.ResumeLayout(false);
@@ -1716,7 +2006,26 @@
         private UI.NButton FrBTN;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label MacLBL;
-        private System.Windows.Forms.Button AUthBtn;
         private UI.NButton nButton1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox AVERhi;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox BLkeyHI;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox BUIDhi;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox BSNhi;
+        private System.Windows.Forms.TextBox DSGSDG;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private UI.NButton RdHISIinfo;
+        private UI.NButton nButton3;
+        private System.Windows.Forms.GroupBox CpuHISIBox;
+        private System.Windows.Forms.ComboBox HISIbootloaders;
+        private System.Windows.Forms.CheckBox isVCOM;
+        private UI.NButton FBLstHISI;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox ASERhisi;
+        private System.Windows.Forms.CheckBox EnDisFBLOCK;
     }
 }
