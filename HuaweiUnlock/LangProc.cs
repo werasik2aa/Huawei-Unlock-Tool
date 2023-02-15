@@ -230,7 +230,7 @@ namespace HuaweiUnlocker
             StreamReader readerL = new StreamReader(ss);
             string line = readerL.ReadLine();
             while ((line = readerL.ReadLine()) != null)
-                lang.Add(line.Split(',')[0], line.Split(',')[1]);
+                if(!line.StartsWith("["))lang.Add(line.Split(',')[0], line.Split(',')[1]);
             readerL.Close();
         }
         public static string I(string data)

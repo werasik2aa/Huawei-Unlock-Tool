@@ -37,21 +37,21 @@ namespace HuaweiUnlocker.TOOLS
         {
             if (fb.Connect(wait)) {
                 string serial = fb.GetSerialNumber();
-                LOG("Serial number: " + serial);
+                LOG(I("SerialnTag") + serial);
                 ASerial = serial;
 
                 Fastboot.Response bsn = fb.Command("oem read_bsn");
                 if (bsn.Status == Fastboot.FastbootStatus.Ok) {
-                    LOG("Board ID: " + bsn.Payload);
+                    LOG(I("BSNTag") + bsn.Payload);
                     BSN = bsn.Payload;
                 }
 
                 Fastboot.Response model = fb.Command("oem get-product-model");
-                LOG("Model: " + model.Payload);
+                LOG(I("ModelTag") + model.Payload);
                 AVER = model.Payload;
 
                 Fastboot.Response build = fb.Command("oem get-build-number");
-                LOG("Build number: " + build.Payload.Replace(":", ""));
+                LOG(I("BuildIdTag") + build.Payload.Replace(":", ""));
                 BVER = build.Payload.Replace(":", "");
 
                 Fastboot.Response fblock = fb.Command("oem lock-state info");
@@ -63,18 +63,19 @@ namespace HuaweiUnlocker.TOOLS
                     state = Regex.IsMatch(fblock.Payload, @"FB[\w: ]{1,}UNLOCKED");
                 }
 
-                LOG("FBLOCK state: " + (state ? "unlocked" : "locked"));
+                LOG(I("FBLOCK-Tag") + (state ? "unlocked" : "locked"));
                 if (debug) LOG(Encoding.UTF8.GetString(fblock.RawData));
 
                 if (!state)
-                    LOG("*** FBLOCK is locked! ***");
-
-                string factoryKey = ReadFactoryKey();
-
-                if (factoryKey != null)
+                    LOG(E("HISIInfoS"));
+                else
                 {
-                    LOG($"Saved key: " + factoryKey);
-                    BLKEY = factoryKey;
+                    string factoryKey = ReadFactoryKey();
+                    if (factoryKey != null)
+                    {
+                        LOG(I("KEYTag") + factoryKey);
+                        BLKEY = factoryKey;
+                    }
                 }
                 return true;
             }
@@ -82,8 +83,7 @@ namespace HuaweiUnlocker.TOOLS
         }
         public void SetProp(string prop, byte[] value)
         {
-            LOG($"Writing {prop}...");
-
+            LOG(I("WritingPropTAG") + prop);
             var cmd = new List<byte>();
 
             cmd.AddRange(Encoding.ASCII.GetBytes($"getvar:nve:{prop}@"));
@@ -111,23 +111,14 @@ namespace HuaweiUnlocker.TOOLS
             }
             catch (Exception ex)
             {
-                LOG("Failed to set the FBLOCK, using the alternative method...");
+                LOG(I("FBLOCKSetTag"));
                 LOG(ex.Message);
                 SetHWDogState((byte)state);
             }
         }
         public void WriteBOOTLOADERKEY(string KEY)
         {
-            try
-            {
-                SetProp("FBLOCK", new[] { (byte)1 });
-            }
-            catch (Exception ex)
-            {
-                LOG("Failed to set. Using the alternative method...");
-                LOG(ex.Message);
-                SetHWDogState((byte)1);
-            }
+            SetFBLOCK(1);
 
             try
             {

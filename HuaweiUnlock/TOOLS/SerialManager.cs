@@ -37,10 +37,10 @@ namespace HuaweiUnlocker.TOOLS
             }
             catch
             {
-                LOG("ERROR: PORT IS USED BY ANOTHER APPLICATION OR NOT AVAILABLE");
+                LOG(E("DeviceNotConDIAG"));
             }
             if (Port.IsOpen && port != Port.PortName)
-                LOG("Connected To port: " + port);
+                LOG(I("DeviceConDiag") + port);
             return Port.IsOpen;
         }
         public static void FileWritter(object sender, EventArgs e)
