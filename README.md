@@ -13,7 +13,7 @@ So much editions in code base for allow to work with phone in this tool. ALL in 
 ## QCOM UNLOCKER
 Copyright (C) 2018-2023 Moongamer on 4PDA
 
-## HISI UNLOCKER
+## HISI UNLOCKER (BASED ON SOURCE CODE OF POTATO_NV)
 Copyright (C) 2019  Penn Mackintosh (penn5)
 Copyright (C) 2020  Andrey Smirnoff (mashed-potatoes)
 
