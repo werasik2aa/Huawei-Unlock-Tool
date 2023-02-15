@@ -10,10 +10,10 @@ So much editions in code base for allow to work with phone in this tool. ALL in 
 <a href="https://ibb.co/jWGcqwN"><img src="https://i.ibb.co/gPw5QW2/Screenshot-1.png" alt="Screenshot-1" border="0"></a>
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/TY35QM6/Screenshot-2.png" alt="Screenshot-2" border="0"></a>
 
-##QCOM UNLOCKER
+## QCOM UNLOCKER
 Copyright (C) 2018-2023 Moongamer on 4PDA
 
-##HISI UNLOCKER
+## HISI UNLOCKER
 Copyright (C) 2019  Penn Mackintosh (penn5)
 Copyright (C) 2020  Andrey Smirnoff (mashed-potatoes)
 
