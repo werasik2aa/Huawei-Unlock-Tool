@@ -17,6 +17,8 @@ Copyright (C) 2018-2023 Moongamer on 4PDA
 # <a href="https://github.com/mashed-potatoes/PotatoNV">Unlocking Huawei devices on Kirin SoCs.</a>
 Copyright (C) 2020  Andrey Smirnoff (mashed-potatoes)
 
+Copyright (C) 2019  Penn Mackintosh (penn5)
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
 by the Free Software Foundation, either version 3 of the License, or
