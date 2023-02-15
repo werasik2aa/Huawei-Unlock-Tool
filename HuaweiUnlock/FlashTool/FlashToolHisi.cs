@@ -43,7 +43,11 @@ namespace HuaweiUnlocker.FlashTool
                 LOG("-" + image.Role);
 
                 flasher.Write(image.Path, (int)image.Address, x => {
-                    progr.Value = int.Parse((dsize + (int)(size / 100f * x), asize).ToString());
+                    Action action = () => progr.Value = int.Parse((dsize + (int)(size / 100f * x), asize).ToString());
+                    if (LOGGBOX.InvokeRequired)
+                        LOGGBOX.Invoke(action);
+                    else
+                        action();
                 });
 
                 dsize += size;

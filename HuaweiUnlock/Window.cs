@@ -152,6 +152,7 @@ namespace HuaweiUnlocker
             RdHISIinfo.Text = L("HISIReadFB");
             HISI_board_FB.Text = L("HISIWriteKirinFB");
             UNLOCKHISI.Text = L("HISIWriteKirinBLD");
+            FBLstHISI.Text = L("HISIWriteKirinFBL");
 
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
             if (!Directory.Exists(Path)) BoardU.Text = L("DdBtn"); else BoardU.Text = L("DdBtnE");
@@ -788,7 +789,7 @@ namespace HuaweiUnlocker
                         Port_D data = GETPORT("huawei usb com");
                         if (data.ComName != "NaN")
                         {
-                            FlashToolHisi.FlashBootloader(Bootloader.ParseBootloader("UnlockFiles/" + HISIbootloaders.Text), data.ComName);
+                            FlashToolHisi.FlashBootloader(Bootloader.ParseBootloader("UnlockFiles\\" + HISIbootloaders.Text.ToUpper() + "\\manifest.xml"), data.ComName);
                             LOG("[FastBoot] Waiting for any device...");
                             if (HISI.ReadInfo(true))
                             {
