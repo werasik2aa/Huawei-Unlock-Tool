@@ -15,8 +15,8 @@ For peoples who need like dongle box tool... But without dongle...
 Copyright (C) 2018-2023 Moongamer on 4PDA
 
 ## HISI UNLOCKER (BASED ON SOURCE CODE OF POTATO_NV)
-Copyright (C) 2019  Penn Mackintosh (penn5)
-Copyright (C) 2020  Andrey Smirnoff (mashed-potatoes)
+# Copyright (C) 2019  Penn Mackintosh (penn5)
+# Copyright (C) 2020  Andrey Smirnoff (mashed-potatoes)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
