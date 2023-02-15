@@ -14,7 +14,7 @@ For peoples who need like dongle box tool... But without dongle...
 # QCOM UNLOCKER
 Copyright (C) 2018-2023 Moongamer on 4PDA
 
-# <a href="https://github.com/mashed-potatoes/PotatoNV">Usrlock - CLI utility for unlocking Huawei devices on Kirin SoCs.</a>
+# <a href="https://github.com/mashed-potatoes/PotatoNV">Unlocking Huawei devices on Kirin SoCs.</a>
 Copyright (C) 2020  Andrey Smirnoff (mashed-potatoes)
 
 This program is free software: you can redistribute it and/or modify
