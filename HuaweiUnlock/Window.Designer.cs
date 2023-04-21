@@ -17,9 +17,9 @@
 
                                         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window));
             this.pather = new System.Windows.Forms.TextBox();
             this.DETECTED = new System.Windows.Forms.Label();
@@ -27,6 +27,10 @@
             this.LoaderBox = new System.Windows.Forms.ComboBox();
             this.AutoXml = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.nButton2 = new HuaweiUnlocker.UI.NButton();
+            this.PatXm = new System.Windows.Forms.TextBox();
+            this.Selecty2 = new HuaweiUnlocker.UI.NButton();
+            this.Selecty3 = new HuaweiUnlocker.UI.NButton();
             this.RAW = new System.Windows.Forms.CheckBox();
             this.PTOFIRM = new System.Windows.Forms.Label();
             this.Xm = new System.Windows.Forms.TextBox();
@@ -35,14 +39,26 @@
             this.MA = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.DBB = new System.Windows.Forms.CheckBox();
+            this.SelLanguage = new HuaweiUnlocker.UI.NButton();
             this.LBOX = new System.Windows.Forms.ComboBox();
             this.GLOADER = new System.Windows.Forms.GroupBox();
+            this.SelectLOADER = new HuaweiUnlocker.UI.NButton();
             this.QCOM1 = new System.Windows.Forms.TabPage();
             this.TUTR2 = new System.Windows.Forms.Label();
             this.GPfir = new System.Windows.Forms.GroupBox();
+            this.EraseMeBtn = new HuaweiUnlocker.UI.NButton();
+            this.Flash = new HuaweiUnlocker.UI.NButton();
+            this.DUMPALL = new HuaweiUnlocker.UI.NButton();
             this.Board = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.FrBTN = new HuaweiUnlocker.UI.NButton();
+            this.RDinf = new HuaweiUnlocker.UI.NButton();
+            this.ReBbtn = new HuaweiUnlocker.UI.NButton();
+            this.UpgradMDbtn = new HuaweiUnlocker.UI.NButton();
             this.ACTBOX = new System.Windows.Forms.GroupBox();
+            this.UnlockFrp = new HuaweiUnlocker.UI.NButton();
+            this.EraseDA = new HuaweiUnlocker.UI.NButton();
+            this.BoardU = new HuaweiUnlocker.UI.NButton();
             this.SLDEV = new System.Windows.Forms.GroupBox();
             this.DEVICER = new System.Windows.Forms.ComboBox();
             this.DevInfoQCBox = new System.Windows.Forms.GroupBox();
@@ -63,6 +79,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.IMEIbox = new System.Windows.Forms.TextBox();
             this.QCOM2 = new System.Windows.Forms.TabPage();
+            this.RdGPT = new HuaweiUnlocker.UI.NButton();
             this.WHAT = new System.Windows.Forms.GroupBox();
             this.ReadPA = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -83,7 +100,11 @@
             this.HISIbootloaders = new System.Windows.Forms.ComboBox();
             this.DSGSDG = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.UNLOCKHISI = new HuaweiUnlocker.UI.NButton();
+            this.HISI_board_FB = new HuaweiUnlocker.UI.NButton();
             this.EnDisFBLOCK = new System.Windows.Forms.CheckBox();
+            this.FBLstHISI = new HuaweiUnlocker.UI.NButton();
+            this.RdHISIinfo = new HuaweiUnlocker.UI.NButton();
             this.isVCOM = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -112,28 +133,7 @@
             this.HomeTag = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.BURGBTN = new System.Windows.Forms.Button();
-            this.PatXm = new System.Windows.Forms.TextBox();
             this.PGG = new HuaweiUnlocker.UI.NProgressBar();
-            this.SelLanguage = new HuaweiUnlocker.UI.NButton();
-            this.SelectLOADER = new HuaweiUnlocker.UI.NButton();
-            this.nButton2 = new HuaweiUnlocker.UI.NButton();
-            this.Selecty2 = new HuaweiUnlocker.UI.NButton();
-            this.Selecty3 = new HuaweiUnlocker.UI.NButton();
-            this.ReadxmlBtn = new HuaweiUnlocker.UI.NButton();
-            this.Flash = new HuaweiUnlocker.UI.NButton();
-            this.DUMPALL = new HuaweiUnlocker.UI.NButton();
-            this.FrBTN = new HuaweiUnlocker.UI.NButton();
-            this.RDinf = new HuaweiUnlocker.UI.NButton();
-            this.ReBbtn = new HuaweiUnlocker.UI.NButton();
-            this.UpgradMDbtn = new HuaweiUnlocker.UI.NButton();
-            this.UnlockFrp = new HuaweiUnlocker.UI.NButton();
-            this.EraseDA = new HuaweiUnlocker.UI.NButton();
-            this.BoardU = new HuaweiUnlocker.UI.NButton();
-            this.RdGPT = new HuaweiUnlocker.UI.NButton();
-            this.UNLOCKHISI = new HuaweiUnlocker.UI.NButton();
-            this.HISI_board_FB = new HuaweiUnlocker.UI.NButton();
-            this.FBLstHISI = new HuaweiUnlocker.UI.NButton();
-            this.RdHISIinfo = new HuaweiUnlocker.UI.NButton();
             this.panel1.SuspendLayout();
             this.Tab.SuspendLayout();
             this.MA.SuspendLayout();
@@ -248,6 +248,103 @@
             this.panel1.Size = new System.Drawing.Size(358, 147);
             this.panel1.TabIndex = 25;
             // 
+            // nButton2
+            // 
+            this.nButton2.AutoSize = true;
+            this.nButton2.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.nButton2.BackColorAdditional = System.Drawing.Color.Gray;
+            this.nButton2.BackColorGradientEnabled = false;
+            this.nButton2.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.nButton2.BorderColor = System.Drawing.Color.Tomato;
+            this.nButton2.BorderColorEnabled = false;
+            this.nButton2.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.nButton2.BorderColorOnHoverEnabled = false;
+            this.nButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.nButton2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nButton2.ForeColor = System.Drawing.Color.White;
+            this.nButton2.Location = new System.Drawing.Point(280, 112);
+            this.nButton2.Margin = new System.Windows.Forms.Padding(2);
+            this.nButton2.Name = "nButton2";
+            this.nButton2.RippleColor = System.Drawing.Color.Black;
+            this.nButton2.RoundingEnable = false;
+            this.nButton2.Size = new System.Drawing.Size(65, 25);
+            this.nButton2.TabIndex = 31;
+            this.nButton2.Text = "Select";
+            this.nButton2.TextHover = null;
+            this.nButton2.UseDownPressEffectOnClick = false;
+            this.nButton2.UseRippleEffect = true;
+            this.nButton2.UseVisualStyleBackColor = false;
+            this.nButton2.UseZoomEffectOnHover = false;
+            this.nButton2.Click += new System.EventHandler(this.nButton2_Click);
+            // 
+            // PatXm
+            // 
+            this.PatXm.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.PatXm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PatXm.Location = new System.Drawing.Point(6, 114);
+            this.PatXm.Margin = new System.Windows.Forms.Padding(2);
+            this.PatXm.Name = "PatXm";
+            this.PatXm.Size = new System.Drawing.Size(270, 22);
+            this.PatXm.TabIndex = 30;
+            // 
+            // Selecty2
+            // 
+            this.Selecty2.AutoSize = true;
+            this.Selecty2.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Selecty2.BackColorAdditional = System.Drawing.Color.Gray;
+            this.Selecty2.BackColorGradientEnabled = false;
+            this.Selecty2.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.Selecty2.BorderColor = System.Drawing.Color.Tomato;
+            this.Selecty2.BorderColorEnabled = false;
+            this.Selecty2.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.Selecty2.BorderColorOnHoverEnabled = false;
+            this.Selecty2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Selecty2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Selecty2.ForeColor = System.Drawing.Color.White;
+            this.Selecty2.Location = new System.Drawing.Point(280, 83);
+            this.Selecty2.Margin = new System.Windows.Forms.Padding(2);
+            this.Selecty2.Name = "Selecty2";
+            this.Selecty2.RippleColor = System.Drawing.Color.Black;
+            this.Selecty2.RoundingEnable = false;
+            this.Selecty2.Size = new System.Drawing.Size(65, 25);
+            this.Selecty2.TabIndex = 29;
+            this.Selecty2.Text = "Select";
+            this.Selecty2.TextHover = null;
+            this.Selecty2.UseDownPressEffectOnClick = false;
+            this.Selecty2.UseRippleEffect = true;
+            this.Selecty2.UseVisualStyleBackColor = false;
+            this.Selecty2.UseZoomEffectOnHover = false;
+            this.Selecty2.Click += new System.EventHandler(this.XML_PATH);
+            // 
+            // Selecty3
+            // 
+            this.Selecty3.AutoSize = true;
+            this.Selecty3.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Selecty3.BackColorAdditional = System.Drawing.Color.Gray;
+            this.Selecty3.BackColorGradientEnabled = false;
+            this.Selecty3.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.Selecty3.BorderColor = System.Drawing.Color.Tomato;
+            this.Selecty3.BorderColorEnabled = false;
+            this.Selecty3.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.Selecty3.BorderColorOnHoverEnabled = false;
+            this.Selecty3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Selecty3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Selecty3.ForeColor = System.Drawing.Color.White;
+            this.Selecty3.Location = new System.Drawing.Point(280, 26);
+            this.Selecty3.Margin = new System.Windows.Forms.Padding(2);
+            this.Selecty3.Name = "Selecty3";
+            this.Selecty3.RippleColor = System.Drawing.Color.Black;
+            this.Selecty3.RoundingEnable = false;
+            this.Selecty3.Size = new System.Drawing.Size(65, 25);
+            this.Selecty3.TabIndex = 28;
+            this.Selecty3.Text = "Select";
+            this.Selecty3.TextHover = null;
+            this.Selecty3.UseDownPressEffectOnClick = false;
+            this.Selecty3.UseRippleEffect = true;
+            this.Selecty3.UseVisualStyleBackColor = false;
+            this.Selecty3.UseZoomEffectOnHover = false;
+            this.Selecty3.Click += new System.EventHandler(this.PATHTOFIRMWARE_Clck);
+            // 
             // RAW
             // 
             this.RAW.AutoSize = true;
@@ -361,6 +458,34 @@
             this.DBB.UseVisualStyleBackColor = true;
             this.DBB.CheckedChanged += new System.EventHandler(this.DBB_CheckedChanged);
             // 
+            // SelLanguage
+            // 
+            this.SelLanguage.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.SelLanguage.BackColorAdditional = System.Drawing.Color.Gray;
+            this.SelLanguage.BackColorGradientEnabled = false;
+            this.SelLanguage.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.SelLanguage.BorderColor = System.Drawing.Color.Tomato;
+            this.SelLanguage.BorderColorEnabled = false;
+            this.SelLanguage.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.SelLanguage.BorderColorOnHoverEnabled = false;
+            this.SelLanguage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SelLanguage.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SelLanguage.ForeColor = System.Drawing.Color.White;
+            this.SelLanguage.Location = new System.Drawing.Point(5, 52);
+            this.SelLanguage.Margin = new System.Windows.Forms.Padding(2);
+            this.SelLanguage.Name = "SelLanguage";
+            this.SelLanguage.RippleColor = System.Drawing.Color.Black;
+            this.SelLanguage.RoundingEnable = false;
+            this.SelLanguage.Size = new System.Drawing.Size(207, 34);
+            this.SelLanguage.TabIndex = 32;
+            this.SelLanguage.Text = "Apply";
+            this.SelLanguage.TextHover = null;
+            this.SelLanguage.UseDownPressEffectOnClick = false;
+            this.SelLanguage.UseRippleEffect = true;
+            this.SelLanguage.UseVisualStyleBackColor = false;
+            this.SelLanguage.UseZoomEffectOnHover = false;
+            this.SelLanguage.Click += new System.EventHandler(this.SelLanguage_Click);
+            // 
             // LBOX
             // 
             this.LBOX.BackColor = System.Drawing.SystemColors.InactiveCaption;
@@ -388,6 +513,36 @@
             this.GLOADER.TabIndex = 28;
             this.GLOADER.TabStop = false;
             this.GLOADER.Text = "Select Loader First";
+            // 
+            // SelectLOADER
+            // 
+            this.SelectLOADER.AutoSize = true;
+            this.SelectLOADER.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.SelectLOADER.BackColorAdditional = System.Drawing.Color.Gray;
+            this.SelectLOADER.BackColorGradientEnabled = false;
+            this.SelectLOADER.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.SelectLOADER.BorderColor = System.Drawing.Color.Tomato;
+            this.SelectLOADER.BorderColorEnabled = false;
+            this.SelectLOADER.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.SelectLOADER.BorderColorOnHoverEnabled = false;
+            this.SelectLOADER.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SelectLOADER.Enabled = false;
+            this.SelectLOADER.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SelectLOADER.ForeColor = System.Drawing.Color.White;
+            this.SelectLOADER.Location = new System.Drawing.Point(5, 72);
+            this.SelectLOADER.Margin = new System.Windows.Forms.Padding(2);
+            this.SelectLOADER.Name = "SelectLOADER";
+            this.SelectLOADER.RippleColor = System.Drawing.Color.Black;
+            this.SelectLOADER.RoundingEnable = false;
+            this.SelectLOADER.Size = new System.Drawing.Size(429, 37);
+            this.SelectLOADER.TabIndex = 30;
+            this.SelectLOADER.Text = "Select";
+            this.SelectLOADER.TextHover = null;
+            this.SelectLOADER.UseDownPressEffectOnClick = false;
+            this.SelectLOADER.UseRippleEffect = true;
+            this.SelectLOADER.UseVisualStyleBackColor = false;
+            this.SelectLOADER.UseZoomEffectOnHover = false;
+            this.SelectLOADER.Click += new System.EventHandler(this.LOADER_PATH);
             // 
             // QCOM1
             // 
@@ -420,7 +575,7 @@
             // GPfir
             // 
             this.GPfir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
-            this.GPfir.Controls.Add(this.ReadxmlBtn);
+            this.GPfir.Controls.Add(this.EraseMeBtn);
             this.GPfir.Controls.Add(this.Flash);
             this.GPfir.Controls.Add(this.DUMPALL);
             this.GPfir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -431,6 +586,87 @@
             this.GPfir.TabIndex = 29;
             this.GPfir.TabStop = false;
             this.GPfir.Text = "Select";
+            // 
+            // EraseMeBtn
+            // 
+            this.EraseMeBtn.BackColor = System.Drawing.Color.Tomato;
+            this.EraseMeBtn.BackColorAdditional = System.Drawing.Color.Gray;
+            this.EraseMeBtn.BackColorGradientEnabled = false;
+            this.EraseMeBtn.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.EraseMeBtn.BorderColor = System.Drawing.Color.Tomato;
+            this.EraseMeBtn.BorderColorEnabled = false;
+            this.EraseMeBtn.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.EraseMeBtn.BorderColorOnHoverEnabled = false;
+            this.EraseMeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EraseMeBtn.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.EraseMeBtn.ForeColor = System.Drawing.Color.White;
+            this.EraseMeBtn.Location = new System.Drawing.Point(7, 113);
+            this.EraseMeBtn.Name = "EraseMeBtn";
+            this.EraseMeBtn.RippleColor = System.Drawing.Color.Black;
+            this.EraseMeBtn.RoundingEnable = false;
+            this.EraseMeBtn.Size = new System.Drawing.Size(282, 36);
+            this.EraseMeBtn.TabIndex = 34;
+            this.EraseMeBtn.Text = "Erase Memory";
+            this.EraseMeBtn.TextHover = null;
+            this.EraseMeBtn.UseDownPressEffectOnClick = false;
+            this.EraseMeBtn.UseRippleEffect = true;
+            this.EraseMeBtn.UseVisualStyleBackColor = false;
+            this.EraseMeBtn.UseZoomEffectOnHover = false;
+            this.EraseMeBtn.Click += new System.EventHandler(this.EraseMeBtn_Click);
+            // 
+            // Flash
+            // 
+            this.Flash.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Flash.BackColorAdditional = System.Drawing.Color.Gray;
+            this.Flash.BackColorGradientEnabled = false;
+            this.Flash.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.Flash.BorderColor = System.Drawing.Color.Tomato;
+            this.Flash.BorderColorEnabled = false;
+            this.Flash.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.Flash.BorderColorOnHoverEnabled = false;
+            this.Flash.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Flash.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Flash.ForeColor = System.Drawing.Color.White;
+            this.Flash.Location = new System.Drawing.Point(7, 21);
+            this.Flash.Name = "Flash";
+            this.Flash.RippleColor = System.Drawing.Color.Black;
+            this.Flash.RoundingEnable = false;
+            this.Flash.Size = new System.Drawing.Size(282, 40);
+            this.Flash.TabIndex = 33;
+            this.Flash.Text = "Flash Firmware";
+            this.Flash.TextHover = null;
+            this.Flash.UseDownPressEffectOnClick = false;
+            this.Flash.UseRippleEffect = true;
+            this.Flash.UseVisualStyleBackColor = false;
+            this.Flash.UseZoomEffectOnHover = false;
+            this.Flash.Click += new System.EventHandler(this.Flash_Click);
+            // 
+            // DUMPALL
+            // 
+            this.DUMPALL.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.DUMPALL.BackColorAdditional = System.Drawing.Color.Gray;
+            this.DUMPALL.BackColorGradientEnabled = false;
+            this.DUMPALL.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.DUMPALL.BorderColor = System.Drawing.Color.Tomato;
+            this.DUMPALL.BorderColorEnabled = false;
+            this.DUMPALL.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.DUMPALL.BorderColorOnHoverEnabled = false;
+            this.DUMPALL.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.DUMPALL.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DUMPALL.ForeColor = System.Drawing.Color.White;
+            this.DUMPALL.Location = new System.Drawing.Point(7, 67);
+            this.DUMPALL.Name = "DUMPALL";
+            this.DUMPALL.RippleColor = System.Drawing.Color.Black;
+            this.DUMPALL.RoundingEnable = false;
+            this.DUMPALL.Size = new System.Drawing.Size(282, 40);
+            this.DUMPALL.TabIndex = 32;
+            this.DUMPALL.Text = "Dump Firmware";
+            this.DUMPALL.TextHover = null;
+            this.DUMPALL.UseDownPressEffectOnClick = false;
+            this.DUMPALL.UseRippleEffect = true;
+            this.DUMPALL.UseVisualStyleBackColor = false;
+            this.DUMPALL.UseZoomEffectOnHover = false;
+            this.DUMPALL.Click += new System.EventHandler(this.DumpALL_CLK);
             // 
             // Board
             // 
@@ -461,6 +697,114 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Manufacture";
             // 
+            // FrBTN
+            // 
+            this.FrBTN.BackColor = System.Drawing.Color.CadetBlue;
+            this.FrBTN.BackColorAdditional = System.Drawing.Color.Gray;
+            this.FrBTN.BackColorGradientEnabled = false;
+            this.FrBTN.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.FrBTN.BorderColor = System.Drawing.Color.Tomato;
+            this.FrBTN.BorderColorEnabled = false;
+            this.FrBTN.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.FrBTN.BorderColorOnHoverEnabled = false;
+            this.FrBTN.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FrBTN.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FrBTN.ForeColor = System.Drawing.Color.White;
+            this.FrBTN.Location = new System.Drawing.Point(6, 117);
+            this.FrBTN.Name = "FrBTN";
+            this.FrBTN.RippleColor = System.Drawing.Color.Black;
+            this.FrBTN.RoundingEnable = false;
+            this.FrBTN.Size = new System.Drawing.Size(336, 37);
+            this.FrBTN.TabIndex = 17;
+            this.FrBTN.Text = "Factory Reset";
+            this.FrBTN.TextHover = null;
+            this.FrBTN.UseDownPressEffectOnClick = false;
+            this.FrBTN.UseRippleEffect = true;
+            this.FrBTN.UseVisualStyleBackColor = false;
+            this.FrBTN.UseZoomEffectOnHover = false;
+            this.FrBTN.Click += new System.EventHandler(this.FrBTN_Click);
+            // 
+            // RDinf
+            // 
+            this.RDinf.BackColor = System.Drawing.Color.CadetBlue;
+            this.RDinf.BackColorAdditional = System.Drawing.Color.Gray;
+            this.RDinf.BackColorGradientEnabled = false;
+            this.RDinf.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.RDinf.BorderColor = System.Drawing.Color.Tomato;
+            this.RDinf.BorderColorEnabled = false;
+            this.RDinf.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.RDinf.BorderColorOnHoverEnabled = false;
+            this.RDinf.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RDinf.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RDinf.ForeColor = System.Drawing.Color.White;
+            this.RDinf.Location = new System.Drawing.Point(6, 24);
+            this.RDinf.Name = "RDinf";
+            this.RDinf.RippleColor = System.Drawing.Color.Black;
+            this.RDinf.RoundingEnable = false;
+            this.RDinf.Size = new System.Drawing.Size(337, 42);
+            this.RDinf.TabIndex = 13;
+            this.RDinf.Text = "Read Info Manufacture!";
+            this.RDinf.TextHover = null;
+            this.RDinf.UseDownPressEffectOnClick = false;
+            this.RDinf.UseRippleEffect = true;
+            this.RDinf.UseVisualStyleBackColor = false;
+            this.RDinf.UseZoomEffectOnHover = false;
+            this.RDinf.Click += new System.EventHandler(this.ReadINFOdiag_Click);
+            // 
+            // ReBbtn
+            // 
+            this.ReBbtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.ReBbtn.BackColorAdditional = System.Drawing.Color.Gray;
+            this.ReBbtn.BackColorGradientEnabled = false;
+            this.ReBbtn.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.ReBbtn.BorderColor = System.Drawing.Color.Tomato;
+            this.ReBbtn.BorderColorEnabled = false;
+            this.ReBbtn.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.ReBbtn.BorderColorOnHoverEnabled = false;
+            this.ReBbtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ReBbtn.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ReBbtn.ForeColor = System.Drawing.Color.White;
+            this.ReBbtn.Location = new System.Drawing.Point(177, 72);
+            this.ReBbtn.Name = "ReBbtn";
+            this.ReBbtn.RippleColor = System.Drawing.Color.Black;
+            this.ReBbtn.RoundingEnable = false;
+            this.ReBbtn.Size = new System.Drawing.Size(165, 39);
+            this.ReBbtn.TabIndex = 14;
+            this.ReBbtn.Text = "Reboot";
+            this.ReBbtn.TextHover = null;
+            this.ReBbtn.UseDownPressEffectOnClick = false;
+            this.ReBbtn.UseRippleEffect = true;
+            this.ReBbtn.UseVisualStyleBackColor = false;
+            this.ReBbtn.UseZoomEffectOnHover = false;
+            this.ReBbtn.Click += new System.EventHandler(this.RB_Click);
+            // 
+            // UpgradMDbtn
+            // 
+            this.UpgradMDbtn.BackColor = System.Drawing.Color.CadetBlue;
+            this.UpgradMDbtn.BackColorAdditional = System.Drawing.Color.Gray;
+            this.UpgradMDbtn.BackColorGradientEnabled = false;
+            this.UpgradMDbtn.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.UpgradMDbtn.BorderColor = System.Drawing.Color.Tomato;
+            this.UpgradMDbtn.BorderColorEnabled = false;
+            this.UpgradMDbtn.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.UpgradMDbtn.BorderColorOnHoverEnabled = false;
+            this.UpgradMDbtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.UpgradMDbtn.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.UpgradMDbtn.ForeColor = System.Drawing.Color.White;
+            this.UpgradMDbtn.Location = new System.Drawing.Point(6, 72);
+            this.UpgradMDbtn.Name = "UpgradMDbtn";
+            this.UpgradMDbtn.RippleColor = System.Drawing.Color.Black;
+            this.UpgradMDbtn.RoundingEnable = false;
+            this.UpgradMDbtn.Size = new System.Drawing.Size(166, 39);
+            this.UpgradMDbtn.TabIndex = 15;
+            this.UpgradMDbtn.Text = "Upgrade Mode";
+            this.UpgradMDbtn.TextHover = null;
+            this.UpgradMDbtn.UseDownPressEffectOnClick = false;
+            this.UpgradMDbtn.UseRippleEffect = true;
+            this.UpgradMDbtn.UseVisualStyleBackColor = false;
+            this.UpgradMDbtn.UseZoomEffectOnHover = false;
+            this.UpgradMDbtn.Click += new System.EventHandler(this.RecoveryBTN_Click);
+            // 
             // ACTBOX
             // 
             this.ACTBOX.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
@@ -475,6 +819,90 @@
             this.ACTBOX.TabIndex = 20;
             this.ACTBOX.TabStop = false;
             this.ACTBOX.Text = "Action";
+            // 
+            // UnlockFrp
+            // 
+            this.UnlockFrp.BackColor = System.Drawing.Color.Tomato;
+            this.UnlockFrp.BackColorAdditional = System.Drawing.Color.Gray;
+            this.UnlockFrp.BackColorGradientEnabled = false;
+            this.UnlockFrp.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.UnlockFrp.BorderColor = System.Drawing.Color.Tomato;
+            this.UnlockFrp.BorderColorEnabled = false;
+            this.UnlockFrp.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.UnlockFrp.BorderColorOnHoverEnabled = false;
+            this.UnlockFrp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.UnlockFrp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.UnlockFrp.ForeColor = System.Drawing.Color.White;
+            this.UnlockFrp.Location = new System.Drawing.Point(6, 104);
+            this.UnlockFrp.Margin = new System.Windows.Forms.Padding(2);
+            this.UnlockFrp.Name = "UnlockFrp";
+            this.UnlockFrp.RippleColor = System.Drawing.Color.Black;
+            this.UnlockFrp.RoundingEnable = false;
+            this.UnlockFrp.Size = new System.Drawing.Size(337, 39);
+            this.UnlockFrp.TabIndex = 21;
+            this.UnlockFrp.Text = "Unlock FRP";
+            this.UnlockFrp.TextHover = null;
+            this.UnlockFrp.UseDownPressEffectOnClick = false;
+            this.UnlockFrp.UseRippleEffect = true;
+            this.UnlockFrp.UseVisualStyleBackColor = false;
+            this.UnlockFrp.UseZoomEffectOnHover = false;
+            this.UnlockFrp.Click += new System.EventHandler(this.UnlockFrp_Click);
+            // 
+            // EraseDA
+            // 
+            this.EraseDA.BackColor = System.Drawing.Color.Tomato;
+            this.EraseDA.BackColorAdditional = System.Drawing.Color.Gray;
+            this.EraseDA.BackColorGradientEnabled = false;
+            this.EraseDA.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.EraseDA.BorderColor = System.Drawing.Color.Tomato;
+            this.EraseDA.BorderColorEnabled = false;
+            this.EraseDA.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.EraseDA.BorderColorOnHoverEnabled = false;
+            this.EraseDA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EraseDA.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.EraseDA.ForeColor = System.Drawing.Color.White;
+            this.EraseDA.Location = new System.Drawing.Point(6, 61);
+            this.EraseDA.Margin = new System.Windows.Forms.Padding(2);
+            this.EraseDA.Name = "EraseDA";
+            this.EraseDA.RippleColor = System.Drawing.Color.Black;
+            this.EraseDA.RoundingEnable = false;
+            this.EraseDA.Size = new System.Drawing.Size(337, 39);
+            this.EraseDA.TabIndex = 22;
+            this.EraseDA.Text = "Erase UserData";
+            this.EraseDA.TextHover = null;
+            this.EraseDA.UseDownPressEffectOnClick = false;
+            this.EraseDA.UseRippleEffect = true;
+            this.EraseDA.UseVisualStyleBackColor = false;
+            this.EraseDA.UseZoomEffectOnHover = false;
+            this.EraseDA.Click += new System.EventHandler(this.EraseDA_Click);
+            // 
+            // BoardU
+            // 
+            this.BoardU.BackColor = System.Drawing.Color.Tomato;
+            this.BoardU.BackColorAdditional = System.Drawing.Color.Gray;
+            this.BoardU.BackColorGradientEnabled = false;
+            this.BoardU.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.BoardU.BorderColor = System.Drawing.Color.Tomato;
+            this.BoardU.BorderColorEnabled = false;
+            this.BoardU.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.BoardU.BorderColorOnHoverEnabled = false;
+            this.BoardU.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BoardU.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.BoardU.ForeColor = System.Drawing.Color.White;
+            this.BoardU.Location = new System.Drawing.Point(6, 20);
+            this.BoardU.Margin = new System.Windows.Forms.Padding(2);
+            this.BoardU.Name = "BoardU";
+            this.BoardU.RippleColor = System.Drawing.Color.Beige;
+            this.BoardU.RoundingEnable = false;
+            this.BoardU.Size = new System.Drawing.Size(337, 37);
+            this.BoardU.TabIndex = 17;
+            this.BoardU.Text = "Translation UNL";
+            this.BoardU.TextHover = null;
+            this.BoardU.UseDownPressEffectOnClick = false;
+            this.BoardU.UseRippleEffect = true;
+            this.BoardU.UseVisualStyleBackColor = false;
+            this.BoardU.UseZoomEffectOnHover = false;
+            this.BoardU.Click += new System.EventHandler(this.UNLBTN_Click);
             // 
             // SLDEV
             // 
@@ -687,6 +1115,34 @@
             this.QCOM2.TabIndex = 0;
             this.QCOM2.Text = "QCOM_Partitions";
             // 
+            // RdGPT
+            // 
+            this.RdGPT.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.RdGPT.BackColorAdditional = System.Drawing.Color.Gray;
+            this.RdGPT.BackColorGradientEnabled = false;
+            this.RdGPT.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.RdGPT.BorderColor = System.Drawing.Color.Tomato;
+            this.RdGPT.BorderColorEnabled = false;
+            this.RdGPT.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.RdGPT.BorderColorOnHoverEnabled = false;
+            this.RdGPT.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RdGPT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RdGPT.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RdGPT.ForeColor = System.Drawing.Color.White;
+            this.RdGPT.Location = new System.Drawing.Point(7, 266);
+            this.RdGPT.Name = "RdGPT";
+            this.RdGPT.RippleColor = System.Drawing.Color.Black;
+            this.RdGPT.RoundingEnable = false;
+            this.RdGPT.Size = new System.Drawing.Size(657, 42);
+            this.RdGPT.TabIndex = 3;
+            this.RdGPT.Text = "Read GPT";
+            this.RdGPT.TextHover = null;
+            this.RdGPT.UseDownPressEffectOnClick = false;
+            this.RdGPT.UseRippleEffect = true;
+            this.RdGPT.UseVisualStyleBackColor = false;
+            this.RdGPT.UseZoomEffectOnHover = false;
+            this.RdGPT.Click += new System.EventHandler(this.RdGPT_Click);
+            // 
             // WHAT
             // 
             this.WHAT.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
@@ -772,40 +1228,40 @@
             this.PARTLIST.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.PARTLIST.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.Menu;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.Menu;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.PARTLIST.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PARTLIST.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.P,
             this.O,
             this.L});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Snow;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle11;
             this.PARTLIST.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ImeMode = System.Windows.Forms.ImeMode.Close;
             this.PARTLIST.Location = new System.Drawing.Point(-2, -2);
             this.PARTLIST.Name = "PARTLIST";
             this.PARTLIST.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.PARTLIST.RowHeadersVisible = false;
             this.PARTLIST.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.PARTLIST.RowTemplate.ReadOnly = true;
@@ -979,6 +1435,60 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Action";
             // 
+            // UNLOCKHISI
+            // 
+            this.UNLOCKHISI.BackColor = System.Drawing.Color.BlueViolet;
+            this.UNLOCKHISI.BackColorAdditional = System.Drawing.Color.Gray;
+            this.UNLOCKHISI.BackColorGradientEnabled = false;
+            this.UNLOCKHISI.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.UNLOCKHISI.BorderColor = System.Drawing.Color.Tomato;
+            this.UNLOCKHISI.BorderColorEnabled = false;
+            this.UNLOCKHISI.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.UNLOCKHISI.BorderColorOnHoverEnabled = false;
+            this.UNLOCKHISI.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.UNLOCKHISI.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.UNLOCKHISI.ForeColor = System.Drawing.Color.White;
+            this.UNLOCKHISI.Location = new System.Drawing.Point(6, 215);
+            this.UNLOCKHISI.Name = "UNLOCKHISI";
+            this.UNLOCKHISI.RippleColor = System.Drawing.Color.Black;
+            this.UNLOCKHISI.RoundingEnable = false;
+            this.UNLOCKHISI.Size = new System.Drawing.Size(343, 28);
+            this.UNLOCKHISI.TabIndex = 23;
+            this.UNLOCKHISI.Text = "Unlock Device";
+            this.UNLOCKHISI.TextHover = null;
+            this.UNLOCKHISI.UseDownPressEffectOnClick = false;
+            this.UNLOCKHISI.UseRippleEffect = true;
+            this.UNLOCKHISI.UseVisualStyleBackColor = false;
+            this.UNLOCKHISI.UseZoomEffectOnHover = false;
+            this.UNLOCKHISI.Click += new System.EventHandler(this.UNLOCKHISI_Click);
+            // 
+            // HISI_board_FB
+            // 
+            this.HISI_board_FB.BackColor = System.Drawing.Color.CadetBlue;
+            this.HISI_board_FB.BackColorAdditional = System.Drawing.Color.Gray;
+            this.HISI_board_FB.BackColorGradientEnabled = false;
+            this.HISI_board_FB.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.HISI_board_FB.BorderColor = System.Drawing.Color.Tomato;
+            this.HISI_board_FB.BorderColorEnabled = false;
+            this.HISI_board_FB.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.HISI_board_FB.BorderColorOnHoverEnabled = false;
+            this.HISI_board_FB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.HISI_board_FB.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.HISI_board_FB.ForeColor = System.Drawing.Color.White;
+            this.HISI_board_FB.Location = new System.Drawing.Point(6, 59);
+            this.HISI_board_FB.Name = "HISI_board_FB";
+            this.HISI_board_FB.RippleColor = System.Drawing.Color.Black;
+            this.HISI_board_FB.RoundingEnable = false;
+            this.HISI_board_FB.Size = new System.Drawing.Size(343, 35);
+            this.HISI_board_FB.TabIndex = 21;
+            this.HISI_board_FB.Text = "Write Key (FASTBOOT)";
+            this.HISI_board_FB.TextHover = null;
+            this.HISI_board_FB.UseDownPressEffectOnClick = false;
+            this.HISI_board_FB.UseRippleEffect = true;
+            this.HISI_board_FB.UseVisualStyleBackColor = false;
+            this.HISI_board_FB.UseZoomEffectOnHover = false;
+            this.HISI_board_FB.Click += new System.EventHandler(this.HISI_board_FB_Click);
+            // 
             // EnDisFBLOCK
             // 
             this.EnDisFBLOCK.AutoSize = true;
@@ -990,6 +1500,60 @@
             this.EnDisFBLOCK.TabIndex = 20;
             this.EnDisFBLOCK.Text = "FBLOCK";
             this.EnDisFBLOCK.UseVisualStyleBackColor = true;
+            // 
+            // FBLstHISI
+            // 
+            this.FBLstHISI.BackColor = System.Drawing.Color.BlueViolet;
+            this.FBLstHISI.BackColorAdditional = System.Drawing.Color.Gray;
+            this.FBLstHISI.BackColorGradientEnabled = false;
+            this.FBLstHISI.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.FBLstHISI.BorderColor = System.Drawing.Color.Tomato;
+            this.FBLstHISI.BorderColorEnabled = false;
+            this.FBLstHISI.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.FBLstHISI.BorderColorOnHoverEnabled = false;
+            this.FBLstHISI.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FBLstHISI.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FBLstHISI.ForeColor = System.Drawing.Color.White;
+            this.FBLstHISI.Location = new System.Drawing.Point(6, 249);
+            this.FBLstHISI.Name = "FBLstHISI";
+            this.FBLstHISI.RippleColor = System.Drawing.Color.Black;
+            this.FBLstHISI.RoundingEnable = false;
+            this.FBLstHISI.Size = new System.Drawing.Size(343, 28);
+            this.FBLstHISI.TabIndex = 19;
+            this.FBLstHISI.Text = "Write FBLOCK STATE";
+            this.FBLstHISI.TextHover = null;
+            this.FBLstHISI.UseDownPressEffectOnClick = false;
+            this.FBLstHISI.UseRippleEffect = true;
+            this.FBLstHISI.UseVisualStyleBackColor = false;
+            this.FBLstHISI.UseZoomEffectOnHover = false;
+            this.FBLstHISI.Click += new System.EventHandler(this.FBLstHISI_Click);
+            // 
+            // RdHISIinfo
+            // 
+            this.RdHISIinfo.BackColor = System.Drawing.Color.CadetBlue;
+            this.RdHISIinfo.BackColorAdditional = System.Drawing.Color.Gray;
+            this.RdHISIinfo.BackColorGradientEnabled = false;
+            this.RdHISIinfo.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.RdHISIinfo.BorderColor = System.Drawing.Color.Tomato;
+            this.RdHISIinfo.BorderColorEnabled = false;
+            this.RdHISIinfo.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.RdHISIinfo.BorderColorOnHoverEnabled = false;
+            this.RdHISIinfo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RdHISIinfo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RdHISIinfo.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.RdHISIinfo.Location = new System.Drawing.Point(6, 18);
+            this.RdHISIinfo.Name = "RdHISIinfo";
+            this.RdHISIinfo.RippleColor = System.Drawing.Color.Black;
+            this.RdHISIinfo.RoundingEnable = false;
+            this.RdHISIinfo.Size = new System.Drawing.Size(343, 35);
+            this.RdHISIinfo.TabIndex = 15;
+            this.RdHISIinfo.Text = "Read Info (FASTBOOT)";
+            this.RdHISIinfo.TextHover = null;
+            this.RdHISIinfo.UseDownPressEffectOnClick = false;
+            this.RdHISIinfo.UseRippleEffect = true;
+            this.RdHISIinfo.UseVisualStyleBackColor = false;
+            this.RdHISIinfo.UseZoomEffectOnHover = false;
+            this.RdHISIinfo.Click += new System.EventHandler(this.RdHISIinfo_Click);
             // 
             // isVCOM
             // 
@@ -1366,16 +1930,6 @@
             this.BURGBTN.UseVisualStyleBackColor = false;
             this.BURGBTN.Click += new System.EventHandler(this.BURGBTN_Click);
             // 
-            // PatXm
-            // 
-            this.PatXm.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.PatXm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PatXm.Location = new System.Drawing.Point(6, 114);
-            this.PatXm.Margin = new System.Windows.Forms.Padding(2);
-            this.PatXm.Name = "PatXm";
-            this.PatXm.Size = new System.Drawing.Size(270, 22);
-            this.PatXm.TabIndex = 30;
-            // 
             // PGG
             // 
             this.PGG.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
@@ -1392,559 +1946,6 @@
             this.PGG.Value = 0;
             this.PGG.ValueMaximum = 100;
             this.PGG.ValueMinimum = 0;
-            // 
-            // SelLanguage
-            // 
-            this.SelLanguage.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.SelLanguage.BackColorAdditional = System.Drawing.Color.Gray;
-            this.SelLanguage.BackColorGradientEnabled = false;
-            this.SelLanguage.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.SelLanguage.BorderColor = System.Drawing.Color.Tomato;
-            this.SelLanguage.BorderColorEnabled = false;
-            this.SelLanguage.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.SelLanguage.BorderColorOnHoverEnabled = false;
-            this.SelLanguage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SelLanguage.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SelLanguage.ForeColor = System.Drawing.Color.White;
-            this.SelLanguage.Location = new System.Drawing.Point(5, 52);
-            this.SelLanguage.Margin = new System.Windows.Forms.Padding(2);
-            this.SelLanguage.Name = "SelLanguage";
-            this.SelLanguage.RippleColor = System.Drawing.Color.Black;
-            this.SelLanguage.RoundingEnable = false;
-            this.SelLanguage.Size = new System.Drawing.Size(207, 34);
-            this.SelLanguage.TabIndex = 32;
-            this.SelLanguage.Text = "Apply";
-            this.SelLanguage.TextHover = null;
-            this.SelLanguage.UseDownPressEffectOnClick = false;
-            this.SelLanguage.UseRippleEffect = true;
-            this.SelLanguage.UseVisualStyleBackColor = false;
-            this.SelLanguage.UseZoomEffectOnHover = false;
-            this.SelLanguage.Click += new System.EventHandler(this.SelLanguage_Click);
-            // 
-            // SelectLOADER
-            // 
-            this.SelectLOADER.AutoSize = true;
-            this.SelectLOADER.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.SelectLOADER.BackColorAdditional = System.Drawing.Color.Gray;
-            this.SelectLOADER.BackColorGradientEnabled = false;
-            this.SelectLOADER.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.SelectLOADER.BorderColor = System.Drawing.Color.Tomato;
-            this.SelectLOADER.BorderColorEnabled = false;
-            this.SelectLOADER.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.SelectLOADER.BorderColorOnHoverEnabled = false;
-            this.SelectLOADER.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.SelectLOADER.Enabled = false;
-            this.SelectLOADER.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SelectLOADER.ForeColor = System.Drawing.Color.White;
-            this.SelectLOADER.Location = new System.Drawing.Point(5, 72);
-            this.SelectLOADER.Margin = new System.Windows.Forms.Padding(2);
-            this.SelectLOADER.Name = "SelectLOADER";
-            this.SelectLOADER.RippleColor = System.Drawing.Color.Black;
-            this.SelectLOADER.RoundingEnable = false;
-            this.SelectLOADER.Size = new System.Drawing.Size(429, 37);
-            this.SelectLOADER.TabIndex = 30;
-            this.SelectLOADER.Text = "Select";
-            this.SelectLOADER.TextHover = null;
-            this.SelectLOADER.UseDownPressEffectOnClick = false;
-            this.SelectLOADER.UseRippleEffect = true;
-            this.SelectLOADER.UseVisualStyleBackColor = false;
-            this.SelectLOADER.UseZoomEffectOnHover = false;
-            this.SelectLOADER.Click += new System.EventHandler(this.LOADER_PATH);
-            // 
-            // nButton2
-            // 
-            this.nButton2.AutoSize = true;
-            this.nButton2.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.nButton2.BackColorAdditional = System.Drawing.Color.Gray;
-            this.nButton2.BackColorGradientEnabled = false;
-            this.nButton2.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.nButton2.BorderColor = System.Drawing.Color.Tomato;
-            this.nButton2.BorderColorEnabled = false;
-            this.nButton2.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.nButton2.BorderColorOnHoverEnabled = false;
-            this.nButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.nButton2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nButton2.ForeColor = System.Drawing.Color.White;
-            this.nButton2.Location = new System.Drawing.Point(280, 112);
-            this.nButton2.Margin = new System.Windows.Forms.Padding(2);
-            this.nButton2.Name = "nButton2";
-            this.nButton2.RippleColor = System.Drawing.Color.Black;
-            this.nButton2.RoundingEnable = false;
-            this.nButton2.Size = new System.Drawing.Size(65, 25);
-            this.nButton2.TabIndex = 31;
-            this.nButton2.Text = "Select";
-            this.nButton2.TextHover = null;
-            this.nButton2.UseDownPressEffectOnClick = false;
-            this.nButton2.UseRippleEffect = true;
-            this.nButton2.UseVisualStyleBackColor = false;
-            this.nButton2.UseZoomEffectOnHover = false;
-            this.nButton2.Click += new System.EventHandler(this.nButton2_Click);
-            // 
-            // Selecty2
-            // 
-            this.Selecty2.AutoSize = true;
-            this.Selecty2.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.Selecty2.BackColorAdditional = System.Drawing.Color.Gray;
-            this.Selecty2.BackColorGradientEnabled = false;
-            this.Selecty2.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.Selecty2.BorderColor = System.Drawing.Color.Tomato;
-            this.Selecty2.BorderColorEnabled = false;
-            this.Selecty2.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.Selecty2.BorderColorOnHoverEnabled = false;
-            this.Selecty2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Selecty2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Selecty2.ForeColor = System.Drawing.Color.White;
-            this.Selecty2.Location = new System.Drawing.Point(280, 83);
-            this.Selecty2.Margin = new System.Windows.Forms.Padding(2);
-            this.Selecty2.Name = "Selecty2";
-            this.Selecty2.RippleColor = System.Drawing.Color.Black;
-            this.Selecty2.RoundingEnable = false;
-            this.Selecty2.Size = new System.Drawing.Size(65, 25);
-            this.Selecty2.TabIndex = 29;
-            this.Selecty2.Text = "Select";
-            this.Selecty2.TextHover = null;
-            this.Selecty2.UseDownPressEffectOnClick = false;
-            this.Selecty2.UseRippleEffect = true;
-            this.Selecty2.UseVisualStyleBackColor = false;
-            this.Selecty2.UseZoomEffectOnHover = false;
-            this.Selecty2.Click += new System.EventHandler(this.XML_PATH);
-            // 
-            // Selecty3
-            // 
-            this.Selecty3.AutoSize = true;
-            this.Selecty3.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.Selecty3.BackColorAdditional = System.Drawing.Color.Gray;
-            this.Selecty3.BackColorGradientEnabled = false;
-            this.Selecty3.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.Selecty3.BorderColor = System.Drawing.Color.Tomato;
-            this.Selecty3.BorderColorEnabled = false;
-            this.Selecty3.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.Selecty3.BorderColorOnHoverEnabled = false;
-            this.Selecty3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Selecty3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Selecty3.ForeColor = System.Drawing.Color.White;
-            this.Selecty3.Location = new System.Drawing.Point(280, 26);
-            this.Selecty3.Margin = new System.Windows.Forms.Padding(2);
-            this.Selecty3.Name = "Selecty3";
-            this.Selecty3.RippleColor = System.Drawing.Color.Black;
-            this.Selecty3.RoundingEnable = false;
-            this.Selecty3.Size = new System.Drawing.Size(65, 25);
-            this.Selecty3.TabIndex = 28;
-            this.Selecty3.Text = "Select";
-            this.Selecty3.TextHover = null;
-            this.Selecty3.UseDownPressEffectOnClick = false;
-            this.Selecty3.UseRippleEffect = true;
-            this.Selecty3.UseVisualStyleBackColor = false;
-            this.Selecty3.UseZoomEffectOnHover = false;
-            this.Selecty3.Click += new System.EventHandler(this.PATHTOFIRMWARE_Clck);
-            // 
-            // ReadxmlBtn
-            // 
-            this.ReadxmlBtn.BackColor = System.Drawing.Color.Tomato;
-            this.ReadxmlBtn.BackColorAdditional = System.Drawing.Color.Gray;
-            this.ReadxmlBtn.BackColorGradientEnabled = false;
-            this.ReadxmlBtn.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.ReadxmlBtn.BorderColor = System.Drawing.Color.Tomato;
-            this.ReadxmlBtn.BorderColorEnabled = false;
-            this.ReadxmlBtn.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.ReadxmlBtn.BorderColorOnHoverEnabled = false;
-            this.ReadxmlBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ReadxmlBtn.Enabled = false;
-            this.ReadxmlBtn.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ReadxmlBtn.ForeColor = System.Drawing.Color.White;
-            this.ReadxmlBtn.Location = new System.Drawing.Point(7, 113);
-            this.ReadxmlBtn.Name = "ReadxmlBtn";
-            this.ReadxmlBtn.RippleColor = System.Drawing.Color.Black;
-            this.ReadxmlBtn.RoundingEnable = false;
-            this.ReadxmlBtn.Size = new System.Drawing.Size(282, 36);
-            this.ReadxmlBtn.TabIndex = 34;
-            this.ReadxmlBtn.TextHover = null;
-            this.ReadxmlBtn.UseDownPressEffectOnClick = false;
-            this.ReadxmlBtn.UseRippleEffect = true;
-            this.ReadxmlBtn.UseVisualStyleBackColor = false;
-            this.ReadxmlBtn.UseZoomEffectOnHover = false;
-            // 
-            // Flash
-            // 
-            this.Flash.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.Flash.BackColorAdditional = System.Drawing.Color.Gray;
-            this.Flash.BackColorGradientEnabled = false;
-            this.Flash.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.Flash.BorderColor = System.Drawing.Color.Tomato;
-            this.Flash.BorderColorEnabled = false;
-            this.Flash.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.Flash.BorderColorOnHoverEnabled = false;
-            this.Flash.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Flash.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Flash.ForeColor = System.Drawing.Color.White;
-            this.Flash.Location = new System.Drawing.Point(7, 21);
-            this.Flash.Name = "Flash";
-            this.Flash.RippleColor = System.Drawing.Color.Black;
-            this.Flash.RoundingEnable = false;
-            this.Flash.Size = new System.Drawing.Size(282, 40);
-            this.Flash.TabIndex = 33;
-            this.Flash.Text = "Flash Firmware";
-            this.Flash.TextHover = null;
-            this.Flash.UseDownPressEffectOnClick = false;
-            this.Flash.UseRippleEffect = true;
-            this.Flash.UseVisualStyleBackColor = false;
-            this.Flash.UseZoomEffectOnHover = false;
-            this.Flash.Click += new System.EventHandler(this.Flash_Click);
-            // 
-            // DUMPALL
-            // 
-            this.DUMPALL.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.DUMPALL.BackColorAdditional = System.Drawing.Color.Gray;
-            this.DUMPALL.BackColorGradientEnabled = false;
-            this.DUMPALL.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.DUMPALL.BorderColor = System.Drawing.Color.Tomato;
-            this.DUMPALL.BorderColorEnabled = false;
-            this.DUMPALL.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.DUMPALL.BorderColorOnHoverEnabled = false;
-            this.DUMPALL.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DUMPALL.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DUMPALL.ForeColor = System.Drawing.Color.White;
-            this.DUMPALL.Location = new System.Drawing.Point(7, 67);
-            this.DUMPALL.Name = "DUMPALL";
-            this.DUMPALL.RippleColor = System.Drawing.Color.Black;
-            this.DUMPALL.RoundingEnable = false;
-            this.DUMPALL.Size = new System.Drawing.Size(282, 40);
-            this.DUMPALL.TabIndex = 32;
-            this.DUMPALL.Text = "Dump Firmware";
-            this.DUMPALL.TextHover = null;
-            this.DUMPALL.UseDownPressEffectOnClick = false;
-            this.DUMPALL.UseRippleEffect = true;
-            this.DUMPALL.UseVisualStyleBackColor = false;
-            this.DUMPALL.UseZoomEffectOnHover = false;
-            this.DUMPALL.Click += new System.EventHandler(this.DumpALL_CLK);
-            // 
-            // FrBTN
-            // 
-            this.FrBTN.BackColor = System.Drawing.Color.CadetBlue;
-            this.FrBTN.BackColorAdditional = System.Drawing.Color.Gray;
-            this.FrBTN.BackColorGradientEnabled = false;
-            this.FrBTN.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.FrBTN.BorderColor = System.Drawing.Color.Tomato;
-            this.FrBTN.BorderColorEnabled = false;
-            this.FrBTN.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.FrBTN.BorderColorOnHoverEnabled = false;
-            this.FrBTN.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FrBTN.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FrBTN.ForeColor = System.Drawing.Color.White;
-            this.FrBTN.Location = new System.Drawing.Point(6, 117);
-            this.FrBTN.Name = "FrBTN";
-            this.FrBTN.RippleColor = System.Drawing.Color.Black;
-            this.FrBTN.RoundingEnable = false;
-            this.FrBTN.Size = new System.Drawing.Size(336, 37);
-            this.FrBTN.TabIndex = 17;
-            this.FrBTN.Text = "Factory Reset";
-            this.FrBTN.TextHover = null;
-            this.FrBTN.UseDownPressEffectOnClick = false;
-            this.FrBTN.UseRippleEffect = true;
-            this.FrBTN.UseVisualStyleBackColor = false;
-            this.FrBTN.UseZoomEffectOnHover = false;
-            this.FrBTN.Click += new System.EventHandler(this.FrBTN_Click);
-            // 
-            // RDinf
-            // 
-            this.RDinf.BackColor = System.Drawing.Color.CadetBlue;
-            this.RDinf.BackColorAdditional = System.Drawing.Color.Gray;
-            this.RDinf.BackColorGradientEnabled = false;
-            this.RDinf.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.RDinf.BorderColor = System.Drawing.Color.Tomato;
-            this.RDinf.BorderColorEnabled = false;
-            this.RDinf.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.RDinf.BorderColorOnHoverEnabled = false;
-            this.RDinf.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.RDinf.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RDinf.ForeColor = System.Drawing.Color.White;
-            this.RDinf.Location = new System.Drawing.Point(6, 24);
-            this.RDinf.Name = "RDinf";
-            this.RDinf.RippleColor = System.Drawing.Color.Black;
-            this.RDinf.RoundingEnable = false;
-            this.RDinf.Size = new System.Drawing.Size(337, 42);
-            this.RDinf.TabIndex = 13;
-            this.RDinf.Text = "Read Info Manufacture!";
-            this.RDinf.TextHover = null;
-            this.RDinf.UseDownPressEffectOnClick = false;
-            this.RDinf.UseRippleEffect = true;
-            this.RDinf.UseVisualStyleBackColor = false;
-            this.RDinf.UseZoomEffectOnHover = false;
-            this.RDinf.Click += new System.EventHandler(this.ReadINFOdiag_Click);
-            // 
-            // ReBbtn
-            // 
-            this.ReBbtn.BackColor = System.Drawing.Color.CadetBlue;
-            this.ReBbtn.BackColorAdditional = System.Drawing.Color.Gray;
-            this.ReBbtn.BackColorGradientEnabled = false;
-            this.ReBbtn.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.ReBbtn.BorderColor = System.Drawing.Color.Tomato;
-            this.ReBbtn.BorderColorEnabled = false;
-            this.ReBbtn.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.ReBbtn.BorderColorOnHoverEnabled = false;
-            this.ReBbtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ReBbtn.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ReBbtn.ForeColor = System.Drawing.Color.White;
-            this.ReBbtn.Location = new System.Drawing.Point(177, 72);
-            this.ReBbtn.Name = "ReBbtn";
-            this.ReBbtn.RippleColor = System.Drawing.Color.Black;
-            this.ReBbtn.RoundingEnable = false;
-            this.ReBbtn.Size = new System.Drawing.Size(165, 39);
-            this.ReBbtn.TabIndex = 14;
-            this.ReBbtn.Text = "Reboot";
-            this.ReBbtn.TextHover = null;
-            this.ReBbtn.UseDownPressEffectOnClick = false;
-            this.ReBbtn.UseRippleEffect = true;
-            this.ReBbtn.UseVisualStyleBackColor = false;
-            this.ReBbtn.UseZoomEffectOnHover = false;
-            this.ReBbtn.Click += new System.EventHandler(this.RB_Click);
-            // 
-            // UpgradMDbtn
-            // 
-            this.UpgradMDbtn.BackColor = System.Drawing.Color.CadetBlue;
-            this.UpgradMDbtn.BackColorAdditional = System.Drawing.Color.Gray;
-            this.UpgradMDbtn.BackColorGradientEnabled = false;
-            this.UpgradMDbtn.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.UpgradMDbtn.BorderColor = System.Drawing.Color.Tomato;
-            this.UpgradMDbtn.BorderColorEnabled = false;
-            this.UpgradMDbtn.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.UpgradMDbtn.BorderColorOnHoverEnabled = false;
-            this.UpgradMDbtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.UpgradMDbtn.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UpgradMDbtn.ForeColor = System.Drawing.Color.White;
-            this.UpgradMDbtn.Location = new System.Drawing.Point(6, 72);
-            this.UpgradMDbtn.Name = "UpgradMDbtn";
-            this.UpgradMDbtn.RippleColor = System.Drawing.Color.Black;
-            this.UpgradMDbtn.RoundingEnable = false;
-            this.UpgradMDbtn.Size = new System.Drawing.Size(166, 39);
-            this.UpgradMDbtn.TabIndex = 15;
-            this.UpgradMDbtn.Text = "Upgrade Mode";
-            this.UpgradMDbtn.TextHover = null;
-            this.UpgradMDbtn.UseDownPressEffectOnClick = false;
-            this.UpgradMDbtn.UseRippleEffect = true;
-            this.UpgradMDbtn.UseVisualStyleBackColor = false;
-            this.UpgradMDbtn.UseZoomEffectOnHover = false;
-            this.UpgradMDbtn.Click += new System.EventHandler(this.RecoveryBTN_Click);
-            // 
-            // UnlockFrp
-            // 
-            this.UnlockFrp.BackColor = System.Drawing.Color.Tomato;
-            this.UnlockFrp.BackColorAdditional = System.Drawing.Color.Gray;
-            this.UnlockFrp.BackColorGradientEnabled = false;
-            this.UnlockFrp.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.UnlockFrp.BorderColor = System.Drawing.Color.Tomato;
-            this.UnlockFrp.BorderColorEnabled = false;
-            this.UnlockFrp.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.UnlockFrp.BorderColorOnHoverEnabled = false;
-            this.UnlockFrp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.UnlockFrp.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UnlockFrp.ForeColor = System.Drawing.Color.White;
-            this.UnlockFrp.Location = new System.Drawing.Point(6, 104);
-            this.UnlockFrp.Margin = new System.Windows.Forms.Padding(2);
-            this.UnlockFrp.Name = "UnlockFrp";
-            this.UnlockFrp.RippleColor = System.Drawing.Color.Black;
-            this.UnlockFrp.RoundingEnable = false;
-            this.UnlockFrp.Size = new System.Drawing.Size(337, 39);
-            this.UnlockFrp.TabIndex = 21;
-            this.UnlockFrp.Text = "Unlock FRP";
-            this.UnlockFrp.TextHover = null;
-            this.UnlockFrp.UseDownPressEffectOnClick = false;
-            this.UnlockFrp.UseRippleEffect = true;
-            this.UnlockFrp.UseVisualStyleBackColor = false;
-            this.UnlockFrp.UseZoomEffectOnHover = false;
-            this.UnlockFrp.Click += new System.EventHandler(this.UnlockFrp_Click);
-            // 
-            // EraseDA
-            // 
-            this.EraseDA.BackColor = System.Drawing.Color.Tomato;
-            this.EraseDA.BackColorAdditional = System.Drawing.Color.Gray;
-            this.EraseDA.BackColorGradientEnabled = false;
-            this.EraseDA.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.EraseDA.BorderColor = System.Drawing.Color.Tomato;
-            this.EraseDA.BorderColorEnabled = false;
-            this.EraseDA.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.EraseDA.BorderColorOnHoverEnabled = false;
-            this.EraseDA.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.EraseDA.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.EraseDA.ForeColor = System.Drawing.Color.White;
-            this.EraseDA.Location = new System.Drawing.Point(6, 61);
-            this.EraseDA.Margin = new System.Windows.Forms.Padding(2);
-            this.EraseDA.Name = "EraseDA";
-            this.EraseDA.RippleColor = System.Drawing.Color.Black;
-            this.EraseDA.RoundingEnable = false;
-            this.EraseDA.Size = new System.Drawing.Size(337, 39);
-            this.EraseDA.TabIndex = 22;
-            this.EraseDA.Text = "Erase UserData";
-            this.EraseDA.TextHover = null;
-            this.EraseDA.UseDownPressEffectOnClick = false;
-            this.EraseDA.UseRippleEffect = true;
-            this.EraseDA.UseVisualStyleBackColor = false;
-            this.EraseDA.UseZoomEffectOnHover = false;
-            this.EraseDA.Click += new System.EventHandler(this.EraseDA_Click);
-            // 
-            // BoardU
-            // 
-            this.BoardU.BackColor = System.Drawing.Color.Tomato;
-            this.BoardU.BackColorAdditional = System.Drawing.Color.Gray;
-            this.BoardU.BackColorGradientEnabled = false;
-            this.BoardU.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.BoardU.BorderColor = System.Drawing.Color.Tomato;
-            this.BoardU.BorderColorEnabled = false;
-            this.BoardU.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.BoardU.BorderColorOnHoverEnabled = false;
-            this.BoardU.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BoardU.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.BoardU.ForeColor = System.Drawing.Color.White;
-            this.BoardU.Location = new System.Drawing.Point(6, 20);
-            this.BoardU.Margin = new System.Windows.Forms.Padding(2);
-            this.BoardU.Name = "BoardU";
-            this.BoardU.RippleColor = System.Drawing.Color.Beige;
-            this.BoardU.RoundingEnable = false;
-            this.BoardU.Size = new System.Drawing.Size(337, 37);
-            this.BoardU.TabIndex = 17;
-            this.BoardU.Text = "Translation UNL";
-            this.BoardU.TextHover = null;
-            this.BoardU.UseDownPressEffectOnClick = false;
-            this.BoardU.UseRippleEffect = true;
-            this.BoardU.UseVisualStyleBackColor = false;
-            this.BoardU.UseZoomEffectOnHover = false;
-            this.BoardU.Click += new System.EventHandler(this.UNLBTN_Click);
-            // 
-            // RdGPT
-            // 
-            this.RdGPT.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.RdGPT.BackColorAdditional = System.Drawing.Color.Gray;
-            this.RdGPT.BackColorGradientEnabled = false;
-            this.RdGPT.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.RdGPT.BorderColor = System.Drawing.Color.Tomato;
-            this.RdGPT.BorderColorEnabled = false;
-            this.RdGPT.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.RdGPT.BorderColorOnHoverEnabled = false;
-            this.RdGPT.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.RdGPT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RdGPT.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RdGPT.ForeColor = System.Drawing.Color.White;
-            this.RdGPT.Location = new System.Drawing.Point(7, 266);
-            this.RdGPT.Name = "RdGPT";
-            this.RdGPT.RippleColor = System.Drawing.Color.Black;
-            this.RdGPT.RoundingEnable = false;
-            this.RdGPT.Size = new System.Drawing.Size(657, 42);
-            this.RdGPT.TabIndex = 3;
-            this.RdGPT.Text = "Read GPT";
-            this.RdGPT.TextHover = null;
-            this.RdGPT.UseDownPressEffectOnClick = false;
-            this.RdGPT.UseRippleEffect = true;
-            this.RdGPT.UseVisualStyleBackColor = false;
-            this.RdGPT.UseZoomEffectOnHover = false;
-            this.RdGPT.Click += new System.EventHandler(this.RdGPT_Click);
-            // 
-            // UNLOCKHISI
-            // 
-            this.UNLOCKHISI.BackColor = System.Drawing.Color.BlueViolet;
-            this.UNLOCKHISI.BackColorAdditional = System.Drawing.Color.Gray;
-            this.UNLOCKHISI.BackColorGradientEnabled = false;
-            this.UNLOCKHISI.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.UNLOCKHISI.BorderColor = System.Drawing.Color.Tomato;
-            this.UNLOCKHISI.BorderColorEnabled = false;
-            this.UNLOCKHISI.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.UNLOCKHISI.BorderColorOnHoverEnabled = false;
-            this.UNLOCKHISI.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.UNLOCKHISI.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UNLOCKHISI.ForeColor = System.Drawing.Color.White;
-            this.UNLOCKHISI.Location = new System.Drawing.Point(6, 215);
-            this.UNLOCKHISI.Name = "UNLOCKHISI";
-            this.UNLOCKHISI.RippleColor = System.Drawing.Color.Black;
-            this.UNLOCKHISI.RoundingEnable = false;
-            this.UNLOCKHISI.Size = new System.Drawing.Size(343, 28);
-            this.UNLOCKHISI.TabIndex = 23;
-            this.UNLOCKHISI.Text = "Unlock Device";
-            this.UNLOCKHISI.TextHover = null;
-            this.UNLOCKHISI.UseDownPressEffectOnClick = false;
-            this.UNLOCKHISI.UseRippleEffect = true;
-            this.UNLOCKHISI.UseVisualStyleBackColor = false;
-            this.UNLOCKHISI.UseZoomEffectOnHover = false;
-            this.UNLOCKHISI.Click += new System.EventHandler(this.UNLOCKHISI_Click);
-            // 
-            // HISI_board_FB
-            // 
-            this.HISI_board_FB.BackColor = System.Drawing.Color.CadetBlue;
-            this.HISI_board_FB.BackColorAdditional = System.Drawing.Color.Gray;
-            this.HISI_board_FB.BackColorGradientEnabled = false;
-            this.HISI_board_FB.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.HISI_board_FB.BorderColor = System.Drawing.Color.Tomato;
-            this.HISI_board_FB.BorderColorEnabled = false;
-            this.HISI_board_FB.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.HISI_board_FB.BorderColorOnHoverEnabled = false;
-            this.HISI_board_FB.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.HISI_board_FB.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.HISI_board_FB.ForeColor = System.Drawing.Color.White;
-            this.HISI_board_FB.Location = new System.Drawing.Point(6, 59);
-            this.HISI_board_FB.Name = "HISI_board_FB";
-            this.HISI_board_FB.RippleColor = System.Drawing.Color.Black;
-            this.HISI_board_FB.RoundingEnable = false;
-            this.HISI_board_FB.Size = new System.Drawing.Size(343, 35);
-            this.HISI_board_FB.TabIndex = 21;
-            this.HISI_board_FB.Text = "Write Key (FASTBOOT)";
-            this.HISI_board_FB.TextHover = null;
-            this.HISI_board_FB.UseDownPressEffectOnClick = false;
-            this.HISI_board_FB.UseRippleEffect = true;
-            this.HISI_board_FB.UseVisualStyleBackColor = false;
-            this.HISI_board_FB.UseZoomEffectOnHover = false;
-            this.HISI_board_FB.Click += new System.EventHandler(this.HISI_board_FB_Click);
-            // 
-            // FBLstHISI
-            // 
-            this.FBLstHISI.BackColor = System.Drawing.Color.BlueViolet;
-            this.FBLstHISI.BackColorAdditional = System.Drawing.Color.Gray;
-            this.FBLstHISI.BackColorGradientEnabled = false;
-            this.FBLstHISI.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.FBLstHISI.BorderColor = System.Drawing.Color.Tomato;
-            this.FBLstHISI.BorderColorEnabled = false;
-            this.FBLstHISI.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.FBLstHISI.BorderColorOnHoverEnabled = false;
-            this.FBLstHISI.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FBLstHISI.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FBLstHISI.ForeColor = System.Drawing.Color.White;
-            this.FBLstHISI.Location = new System.Drawing.Point(6, 249);
-            this.FBLstHISI.Name = "FBLstHISI";
-            this.FBLstHISI.RippleColor = System.Drawing.Color.Black;
-            this.FBLstHISI.RoundingEnable = false;
-            this.FBLstHISI.Size = new System.Drawing.Size(343, 28);
-            this.FBLstHISI.TabIndex = 19;
-            this.FBLstHISI.Text = "Write FBLOCK STATE";
-            this.FBLstHISI.TextHover = null;
-            this.FBLstHISI.UseDownPressEffectOnClick = false;
-            this.FBLstHISI.UseRippleEffect = true;
-            this.FBLstHISI.UseVisualStyleBackColor = false;
-            this.FBLstHISI.UseZoomEffectOnHover = false;
-            this.FBLstHISI.Click += new System.EventHandler(this.FBLstHISI_Click);
-            // 
-            // RdHISIinfo
-            // 
-            this.RdHISIinfo.BackColor = System.Drawing.Color.CadetBlue;
-            this.RdHISIinfo.BackColorAdditional = System.Drawing.Color.Gray;
-            this.RdHISIinfo.BackColorGradientEnabled = false;
-            this.RdHISIinfo.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.RdHISIinfo.BorderColor = System.Drawing.Color.Tomato;
-            this.RdHISIinfo.BorderColorEnabled = false;
-            this.RdHISIinfo.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.RdHISIinfo.BorderColorOnHoverEnabled = false;
-            this.RdHISIinfo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.RdHISIinfo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RdHISIinfo.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.RdHISIinfo.Location = new System.Drawing.Point(6, 18);
-            this.RdHISIinfo.Name = "RdHISIinfo";
-            this.RdHISIinfo.RippleColor = System.Drawing.Color.Black;
-            this.RdHISIinfo.RoundingEnable = false;
-            this.RdHISIinfo.Size = new System.Drawing.Size(343, 35);
-            this.RdHISIinfo.TabIndex = 15;
-            this.RdHISIinfo.Text = "Read Info (FASTBOOT)";
-            this.RdHISIinfo.TextHover = null;
-            this.RdHISIinfo.UseDownPressEffectOnClick = false;
-            this.RdHISIinfo.UseRippleEffect = true;
-            this.RdHISIinfo.UseVisualStyleBackColor = false;
-            this.RdHISIinfo.UseZoomEffectOnHover = false;
-            this.RdHISIinfo.Click += new System.EventHandler(this.RdHISIinfo_Click);
             // 
             // Window
             // 
@@ -2090,7 +2091,7 @@
         private UI.NButton FrBTN;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label MacLBL;
-        private UI.NButton ReadxmlBtn;
+        private UI.NButton EraseMeBtn;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox AVERhi;

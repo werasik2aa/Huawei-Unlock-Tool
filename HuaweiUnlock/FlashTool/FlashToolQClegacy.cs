@@ -3,6 +3,8 @@ using static HuaweiUnlocker.LangProc;
 using System.Collections.Generic;
 using HuaweiUnlocker.DIAGNOS;
 using System.IO;
+using System.Security.AccessControl;
+using System.Windows.Shapes;
 
 namespace HuaweiUnlocker.FlashTool
 {
@@ -176,6 +178,24 @@ namespace HuaweiUnlocker.FlashTool
                     else LOG(I("IwRGPT"));
                 }
                 return AsyncRUN(command, subcommand);
+            }
+            catch (Exception e)
+            {
+                if (debug) LOG(e.ToString());
+                return false;
+            }
+        }
+        public static bool EraseMemory(string loader)
+        {
+            string command = "Tools\\fh_loader.exe";
+            string subcommand = "--port=\\\\.\\" + TxSide.ComName + " --erase=0 --noprompt --showpercentagecomplete --zlpawarehost=1 --memoryname=emmc";
+            if (debug) { LOG("===Flash Partitions XML===" + newline + newline + command + newline + subcommand); }
+            if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
+            try
+            {
+                progr.Value = 50;
+                LOG("Erasing MEMORY!!");
+                return SyncRUN(command, subcommand);
             }
             catch (Exception e)
             {

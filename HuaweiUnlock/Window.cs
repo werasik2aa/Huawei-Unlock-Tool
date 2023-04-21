@@ -12,7 +12,6 @@ using HuaweiUnlocker.DIAGNOS;
 using System.Linq;
 using HuaweiUnlocker.FlashTool;
 using HuaweiUnlocker.TOOLS;
-using System.Security.Policy;
 
 namespace HuaweiUnlocker
 {
@@ -109,6 +108,7 @@ namespace HuaweiUnlocker
             ReadLngFile();
             //QUALCOMM AND BASIC
             nButton2.Text = SelectLOADER.Text = Selecty2.Text = Selecty3.Text = L("SelBtn");
+            EraseMeBtn.Text = L("ErasePM");
             AutoXml.Text = AutoLdr.Text = L("AutoLBL"); ;
             Flash.Text = L("FlBtn");
             DUMPALL.Text = L("DuBtn");
@@ -157,7 +157,7 @@ namespace HuaweiUnlocker
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
             if (!Directory.Exists(Path)) BoardU.Text = L("DdBtn"); else BoardU.Text = L("DdBtnE");
             DBB.Text = LangProc.L("DebugLbl");
-            LOGGBOX.Text = "Version 12F BETA/n(C) MOONGAMER (QUALCOMM UNLOCKER)/n(C) MASHED-POTATOES (KIRIN UNLOCKER)".Replace("/n", Environment.NewLine);
+            LOGGBOX.Text = "Version 12.1F BETA/n(C) MOONGAMER (QUALCOMM UNLOCKER)/n(C) MASHED-POTATOES (KIRIN UNLOCKER)".Replace("/n", Environment.NewLine);
             LOG(I("SMAIN1"));
             LOG(I("SMAIN2"));
             LOG(I("SMAIN3"));
@@ -239,7 +239,7 @@ namespace HuaweiUnlocker
                         {
                             if (AutoXml.Checked && a.EndsWith(".xml"))
                             {
-                                if(a.Contains("rawprogram"))
+                                if (a.Contains("rawprogram"))
                                     Xm.Text = a;
                                 if (a.Contains("patch"))
                                     PatXm.Text = a;
@@ -332,7 +332,7 @@ namespace HuaweiUnlocker
         {
             TxSide = GETPORT("qdloader 9008");
             if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text)) return;
-            DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(L("AreY") + tempsel, "WARNING: CAN CAUSE DAMAGE", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(L("AreY") + tempsel, L("CZdmg2"), MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 if (Erase(tempsel, AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text))
@@ -856,6 +856,19 @@ namespace HuaweiUnlocker
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
             if (openFileDialog.ShowDialog() == DialogResult.OK) PrevFolder = PatXm.Text = openFileDialog.FileName;
+        }
+
+        private void EraseMeBtn_Click(object sender, EventArgs e)
+        {
+            TxSide = GETPORT("qdloader 9008");
+            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text)) return;
+            DialogResult dialogResult = MessageBox.Show(L("ERmINFO"), L("CZdmg"), MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+                if (EraseMemory(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text))
+                    LOG(I("EraseMS"));
+                else
+                    LOG(E("EEraseMS"));
+            progr.Value = 100;
         }
     }
 }
