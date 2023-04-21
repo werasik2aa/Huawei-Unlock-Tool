@@ -26,6 +26,7 @@ namespace HuaweiUnlocker
         public static Dictionary<string, int[]> GPTTABLE = new Dictionary<string, int[]>();
         private static Action action;
         private static Dictionary<string, string> lang = new Dictionary<string, string>();
+        public static string PrevFolder = "c:\\";
         public static string CURRENTlanguage = "English";
         public static bool AsyncRUN(string command, string subcommand)
         {

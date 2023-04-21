@@ -17,9 +17,9 @@
 
                                         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window));
             this.pather = new System.Windows.Forms.TextBox();
             this.DETECTED = new System.Windows.Forms.Label();
@@ -74,6 +74,7 @@
             this.L = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Diag = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.CLEARDD = new System.Windows.Forms.Button();
             this.FlashF = new System.Windows.Forms.Button();
             this.CMD = new System.Windows.Forms.TextBox();
@@ -111,12 +112,14 @@
             this.HomeTag = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.BURGBTN = new System.Windows.Forms.Button();
+            this.PatXm = new System.Windows.Forms.TextBox();
             this.PGG = new HuaweiUnlocker.UI.NProgressBar();
             this.SelLanguage = new HuaweiUnlocker.UI.NButton();
             this.SelectLOADER = new HuaweiUnlocker.UI.NButton();
+            this.nButton2 = new HuaweiUnlocker.UI.NButton();
             this.Selecty2 = new HuaweiUnlocker.UI.NButton();
             this.Selecty3 = new HuaweiUnlocker.UI.NButton();
-            this.nButton1 = new HuaweiUnlocker.UI.NButton();
+            this.ReadxmlBtn = new HuaweiUnlocker.UI.NButton();
             this.Flash = new HuaweiUnlocker.UI.NButton();
             this.DUMPALL = new HuaweiUnlocker.UI.NButton();
             this.FrBTN = new HuaweiUnlocker.UI.NButton();
@@ -176,9 +179,9 @@
             this.DETECTED.Location = new System.Drawing.Point(2, 60);
             this.DETECTED.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.DETECTED.Name = "DETECTED";
-            this.DETECTED.Size = new System.Drawing.Size(176, 19);
+            this.DETECTED.Size = new System.Drawing.Size(191, 19);
             this.DETECTED.TabIndex = 14;
-            this.DETECTED.Text = "RAWPROGRAM0.XML";
+            this.DETECTED.Text = "Rawprograms0 / Patch0";
             // 
             // label1
             // 
@@ -229,6 +232,8 @@
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.nButton2);
+            this.panel1.Controls.Add(this.PatXm);
             this.panel1.Controls.Add(this.Selecty2);
             this.panel1.Controls.Add(this.Selecty3);
             this.panel1.Controls.Add(this.RAW);
@@ -249,7 +254,7 @@
             this.RAW.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold);
             this.RAW.ForeColor = System.Drawing.Color.AntiqueWhite;
             this.RAW.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.RAW.Location = new System.Drawing.Point(175, 5);
+            this.RAW.Location = new System.Drawing.Point(175, 2);
             this.RAW.Margin = new System.Windows.Forms.Padding(2);
             this.RAW.Name = "RAW";
             this.RAW.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -409,12 +414,13 @@
             this.TUTR2.Size = new System.Drawing.Size(658, 150);
             this.TUTR2.TabIndex = 30;
             this.TUTR2.Text = "1. Checked Raw Image -> Select DIUMP.bin\r\n2. Not Checked Raw Image -> Select Fold" +
-    "er with rawprogram0.xml and firmware data";
+    "er with rawprogram0.xml and firmware data\r\n3. For only repartition your phone us" +
+    "e patch0.xml as primary rawprograms0!";
             // 
             // GPfir
             // 
             this.GPfir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
-            this.GPfir.Controls.Add(this.nButton1);
+            this.GPfir.Controls.Add(this.ReadxmlBtn);
             this.GPfir.Controls.Add(this.Flash);
             this.GPfir.Controls.Add(this.DUMPALL);
             this.GPfir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -766,40 +772,40 @@
             this.PARTLIST.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.PARTLIST.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Menu;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.Menu;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.PARTLIST.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PARTLIST.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.P,
             this.O,
             this.L});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Snow;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle5;
             this.PARTLIST.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ImeMode = System.Windows.Forms.ImeMode.Close;
             this.PARTLIST.Location = new System.Drawing.Point(-2, -2);
             this.PARTLIST.Name = "PARTLIST";
             this.PARTLIST.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.PARTLIST.RowHeadersVisible = false;
             this.PARTLIST.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.PARTLIST.RowTemplate.ReadOnly = true;
@@ -843,6 +849,7 @@
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
+            this.groupBox5.Controls.Add(this.button1);
             this.groupBox5.Controls.Add(this.CLEARDD);
             this.groupBox5.Controls.Add(this.FlashF);
             this.groupBox5.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold);
@@ -853,6 +860,17 @@
             this.groupBox5.TabIndex = 23;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Action";
+            // 
+            // button1
+            // 
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button1.Location = new System.Drawing.Point(397, 16);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(232, 25);
+            this.button1.TabIndex = 2;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // CLEARDD
             // 
@@ -872,7 +890,7 @@
             this.FlashF.Location = new System.Drawing.Point(5, 16);
             this.FlashF.Margin = new System.Windows.Forms.Padding(2);
             this.FlashF.Name = "FlashF";
-            this.FlashF.Size = new System.Drawing.Size(624, 25);
+            this.FlashF.Size = new System.Drawing.Size(388, 25);
             this.FlashF.TabIndex = 0;
             this.FlashF.Text = "TEST";
             this.FlashF.UseVisualStyleBackColor = true;
@@ -1348,6 +1366,16 @@
             this.BURGBTN.UseVisualStyleBackColor = false;
             this.BURGBTN.Click += new System.EventHandler(this.BURGBTN_Click);
             // 
+            // PatXm
+            // 
+            this.PatXm.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.PatXm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PatXm.Location = new System.Drawing.Point(6, 114);
+            this.PatXm.Margin = new System.Windows.Forms.Padding(2);
+            this.PatXm.Name = "PatXm";
+            this.PatXm.Size = new System.Drawing.Size(270, 22);
+            this.PatXm.TabIndex = 30;
+            // 
             // PGG
             // 
             this.PGG.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
@@ -1423,6 +1451,35 @@
             this.SelectLOADER.UseZoomEffectOnHover = false;
             this.SelectLOADER.Click += new System.EventHandler(this.LOADER_PATH);
             // 
+            // nButton2
+            // 
+            this.nButton2.AutoSize = true;
+            this.nButton2.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.nButton2.BackColorAdditional = System.Drawing.Color.Gray;
+            this.nButton2.BackColorGradientEnabled = false;
+            this.nButton2.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.nButton2.BorderColor = System.Drawing.Color.Tomato;
+            this.nButton2.BorderColorEnabled = false;
+            this.nButton2.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.nButton2.BorderColorOnHoverEnabled = false;
+            this.nButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.nButton2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nButton2.ForeColor = System.Drawing.Color.White;
+            this.nButton2.Location = new System.Drawing.Point(280, 112);
+            this.nButton2.Margin = new System.Windows.Forms.Padding(2);
+            this.nButton2.Name = "nButton2";
+            this.nButton2.RippleColor = System.Drawing.Color.Black;
+            this.nButton2.RoundingEnable = false;
+            this.nButton2.Size = new System.Drawing.Size(65, 25);
+            this.nButton2.TabIndex = 31;
+            this.nButton2.Text = "Select";
+            this.nButton2.TextHover = null;
+            this.nButton2.UseDownPressEffectOnClick = false;
+            this.nButton2.UseRippleEffect = true;
+            this.nButton2.UseVisualStyleBackColor = false;
+            this.nButton2.UseZoomEffectOnHover = false;
+            this.nButton2.Click += new System.EventHandler(this.nButton2_Click);
+            // 
             // Selecty2
             // 
             this.Selecty2.AutoSize = true;
@@ -1481,32 +1538,31 @@
             this.Selecty3.UseZoomEffectOnHover = false;
             this.Selecty3.Click += new System.EventHandler(this.PATHTOFIRMWARE_Clck);
             // 
-            // nButton1
+            // ReadxmlBtn
             // 
-            this.nButton1.BackColor = System.Drawing.Color.Tomato;
-            this.nButton1.BackColorAdditional = System.Drawing.Color.Gray;
-            this.nButton1.BackColorGradientEnabled = false;
-            this.nButton1.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.nButton1.BorderColor = System.Drawing.Color.Tomato;
-            this.nButton1.BorderColorEnabled = false;
-            this.nButton1.BorderColorOnHover = System.Drawing.Color.Tomato;
-            this.nButton1.BorderColorOnHoverEnabled = false;
-            this.nButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.nButton1.Enabled = false;
-            this.nButton1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nButton1.ForeColor = System.Drawing.Color.White;
-            this.nButton1.Location = new System.Drawing.Point(7, 113);
-            this.nButton1.Name = "nButton1";
-            this.nButton1.RippleColor = System.Drawing.Color.Black;
-            this.nButton1.RoundingEnable = false;
-            this.nButton1.Size = new System.Drawing.Size(282, 36);
-            this.nButton1.TabIndex = 34;
-            this.nButton1.Text = "Erase Firmware";
-            this.nButton1.TextHover = null;
-            this.nButton1.UseDownPressEffectOnClick = false;
-            this.nButton1.UseRippleEffect = true;
-            this.nButton1.UseVisualStyleBackColor = false;
-            this.nButton1.UseZoomEffectOnHover = false;
+            this.ReadxmlBtn.BackColor = System.Drawing.Color.Tomato;
+            this.ReadxmlBtn.BackColorAdditional = System.Drawing.Color.Gray;
+            this.ReadxmlBtn.BackColorGradientEnabled = false;
+            this.ReadxmlBtn.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.ReadxmlBtn.BorderColor = System.Drawing.Color.Tomato;
+            this.ReadxmlBtn.BorderColorEnabled = false;
+            this.ReadxmlBtn.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.ReadxmlBtn.BorderColorOnHoverEnabled = false;
+            this.ReadxmlBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ReadxmlBtn.Enabled = false;
+            this.ReadxmlBtn.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ReadxmlBtn.ForeColor = System.Drawing.Color.White;
+            this.ReadxmlBtn.Location = new System.Drawing.Point(7, 113);
+            this.ReadxmlBtn.Name = "ReadxmlBtn";
+            this.ReadxmlBtn.RippleColor = System.Drawing.Color.Black;
+            this.ReadxmlBtn.RoundingEnable = false;
+            this.ReadxmlBtn.Size = new System.Drawing.Size(282, 36);
+            this.ReadxmlBtn.TabIndex = 34;
+            this.ReadxmlBtn.TextHover = null;
+            this.ReadxmlBtn.UseDownPressEffectOnClick = false;
+            this.ReadxmlBtn.UseRippleEffect = true;
+            this.ReadxmlBtn.UseVisualStyleBackColor = false;
+            this.ReadxmlBtn.UseZoomEffectOnHover = false;
             // 
             // Flash
             // 
@@ -2034,7 +2090,7 @@
         private UI.NButton FrBTN;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label MacLBL;
-        private UI.NButton nButton1;
+        private UI.NButton ReadxmlBtn;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox AVERhi;
@@ -2056,5 +2112,8 @@
         private System.Windows.Forms.CheckBox EnDisFBLOCK;
         private UI.NButton HISI_board_FB;
         private UI.NButton UNLOCKHISI;
+        private System.Windows.Forms.Button button1;
+        private UI.NButton nButton2;
+        private System.Windows.Forms.TextBox PatXm;
     }
 }

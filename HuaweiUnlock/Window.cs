@@ -108,7 +108,7 @@ namespace HuaweiUnlocker
         {
             ReadLngFile();
             //QUALCOMM AND BASIC
-            SelectLOADER.Text = Selecty2.Text = Selecty3.Text = L("SelBtn");
+            nButton2.Text = SelectLOADER.Text = Selecty2.Text = Selecty3.Text = L("SelBtn");
             AutoXml.Text = AutoLdr.Text = L("AutoLBL"); ;
             Flash.Text = L("FlBtn");
             DUMPALL.Text = L("DuBtn");
@@ -171,28 +171,30 @@ namespace HuaweiUnlocker
         private void LOADER_PATH(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = LoaderBox.Text;
-            if (LoaderBox.Text == "") openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.InitialDirectory = PrevFolder;
             openFileDialog.Filter = "Programmer files (*.mbn;*.elf;*.hex)|*.mbn;*.elf;*.hex|All files (*.*)|*.*";
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
-            if (openFileDialog.ShowDialog() == DialogResult.OK) LoaderBox.Text = openFileDialog.FileName;
+            if (openFileDialog.ShowDialog() == DialogResult.OK) PrevFolder = LoaderBox.Text = openFileDialog.FileName;
         }
         private void XML_PATH(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.InitialDirectory = Xm.Text;
-            if (Xm.Text == "") openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.InitialDirectory = PrevFolder;
             openFileDialog.Filter = "Sectors data files (*.xml;*.txt)|*.xml;*.txt|All files (*.*)|*.*";
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
-            if (openFileDialog.ShowDialog() == DialogResult.OK) Xm.Text = openFileDialog.FileName;
+            if (openFileDialog.ShowDialog() == DialogResult.OK) PrevFolder = Xm.Text = openFileDialog.FileName;
         }
 
         private void Flash_Click(object sender, EventArgs e)
         {
             TxSide = GETPORT("qdloader 9008");
+            if (String.IsNullOrEmpty(pather.Text) || !Directory.Exists(pather.Text) && !File.Exists(pather.Text))
+            {
+                LOG(E("NoFirmPath"));
+                return;
+            }
             if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text)) return;
             progr.Value = 0;
             if (Xm.Text.Length < 5 && !RAW.Checked)
@@ -207,10 +209,10 @@ namespace HuaweiUnlocker
             }
             if (!RAW.Checked)
             {
-                if (!FlashPartsXml(Xm.Text, AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, pather.Text))
+                if (!FlashPartsXml(Xm.Text, PatXm.Text, AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, pather.Text))
                     LOG(E("ErrXML2"));
                 else
-                    LOG(I("Flashing") + pather.Text);
+                    LOG(I("Flashing") + " " + pather.Text);
             }
             else
             {
@@ -235,7 +237,13 @@ namespace HuaweiUnlocker
                     {
                         foreach (var a in Directory.GetFiles(openFileDialog.SelectedPath))
                         {
-                            if (AutoXml.Checked && a.EndsWith(".xml")) Xm.Text = a;
+                            if (AutoXml.Checked && a.EndsWith(".xml"))
+                            {
+                                if(a.Contains("rawprogram"))
+                                    Xm.Text = a;
+                                if (a.Contains("patch"))
+                                    PatXm.Text = a;
+                            }
                             if (AutoLdr.Checked && a.EndsWith(".mbn") || a.EndsWith(".elf") || a.EndsWith(".hex")) LoaderBox.Text = a;
                         }
                     }
@@ -244,13 +252,11 @@ namespace HuaweiUnlocker
             else
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-
-                openFileDialog.InitialDirectory = Xm.Text;
-                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.InitialDirectory = PrevFolder;
                 openFileDialog.Filter = "Sector DUMP files (*.img;*.bin)|*.img;*.bin;*.emmc|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
-                if (openFileDialog.ShowDialog() == DialogResult.OK) pather.Text = openFileDialog.FileName;
+                if (openFileDialog.ShowDialog() == DialogResult.OK) PrevFolder = pather.Text = openFileDialog.FileName;
             }
         }
 
@@ -834,6 +840,22 @@ namespace HuaweiUnlocker
         {
             Path = "UnlockFiles\\" + HISIbootloaders.Text.ToUpper() + "\\manifest.xml";
             if (!Directory.Exists(Path)) UNLOCKHISI.Text = L("HISIWriteKirinBLD"); else BoardU.Text = L("HISIWriteKirinBL");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!Find()) return;
+            CMD.Text = diag.TestHack();
+        }
+
+        private void nButton2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = PrevFolder;
+            openFileDialog.Filter = "Patch0 Repartition data files (*.xml;*.txt)|*.xml;*.txt|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == DialogResult.OK) PrevFolder = PatXm.Text = openFileDialog.FileName;
         }
     }
 }
