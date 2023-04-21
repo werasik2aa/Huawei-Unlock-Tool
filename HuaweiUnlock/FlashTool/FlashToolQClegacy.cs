@@ -1,9 +1,8 @@
 ﻿using System;
 using static HuaweiUnlocker.LangProc;
 using System.Collections.Generic;
-using System.Threading;
 using HuaweiUnlocker.DIAGNOS;
-using System.Collections.Concurrent;
+using System.IO;
 
 namespace HuaweiUnlocker.FlashTool
 {
@@ -151,17 +150,31 @@ namespace HuaweiUnlocker.FlashTool
                 return false;
             }
         }
-        public static bool FlashPartsXml(string xml, string loader, string path)
+        public static bool FlashPartsXml(string rawxml, string patchxml, string loader, string path)
         {
             progr.Value = 2;
             string command = "Tools\\fh_loader.exe";
-            string subcommand = "--port=\\\\.\\" + TxSide.ComName + " --sendxml=" + '"' + xml + '"' + " --search_path=" + '"' + path + '"';
+            string subcommand = "--port=\\\\.\\" + TxSide.ComName + " --sendxml=" + '"' + rawxml + '"' + " --search_path=" + '"' + path + '"';
+            string subcommandp = "--port=\\\\.\\" + TxSide.ComName + " --sendxml=" + '"' + patchxml + '"' + " --search_path=" + '"' + path + '"';
             if (debug) { LOG("===Flash Partitions XML===" + newline + newline + command + newline + subcommand); }
             if (!LoadLoader("PHONE", loader)) { loadedhose = false; LOG(E("Fail")); return false; }
             try
             {
                 progr.Value = 0;
                 LOG(I("Flasher") + path);
+                bool a = false;
+                if (!String.IsNullOrEmpty(patchxml))
+                {
+                    if (!File.Exists(patchxml))
+                        LOG(E("NotFoundF") + patchxml);
+                    else
+                    if (!SyncRUN(command, subcommandp))
+                    {
+                        LOG(E("EwRGPT") + patchxml);
+                        return false;
+                    }
+                    else LOG(I("IwRGPT"));
+                }
                 return AsyncRUN(command, subcommand);
             }
             catch (Exception e)

@@ -18,22 +18,21 @@ namespace HuaweiUnlocker.TOOLS
                 if (Port.PortName != port)
                     CloseSerial();
                 else return true;
-
-            Port = new SerialPort();
-            Port.Handshake = Handshake.RequestToSendXOnXOff;
+            if (debug) LOG("[DBG] PORT INTERACT: " + port);
+            Port = new SerialPort
+            {
+                PortName = port,
+                BaudRate = baudrate,
+                DtrEnable = true,
+                RtsEnable = true,
+                ReadTimeout = 1000,
+                WriteTimeout = 1000
+            };
             if (isFileStream)
-            Port.DataReceived += new SerialDataReceivedEventHandler(FileWritter);
-            Port.ReadBufferSize = 500;
-            Port.DtrEnable = true;
-            Port.RtsEnable = true;
-            Port.ReadTimeout = 1000;
-            Port.WriteTimeout = 1000;
+                Port.DataReceived += new SerialDataReceivedEventHandler(FileWritter);
             try
             {
                 Port.Open();
-                Port.InitializeLifetimeService();
-                Port.DiscardInBuffer();
-                Port.DiscardOutBuffer();
             }
             catch
             {
@@ -107,8 +106,9 @@ namespace HuaweiUnlocker.TOOLS
                 {
                     FileStream file = new FileStream(path, FileMode.OpenOrCreate);
                     file.WriteAsync(decoded, decoded.Length, decoded.Length);
-                } else
-                if(debug)
+                }
+                else
+                if (debug)
                     LOG("[DBG] Reading: " + decoded.Length + " bytes" + Environment.NewLine + CRC.HexDump(decoded) + Environment.NewLine);
                 return decoded;
             }
@@ -139,9 +139,9 @@ namespace HuaweiUnlocker.TOOLS
                     }
                 }
                 else Port.Write(hexstr + "\n\r~");
-                Thread.Sleep(500);
             }
             catch { return false; }
+            Thread.Sleep(300);
             return true;
         }
         public static bool Write(string path, bool crc, bool isHex, bool toBytes)
@@ -222,11 +222,6 @@ namespace HuaweiUnlocker.TOOLS
         {
             if (hexstring) data.Replace(" ", "");
             return CRC.GetBufferWithCRC(data, hexstring);
-        }
-        public static bool OpenPort(string port, bool isFileStream)
-        {
-            if(debug)LOG("[DBG] PORT INTERACT: "+port);
-            return Open(port, 115200, isFileStream);
         }
     }
 }

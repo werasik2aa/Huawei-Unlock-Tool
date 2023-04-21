@@ -44,8 +44,8 @@ namespace HuaweiUnlocker.FlashTool
 
                 flasher.Write(image.Path, (int)image.Address, x => {
                     Action action = () => progr.Value = int.Parse((dsize + (int)(size / 100f * x), asize).ToString());
-                    if (LOGGBOX.InvokeRequired)
-                        LOGGBOX.Invoke(action);
+                    if (progr.InvokeRequired)
+                        progr.Invoke(action);
                     else
                         action();
                 });

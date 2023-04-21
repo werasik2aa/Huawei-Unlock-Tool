@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.Pkcs;
 
 namespace HuaweiUnlocker.DIAGNOS
 {
@@ -14,7 +16,7 @@ namespace HuaweiUnlocker.DIAGNOS
         public byte[] AT_SEND(string CMD)
         {
             if (PCUI == "NaN") return null;
-            if (SerialManager.OpenPort(PCUI, false))
+            if (SerialManager.Open(PCUI, 115200, false))
                 SerialManager.Write(CMD, false, false);
 
             return SerialManager.Read(false, "");
@@ -24,7 +26,7 @@ namespace HuaweiUnlocker.DIAGNOS
             string zeros = "";
             while (zeros.Length < len) zeros += "00";
             if ((DBside ? DBDA : PCUI) == "NaN") return null;
-            if (SerialManager.OpenPort((DBside ? DBDA : PCUI), false))
+            if (SerialManager.Open((DBside ? DBDA : PCUI), 115200, false))
                 SerialManager.Write(CMD + subCMD + zeros, crc, true);
             return SerialManager.Read(false, "");
         }
@@ -33,10 +35,17 @@ namespace HuaweiUnlocker.DIAGNOS
             Random e = new Random(6666);
             return new string(Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 16).Select(s => s[e.Next(s.Length)]).ToArray());
         }
+        public string TestHack()
+        {
+            LOG("================MANUFACTURE HACK PORT Custom METHOD================");
+            byte[] status = DIAG_SEND("", "4B0B24005D0200000E00550006003030303030300B3E7E", 0, true, false);
+            if (status != null)
+                return CRC.HexDump(status);
+            return "NaN";
+        }
         public void HACKdbPort()
         {
-            LOG("================MANUFACTURE HACK PORT HCU METHOD================");
-            LOG("================OLD METHOD================");
+            LOG("================MANUFACTURE HACK PORT OLD HCU METHOD================");
             byte[] status = DIAG_SEND("", "4BC954EE4BC9EDEE00000000000000000000000000000000000000000000000000000000000400005E197E", 0, true, false);
             if (status != null)
                 LOG(CRC.BytesToHexString(status));
