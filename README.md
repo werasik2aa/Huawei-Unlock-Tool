@@ -1,6 +1,6 @@
 # Huawei-Unlock-Tool
 IT'S FREE!
-Unlock bootloader/FRP Huawei | EN/RU
+Unlock bootloader / FRP Huawei | EN/RU
 1. BOOTLOADER UNLOCKER
 2. FLASH TOOL
 3. Partition Flasher
