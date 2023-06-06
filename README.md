@@ -1,6 +1,7 @@
 # Huawei-Unlock-Tool
 IT'S FREE!
-Unlock bootloader / FRP Huawei | EN/RU
+Free Huawei Unlock bootloader / FRP | EN/RU
+Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: https://disk.yandex.ru/d/rQ4e72f1FhbuWg
 1. BOOTLOADER UNLOCKER
 2. FLASH TOOL
 3. Partition Flasher
