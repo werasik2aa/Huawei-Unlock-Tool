@@ -64,13 +64,6 @@ namespace HuaweiUnlocker.DIAGNOS
                 File.WriteAllBytes("UnlockFiles/OemInfoData/OEM_INFO_" + curoffset + ".header", read);
             }
         }
-        private static byte[] concatenateByteArrays(byte[] a, byte[] b)
-        {
-            byte[] result = new byte[a.Length + b.Length];
-            Array.Copy(a, 0, result, 0, a.Length);
-            Array.Copy(b, 0, result, a.Length, b.Length);
-            return result;
-        }
         public static void Compile(string intpath, string outpath)
         {
             //NOT WORK 
