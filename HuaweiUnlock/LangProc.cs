@@ -149,6 +149,7 @@ namespace HuaweiUnlocker
         public static bool LOG(int o, string i, object j = null, string sepa = " ")
         {
             string state = "";
+            j = j == null ? "" : j;
             switch (o)
             {
                 default:
@@ -164,28 +165,20 @@ namespace HuaweiUnlocker
                     state = Language.Get("Error");
                     break;
             }
-
             i = Language.isExist(i) ? Language.Get(i) : i;
             i = i.Contains("/n") ? i.Replace("/n", newline) : i;
             Action action;
-            if (j != null)
+            j = Language.isExist(j.ToString()) ? Language.Get(j.ToString()) : j;
+            j = j.ToString().Contains("/n") ? i.ToString().Replace("/n", newline) : j;
+            if (Program.ISWINDOW)
             {
-                j = Language.isExist(j.ToString()) ? Language.Get(j.ToString()) : j;
-                j = j.ToString().Contains("/n") ? i.ToString().Replace("/n", newline) : j;
                 action = () => LOGGBOX.AppendText(newline + state + i + sepa + j.ToString());
                 if (LOGGBOX.InvokeRequired)
                     LOGGBOX.Invoke(action);
                 else
                     action();
             }
-            else
-            {
-                action = () => LOGGBOX.AppendText(newline + state + i);
-                if (LOGGBOX.InvokeRequired)
-                    LOGGBOX.Invoke(action);
-                else
-                    action();
-            }
+            else Console.WriteLine(newline + state + i + sepa + j.ToString());
             se.WriteLine(LOGGBOX.Text);
             return true;
         }
