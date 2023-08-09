@@ -15,14 +15,7 @@ using HuaweiUnlocker.UI;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Text;
-using System.Security.Cryptography.X509Certificates;
-using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.Crypto;
-using Org.BouncyCastle.Security;
-using System.Security.Cryptography;
-using Base62;
 
 namespace HuaweiUnlocker
 {
@@ -1022,18 +1015,18 @@ namespace HuaweiUnlocker
                 RestoreDirectory = true,
                 Title = "Update.APP"
             };
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
+            //if (openFileDialog.ShowDialog() == DialogResult.OK)
+           // {
                 IndexiesOEMdata.Items.Clear();
                 CurTask = Task.Run(() =>
                 {
-                    OemInfoTool.Decompile(openFileDialog.FileName, 4);
+                    OemInfoTool.Decompile("1.img", 4);
                 }, token);
                 await CurTask;
                 foreach (var item in OemInfoTool.data)
                     IndexiesOEMdata.Items.Add(item);
                 LOG(0, "Done");
-            }
+            //}
         }
         private async void TabPageOeminfSwitch(object sender, EventArgs e)
         {
@@ -1070,7 +1063,9 @@ namespace HuaweiUnlocker
         private void SendCMDtestBTN_Click(object sender, EventArgs e)
         {
             if (!Find()) return;
-            CMDbox.Text = CRC.HexDump(LibCrypt.Decrypt7Cisco(DIAG.READ_SECRET_KEY()));
+            var ss = DIAG.READ_SECRET_KEY();
+            var scr = LibCrypt.Decrypt7Cisco(ss);
+            CMDbox.Text = "[KEY_READ]" + newline + CRC.HexDump(ss) + newline + "[CISCO7_DECRYPT]" + newline + CRC.HexDump(scr) + newline + "[AUTH_RESPONSE]" + newline + CRC.HexDump(DIAG.AUTH_PHONE(scr));
         }
 
         private void RDinf_Click(object sender, EventArgs e)

@@ -1417,6 +1417,7 @@
             this.CMDbox.Margin = new System.Windows.Forms.Padding(2);
             this.CMDbox.Multiline = true;
             this.CMDbox.Name = "CMDbox";
+            this.CMDbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.CMDbox.Size = new System.Drawing.Size(739, 457);
             this.CMDbox.TabIndex = 32;
             // 
