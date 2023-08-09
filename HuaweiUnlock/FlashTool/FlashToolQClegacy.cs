@@ -5,6 +5,8 @@ using HuaweiUnlocker.DIAGNOS;
 using System.IO;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using System.Security.Cryptography.Xml;
+using System.Threading;
 
 namespace HuaweiUnlocker.FlashTool
 {
@@ -184,8 +186,6 @@ namespace HuaweiUnlocker.FlashTool
         public static bool UnlockFrp(string loader)
         {
             Progress(2);
-            string command = "Tools\\emmcdl.exe";
-            string subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -e frp";
             if (debug) LOG(-1, "===UNLOCK FRP===" + newline + newline);
             if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); return false; }
             try
@@ -198,25 +198,20 @@ namespace HuaweiUnlocker.FlashTool
                 bool status = false;
                 if (DeviceInfo.Partitions.ContainsKey("devinfo"))
                 {
-                    LOG(0, "Writer", "DEVINFO: " + DeviceInfo.Partitions["frp"].BlockLength + newline);
-                    command = "Tools\\emmcdl.exe";
-                    subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b devinfo " + "Tools/frpUnlocked.img";
-                    status = SyncRUN(command, subcommand);
+                    LOG(0, "Writer", "DEVINFO: " + DeviceInfo.Partitions["devinfo"].BlockLength + newline);
+                    Write("devinfo", loader, "Tools/frpUnlocked.img");
+                    Thread.Sleep(2000);
                 }
                 else
                     LOG(1, "FailFrpD", "NO DEVINFO Partition... Continuing" + newline);
 
                 if (DeviceInfo.Partitions.ContainsKey("frp"))
                 {
-                    Progress(50);
-                    CurPartLenght = int.Parse(DeviceInfo.Partitions["frp"].BlockLength);
-                    LOG(0, "Eraser", "FRP: " + DeviceInfo.Partitions["frp"].BlockLength + newline);
-                    command = "Tools\\emmcdl.exe";
-                    subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -e frp";
-                    status = SyncRUN(command, subcommand);
+                    LOG(0, "Writer", "FRP: " + DeviceInfo.Partitions["frp"].BlockLength + newline);
+                    Write("frp", loader, "Tools/frpPartition.img");
                 }
                 else
-                    LOG(1, "FailFrpD", "NO FRP Partition..." + newline);
+                    LOG(2, "FailFrpD", "NO FRP Partition...!!! FAILED TO remove frp" + newline);
 
                 return status;
             }

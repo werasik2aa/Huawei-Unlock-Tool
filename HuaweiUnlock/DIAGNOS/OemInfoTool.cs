@@ -23,13 +23,13 @@ namespace HuaweiUnlocker.DIAGNOS
             byte[] piza = new byte[Header.Length];
             while (FileAll.Read(piza, 0, Header.Length) > 0)
             {
-                if (CRC.BytesToHexString(piza).Contains(Header))
+                if (CRC.BytesToHexString(piza).Equals(Header))
                 {
-                    long pos = FileAll.Position;
-                    LOG(0, "Found Offset: " + pos);
-                    Offsets.Add((int)pos);
+                    LOG(0, "Found Offset: " + FileAll.Position);
+                    Offsets.Add((int)FileAll.Position);
                 }
             }
+
             for (int i = 0; i < Offsets.Count; i++)
             {
                 int curoffset = Offsets[i];
@@ -49,12 +49,6 @@ namespace HuaweiUnlocker.DIAGNOS
                     read = new byte[FileAll.Length - curoffset];
                     FileAll.Read(read, 0, (int)FileAll.Length - curoffset);
                 }
-                var hex = CRC.BytesToHexString(read);
-                if (!hex.StartsWith(Header))
-                {
-                    LOG(0, "Adding lost HEADER");
-                    read = CRC.HexStringToBytes(Header + hex);
-                }
 
                 LOG(0, "Writing: OEM_INFO_" + curoffset + ".header");
                 File.WriteAllBytes("UnlockFiles/OemInfoData/OEM_INFO_" + curoffset + ".header", read);
@@ -64,11 +58,10 @@ namespace HuaweiUnlocker.DIAGNOS
         {
             //NOT WORK 
             FileStream outfile = new FileStream(outpath, FileMode.OpenOrCreate);
-            outfile.SetLength(FileAll.Length);
-            outfile.Position = 0;
+            outfile.Seek(0, SeekOrigin.Begin);
             foreach (var aoffset in Offsets)
             {
-                outfile.Position = aoffset;
+                outfile.Seek(aoffset, SeekOrigin.Current);
                 LOG(0, "Adding: OEM_INFO_" + aoffset + ".header");
                 byte[] filebts = File.ReadAllBytes(intpath + "/OEM_INFO_" + aoffset + ".header");
                 outfile.Write(filebts, 0, filebts.Length);

@@ -4,8 +4,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.ServiceProcess;
 
 namespace HuaweiUnlocker.DIAGNOS
@@ -85,6 +83,7 @@ namespace HuaweiUnlocker.DIAGNOS
         }
         public static byte[] TEST()
         {
+            //DONGLE INFO!
             Int32 a = 0x8F05;
             Int32 b = 0x8F04;
             Int32 c = 0x8F04;

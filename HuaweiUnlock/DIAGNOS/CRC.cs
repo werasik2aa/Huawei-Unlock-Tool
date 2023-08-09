@@ -293,22 +293,10 @@ namespace HuaweiUnlocker.DIAGNOS
         }
         public static byte[] HexStringToBytes(string strInput)
         {
-            try
-            {
-                int startIndex = 0;
-                byte[] buffer = new byte[strInput.Length];
-                for (int i = 0; strInput.Length > (startIndex + 1); i++)
-                {
-                    buffer[i] = Convert.ToByte(int.Parse(strInput.Substring(startIndex, 2), NumberStyles.HexNumber));
-                    startIndex += 2;
-                }
-                return buffer;
-            }
-            catch (Exception)
-            {
-                LangProc.LOG(2, "Hex String To Byte Array Conversion Error!");
-            }
-            return null;
+            byte[] a = new byte[strInput.Length / 2];
+            for (int i = 0, h = 0; h < strInput.Length; i++, h += 2)
+                a[i] = (byte)int.Parse(strInput.Substring(h, 2), NumberStyles.HexNumber);
+            return a;
         }
         public static string HexToIMEI(string hexInput)
         {

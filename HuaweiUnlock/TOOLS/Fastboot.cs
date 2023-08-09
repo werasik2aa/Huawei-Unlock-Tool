@@ -65,10 +65,8 @@ namespace HuaweiUnlocker.TOOLS
             while (true)
             {
                 var allDevices = UsbDevice.AllDevices;
-
                 if (allDevices.Any(x => x.Vid == USB_VID & x.Pid == USB_PID))
                     break;
-
                 if (counter == TimeoutWait)
                 {
                     LOG(2, "TimeoutWait error.");
