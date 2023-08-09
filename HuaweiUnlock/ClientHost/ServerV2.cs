@@ -72,7 +72,6 @@ namespace Witcher3_Multiplayer.ClientHost
                         HostSender.SendDataToAllExceptOne(UDP_SERVER, item.Key, (int)RecvSendTypes.RCV_PLAYERPOSITION, PlayerDataServerDATAS[item.Value].PlayerPosition.ToByteArray());
                         HostSender.SendDataToAllExceptOne(UDP_SERVER, item.Key, (int)RecvSendTypes.RCV_PLAYERONHORSE, PlayerDataServerDATAS[item.Value].HorsePosition.ToByteArray());
                     }
-                    Thread.Sleep(SendDataDelay/2);
                 }  
             });
         }

@@ -101,7 +101,6 @@ namespace Witcher3_Multiplayer.ClientHost
                             }
                         }
                     }
-                    Thread.Sleep(SendDataDelay);
                 }
             });
         }
