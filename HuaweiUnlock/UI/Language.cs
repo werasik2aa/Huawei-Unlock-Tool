@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace HuaweiUnlocker.UI
@@ -10,15 +11,12 @@ namespace HuaweiUnlocker.UI
         public static bool ReadLngFile()
         {
             LanguageStrs = new Dictionary<string, string>();
-            Stream ss = File.OpenRead("Languages\\" + CURRENTlanguage + ".ini");
-            StreamReader readerL = new StreamReader(ss);
-            string line = readerL.ReadLine();
+            StreamReader readerL = new StreamReader(File.OpenRead("Languages\\" + CURRENTlanguage + ".ini"));
+            string line;
             while ((line = readerL.ReadLine()) != null)
                 if (!line.StartsWith("[") && !line.StartsWith("#")) LanguageStrs.Add(line.Split(',')[0], line.Split(',')[1]);
             readerL.Close();
             readerL.Dispose();
-            ss.Close();
-            ss.Dispose();
             return LanguageStrs.Count > 0;
         }
         public static string Get(string name)
