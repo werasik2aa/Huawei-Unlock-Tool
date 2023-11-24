@@ -1014,19 +1014,19 @@ namespace HuaweiUnlocker
                 RestoreDirectory = true,
                 Title = "Update.APP"
             };
-            //if (openFileDialog.ShowDialog() == DialogResult.OK)
-           // {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
                 IndexiesOEMdata.Items.Clear();
                 CurTask = Task.Run(() =>
                 {
-                    OemInfoTool.Decompile("1.img", 4);
+                    OemInfoTool.Decompile(openFileDialog.FileName);
                 }, token);
                 await CurTask;
                 foreach (var item in OemInfoTool.data)
                     IndexiesOEMdata.Items.Add(item);
                 CompileOemInfBTN.Enabled = true;
                 LOG(0, "Done");
-            //}
+            }
         }
         private void TabPageOeminfSwitch(object sender, EventArgs e)
         {

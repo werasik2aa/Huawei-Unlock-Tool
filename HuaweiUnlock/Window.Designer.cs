@@ -1245,7 +1245,7 @@
             this.groupBox13.Size = new System.Drawing.Size(726, 53);
             this.groupBox13.TabIndex = 0;
             this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "groupBox13";
+            this.groupBox13.Text = "What to do";
             // 
             // CompileOemInfBTN
             // 

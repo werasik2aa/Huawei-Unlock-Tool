@@ -12,7 +12,7 @@ namespace HuaweiUnlocker.DIAGNOS
         public static List<string> data = new List<string>();
         public static List<int> Offsets = new List<int>();
         private static byte[] FileAll;
-        public static void Decompile(string path, int counttoread, string Header = "4F454D5F494E464F06")
+        public static void Decompile(string path, string Header = "4F454D5F494E464F06")
         {
             //UNCORRECT
             Offsets.Clear();
