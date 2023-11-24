@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using static HuaweiUnlocker.LangProc;
 namespace HuaweiUnlocker.DIAGNOS
 {
@@ -24,10 +25,9 @@ namespace HuaweiUnlocker.DIAGNOS
 
             LOG(0, "Reading offsets");
             Offsets = GetOffsets(FileAll, Header);
-
             for (var i = 0; i < Offsets.Count; i++)
                 data.Add("OEM_INFO_" + Offsets[i] + ".header");
-
+            File.WriteAllBytes("UnlockFiles/OemInfoData/OEM_INFO_" + 0 + ".header", FileAll.Take(Offsets[0]).ToArray());
             for (int i = 0; i < Offsets.Count; i++) {
                 int curof = Offsets[i];
                 LOG(0, "Writting: OEM_INFO_" + curof + ".header");
@@ -61,10 +61,12 @@ namespace HuaweiUnlocker.DIAGNOS
             //NOT WORK 
             FileStream outfile = new FileStream(outpath, FileMode.OpenOrCreate);
             outfile.Seek(0, SeekOrigin.Begin);
+            byte[] filebts = File.ReadAllBytes(intpath + "/OEM_INFO_0.header");
+            outfile.Write(filebts, 0, filebts.Length);
             foreach (var aoffset in Offsets)
             {
                 LOG(0, "Adding: OEM_INFO_" + aoffset + ".header");
-                byte[] filebts = File.ReadAllBytes(intpath + "/OEM_INFO_" + aoffset + ".header");
+                filebts = File.ReadAllBytes(intpath + "/OEM_INFO_" + aoffset + ".header");
                 outfile.Write(filebts, 0, filebts.Length);
             }
             outfile.Close();
