@@ -1,8 +1,0 @@
-D:\dev\hw\HuaweiUnlock\bin\Debug\HuaweiUnlock.exe.config
-D:\dev\hw\HuaweiUnlock\obj\x86\Debug\HuaweiUnlock.csproj.AssemblyReference.cache
-D:\dev\hw\HuaweiUnlock\obj\x86\Debug\HuaweiUnlocker.Window.resources
-D:\dev\hw\HuaweiUnlock\obj\x86\Debug\HuaweiUnlocker.Properties.Resources.resources
-D:\dev\hw\HuaweiUnlock\obj\x86\Debug\HuaweiUnlock.csproj.GenerateResource.cache
-D:\dev\hw\HuaweiUnlock\obj\x86\Debug\HuaweiUnlock.csproj.CoreCompileInputs.cache
-D:\dev\hw\HuaweiUnlock\obj\x86\Debug\HuaweiUnlock.exe
-D:\dev\hw\HuaweiUnlock\obj\x86\Debug\HuaweiUnlock.pdb
