@@ -25,7 +25,6 @@ namespace HuaweiUnlocker
         private static string device;
         private static string loader;
         public static string Path;
-        private const string VerAPP = "14F";
         public static HISI HISI = new HISI();
         private Dictionary<string, string> source = new Dictionary<string, string>();
         private Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\4PDA_HUAWEI_UNLOCK", true);
@@ -175,7 +174,7 @@ namespace HuaweiUnlocker
                 Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
                 if (!Directory.Exists(Path)) BoardU.Text = Language.Get("DdBtn"); else BoardU.Text = Language.Get("DdBtnE");
                 DBB.Text = Language.Get("DebugLbl");
-                LOGGBOX.Text = "Version [" + VerAPP + "] BETA/n(C) MOONGAMER (QUALCOMM UNLOCKER)/n(C) MASHED-POTATOES (KIRIN UNLOCKER)".Replace("/n", Environment.NewLine);
+                LOGGBOX.Text = "Version [" + APP_VERSION + "] BETA/n(C) MOONGAMER (QUALCOMM UNLOCKER)/n(C) MASHED-POTATOES (KIRIN UNLOCKER)".Replace("/n", Environment.NewLine);
                 LOG(0, "SMAIN1");
                 LOG(0, "SMAIN2");
                 LOG(0, "SMAIN3");
@@ -465,7 +464,7 @@ namespace HuaweiUnlocker
                 if (!UnlockFrp(loader))
                     LOG(2, "FailFrp");
                 else
-                    LOG(0, "Success");
+                    LOG(0, "SUCC_FrpUnlock");
             }, token);
             Progress(100);
             await CurTask;

@@ -75,7 +75,7 @@ namespace HuaweiUnlocker.FlashTool
                 {
                     LOG(0, "Unlocker", DeviceInfo.Name);
                     if (!ReadGPT(loader))
-                    { LOG(2, "Unknown"); CurTask.Dispose(); }
+                    { LOG(2, "ERR_ReadGPT"); CurTask.Dispose(); }
                     if (File.Exists(path + "\\aboot") || File.Exists(path + "\\emmc_appsboot.mbn"))
                     {
                         LOG(0, "Writer", "aboot" + newline);
@@ -187,6 +187,9 @@ namespace HuaweiUnlocker.FlashTool
         {
             Progress(2);
             if (debug) LOG(-1, "===UNLOCK FRP===" + newline + newline);
+            string command = "Tools\\emmcdl.exe";
+            string subcommandDEV = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b devinfo " + '"' + "Tools/frpUnlocked.img" + '"';
+            string subcommandFRP = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b frp " + '"' + "Tools/frpPartition.img" + '"';
             if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); return false; }
             try
             {
@@ -199,8 +202,11 @@ namespace HuaweiUnlocker.FlashTool
                 if (DeviceInfo.Partitions.ContainsKey("devinfo"))
                 {
                     LOG(0, "Writer", "DEVINFO: " + DeviceInfo.Partitions["devinfo"].BlockLength + newline);
-                    Write("devinfo", loader, "Tools/frpUnlocked.img");
-                    Thread.Sleep(2000);
+                    if (!SyncRUN(command, subcommandDEV))
+                        LOG(0, "EwPE", "devinfo");
+                    else
+                        LOG(0, "Success", "frpUnlocked.img - devinfo");
+                    status = true;
                 }
                 else
                     LOG(1, "FailFrpD", "NO DEVINFO Partition... Continuing" + newline);
@@ -208,10 +214,16 @@ namespace HuaweiUnlocker.FlashTool
                 if (DeviceInfo.Partitions.ContainsKey("frp"))
                 {
                     LOG(0, "Writer", "FRP: " + DeviceInfo.Partitions["frp"].BlockLength + newline);
-                    Write("frp", loader, "Tools/frpPartition.img");
+                    if (!SyncRUN(command, subcommandFRP))
+                        LOG(0, "EwPE", "frp");
+                    else
+                        return LOG(0, "Success", "frpPartition.img - frp");
                 }
                 else
                     LOG(2, "FailFrpD", "NO FRP Partition...!!! FAILED TO remove frp" + newline);
+
+                if (status)
+                    LOG(1, "Warning", "WarnFrp");
 
                 return status;
             }
@@ -227,7 +239,7 @@ namespace HuaweiUnlocker.FlashTool
             {
                 Progress(2);
                 string command = "Tools\\fh_loader.exe";
-                string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendxml=" + '"' + rawxml + '"' + "--noprompt --showpercentagecomplete --search_path=" + '"' + path + '"';
+                string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --sendxml=" + '"' + rawxml + '"' + " --search_path=" + '"' + path + '"';
                 string subcommandp = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendxml=" + '"' + patchxml + '"' + " --search_path=" + '"' + path + '"';
                 if (debug) LOG(-1, "===Flash Partitions XML===" + newline + newline);
                 if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); CurTask.Dispose(); }
@@ -235,6 +247,7 @@ namespace HuaweiUnlocker.FlashTool
                 {
                     Progress(0);
                     LOG(0, "Flasher", path);
+                    LOG(0, "Info: ", patchxml);
                     if (!String.IsNullOrEmpty(patchxml))
                     {
                         if (!File.Exists(patchxml))
@@ -242,10 +255,20 @@ namespace HuaweiUnlocker.FlashTool
                         else
                         if (!SyncRUN(command, subcommandp))
                             LOG(2, "EwRGPT", patchxml);
-                        else LOG(0, "IwRGPT");
+                        else 
+                            LOG(0, "IwRGPT");
                     }
-                    if (!SyncRUN(command, subcommand))
-                        LOG(2, "EemmcXML_WPE");
+                    LOG(0, "Info", rawxml);
+                    if (!String.IsNullOrEmpty(rawxml))
+                    {
+                        if (!File.Exists(rawxml))
+                            LOG(1, "NotFoundF", rawxml);
+                        else
+                        if (!SyncRUN(command, subcommand))
+                            LOG(2, "ErrXML2", rawxml);
+                        else
+                            LOG(0, "RrGPTXMLS");
+                    }
                     return true;
                 }
                 catch (Exception e)
@@ -309,7 +332,7 @@ namespace HuaweiUnlocker.FlashTool
                 Progress(20);
                 if (DeviceInfo.Partitions.Count == 0)
                     if (!ReadGPT(loader))
-                    { LOG(2, "Unknown"); CurTask.Dispose(); }
+                    { LOG(2, "ERR_ReadGPT"); CurTask.Dispose(); }
                 string command = "Tools\\emmcdl.exe";
                 string subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -d 0 " + int.Parse(DeviceInfo.Partitions["userdata"].BlockStart) + " -o " + '"' + savepath + '"';
                 if (debug) LOG(-1, "===DUMPER===" + newline + newline);
@@ -343,7 +366,7 @@ namespace HuaweiUnlocker.FlashTool
                     Progress(30);
                     if (DeviceInfo.Partitions.Count == 0)
                         if (!ReadGPT(loader))
-                        { LOG(2, "Unknown"); CurTask.Dispose(); }
+                        { LOG(2, "ERR_ReadGPT"); CurTask.Dispose(); }
                     LOG(0, "DumpTp", partition);
                     CurPartLenght = int.Parse(DeviceInfo.Partitions[partition].BlockLength);
                     if (!SyncRUN(command, subcommand))
@@ -372,7 +395,7 @@ namespace HuaweiUnlocker.FlashTool
                     Progress(30);
                     if (DeviceInfo.Partitions.Count == 0)
                         if (!ReadGPT(loader))
-                        { LOG(2, "Unknown"); CurTask.Dispose(); }
+                        { LOG(2, "ERR_ReadGPT"); CurTask.Dispose(); }
                     LOG(0, "DumpTp", partition);
                     CurPartLenght = int.Parse(DeviceInfo.Partitions[partition].BlockLength);
                     if (!SyncRUN(command, subcommand))

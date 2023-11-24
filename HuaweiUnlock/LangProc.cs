@@ -20,6 +20,7 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
+        public const string APP_VERSION = "15F";
         public static TextBox LOGGBOX;
         public static bool debug = false;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
@@ -125,7 +126,8 @@ namespace HuaweiUnlocker
                 if (outtext.Contains("SBL SW Version"))
                     DeviceInfo.SBLV = outtext.Split(' ')[3];
                 log = log + newline + outtext;
-                if (debug) LOG(0, newline + outtext);
+                if (!outtext.Contains("remaining"))
+                    if (debug) LOG(0, newline + outtext);
                 Thread.Sleep(5);
             }
             p.WaitForExit();
