@@ -1024,20 +1024,17 @@ namespace HuaweiUnlocker
                 await CurTask;
                 foreach (var item in OemInfoTool.data)
                     IndexiesOEMdata.Items.Add(item);
+                CompileOemInfBTN.Enabled = true;
                 LOG(0, "Done");
             //}
         }
-        private async void TabPageOeminfSwitch(object sender, EventArgs e)
+        private void TabPageOeminfSwitch(object sender, EventArgs e)
         {
             string o = "NoData";
             if (!string.IsNullOrEmpty(IndexiesOEMdata.Text) && IndexiesOEMdata.Items.Count > 0 && IndexiesOEMdata.Items.Contains(IndexiesOEMdata.Text))
             {
-                CurTask = Task.Run(() =>
-                {
-                    o = CRC.HexDump(File.ReadAllBytes("UnlockFiles/OemInfoData/" + IndexiesOEMdata.Text));
-                    o = TrimOrNCHK.Checked ? o.Trim('F').Replace("FFFF", "") : o;
-                }, token);
-                await CurTask;
+                o = CRC.HexDump(File.ReadAllBytes("UnlockFiles/OemInfoData/" + IndexiesOEMdata.Text));
+                o = TrimOrNCHK.Checked ? o.Trim('F').Replace("FFFF", "") : o;
             }
             ContantOemText.Text = o;
         }
@@ -1053,7 +1050,7 @@ namespace HuaweiUnlocker
             LOG(0, "Compiling oeminfo.img");
             CurTask = Task.Run(() =>
             {
-                OemInfoTool.Compile("UnlockFiles/OemInfoData", "UnlockFiles/OemInfoData/oeminfo-unsigned-unhashed.img");
+                OemInfoTool.Compile("UnlockFiles/OemInfoData", "UnlockFiles/oeminfo-unsigned-unhashed.img");
             }, token);
             await CurTask;
             LOG(0, "Done");
