@@ -25,7 +25,7 @@ namespace HuaweiUnlocker.DIAGNOS
             LOG(0, "Reading offsets");
             Offsets = GetOffsets(FileAll, Header);
 
-            for (var i = 0; i <= Offsets.Count; i++)
+            for (var i = 0; i < Offsets.Count; i++)
                 data.Add("OEM_INFO_" + Offsets[i] + ".header");
 
             for (int i = 0; i < Offsets.Count; i++) {
