@@ -20,7 +20,7 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "15F";
+        public const string APP_VERSION = "16F";
         public static TextBox LOGGBOX;
         public static bool debug = false;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
@@ -486,18 +486,17 @@ namespace HuaweiUnlocker
                     string unichar = (block_name.ValueString.Substring(p + 2, 2) + block_name.ValueString.Substring(p, 2)).TrimStart('0');
                     if (!string.IsNullOrEmpty(unichar)) bn.Append(Convert.ToChar(Convert.ToInt32(unichar, 16)));
                 }
-                Partition GPT_Items = new Partition()
+                if (!string.IsNullOrEmpty(bsa) && !string.IsNullOrEmpty(bea))
                 {
-                    BlockStart = Convert.ToInt32(bsa.ToString(), 16).ToString(),
-                    BlockEnd = Convert.ToInt32(bea.ToString(), 16).ToString()
-                };
-                if (!string.IsNullOrEmpty(GPT_Items.BlockStart) && !string.IsNullOrEmpty(GPT_Items.BlockEnd))
-                {
-                    uint blocks_count = Convert.ToUInt32(GPT_Items.BlockEnd, 16) - Convert.ToUInt32(GPT_Items.BlockStart, 16) + 1;
-                    GPT_Items.BlockBytes = (blocks_count * block_size).ToString();
-                    GPT_Items.BlockNumSectors = blocks_count.ToString();
-                    GPT_Items.BlockLength = (blocks_count / 2).ToString();
-                    GPT.Add(bn.ToString(), GPT_Items);
+                    uint blocks_count = Convert.ToUInt32(bea, 16) - Convert.ToUInt32(bsa, 16) + 1;
+                    GPT.Add(bn.ToString(), new Partition()
+                    {
+                        BlockStart = Convert.ToInt32(bsa, 16).ToString(),
+                        BlockEnd = Convert.ToInt32(bea, 16).ToString(),
+                        BlockBytes = (blocks_count * block_size).ToString(),
+                        BlockNumSectors = blocks_count.ToString(),
+                        BlockLength = (blocks_count / 2).ToString(),
+                    });
                 }
             }
             return GPT;
@@ -585,7 +584,9 @@ namespace HuaweiUnlocker
             foreach (var i in partbI)
             {
                 if (string.IsNullOrEmpty(i.Key)) continue;
-                string line = "<program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=" + '"' + i.Key + ".img" + '"' + " label=" + '"' + i.Key + '"' + " num_partition_sectors=" + '"' + i.Value.BlockNumSectors + '"' + " size_in_KB=" + '"' + i.Value.BlockLength + '"' + " sparse=\"false\" start_sector=" + '"' + i.Value.BlockStart + '"' + "/>";
+                string line = "<program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + i.Value.BlockNumSectors + "\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_sector=\"" + i.Value.BlockStart + "\"/>";
+                if (i.Key.ToLower() == "userdata")
+                    line = "<program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + 1 + "\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_sector=\"" + i.Value.BlockStart + "\"/>";
                 writer.WriteLine(line);
                 if (debug) LOG(0, line);
             }

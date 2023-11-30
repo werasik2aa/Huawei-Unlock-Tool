@@ -19,70 +19,98 @@ namespace HuaweiUnlocker.TOOLS
             {
                 var i = 0;
                 if (!Directory.Exists("/UnlockFiles/UpdateAPP/")) Directory.CreateDirectory("UnlockFiles/UpdateAPP");
+                UpdateFile UpdFile = UpdateFile.Open(path, false);
                 if (state > 0)
                 {
                     Directory.Delete("UnlockFiles/UpdateAPP", true);
                     if (!Directory.Exists("/UnlockFiles/UpdateAPP/")) Directory.CreateDirectory("UnlockFiles/UpdateAPP");
-                    UpdateFile f = UpdateFile.Open(path, false);
-                    foreach (var a in f)
+                    foreach (var a in UpdFile) // STAGE EXTRACT
                     {
                         if (!unpacked)
                         {
+                            if (a.FileType.ToString().ToUpper() == "ERECOVERY_RAMDIS")
+                                a.FileType = "ERECOVERY_RAMDISK";
+                            if (a.FileType.ToString().ToUpper() == "RECOVERY_RAMDIS")
+                                a.FileType = "RECOVERY_RAMDISK";
                             LOG(0, "Extracting", a.FileType);
-                            f.Extract(i, "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img");
-                            if (File.Exists("recovery_ramdis.img")) File.Move("UnlockFiles/UpdateAPP/recovery_ramdis.img", "UnlockFiles/UpdateAPP/recovery_ramdisk.img");
-                            if (File.Exists("erecovery_ramdis.img"))File.Move("UnlockFiles/UpdateAPP/erecovery_ramdis.img", "UnlockFiles/UpdateAPP/erecovery_ramdisk.img");
+                            UpdFile.Extract(i, "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img");
                             i++;
                         }
-                        if (state == 2)
+                        Progress(i / UpdFile.Count * 100);
+                    }
+                    //Set 0
+                    unpacked = true;
+                    i = 0;
+                    CreateRWProgram0xml();
+
+                    if (state == 2)
+                    {
+                        Progress(0);//0(STAGE FLASHING DLOAD 9008 MODE)
+                        DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo("UnlockFiles/UpdateAPP/");
+                        FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + "gpt" + "*.*");
+                        if (filesInDir.Length == 0)
                         {
-                            FlashToolQClegacy.CurPartLenght = (int)a.FileSize;
-                            FlashToolQClegacy.Write(a.FileType.ToLower(), loader, "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img");
+                            LOG(2, "RrGPTXMLE");
+                            LOG(2, "NotFoundF", "GPT.img");
+                            return false;
+                        }
+                        var gpttable = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
+                        foreach (var a in UpdFile)
+                        {
+                            if (a.FileType.ToString().ToUpper() == "ERECOVERY_RAMDIS")
+                                a.FileType = "ERECOVERY_RAMDISK";
+                            if (a.FileType.ToString().ToUpper() == "RECOVERY_RAMDIS")
+                                a.FileType = "RECOVERY_RAMDISK";
+                            if (gpttable.ContainsKey(a.FileType.ToLower()))
+                            {
+                                FlashToolQClegacy.CurPartLenght = (int)a.FileSize;
+                                FlashToolQClegacy.Write(a.FileType.ToLower(), loader, "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img");
+                                i++;
+                            }
+                            Progress(i / gpttable.Count * 100);
                         }
                     }
-                    unpacked = true;
                 }
                 else
                 {
                     LOG(0, "Searching GPT.bin in file:", path);
-                    UpdateFile ff = UpdateFile.Open(path, false);
-                    foreach (var a in ff)
+                    foreach (var a in UpdFile)
                     {
                         if (a.FileType.ToLower().Contains("gpt"))
                         {
                             LOG(0, "Extracting", a.FileType);
                             LOG(0, a.BlockSize.ToString(), " " + a.FileSequence + " " + a.DataOffset);
-                            ff.Extract(i, "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img");
+                            UpdFile.Extract(i, "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img");
                             break;
                         }
                         i++;
                     }
+                    CreateRWProgram0xml();
                 }
                 return true;
             });
             await CurTask;
-            CreateRWProgram0xml();
             LOG(0, "Done", DateTime.Now);
         }
-            private static void CreateRWProgram0xml()
+        private static void CreateRWProgram0xml()
+        {
+            if (!Directory.Exists("UnlockFiles/UpdateAPP"))
             {
-                if (!Directory.Exists("UnlockFiles/UpdateAPP"))
-                {
-                    LOG(2, "RrGPTXMLE", "NoRights");
-                    return;
-                }
-                DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo("UnlockFiles/UpdateAPP/");
-                FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + "gpt" + "*.*");
-                if (filesInDir.Length == 0)
-                {
-                    LOG(2, "RrGPTXMLE");
-                    LOG(2, "NotFoundF", "GPT.img");
-                    return;
-                }
-                LOG(0, "RrGPTXMLSPR", " -> ~/" + pathxml);
-                var gpttable = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
-                if (gpttable.Count > 0)
-                    WriteGPT_TO_XML(pathxml, gpttable);
+                LOG(2, "RrGPTXMLE", "NoRights");
+                return;
             }
+            DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo("UnlockFiles/UpdateAPP/");
+            FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + "gpt" + "*.*");
+            if (filesInDir.Length == 0)
+            {
+                LOG(2, "RrGPTXMLE");
+                LOG(2, "NotFoundF", "GPT.img");
+                return;
+            }
+            LOG(0, "RrGPTXMLSPR", " -> ~/" + pathxml);
+            var gpttable = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
+            if (gpttable.Count > 0)
+                WriteGPT_TO_XML(pathxml, gpttable);
         }
     }
+}

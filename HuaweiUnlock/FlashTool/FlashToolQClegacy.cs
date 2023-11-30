@@ -133,7 +133,7 @@ namespace HuaweiUnlocker.FlashTool
             try
             {
                 Progress(50);
-                LOG(0, "Writer", partition);
+                LOG(0, "Writer", partition + newline);
                 if (!SyncRUN(command, subcommand))
                     LOG(0, "EwPE", partition);
                 return true;

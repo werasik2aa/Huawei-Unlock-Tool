@@ -877,6 +877,7 @@ namespace HuaweiUnlocker
 
         private void Searching(object sender, EventArgs e)
         {
+            var a = PORTBOX.Text;
             PORTBOX.Items.Clear();
             PORTBOX.Items.Add("");
             PORTBOX.Items.Add("Auto");
@@ -898,62 +899,11 @@ namespace HuaweiUnlocker
                 WHAT.Enabled = WHAT.Visible;
                 Tab.Enabled = true;
             }
+            PORTBOX.SelectedText = a;
+            PORTBOX.SelectedItem = a;
         }
 
         private void CrtGptBTN2_Click(object sender, EventArgs e)
-        {
-            if (debug) LOG(-1, "===================.CREATE GPT CrtGptBTN_Click().===================");
-            SaveFileDialog saveFileDialog = new SaveFileDialog()
-            {
-                InitialDirectory = PrevFolder,
-                Filter = "Rawprogram0.xml (*.xml;*.txt)|*.xml;*.txt|All files (*.*)|*.*",
-                FilterIndex = 2,
-                RestoreDirectory = true,
-                Title = Language.Get("SelPathToGPTXML")
-            };
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string papthto = saveFileDialog.FileName;
-                try
-                {
-                    if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
-                    LOG(0, "ReadGPT");
-                    Progress(20);
-                    if (ReadGPT(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text))
-                        if (LangProc.DeviceInfo.Partitions.Count > 0)
-                        {
-                            Progress(50);
-                            LOG(0, "SUCC_ReadGPT");
-                            LOG(0, "RrGPTXMLSPR", papthto);
-                            WriteGPT_TO_XML(papthto, LangProc.DeviceInfo.Partitions);
-                            Progress(100);
-                        }
-                        else
-                            LOG(2, "RrGPTXMLE", "ERR_ReadGPT");
-                }
-                catch (Exception esa)
-                {
-                    LOG(2, "RrGPTXMLE", esa.Message);
-                }
-                Progress(0);
-            }
-        }
-
-        private void UnpBTN_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
-            {
-                InitialDirectory = PrevFolder,
-                Filter = "Update.app (*.app;*.APP)|*.app;*.APP|All files (*.*)|*.*",
-                FilterIndex = 2,
-                RestoreDirectory = true,
-                Title = "Update.APP"
-            };
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-                UpdateApp.Unpack(openFileDialog.FileName, 1);
-        }
-
-        private void CrtGPTBtn_Click(object sender, EventArgs e)
         {
             try
             {
@@ -991,6 +941,59 @@ namespace HuaweiUnlocker
                     LOG(2, "RrGPTXMLE", "ERR_ReadGPTFile2");
             }
             catch (Exception ee) { LOG(2, ee.Message); }
+        }
+
+        private void UnpBTN_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                InitialDirectory = PrevFolder,
+                Filter = "Update.app (*.app;*.APP)|*.app;*.APP|All files (*.*)|*.*",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+                Title = "Update.APP"
+            };
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+                UpdateApp.Unpack(openFileDialog.FileName, 1);
+        }
+
+        private void CrtGPTBtn_Click(object sender, EventArgs e)
+        {
+            if (debug) LOG(-1, "===================.CREATE GPT CrtGptBTN_Click().===================");
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                InitialDirectory = PrevFolder,
+                Filter = "Rawprogram0.xml (*.xml;*.txt)|*.xml;*.txt|All files (*.*)|*.*",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+                Title = Language.Get("SelPathToGPTXML")
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string papthto = saveFileDialog.FileName;
+                try
+                {
+                    if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
+                    LOG(0, "ReadGPT");
+                    Progress(20);
+                    if (ReadGPT(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text))
+                        if (LangProc.DeviceInfo.Partitions.Count > 0)
+                        {
+                            Progress(50);
+                            LOG(0, "SUCC_ReadGPT");
+                            LOG(0, "RrGPTXMLSPR", papthto);
+                            WriteGPT_TO_XML(papthto, LangProc.DeviceInfo.Partitions);
+                            Progress(100);
+                        }
+                        else
+                            LOG(2, "RrGPTXMLE", "ERR_ReadGPT");
+                }
+                catch (Exception esa)
+                {
+                    LOG(2, "RrGPTXMLE", esa.Message);
+                }
+                Progress(0);
+            }
         }
 
         private void BypAuBTN_Click(object sender, EventArgs e)
