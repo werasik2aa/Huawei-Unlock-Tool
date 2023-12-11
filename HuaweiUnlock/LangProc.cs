@@ -20,7 +20,7 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "16F";
+        public const string APP_VERSION = "17F";
         public static TextBox LOGGBOX;
         public static bool debug = false;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";

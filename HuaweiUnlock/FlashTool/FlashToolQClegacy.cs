@@ -7,6 +7,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using System.Security.Cryptography.Xml;
 using System.Threading;
+using System.Linq;
 
 namespace HuaweiUnlocker.FlashTool
 {
@@ -74,43 +75,22 @@ namespace HuaweiUnlocker.FlashTool
                 try
                 {
                     LOG(0, "Unlocker", DeviceInfo.Name);
+                    LOG(0, "Unlocker", "ReadGPT");
                     if (!ReadGPT(loader))
                     { LOG(2, "ERR_ReadGPT"); CurTask.Dispose(); }
-                    if (File.Exists(path + "\\aboot") || File.Exists(path + "\\emmc_appsboot.mbn"))
+                    string[] fileEntries = Directory.GetFiles(path);
+                    foreach (string fileName in fileEntries)
                     {
-                        LOG(0, "Writer", "aboot" + newline);
-                        subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b aboot " + '"' + path + "\\aboot" +'"';
-                        if (File.Exists(path + "\\emmc_appsboot.mbn"))
-                            subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b aboot " + '"' + path + "\\emmc_appsboot.mbn" + '"';
-                        CurPartLenght = int.Parse(DeviceInfo.Partitions["aboot"].BlockNumSectors);
+                        string partname = fileName.Split('\\').Last().Split('.').First();
+                        if (fileName.EndsWith(".xml")) continue;
+                        LOG(0, "Writer", partname + newline);
+                        subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b " + partname + " " + '"' + fileName + '"';
+                        CurPartLenght = int.Parse(DeviceInfo.Partitions[partname].BlockNumSectors);
                         if (!SyncRUN(command, subcommand))
                             LOG(2, "FailUnl");
                         else Progress(50);
                     }
-                    if (File.Exists(path + "\\sbl1") || File.Exists(path + "\\sbl1.mbn"))
-                    {
-                        LOG(0, "Writer", "sbl1" + newline);
-                        subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b sbl1 " + '"' + path + "\\sbl1" + '"';
-                        if (File.Exists("sbl1.mbn"))
-                            subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b sbl1 " + '"' + path + "\\sbl1.mbn" + '"';
-                        CurPartLenght = int.Parse(DeviceInfo.Partitions["sbl1"].BlockNumSectors);
-                        if (!SyncRUN(command, subcommand))
-                            LOG(2, "FailUnl");
-                        else Progress(50);
-                    }
-                    if (File.Exists(path + "\\kernel") || File.Exists(path + "\\kernel.img"))
-                    {
-                        LOG(0, "Writer", "kernel" + newline);
-                        subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b kernel " + '"' + path + "\\kernel" + '"';
-                        if (File.Exists("kernel.img"))
-                            subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b kernel " + '"' + path + "\\kernel.img" + '"';
-                        CurPartLenght = int.Parse(DeviceInfo.Partitions["kernel"].BlockNumSectors);
-                        if (!SyncRUN(command, subcommand))
-                            LOG(2, "FailUnl");
-                        else Progress(50);
-                    }
-                    else
-                        LOG(1, "Unlocked kernel for this device not compiled:", "Your device partitionaly unlocked!");
+                    if (!File.Exists(path + "\\kernel") & !File.Exists(path + "\\kernel.img")) LOG(1, "WarnUnl");
                     Progress(100);
                     return true;
                 }
@@ -178,7 +158,7 @@ namespace HuaweiUnlocker.FlashTool
                 DeviceInfo.Partitions = new Dictionary<string, Partition>();
                 if (debug) { LOG(-1, "===READ GPT===" + newline + newline); }
                 if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); return false; }
-                return SyncRUN(command, subcommand);
+                return SyncRUN(command, subcommand) & DeviceInfo.Partitions.Count > 0;
             }
             catch { }
             return true;
@@ -197,7 +177,7 @@ namespace HuaweiUnlocker.FlashTool
                 LOG(0, "Unlocker", "ReadGPT");
                 if (DeviceInfo.Partitions.Count == 0)
                     if (!ReadGPT(loader))
-                    { LOG(2, "FailFrpD"); return false; }
+                    { LOG(2, "ERR_ReadGPT"); return false; }
                 bool status = false;
                 if (DeviceInfo.Partitions.ContainsKey("devinfo"))
                 {
@@ -224,7 +204,6 @@ namespace HuaweiUnlocker.FlashTool
 
                 if (status)
                     LOG(1, "Warning", "WarnFrp");
-
                 return status;
             }
             catch (Exception e)

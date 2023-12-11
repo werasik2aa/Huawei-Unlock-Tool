@@ -55,6 +55,7 @@ namespace HuaweiUnlocker.TOOLS
                             return false;
                         }
                         var gpttable = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
+                        gpttable.Remove("system");
                         foreach (var a in UpdFile)
                         {
                             if (a.FileType.ToString().ToUpper() == "ERECOVERY_RAMDIS")
@@ -69,6 +70,7 @@ namespace HuaweiUnlocker.TOOLS
                             }
                             Progress(i / gpttable.Count * 100);
                         }
+                        LOG(2, "system.img is to big for emmcdl maybe. I don't know how to fix it");
                     }
                 }
                 else
@@ -90,6 +92,7 @@ namespace HuaweiUnlocker.TOOLS
                 return true;
             });
             await CurTask;
+            Progress(100);
             LOG(0, "Done", DateTime.Now);
         }
         private static void CreateRWProgram0xml()
