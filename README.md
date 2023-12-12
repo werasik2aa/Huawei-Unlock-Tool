@@ -21,7 +21,13 @@ Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: htt
 | CAZ           |   ⚠️   |    ⚠️   |
 | CPN8937       |   ⚠️   |    ⚠️   |
 | DLI           |   ⚠️   |    ⚠️   |
+| FDR           |   ⚠️   |    ⚠️   |
 | G620S         |   ⚠️   |    ⚠️   |
+| Y635          |   ⚠️   |    ⚠️   |
+| KIW           |   ⚠️   |    ⚠️   |
+| LDN           |   ⚠️   |    ⚠️   |
+| LND           |   ⚠️   |    ⚠️   |
+| LND           |   ⚠️   |    ⚠️   |
 
 0. Diag Tool Huawei Manufacture mode. DBADAPTER RESERVED INTERFACE.
 1. BOOTLOADER UNLOCKER
