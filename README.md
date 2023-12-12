@@ -4,13 +4,24 @@ Free Huawei Unlock bootloader / FRP | EN/RU
 
 Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: https://disk.yandex.ru/d/rQ4e72f1FhbuWg
 
-| Devices       | Checked/Tested             | Status |
-| ------------- |:------------------:| -----:|
-| ATU           | FULL | ✅ |
-| AUM           | FULL | ✅ |
-| зебра-строки  | FULL | ✅ |
+| Devices       | Checked/Tested | Status |
+| ------------- |:--------------:| :-----: |
+| ATU           | ✅ | ✅ |
+| AUM           | ✅ | ✅ |
+| ARE           | ✅ | ⚠️ |
+| AGS           | ⚠️ | ⚠️ |
+| ALE           | ⚠️ | ⚠️ |
+| ARS           | ⚠️ | ⚠️ |
+| ATH           | ⚠️ | ⚠️ |
+| BAH           | ⚠️ | ⚠️ |
+| ATH           | ⚠️ | ⚠️ |
+| ATH           | ⚠️ | ⚠️ |
+| ATH           | ⚠️ | ⚠️ |
+| ATH           | ⚠️ | ⚠️ |
 
-Supported device in theory: DUB, LDN Full, LND, FDR NotTested, AGS NotTested, ALE NotTested, ARE NotTested, ARS NotTested, ATH NotTested, BAH NotTested, CAN NotTested, CAZ NotTested, CPN8937 NotTested, DLI NotTested, G620S NotTested, BKK, Y635, KIW
+
+
+Supported device in theory: DUB, LDN Full, LND, FDR NotTested, BAH NotTested, CAN NotTested, CAZ NotTested, CPN8937 NotTested, DLI NotTested, G620S NotTested, BKK, Y635, KIW
 
 0. Diag Tool Huawei Manufacture mode. DBADAPTER RESERVED INTERFACE.
 1. BOOTLOADER UNLOCKER
