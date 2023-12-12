@@ -1,6 +1,6 @@
-✅ - Full / Verified
-⚠️ - Partitionally / Unknown
-❌ - Not Working / Not verified
+✅ Full / Verified
+⚠️ Partitionally / Unknown
+❌ Not Working / Not verified
 | Devices       | Status | Check |
 | ------------- | :----: | :---: |
 | ATU           |   ✅   |  ✅  |
