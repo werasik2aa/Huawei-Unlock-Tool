@@ -6,9 +6,9 @@ Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: htt
 
 | Devices       | Checked/Tested             | Status |
 | ------------- |:------------------:| -----:|
-| ATU           | FULL |✅|
-| AUM           | FULL |✅|
-| зебра-строки  | FULL |✅|
+| ATU           | FULL | ✅ |
+| AUM           | FULL | ✅ |
+| зебра-строки  | FULL | ✅ |
 
 Supported device in theory: DUB, LDN Full, LND, FDR NotTested, AGS NotTested, ALE NotTested, ARE NotTested, ARS NotTested, ATH NotTested, BAH NotTested, CAN NotTested, CAZ NotTested, CPN8937 NotTested, DLI NotTested, G620S NotTested, BKK, Y635, KIW
 
