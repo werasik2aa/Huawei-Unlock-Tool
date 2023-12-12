@@ -1,5 +1,5 @@
 ✅ - Full / Verified
-⚠️ - FB / Unknown
+⚠️ - With troubles
 ❌ - Not Working / Not verified
 | Devices       | Status | Check |
 | ------------- | :----: | :---: |
@@ -18,7 +18,7 @@
 | CAZ           |   ⚠️   |  ❌  |
 | CPN8937       |   ⚠️   |  ❌  |
 | DLI           |   ⚠️   |  ⚠️  |
-| FDR           |   ✅   |  ⚠️  |
+| FDR           |   ✅   |  ✅  |
 | G620S         |   ⚠️   |  ❌  |
 | Y635          |   ⚠️   |  ❌  |
 | KIW           |   ⚠️   |  ❌  |
