@@ -4,12 +4,19 @@ Free Huawei Unlock bootloader / FRP | EN/RU
 
 Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: https://disk.yandex.ru/d/rQ4e72f1FhbuWg
 
+Support: ATU, AUM, DUB, LDN, LND, FDR, AGS, ALE, ARE, ARS, ATH, BAH, CAN, CAZ, CPN8937, DLI, G620S, BKK, Y635, KIW
+
 0. Diag Tool Huawei Manufacture mode. DBADAPTER RESERVED INTERFACE.
 1. BOOTLOADER UNLOCKER
 2. FLASH TOOL
-3. Partition Flasher
+3. Partition Manager
 4. Full ROM Flash/Backup!
-5. HISI UNLOCKER -> Uses Source Code from <a href="https://github.com/mashed-potatoes/PotatoNV">Potato_NV</a> For mergering programms.
+5. Oeminfo Compiler/Decompiler
+6. Update.app extract and flash(EDL 9008)
+7. DBadapter reserver interface com port - basic info read.
+8. Rawprogram0.xml generator from device + from file.
+9. HISI UNLOCKER -> Uses Source Code from <a href="https://github.com/mashed-potatoes/PotatoNV">Potato_NV</a> For mergering programms.
+
 So much editions in code base for allow to work with phone in this tool. ALL in ONE Tool! Multi Language...
 For peoples who need like dongle box tool... But without dongle...
 <a href="https://ibb.co/BnNjFM0"><img src="https://i.ibb.co/BnNjFM0/image.png" alt="image" border="0"></a> <a href="https://ibb.co/FgxpgdW"><img src="https://i.ibb.co/FgxpgdW/image.png" alt="image" border="0"></a> <a href="https://ibb.co/M9ngr0C"><img src="https://i.ibb.co/M9ngr0C/image.png" alt="image" border="0"></a> <a href="https://ibb.co/6FJsWvc"><img src="https://i.ibb.co/6FJsWvc/image.png" alt="image" border="0"></a> <a href="https://ibb.co/n3JQBsK"><img src="https://i.ibb.co/n3JQBsK/image.png" alt="image" border="0"></a>
