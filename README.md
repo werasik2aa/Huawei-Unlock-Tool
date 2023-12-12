@@ -4,13 +4,13 @@ Free Huawei Unlock bootloader / FRP | EN/RU
 
 Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: https://disk.yandex.ru/d/rQ4e72f1FhbuWg
 
-| Таблицы       | Это                | Круто |
+| Devices       | Checked/Tested             | Status |
 | ------------- |:------------------:| -----:|
-| столбец 3     | выровнен вправо    | $1600 |
-| столбец 2     | выровнен по центру |   $12 |
-| зебра-строки  | прикольные         |    $1 |
+| ATU           | FULL |   $12 |
+| AUM           | FULL |   $12 |
+| зебра-строки  | FULL |    $1 |
 
-Supported device in theory: ATU Full, AUM Full, DUB, LDN Full, LND Full, FDR NotTested, AGS NotTested, ALE NotTested, ARE NotTested, ARS NotTested, ATH NotTested, BAH NotTested, CAN NotTested, CAZ NotTested, CPN8937 NotTested, DLI NotTested, G620S NotTested, BKK, Y635, KIW
+Supported device in theory: DUB, LDN Full, LND, FDR NotTested, AGS NotTested, ALE NotTested, ARE NotTested, ARS NotTested, ATH NotTested, BAH NotTested, CAN NotTested, CAZ NotTested, CPN8937 NotTested, DLI NotTested, G620S NotTested, BKK, Y635, KIW
 
 0. Diag Tool Huawei Manufacture mode. DBADAPTER RESERVED INTERFACE.
 1. BOOTLOADER UNLOCKER
