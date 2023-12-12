@@ -4,24 +4,24 @@ Free Huawei Unlock bootloader / FRP | EN/RU
 
 Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: https://disk.yandex.ru/d/rQ4e72f1FhbuWg
 
-| Devices       | Tested | Status |
-| ------------- |:------:| :----: |
-| ATU           | ✅ | ✅ |
-| AUM           | ✅ | ✅ |
-| ARE           | ✅ | ⚠️ |
-| AGS           | ⚠️ | ⚠️ |
-| ALE           | ⚠️ | ⚠️ |
-| ARS           | ⚠️ | ⚠️ |
-| ATH           | ⚠️ | ⚠️ |
-| BAH           | ⚠️ | ⚠️ |
-| ATH           | ⚠️ | ⚠️ |
-| ATH           | ⚠️ | ⚠️ |
-| ATH           | ⚠️ | ⚠️ |
-| ATH           | ⚠️ | ⚠️ |
-
-
-
-Supported device in theory: DUB, LDN Full, LND, FDR NotTested, BAH NotTested, CAN NotTested, CAZ NotTested, CPN8937 NotTested, DLI NotTested, G620S NotTested, BKK, Y635, KIW
+| Devices       | Status  | Tested  |
+| ------------- |:------: | :-----: |
+| ATU           |   ✅   |    ✅   |
+| AUM           |   ✅   |    ✅   |
+| ALE           |   ⚠️   |    ⚠️   |
+| ARE           |   ⚠️   |    ⚠️   |
+| AGS           |   ⚠️   |    ⚠️   |
+| ARE           |   ⚠️   |    ⚠️   |
+| ARS           |   ⚠️   |    ⚠️   |
+| ATH           |   ⚠️   |    ⚠️   |
+| BAH           |   ⚠️   |    ⚠️   |
+| BKK           |   ⚠️   |    ⚠️   |
+| DUB           |   ⚠️   |    ⚠️   |
+| CAN           |   ⚠️   |    ⚠️   |
+| CAZ           |   ⚠️   |    ⚠️   |
+| CPN8937       |   ⚠️   |    ⚠️   |
+| DLI           |   ⚠️   |    ⚠️   |
+| G620S         |   ⚠️   |    ⚠️   |
 
 0. Diag Tool Huawei Manufacture mode. DBADAPTER RESERVED INTERFACE.
 1. BOOTLOADER UNLOCKER
