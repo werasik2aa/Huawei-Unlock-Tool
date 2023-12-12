@@ -1,5 +1,5 @@
 ✅ - Full / Verified
-⚠️ - With troubles
+⚠️ - Partitionally / Unknown
 ❌ - Not Working / Not verified
 | Devices       | Status | Check |
 | ------------- | :----: | :---: |
@@ -17,7 +17,7 @@
 | CAN           |   ⚠️   |  ❌  |
 | CAZ           |   ⚠️   |  ❌  |
 | CPN8937       |   ⚠️   |  ❌  |
-| DLI           |   ⚠️   |  ⚠️  |
+| DLI           |   ⚠️   |  ❌  |
 | FDR           |   ✅   |  ✅  |
 | G620S         |   ⚠️   |  ❌  |
 | Y635          |   ⚠️   |  ❌  |
