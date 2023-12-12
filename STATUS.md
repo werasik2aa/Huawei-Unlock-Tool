@@ -1,3 +1,6 @@
+✅ - Full / Verified
+⚠️ - FB / Unknown
+❌ - Not Working / Not verified
 | Devices       | Status | Check |
 | ------------- | :----: | :---: |
 | ATU           |   ✅   |  ✅  |
