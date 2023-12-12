@@ -8,26 +8,25 @@ Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: htt
 | ------------- |:------: | :-----: |
 | ATU           |   ✅   |    ✅   |
 | AUM           |   ✅   |    ✅   |
-| ALE           |   ⚠️   |    ⚠️   |
-| ARE           |   ⚠️   |    ⚠️   |
-| AGS           |   ⚠️   |    ⚠️   |
-| ARE           |   ⚠️   |    ⚠️   |
-| ARS           |   ⚠️   |    ⚠️   |
-| ATH           |   ⚠️   |    ⚠️   |
-| BAH           |   ⚠️   |    ⚠️   |
-| BKK           |   ⚠️   |    ⚠️   |
-| DUB           |   ⚠️   |    ⚠️   |
-| CAN           |   ⚠️   |    ⚠️   |
-| CAZ           |   ⚠️   |    ⚠️   |
-| CPN8937       |   ⚠️   |    ⚠️   |
+| ALE           |   ⚠️   |    ❌   |
+| ARE           |   ⚠️   |    ❌   |
+| AGS           |   ⚠️   |    ❌   |
+| ARE           |   ⚠️   |    ❌   |
+| ARS           |   ⚠️   |    ❌   |
+| ATH           |   ⚠️   |    ❌   |
+| BAH           |   ⚠️   |    ❌   |
+| BKK           |   ⚠️   |    ❌   |
+| DUB           |   ⚠️   |    ❌   |
+| CAN           |   ⚠️   |    ❌   |
+| CAZ           |   ⚠️   |    ❌   |
+| CPN8937       |   ⚠️   |    ❌   |
 | DLI           |   ⚠️   |    ⚠️   |
-| FDR           |   ⚠️   |    ⚠️   |
-| G620S         |   ⚠️   |    ⚠️   |
-| Y635          |   ⚠️   |    ⚠️   |
-| KIW           |   ⚠️   |    ⚠️   |
-| LDN           |   ⚠️   |    ⚠️   |
-| LND           |   ⚠️   |    ⚠️   |
-| LND           |   ⚠️   |    ⚠️   |
+| FDR           |   ✅   |    ⚠️   |
+| G620S         |   ⚠️   |    ❌   |
+| Y635          |   ⚠️   |    ❌   |
+| KIW           |   ⚠️   |    ❌   |
+| LDN           |   ✅   |    ❌   |
+| LND           |   ✅   |    ❌   |
 
 0. Diag Tool Huawei Manufacture mode. DBADAPTER RESERVED INTERFACE.
 1. BOOTLOADER UNLOCKER
