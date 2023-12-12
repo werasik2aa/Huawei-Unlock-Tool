@@ -4,8 +4,8 @@ Free Huawei Unlock bootloader / FRP | EN/RU
 
 Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: https://disk.yandex.ru/d/rQ4e72f1FhbuWg
 
-| Devices       | Checked/Tested | Status |
-| ------------- |:--------------:| :-----: |
+| Devices       | Tested | Status |
+| ------------- |:------:| :----: |
 | ATU           | ✅ | ✅ |
 | AUM           | ✅ | ✅ |
 | ARE           | ✅ | ⚠️ |
