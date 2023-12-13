@@ -4,7 +4,7 @@ Free Huawei Unlock bootloader / FRP | EN/RU
 
 Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: https://disk.yandex.ru/d/rQ4e72f1FhbuWg
 
-<a href="https://github.com/werasik2aa/UnlockedHuaweiBootloader/blob/main/STATUS.md">Bootloader Unlocker Status</a>
+<a href="https://github.com/werasik2aa/UnlockedHuaweiBootloader/blob/main/README.md">Bootloader Unlocker Status</a>
 
 0. Diag Tool Huawei Manufacture mode. DBADAPTER RESERVED INTERFACE.
 1. BOOTLOADER UNLOCKER
