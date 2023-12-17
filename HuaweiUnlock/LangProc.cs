@@ -20,9 +20,8 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "17F";
+        public const string APP_VERSION = "18F";
         public static TextBox LOGGBOX;
-        public static bool debug = false;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
         private static StreamWriter se = new StreamWriter("log.txt");
         public static NProgressBar PRG;
@@ -33,6 +32,8 @@ namespace HuaweiUnlocker
         public static Task CurTask;
         public static CancellationTokenSource ct = new CancellationTokenSource();
         public static CancellationToken token = ct.Token;
+        public static Window wndw;
+        public static bool debug = false;
         public class Port_D
         {
             public string ComName;
@@ -516,12 +517,26 @@ namespace HuaweiUnlocker
                 LOG(2, "DeviceNotCon");
                 DeviceInfo.loadedhose = false;
             }
-            else if (!path.Contains(":\\") && !DeviceInfo.loadedhose)
-                LOG(2, "ErrLdr");
-            else if (!File.Exists(path) && !DeviceInfo.loadedhose)
-                LOG(2, "ErrLdr");
             else
-                return true;
+            {
+                if (DeviceInfo.loadedhose) return true;
+                if (wndw.AutoLdr.Checked & DeviceInfo.HWID.Contains("NaN"))
+                {
+                    DeviceInfo.Name = "NaN";
+                    DeviceInfo.Port = GETPORT("qdloader 9008", "Auto");
+                    FlashToolQClegacy.GetIdentifier();
+                    var a = GuessMbn();
+                    if (!string.IsNullOrEmpty(a))
+                    {
+                        DeviceInfo.Name = a.Split('\\')[1];
+                        return true;
+                    }
+                }
+                if (!File.Exists(path) && !DeviceInfo.loadedhose & !wndw.AutoLdr.Checked)
+                    LOG(2, "ErrLdr", path);
+                else
+                    return true;
+            }
             return false;
         }
         public static string IdentifyCPUbyID(string id)
@@ -604,6 +619,37 @@ namespace HuaweiUnlocker
                 PRG.Invoke(action);
             else
                 action();
+        }
+        public static string GuessMbn()
+        {
+            if(!string.IsNullOrEmpty(wndw.LoaderBox.Text))
+                return PickLoader(wndw.LoaderBox.Text);
+            if (debug) LOG(0, "LoaderSearch");
+            string[] subdirectoryEntries = Directory.GetDirectories("qc_boot");
+            foreach (string subdirectory in subdirectoryEntries)
+            {
+                var a = Directory.GetFiles(subdirectory).First();
+                var b = File.ReadAllBytes(a);
+                if (Encoding.ASCII.GetString(b).ToLower().Contains(DeviceInfo.HWID.Replace("0x", "")))
+                {
+                    if (debug) LOG(0, "LoaderFound", a);
+                    return a;
+                }
+            }
+            return "";
+        }
+        public static string GuessMbnTest()
+        {
+            string any = "";
+            string[] subdirectoryEntries = Directory.GetDirectories("qc_boot");
+            foreach (string subdirectory in subdirectoryEntries)
+            {
+                var a = Directory.GetFiles(subdirectory).First();
+                var b = File.ReadAllBytes(a);
+                if (Encoding.ASCII.GetString(b).ToLower().Contains(LangProc.DeviceInfo.HWID.Replace("0x", "")))
+                    LOG(0, "LoaderFound", any = a);
+            }
+            return any;
         }
     }
 }

@@ -22,29 +22,24 @@ namespace HuaweiUnlocker.FlashTool
                 DeviceInfo.loadedhose = false;
                 return false;
             }
-            LOG(0, "CPort", DeviceInfo.Port.ComName);
             if (!DeviceInfo.loadedhose)
             {
                 LOG(0, "CPort", DeviceInfo.Port.FullName);
-                if (GetIdentifier())
+                string command = "Tools\\emmcdl.exe";
+                string subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + pathloader + '"';
+                if (debug) LOG(-1, "===.ELF / .MBN SECTOR===" + newline + newline);
+                try
                 {
-                    string command = "Tools\\emmcdl.exe";
-                    string subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + pathloader + '"';
-                    if (debug) LOG(-1, "===.ELF / .MBN SECTOR===" + newline + newline);
-                    try
-                    {
-                        LOG(0, "FireHose", DeviceInfo.Name + " : " + pathloader);
-                        DeviceInfo.loadedhose = DeviceInfo.loadedhose || SyncRUN(command, subcommand);
-                        Progress(20);
-                        return DeviceInfo.loadedhose;
-                    }
-                    catch (Exception e)
-                    {
-                        if (debug) LOG(1, e.ToString());
-                        return false;
-                    }
+                    LOG(0, "FireHose", pathloader);
+                    DeviceInfo.loadedhose = DeviceInfo.loadedhose || SyncRUN(command, subcommand);
+                    Progress(20);
+                    return DeviceInfo.loadedhose;
                 }
-                else return false;
+                catch (Exception e)
+                {
+                    if (debug) LOG(1, e.ToString());
+                    return false;
+                }
             }
             return true;
         }

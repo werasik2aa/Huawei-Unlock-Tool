@@ -32,6 +32,7 @@ namespace HuaweiUnlocker
         public Window()
         {
             InitializeComponent();
+            wndw = this;
             foreach (var process in Process.GetProcesses())
                 if (process.ProcessName.Contains("emmcdl.exe"))
                     process.Kill();
@@ -214,7 +215,7 @@ namespace HuaweiUnlocker
                 LOG(2, "NoFirmPath");
                 return;
             }
-            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
+            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
             Progress(0);
             if (Xm.Text.Length < 5 && !RAW.Checked)
             {
@@ -229,12 +230,12 @@ namespace HuaweiUnlocker
             if (!RAW.Checked)
             {
                 LOG(0, "EemmcXML_WPS", pather.Text);
-                FlashPartsXml(Xm.Text, PatXm.Text, AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, pather.Text);
+                FlashPartsXml(Xm.Text, PatXm.Text, AutoLdr.Checked ? "" : LoaderBox.Text, pather.Text);
             }
             else
             {
                 LOG(0, "EemmcWPS", pather.Text);
-                FlashPartsRaw(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, pather.Text);
+                FlashPartsRaw(AutoLdr.Checked ? GuessMbn() : LoaderBox.Text, pather.Text);
             }
 
             Progress(100);
@@ -274,17 +275,16 @@ namespace HuaweiUnlocker
                 if (openFileDialog.ShowDialog() == DialogResult.OK) PrevFolder = pather.Text = openFileDialog.FileName;
             }
         }
-
         private void DumpALL_CLK(object sender, EventArgs e)
         {
-            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
+            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
             Progress(0);
             SaveFileDialog openFileDialog = new SaveFileDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 pather.Text = openFileDialog.FileName;
                 LOG(0, "DumpTr", pather.Text);
-                Dump(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, pather.Text);
+                Dump(AutoLdr.Checked ? GuessMbn() : LoaderBox.Text, pather.Text);
             }
 
             Progress(100);
@@ -297,10 +297,10 @@ namespace HuaweiUnlocker
 
         private void RdGPT_Click(object sender, EventArgs e)
         {
-            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
+            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
             LOG(0, "ReadGPT");
             LangProc.DeviceInfo.Partitions = new Dictionary<string, Partition>();
-            if (ReadGPT(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text))
+            if (ReadGPT(AutoLdr.Checked ? GuessMbn() : LoaderBox.Text))
             {
                 LOG(0, "SUCC_ReadGPT");
                 foreach (var obj in LangProc.DeviceInfo.Partitions)
@@ -338,12 +338,12 @@ namespace HuaweiUnlocker
 
         private void ERASEevent_Click(object sender, EventArgs e)
         {
-            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
-            DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(Language.Get("AreY") + Temp, Language.Get("CZdmg"), MessageBoxButtons.YesNo);
+            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
+            DialogResult dialogResult = MessageBox.Show(Language.Get("AreY") + Temp, Language.Get("CZdmg"), MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 LOG(1, "ErPS", Temp);
-                Erase(Temp, AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text);
+                Erase(Temp, AutoLdr.Checked ? "" : LoaderBox.Text);
                 Progress(100);
             }
         }
@@ -351,7 +351,7 @@ namespace HuaweiUnlocker
         private async void WRITEevent_Click(object sender, EventArgs e)
         {
             OpenFileDialog file = new OpenFileDialog();
-            loader = AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text;
+            loader = AutoLdr.Checked ? "" : LoaderBox.Text;
             if (file.ShowDialog() == DialogResult.OK)
             {
                 CurTask = Task.Run(() =>
@@ -367,7 +367,7 @@ namespace HuaweiUnlocker
         private async void READevent_Click_1(object sender, EventArgs e)
         {
             SaveFileDialog folder = new SaveFileDialog();
-            loader = AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text;
+            loader = AutoLdr.Checked ? "" : LoaderBox.Text;
             if (folder.ShowDialog() == DialogResult.OK)
             {
                 CurTask = Task.Run(() =>
@@ -386,23 +386,6 @@ namespace HuaweiUnlocker
         {
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
             if (!Directory.Exists(Path)) BoardU.Text = Language.Get("DdBtn"); else BoardU.Text = Language.Get("DdBtnE");
-        }
-
-        private void ISAS2(object sender, EventArgs e)
-        {
-            if (AutoLdr.Checked)
-            {
-                foreach (var a in Directory.GetDirectories(Directory.GetCurrentDirectory() + "\\qc_boot"))
-                    LoaderBox.Items.Add(a.Split('\\').Last());
-                LoaderBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            }
-            else
-            {
-                LoaderBox.Text = "";
-                LoaderBox.Items.Clear();
-                LoaderBox.DropDownStyle = ComboBoxStyle.DropDown;
-            }
-            SelectLOADER.Enabled = !AutoLdr.Checked;
         }
         private void UnZip(string zipFile, string folderPath)
         {
@@ -455,10 +438,10 @@ namespace HuaweiUnlocker
         private async void UnlockFrp_Click(object sender, EventArgs e)
         {
             Progress(0);
-            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
+            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
             device = DEVICER.Text.ToUpper();
             LOG(0, "CheckCon");
-            loader = AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text;
+            loader = AutoLdr.Checked ? "" : LoaderBox.Text;
             CurTask = Task.Run(() =>
             {
                 if (!UnlockFrp(loader))
@@ -617,12 +600,12 @@ namespace HuaweiUnlocker
 
         private void EraseDA_Click(object sender, EventArgs e)
         {
-            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
+            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
             DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(Language.Get("AreY") + Temp, "WARNING: CAN CAUSE DAMAGE", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 LOG(0, "ErPS", Temp);
-                Erase("userdata", AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text);
+                Erase("userdata", AutoLdr.Checked ? "" : LoaderBox.Text);
                 Progress(100);
             }
         }
@@ -809,10 +792,10 @@ namespace HuaweiUnlocker
 
         private void EraseMeBtn_Click(object sender, EventArgs e)
         {
-            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
+            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
             DialogResult dialogResult = MessageBox.Show(Language.Get("ERmINFO"), Language.Get("CZdmg"), MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
-                if (EraseMemory(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text))
+                if (EraseMemory(AutoLdr.Checked ? GuessMbn() : LoaderBox.Text))
                     LOG(0, "EraseMS");
                 else
                     LOG(2, "EEraseMS");
@@ -871,9 +854,9 @@ namespace HuaweiUnlocker
                 RestoreDirectory = true,
                 Title = "Update.APP"
             };
-            if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
+            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-                UpdateApp.Unpack(openFileDialog.FileName, 2, AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text);
+                UpdateApp.Unpack(openFileDialog.FileName, 2, AutoLdr.Checked ? "" : LoaderBox.Text);
         }
 
         private void Searching(object sender, EventArgs e)
@@ -974,10 +957,10 @@ namespace HuaweiUnlocker
                 string papthto = saveFileDialog.FileName;
                 try
                 {
-                    if (!CheckDevice(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text, PORTBOX.Text)) return;
+                    if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
                     LOG(0, "ReadGPT");
                     Progress(20);
-                    if (ReadGPT(AutoLdr.Checked ? PickLoader(LoaderBox.Text) : LoaderBox.Text))
+                    if (ReadGPT(AutoLdr.Checked ? GuessMbn() : LoaderBox.Text))
                         if (LangProc.DeviceInfo.Partitions.Count > 0)
                         {
                             Progress(50);
@@ -1007,6 +990,7 @@ namespace HuaweiUnlocker
             LOG(0, "CheckCon");
             LangProc.DeviceInfo.Port = GETPORT("qdloader 9008", PORTBOX.Text);
             GetIdentifier();
+            LOG(0, "Trying to gues device:", "");
         }
         private async void ReadOemBTN_Click(object sender, EventArgs e)
         {
@@ -1103,6 +1087,23 @@ namespace HuaweiUnlocker
                 data += "FIRM_INFO: " + i + newline;
             data += "FIRM_INFO: " + newline;
             DeviceInfo.Text = data;
+        }
+
+        private void ISAS2(object sender, EventArgs e)
+        {
+            if (AutoLdr.Checked)
+            {
+                foreach (var a in Directory.GetDirectories(Directory.GetCurrentDirectory() + "\\qc_boot"))
+                    LoaderBox.Items.Add(a.Split('\\').Last());
+                LoaderBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            }
+            else
+            {
+                LoaderBox.Text = "";
+                LoaderBox.Items.Clear();
+                LoaderBox.DropDownStyle = ComboBoxStyle.DropDown;
+            }
+            SelectLOADER.Enabled = !AutoLdr.Checked;
         }
     }
 }
