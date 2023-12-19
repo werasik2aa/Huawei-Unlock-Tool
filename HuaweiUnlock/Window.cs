@@ -427,8 +427,8 @@ namespace HuaweiUnlocker
                 Tab.Enabled = false;
                 return;
             }
-            loader = AutoLdr.Checked ? PickLoader(DEVICER.Text.Split('-').First()) : LoaderBox.Text;
-            if (!CheckDevice(loader, PORTBOX.Text)) { Tab.Enabled = true; return; }
+            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) { Tab.Enabled = true; return; }
+            loader = AutoLdr.Checked ? GuessMbn() : LoaderBox.Text;
             LangProc.DeviceInfo.Name = device;
             LOG(0, "PrcsUnl");
             Unlock(loader, Path);
@@ -441,7 +441,7 @@ namespace HuaweiUnlocker
             if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
             device = DEVICER.Text.ToUpper();
             LOG(0, "CheckCon");
-            loader = AutoLdr.Checked ? "" : LoaderBox.Text;
+            loader = GuessMbn();
             CurTask = Task.Run(() =>
             {
                 if (!UnlockFrp(loader))
