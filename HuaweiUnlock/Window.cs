@@ -57,7 +57,7 @@ namespace HuaweiUnlocker
             {
                 key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\4PDA_HUAWEI_UNLOCK");
                 key.SetValue("LANGUAGE", "English");
-                key.SetValue("DEBUG", true);
+                key.SetValue("DEBUG", false);
                 LBOX.SelectedItem = "English";
             }
 
@@ -106,6 +106,7 @@ namespace HuaweiUnlocker
             }
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
             if (!Directory.Exists(Path)) BoardU.Text = Language.Get("DdBtn"); else BoardU.Text = Language.Get("DdBtnE");
+            LoaderBox.Items.Add("");
             foreach (var a in Directory.GetDirectories(Directory.GetCurrentDirectory() + "\\qc_boot"))
                 LoaderBox.Items.Add(a.Split('\\').Last());
             LangProc.Tab = Tab;
@@ -990,7 +991,8 @@ namespace HuaweiUnlocker
             LOG(0, "CheckCon");
             LangProc.DeviceInfo.Port = GETPORT("qdloader 9008", PORTBOX.Text);
             GetIdentifier();
-            LOG(0, "Trying to gues device:", "");
+            LOG(0, "LoaderSearch");
+            GuessMbnTest();
         }
         private async void ReadOemBTN_Click(object sender, EventArgs e)
         {
@@ -1091,18 +1093,17 @@ namespace HuaweiUnlocker
 
         private void ISAS2(object sender, EventArgs e)
         {
+            LoaderBox.Text = "";
+            LoaderBox.Items.Clear();
             if (AutoLdr.Checked)
             {
+                LoaderBox.Items.Add("");
                 foreach (var a in Directory.GetDirectories(Directory.GetCurrentDirectory() + "\\qc_boot"))
                     LoaderBox.Items.Add(a.Split('\\').Last());
                 LoaderBox.DropDownStyle = ComboBoxStyle.DropDownList;
             }
             else
-            {
-                LoaderBox.Text = "";
-                LoaderBox.Items.Clear();
                 LoaderBox.DropDownStyle = ComboBoxStyle.DropDown;
-            }
             SelectLOADER.Enabled = !AutoLdr.Checked;
         }
     }

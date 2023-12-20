@@ -59,7 +59,6 @@
             this.EraseMeBtn = new HuaweiUnlocker.UI.NButton();
             this.Flash = new HuaweiUnlocker.UI.NButton();
             this.DUMPALL = new HuaweiUnlocker.UI.NButton();
-            this.TUTR2 = new System.Windows.Forms.Label();
             this.Board = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.FrBTN = new HuaweiUnlocker.UI.NButton();
@@ -153,6 +152,7 @@
             this.PortFindUpd = new System.Windows.Forms.Timer(this.components);
             this.IdentifyBTN = new System.Windows.Forms.Button();
             this.PGG = new HuaweiUnlocker.UI.NProgressBar();
+            this.TUTR2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.Tab.SuspendLayout();
             this.MA.SuspendLayout();
@@ -455,6 +455,7 @@
             // MA
             // 
             this.MA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
+            this.MA.Controls.Add(this.TUTR2);
             this.MA.Controls.Add(this.groupBox9);
             this.MA.Controls.Add(this.Gbox);
             this.MA.Controls.Add(this.groupBox6);
@@ -642,7 +643,6 @@
             this.QCOM1.Controls.Add(this.groupBox7);
             this.QCOM1.Controls.Add(this.panel1);
             this.QCOM1.Controls.Add(this.GPfir);
-            this.QCOM1.Controls.Add(this.TUTR2);
             this.QCOM1.Location = new System.Drawing.Point(4, 25);
             this.QCOM1.Name = "QCOM1";
             this.QCOM1.Padding = new System.Windows.Forms.Padding(3);
@@ -884,20 +884,6 @@
             this.DUMPALL.UseVisualStyleBackColor = false;
             this.DUMPALL.UseZoomEffectOnHover = false;
             this.DUMPALL.Click += new System.EventHandler(this.DumpALL_CLK);
-            // 
-            // TUTR2
-            // 
-            this.TUTR2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
-            this.TUTR2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.TUTR2.ForeColor = System.Drawing.Color.MintCream;
-            this.TUTR2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.TUTR2.Location = new System.Drawing.Point(5, 280);
-            this.TUTR2.Name = "TUTR2";
-            this.TUTR2.Size = new System.Drawing.Size(720, 214);
-            this.TUTR2.TabIndex = 30;
-            this.TUTR2.Text = "1. Checked Raw Image -> Select DIUMP.bin\r\n2. Not Checked Raw Image -> Select Fold" +
-    "er with rawprogram0.xml and firmware data\r\n3. For only repartition your phone us" +
-    "e patch0.xml as primary rawprograms0!";
             // 
             // Board
             // 
@@ -2417,6 +2403,20 @@
             this.PGG.ValueMaximum = 100;
             this.PGG.ValueMinimum = 0;
             // 
+            // TUTR2
+            // 
+            this.TUTR2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
+            this.TUTR2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.TUTR2.ForeColor = System.Drawing.Color.MintCream;
+            this.TUTR2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.TUTR2.Location = new System.Drawing.Point(8, 185);
+            this.TUTR2.Name = "TUTR2";
+            this.TUTR2.Size = new System.Drawing.Size(720, 305);
+            this.TUTR2.TabIndex = 35;
+            this.TUTR2.Text = "1. Checked Raw Image -> Select DIUMP.bin\r\n2. Not Checked Raw Image -> Select Fold" +
+    "er with rawprogram0.xml and firmware data\r\n3. For only repartition your phone us" +
+    "e patch0.xml as primary rawprograms0!";
+            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2502,7 +2502,6 @@
         private System.Windows.Forms.TabPage QCOM2;
         private System.Windows.Forms.TabPage QCOM1;
         private System.Windows.Forms.GroupBox GPfir;
-        private System.Windows.Forms.Label TUTR2;
         private System.Windows.Forms.TabPage MTK;
         private System.Windows.Forms.GroupBox WHAT;
         private System.Windows.Forms.Button WritePA;
@@ -2622,5 +2621,6 @@
         private System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.CheckBox AutoLdr;
         public System.Windows.Forms.ComboBox LoaderBox;
+        private System.Windows.Forms.Label TUTR2;
     }
 }

@@ -525,12 +525,16 @@ namespace HuaweiUnlocker
                     DeviceInfo.Name = "NaN";
                     DeviceInfo.Port = GETPORT("qdloader 9008", "Auto");
                     FlashToolQClegacy.GetIdentifier();
-                    var a = GuessMbn();
-                    if (!string.IsNullOrEmpty(a))
+                    var ambn = GuessMbn();
+                    if (!string.IsNullOrEmpty(ambn))
                     {
-                        DeviceInfo.Name = a.Split('\\')[1];
+                        if (ambn == "True")
+                            return false;
+                        DeviceInfo.Name = ambn.Split('\\')[1];
                         return true;
                     }
+                    else return !LOG(0, "NoDEVICEAnsw");
+
                 }
                 if (!File.Exists(path) && !DeviceInfo.loadedhose & !wndw.AutoLdr.Checked)
                     LOG(2, "ErrLdr", path);
@@ -624,6 +628,8 @@ namespace HuaweiUnlocker
         {
             if(!string.IsNullOrEmpty(wndw.LoaderBox.Text))
                 return PickLoader(wndw.LoaderBox.Text);
+            if (wndw.AutoLdr.Checked & DeviceInfo.HWID.Contains("NaN"))
+                return LOG(0, "NoDEVICEAnsw").ToString();
             if (debug) LOG(0, "LoaderSearch");
             string[] subdirectoryEntries = Directory.GetDirectories("qc_boot");
             foreach (string subdirectory in subdirectoryEntries)
@@ -640,6 +646,11 @@ namespace HuaweiUnlocker
         }
         public static string GuessMbnTest()
         {
+            if (!string.IsNullOrEmpty(wndw.LoaderBox.Text))
+                return PickLoader(wndw.LoaderBox.Text);
+            if (wndw.AutoLdr.Checked & DeviceInfo.HWID.Contains("NaN"))
+                return LOG(0, "NoDEVICEAnsw").ToString();
+            if (debug) LOG(0, "LoaderSearch");
             string any = "";
             string[] subdirectoryEntries = Directory.GetDirectories("qc_boot");
             foreach (string subdirectory in subdirectoryEntries)
