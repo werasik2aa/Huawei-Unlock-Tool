@@ -314,7 +314,7 @@ namespace HuaweiUnlocker.FlashTool
                 {
                     CurPartLenght = int.Parse(DeviceInfo.Partitions["userdata"].BlockStart);
                     LOG(0, "Dump", "0" + "<-TO->" + CurPartLenght);
-                    if (SyncRUN(command, subcommand))
+                    if (!SyncRUN(command, subcommand))
                         LOG(2, "DumpingE");
                     return true;
                 }
