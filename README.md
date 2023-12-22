@@ -1,5 +1,6 @@
 # Huawei-Unlock-Tool
-IT'S FREE!
+IT'S FREE! I wouldn't mind a donate for my job, if you want you can ask me about donation place 
+https://www.donationalerts.com/r/werasik2aa
 
 Free Huawei Unlock bootloader / FRP | EN/RU
 
