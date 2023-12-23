@@ -48,3 +48,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 =======
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 >>>>>>> e26f91eab40e8565de5b7ae2ecbad743553052b8
+
+
+
+
+All bootloaders are Huawei Technologies Co., Ltd. property.
+
+This project is not affiliated with Huawei.
