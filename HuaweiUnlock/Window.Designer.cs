@@ -18,9 +18,9 @@
                                         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window));
             this.pather = new System.Windows.Forms.TextBox();
             this.DETECTED = new System.Windows.Forms.Label();
@@ -38,6 +38,7 @@
             this.AutoLdr = new System.Windows.Forms.CheckBox();
             this.Tab = new System.Windows.Forms.TabControl();
             this.MA = new System.Windows.Forms.TabPage();
+            this.TUTR2 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.ClrFoldersBTN = new System.Windows.Forms.Button();
             this.Gbox = new System.Windows.Forms.GroupBox();
@@ -129,7 +130,6 @@
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.CompileOemInfBTN = new System.Windows.Forms.Button();
             this.TrimOrNCHK = new System.Windows.Forms.CheckBox();
-            this.IndexiesOEMdata = new System.Windows.Forms.ComboBox();
             this.ReadOemBTN = new System.Windows.Forms.Button();
             this.LOGGER = new System.Windows.Forms.TextBox();
             this.BURG = new System.Windows.Forms.Panel();
@@ -152,7 +152,10 @@
             this.PortFindUpd = new System.Windows.Forms.Timer(this.components);
             this.IdentifyBTN = new System.Windows.Forms.Button();
             this.PGG = new HuaweiUnlocker.UI.NProgressBar();
-            this.TUTR2 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.FBOXX = new System.Windows.Forms.GroupBox();
+            this.IndexiesOEMdata = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.Tab.SuspendLayout();
             this.MA.SuspendLayout();
@@ -187,6 +190,7 @@
             this.OeRrd.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.BURG.SuspendLayout();
+            this.FBOXX.SuspendLayout();
             this.SuspendLayout();
             // 
             // pather
@@ -465,6 +469,20 @@
             this.MA.Size = new System.Drawing.Size(735, 503);
             this.MA.TabIndex = 5;
             this.MA.Text = "MAIN";
+            // 
+            // TUTR2
+            // 
+            this.TUTR2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
+            this.TUTR2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.TUTR2.ForeColor = System.Drawing.Color.MintCream;
+            this.TUTR2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.TUTR2.Location = new System.Drawing.Point(8, 185);
+            this.TUTR2.Name = "TUTR2";
+            this.TUTR2.Size = new System.Drawing.Size(720, 305);
+            this.TUTR2.TabIndex = 35;
+            this.TUTR2.Text = "1. Checked Raw Image -> Select DIUMP.bin\r\n2. Not Checked Raw Image -> Select Fold" +
+    "er with rawprogram0.xml and firmware data\r\n3. For only repartition your phone us" +
+    "e patch0.xml as primary rawprograms0!";
             // 
             // groupBox9
             // 
@@ -1322,40 +1340,40 @@
             this.PARTLIST.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.PARTLIST.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.Menu;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.Menu;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.PARTLIST.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PARTLIST.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.P,
             this.O,
             this.L});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Snow;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle5;
             this.PARTLIST.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ImeMode = System.Windows.Forms.ImeMode.Close;
             this.PARTLIST.Location = new System.Drawing.Point(-2, -2);
             this.PARTLIST.Name = "PARTLIST";
             this.PARTLIST.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.PARTLIST.RowHeadersVisible = false;
             this.PARTLIST.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.PARTLIST.RowTemplate.ReadOnly = true;
@@ -1457,8 +1475,8 @@
             // NC
             // 
             this.NC.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
+            this.NC.Controls.Add(this.FBOXX);
             this.NC.Controls.Add(this.groupBox3);
-            this.NC.Controls.Add(this.groupBox8);
             this.NC.Controls.Add(this.DSGSDG);
             this.NC.Controls.Add(this.groupBox2);
             this.NC.Controls.Add(this.CpuHISIBox);
@@ -1467,7 +1485,7 @@
             this.NC.Name = "NC";
             this.NC.Size = new System.Drawing.Size(735, 503);
             this.NC.TabIndex = 6;
-            this.NC.Text = "HW_COM";
+            this.NC.Text = "Kirin_UNL";
             // 
             // groupBox3
             // 
@@ -1480,7 +1498,7 @@
             this.groupBox3.ForeColor = System.Drawing.Color.Cornsilk;
             this.groupBox3.Location = new System.Drawing.Point(315, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(417, 469);
+            this.groupBox3.Size = new System.Drawing.Size(417, 286);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Fastboot";
@@ -1498,7 +1516,7 @@
             this.UNLOCKHISI.Cursor = System.Windows.Forms.Cursors.Hand;
             this.UNLOCKHISI.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UNLOCKHISI.ForeColor = System.Drawing.Color.White;
-            this.UNLOCKHISI.Location = new System.Drawing.Point(6, 400);
+            this.UNLOCKHISI.Location = new System.Drawing.Point(6, 221);
             this.UNLOCKHISI.Name = "UNLOCKHISI";
             this.UNLOCKHISI.RippleColor = System.Drawing.Color.Black;
             this.UNLOCKHISI.RoundingEnable = false;
@@ -1544,7 +1562,7 @@
             this.EnDisFBLOCK.AutoSize = true;
             this.EnDisFBLOCK.Checked = true;
             this.EnDisFBLOCK.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.EnDisFBLOCK.Location = new System.Drawing.Point(6, 374);
+            this.EnDisFBLOCK.Location = new System.Drawing.Point(6, 195);
             this.EnDisFBLOCK.Name = "EnDisFBLOCK";
             this.EnDisFBLOCK.Size = new System.Drawing.Size(79, 20);
             this.EnDisFBLOCK.TabIndex = 20;
@@ -1564,7 +1582,7 @@
             this.FBLstHISI.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FBLstHISI.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FBLstHISI.ForeColor = System.Drawing.Color.White;
-            this.FBLstHISI.Location = new System.Drawing.Point(6, 434);
+            this.FBLstHISI.Location = new System.Drawing.Point(6, 255);
             this.FBLstHISI.Name = "FBLstHISI";
             this.FBLstHISI.RippleColor = System.Drawing.Color.Black;
             this.FBLstHISI.RoundingEnable = false;
@@ -1610,7 +1628,7 @@
             this.isVCOM.AutoSize = true;
             this.isVCOM.Checked = true;
             this.isVCOM.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.isVCOM.Location = new System.Drawing.Point(306, 374);
+            this.isVCOM.Location = new System.Drawing.Point(306, 195);
             this.isVCOM.Name = "isVCOM";
             this.isVCOM.Size = new System.Drawing.Size(105, 20);
             this.isVCOM.TabIndex = 14;
@@ -1622,9 +1640,9 @@
             this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.groupBox8.Controls.Add(this.BLkeyHI);
             this.groupBox8.ForeColor = System.Drawing.Color.Cornsilk;
-            this.groupBox8.Location = new System.Drawing.Point(3, 421);
+            this.groupBox8.Location = new System.Drawing.Point(8, 165);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(316, 51);
+            this.groupBox8.Size = new System.Drawing.Size(298, 51);
             this.groupBox8.TabIndex = 21;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Bootloader Key";
@@ -1636,7 +1654,7 @@
             this.BLkeyHI.ForeColor = System.Drawing.SystemColors.Menu;
             this.BLkeyHI.Location = new System.Drawing.Point(8, 20);
             this.BLkeyHI.Name = "BLkeyHI";
-            this.BLkeyHI.Size = new System.Drawing.Size(298, 22);
+            this.BLkeyHI.Size = new System.Drawing.Size(284, 22);
             this.BLkeyHI.TabIndex = 10;
             this.BLkeyHI.Text = "0000000000000000";
             // 
@@ -1658,6 +1676,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.groupBox8);
             this.groupBox2.Controls.Add(this.BLKEYTXT);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.VersionIdTxt);
@@ -1670,7 +1689,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.Cornsilk;
             this.groupBox2.Location = new System.Drawing.Point(3, 62);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(322, 368);
+            this.groupBox2.Size = new System.Drawing.Size(322, 227);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Device Info";
@@ -2000,12 +2019,13 @@
             this.ContantOemText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ContantOemText.Size = new System.Drawing.Size(726, 441);
             this.ContantOemText.TabIndex = 2;
+            this.ContantOemText.TabIndexChanged += new System.EventHandler(this.TabPageOeminfSwitch);
             // 
             // groupBox13
             // 
+            this.groupBox13.Controls.Add(this.IndexiesOEMdata);
             this.groupBox13.Controls.Add(this.CompileOemInfBTN);
             this.groupBox13.Controls.Add(this.TrimOrNCHK);
-            this.groupBox13.Controls.Add(this.IndexiesOEMdata);
             this.groupBox13.Controls.Add(this.ReadOemBTN);
             this.groupBox13.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox13.Location = new System.Drawing.Point(6, 6);
@@ -2041,16 +2061,6 @@
             this.TrimOrNCHK.TabIndex = 5;
             this.TrimOrNCHK.Text = "Trim FF\'S and remove FF\'s";
             this.TrimOrNCHK.UseVisualStyleBackColor = true;
-            // 
-            // IndexiesOEMdata
-            // 
-            this.IndexiesOEMdata.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.IndexiesOEMdata.FormattingEnabled = true;
-            this.IndexiesOEMdata.Location = new System.Drawing.Point(331, 20);
-            this.IndexiesOEMdata.Name = "IndexiesOEMdata";
-            this.IndexiesOEMdata.Size = new System.Drawing.Size(189, 24);
-            this.IndexiesOEMdata.TabIndex = 3;
-            this.IndexiesOEMdata.SelectedIndexChanged += new System.EventHandler(this.TabPageOeminfSwitch);
             // 
             // ReadOemBTN
             // 
@@ -2403,19 +2413,51 @@
             this.PGG.ValueMaximum = 100;
             this.PGG.ValueMinimum = 0;
             // 
-            // TUTR2
+            // textBox7
             // 
-            this.TUTR2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
-            this.TUTR2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.TUTR2.ForeColor = System.Drawing.Color.MintCream;
-            this.TUTR2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.TUTR2.Location = new System.Drawing.Point(8, 185);
-            this.TUTR2.Name = "TUTR2";
-            this.TUTR2.Size = new System.Drawing.Size(720, 305);
-            this.TUTR2.TabIndex = 35;
-            this.TUTR2.Text = "1. Checked Raw Image -> Select DIUMP.bin\r\n2. Not Checked Raw Image -> Select Fold" +
-    "er with rawprogram0.xml and firmware data\r\n3. For only repartition your phone us" +
-    "e patch0.xml as primary rawprograms0!";
+            this.textBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox7.ForeColor = System.Drawing.SystemColors.Menu;
+            this.textBox7.Location = new System.Drawing.Point(8, 25);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.ReadOnly = true;
+            this.textBox7.Size = new System.Drawing.Size(232, 22);
+            this.textBox7.TabIndex = 2;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label8.Location = new System.Drawing.Point(243, 28);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 16);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "BUILD";
+            // 
+            // FBOXX
+            // 
+            this.FBOXX.Controls.Add(this.label8);
+            this.FBOXX.Controls.Add(this.textBox7);
+            this.FBOXX.ForeColor = System.Drawing.Color.Cornsilk;
+            this.FBOXX.Location = new System.Drawing.Point(3, 292);
+            this.FBOXX.Name = "FBOXX";
+            this.FBOXX.Size = new System.Drawing.Size(322, 180);
+            this.FBOXX.TabIndex = 22;
+            this.FBOXX.TabStop = false;
+            this.FBOXX.Text = "Device Info";
+            // 
+            // IndexiesOEMdata
+            // 
+            this.IndexiesOEMdata.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.IndexiesOEMdata.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.IndexiesOEMdata.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IndexiesOEMdata.FormattingEnabled = true;
+            this.IndexiesOEMdata.Location = new System.Drawing.Point(330, 20);
+            this.IndexiesOEMdata.Margin = new System.Windows.Forms.Padding(2);
+            this.IndexiesOEMdata.Name = "IndexiesOEMdata";
+            this.IndexiesOEMdata.Size = new System.Drawing.Size(190, 24);
+            this.IndexiesOEMdata.Sorted = true;
+            this.IndexiesOEMdata.TabIndex = 21;
             // 
             // Window
             // 
@@ -2485,6 +2527,8 @@
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.BURG.ResumeLayout(false);
+            this.FBOXX.ResumeLayout(false);
+            this.FBOXX.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2612,7 +2656,6 @@
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.Button ReadOemBTN;
         private System.Windows.Forms.TextBox ContantOemText;
-        private System.Windows.Forms.ComboBox IndexiesOEMdata;
         private System.Windows.Forms.CheckBox TrimOrNCHK;
         private System.Windows.Forms.Button CompileOemInfBTN;
         private System.Windows.Forms.TextBox DeviceInfo;
@@ -2622,5 +2665,9 @@
         public System.Windows.Forms.CheckBox AutoLdr;
         public System.Windows.Forms.ComboBox LoaderBox;
         private System.Windows.Forms.Label TUTR2;
+        private System.Windows.Forms.GroupBox FBOXX;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox7;
+        public System.Windows.Forms.ComboBox IndexiesOEMdata;
     }
 }

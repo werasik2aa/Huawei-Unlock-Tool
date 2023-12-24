@@ -20,7 +20,7 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "20F";
+        public const string APP_VERSION = "21F";
         public static TextBox LOGGBOX;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
         private static StreamWriter se = new StreamWriter("log.txt");
@@ -525,6 +525,7 @@ namespace HuaweiUnlocker
                     DeviceInfo.Name = "NaN";
                     DeviceInfo.Port = GETPORT("qdloader 9008", "Auto");
                     FlashToolQClegacy.GetIdentifier();
+                    LOG(0, "LoaderSearch");
                     var ambn = GuessMbn();
                     if (!string.IsNullOrEmpty(ambn))
                     {

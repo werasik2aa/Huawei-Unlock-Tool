@@ -98,11 +98,10 @@ namespace HuaweiUnlocker
             foreach (var a in Directory.GetDirectories("UnlockFiles"))
             {
                 string folderDEV = a.Split('\\').Last();
-                if (!folderDEV.StartsWith("KIRIN"))
-                    if (!DEVICER.Items.Contains(folderDEV))
-                        DEVICER.Items.Add(folderDEV);
-                    else if (!HISIbootloaders.Items.Contains(folderDEV))
-                        HISIbootloaders.Items.Add(folderDEV);
+                if (folderDEV.StartsWith("KIRIN") & !HISIbootloaders.Items.Contains(folderDEV))
+                    HISIbootloaders.Items.Add(folderDEV);
+                else if (!DEVICER.Items.Contains(folderDEV))
+                    DEVICER.Items.Add(folderDEV);
             }
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
             if (!Directory.Exists(Path)) BoardU.Text = Language.Get("DdBtn"); else BoardU.Text = Language.Get("DdBtnE");
