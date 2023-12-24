@@ -24,13 +24,9 @@ So much editions in code base for allow to work with phone in this tool. ALL in 
 For peoples who need like dongle box tool... But without dongle...
 
 <a href="https://ibb.co/BnNjFM0"><img src="https://i.ibb.co/BnNjFM0/image.png" alt="image" border="0"></a>
-
 <a href="https://ibb.co/FgxpgdW"><img src="https://i.ibb.co/FgxpgdW/image.png" alt="image" border="0"></a>
-
 <a href="https://ibb.co/M9ngr0C"><img src="https://i.ibb.co/M9ngr0C/image.png" alt="image" border="0"></a>
-
 <a href="https://ibb.co/6FJsWvc"><img src="https://i.ibb.co/6FJsWvc/image.png" alt="image" border="0"></a>
-
 <a href="https://ibb.co/n3JQBsK"><img src="https://i.ibb.co/n3JQBsK/image.png" alt="image" border="0"></a>
 
 100% incompatible CPUs: Kirin 710, 710A, 710F, 810, 970, 980, 985, 990 & newer.
