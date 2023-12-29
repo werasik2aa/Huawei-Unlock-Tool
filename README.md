@@ -31,8 +31,6 @@ For peoples who need like dongle box tool... But without dongle...
 <a href="https://ibb.co/6FJsWvc"><img src="https://i.ibb.co/6FJsWvc/image.png" alt="image" border="0"></a>
 <a href="https://ibb.co/n3JQBsK"><img src="https://i.ibb.co/n3JQBsK/image.png" alt="image" border="0"></a>
 
-100% incompatible CPUs: Kirin 710, 710A, 710F, 810, 970, 980, 985, 990 & newer.
-
 # QCOM UNLOCKER
 Copyright (C) 2018-2023 Moongamer on 4PDA
 
