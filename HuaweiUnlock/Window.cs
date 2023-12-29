@@ -72,7 +72,7 @@ namespace HuaweiUnlocker
             try
             {
                 WebClient client = new WebClient();
-                StreamReader readerD = new StreamReader(client.OpenRead("http://igriastranomier.ucoz.ru/hwlock/devices.txt"));
+                StreamReader readerD = new StreamReader(client.OpenRead("https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/devices.txt"));
                 string line = readerD.ReadLine();
                 while ((line = readerD.ReadLine()) != null)
                 {
@@ -616,7 +616,7 @@ namespace HuaweiUnlocker
             try
             {
                 LOG(-1, "=============READ INFO (FASTBOOT)=============");
-                if (HISI.ReadInfo(false))
+                if (HISI.ReadInfo())
                 {
                     BuildIdTxt.Text = HISI.AVER;
                     ModelIdTxt.Text = HISI.MODEL;
@@ -639,7 +639,7 @@ namespace HuaweiUnlocker
             LOG(-1, "=============> VALUE: " + (EnDisFBLOCK.Checked ? 1 : 0) + " <=============");
             try
             {
-                if (HISI.ReadInfo(false))
+                if (HISI.ReadInfo())
                 {
                     BuildIdTxt.Text = HISI.AVER;
                     ModelIdTxt.Text = HISI.MODEL;
@@ -666,7 +666,7 @@ namespace HuaweiUnlocker
                     LOG(-1, "=============REWRITE KEY (FASTBOOT)=============");
                     LOG(-1, "=============> KEY: " + BLkeyHI.Text + " <=============");
                     LOG(-1, "=============> LENGHT: 16 <=============");
-                    if (HISI.ReadInfo(false))
+                    if (HISI.ReadInfo())
                     {
                         BuildIdTxt.Text = HISI.AVER;
                         ModelIdTxt.Text = HISI.MODEL;
@@ -697,6 +697,7 @@ namespace HuaweiUnlocker
                 {
                     if (isVCOM.Checked)
                     {
+                        Tab.Enabled = false;
                         LOG(-1, "=============REWRITE KEY (KIRIN TESTPOINT)=============");
                         if (String.IsNullOrEmpty(HISIbootloaders.Text))
                         {
@@ -717,17 +718,18 @@ namespace HuaweiUnlocker
                             client.DownloadFileCompleted += new AsyncCompletedEventHandler(Downloaded);
                             client.DownloadFileAsync(new Uri(source[device]), device + ".zip");
                             UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD");
-                            Tab.Enabled = false;
+                            UNLOCKHISI_Click(sender, e);
                             return;
                         }
                         Path = "UnlockFiles\\" + device + "\\manifest.xml";
                         LangProc.DeviceInfo = new IDentifyDev();
+                        LOG(0, "CheckCon");
                         LangProc.DeviceInfo.Port = GETPORT("huawei usb com", PORTBOX.Text);
                         if (LangProc.DeviceInfo.Port.ComName != "NaN")
                         {
                             FlashToolHisi.FlashBootloader(Bootloader.ParseBootloader(Path));
-                            LOG(0, "[FastBoot] Waiting for any device...");
-                            if (HISI.ReadInfo(true))
+                            LOG(0, "[FastBoot] ", "CheckCon");
+                            if (HISI.ReadInfo())
                             {
                                 BuildIdTxt.Text = HISI.AVER;
                                 ModelIdTxt.Text = HISI.MODEL;
@@ -735,6 +737,7 @@ namespace HuaweiUnlocker
                                 FblockStateTxt.Text = HISI.FBLOCKSTATE;
                                 BLKEYTXT.Text = HISI.BLKEY;
                                 HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
+                                if (FRPchk.Checked) HISI.UnlockFRP();
                             }
                             else LOG(2, "DeviceNotCon", "FASTBOOT TIMED OUT");
                         }
@@ -745,14 +748,15 @@ namespace HuaweiUnlocker
                         LOG(-1, "=============REWRITE KEY (FASTBOOT)=============");
                         LOG(-1, "=============> KEY: " + BLkeyHI.Text + " <=============");
                         LOG(-1, "=============> LENGHT: " + BLkeyHI.Text + " <=============");
-                        if (HISI.ReadInfo(false))
+                        if (HISI.ReadInfo())
                         {
-                            HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
                             BuildIdTxt.Text = HISI.AVER;
                             ModelIdTxt.Text = HISI.MODEL;
                             VersionIdTxt.Text = HISI.BNUM;
                             FblockStateTxt.Text = HISI.FBLOCKSTATE;
-                            BLKEYTXT.Text = HISI.BLKEY;
+                            BLKEYTXT.Text = BLkeyHI.Text;
+                            HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
+                            if (FRPchk.Checked) HISI.UnlockFRP();
                         }
                         else LOG(-1, "DeviceNotCon");
                     }

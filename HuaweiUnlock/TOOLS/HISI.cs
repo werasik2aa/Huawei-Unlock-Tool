@@ -34,7 +34,22 @@ namespace HuaweiUnlocker.TOOLS
            LOG(2, "Failed to set FBLOCK state!");
            return false;
         }
-        public bool ReadInfo(bool wait)
+        public void UnlockFRP()
+        {
+            LOG(0, "Unlocker", "FRP (BETA)");
+            string command = "Tools\\fastboot.exe";
+            string subcommand = "flash devinfo Tools\\frpUnlocked.img";
+            string subcommand2 = "flash frp Tools\\frpPartition.img";
+            fb.Command("oem erase frp");
+            fb.Command("oem unlock-frp");
+            fb.Command("oem frp-unlock");
+            LOG(1, "THIS IS BETA!");
+            SyncRUN(command, subcommand);
+            SyncRUN(command, subcommand2);
+            LOG(1, "THIS IS BETA AND MAY NOT WORK!");
+            LOG(1, "Recomended to open the fastboot and flash devinfo(frpunlocked.img) or frp(frpPartition.img) (frp from program Tools folder!");
+        }
+        public bool ReadInfo()
         {
             if (fb.Connect()) {
                 string serial = fb.GetSerialNumber();
@@ -65,9 +80,11 @@ namespace HuaweiUnlocker.TOOLS
                 FBLOCKSTATE = state ? "UNLOCKED" : "LOCKED";
                 LOG(0, "FBLOCK-Tag", FBLOCKSTATE);
                 if (debug) LOG(1, Encoding.UTF8.GetString(fblock.RawData));
-
                 if (!state)
+                {
                     LOG(2, "HISIInfoS");
+                    return false;
+                }
                 else
                 {
                     string factoryKey = ReadFactoryKey();

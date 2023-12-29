@@ -35,7 +35,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
@@ -76,6 +76,15 @@
       <HintPath>..\packages\LibUsbDotNet.2.2.29\lib\net45\LibUsbDotNet.LibUsbDotNet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="QC.QMSLPhone">
+      <HintPath>C:\Users\werasik2aa\Desktop\QC.QMSLPhone.dll</HintPath>
+    </Reference>
+    <Reference Include="QMSL_Library">
+      <HintPath>C:\Users\werasik2aa\Desktop\QMSL_Library.dll</HintPath>
+    </Reference>
+    <Reference Include="SwDownloadDLL">
+      <HintPath>C:\Users\werasik2aa\Desktop\SwDownloadDLL.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -102,7 +111,6 @@
     <Compile Include="FlashTool\FlashToolHisi.cs" />
     <Compile Include="TOOLS\Fastboot.cs" />
     <Compile Include="TOOLS\ImageFlasher.cs" />
-    <Compile Include="TOOLS\QCusb.cs" />
     <Compile Include="TOOLS\UpdateApp.cs" />
     <Compile Include="TOOLS\UpdateUtil\EventStream.cs" />
     <Compile Include="TOOLS\UpdateUtil\FileHeader.cs" />
