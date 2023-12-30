@@ -85,3 +85,4 @@ KIRIN955 https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/m
 KIRIN960 https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi960.zip
 KIRIN970 https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi970.zip
 KIRIN980_V1(NOT_TESTED_DANGER) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980_V1(DANGER).zip
+KIRIN980_V2(NOT_TESTED_DANGER) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980_V2(DANGER).zip
