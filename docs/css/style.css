@@ -1,0 +1,125 @@
+* {
+	margin: 0;
+	padding: 0;
+	color: var(--secondary);
+	font-size: 32px;
+	font-family: 'Roboto', sans-serif;
+	text-decoration: none;
+	scroll-behavior: smooth;
+	background-color: var(--primary);
+	
+}
+
+
+.btn {
+	border: none;
+	background-color: var(--third);
+	padding: 10px 30px;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.btn:hover {
+	background-color: var(--third-disabled);
+}
+
+.container {
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.main {
+	height: 100vh;
+}
+
+
+/* navbar */
+.navbar-nav  {
+	display: flex;
+	direction: rtl;
+}
+
+.navs {
+	display: flex;
+	align-items: center;
+}
+
+.navs .navs-item {
+	padding: 10px;
+	font-weight: bold;
+}
+
+.navs .navs-item a {
+	font-size: 14px;
+	color: var(--secondary-disabled);
+}
+
+.navs .navs-item a:hover {
+	color: var(--secondary);
+}
+
+.navs .navs-item a button {
+	font-size: 14px;
+}
+
+.navs .navs-item.LBL {
+	margin: 0px 10px;
+	transition: 0.3s;
+	padding: 10px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.navs .navs-item.LBL:hover {
+	font-weight: bold;
+	background-color: rgb(0,0,0,0.3);
+}
+.navs .navs-item.LBL:focus {
+	font-weight: bold;
+	background-color: rgb(0,0,0,0.1);
+	border-radius: 4px;	
+}
+
+.navs-item .btn {
+	font-weight: bold;
+}
+
+.CRNER {
+	text-align: center;
+	margin-top: 100px;
+}
+
+.CRNER-item .CRNER-TITLE {
+	font-size: 30px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.CRNER-item .CRNER-DESCR {
+	margin-top: 15px;
+	font-size: 20px;
+	color: var(--secondary-disabled);
+	
+}
+
+.CRNER-item .CRNER-buttons {
+	margin-top: 30px;
+	flex-direction: row;
+}
+
+.Desc-box .Desc-TITLE {
+	font-size: 32px;
+	text-align: center;
+	margin-bottom: 25px;
+	border-bottom: 3px solid var(--third);
+	margin: 0 auto;
+	border-radius: 10px;
+	margin-top: 7px;
+}
+
+.Desc .Item {
+	display: flex;
+	justify-content: space-between;
+	margin: 30px 0;
+}

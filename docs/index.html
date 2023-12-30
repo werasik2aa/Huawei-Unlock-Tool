@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/fvicon.png">
+  <link rel="stylesheet" type="text/css" href="css/dark-theme.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <title>Huawei Unlock Tool (HUT)</title>
+</head>
+<body class="hiv">
+  <main class="main">
+    <div class="navbar">
+      <div class="container">
+        <div class="navbar-nav">
+          <div class="navs" id="navs">
+			<div class="navs-item LBL"><a href="https://github.com/werasik2aa/UnlockedHuaweiBootloader/blob/main/README.md" class="txt-uppercase">Supported Devices</a></div>
+            <div class="navs-item LBL"><a href="DownloadCenter.html" class="txt-uppercase">Firmwares, drivers and softwares</a></div>
+            <div class="navs-item LBL"><a href="https://4pda.to/forum/index.php?showtopic=1049146" class="txt-uppercase">Tutorials</a></div>
+            <div class="navs-item LBL"><a href="https://github.com/werasik2aa/Huawei-Unlock-Tool" class="txt-uppercase">Source Code</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="CRNER">
+		<div class="container">
+			<img class="Desc-img" src="img/lico.png"></img>
+			<div class="CRNER-item">
+				<span class="CRNER-TITLE">Huawei Unlock Tool (HUT)</span>
+				<p class="CRNER-DESCR">
+				HUT - Huawei Unlock Tool
+				<br>Developed to support unlocking functions for Qualcomm CPUs-based Huawei devices
+				<br>Provides a convenient interface for Restoring/Backuping Huawei devices
+				<br>This tool can Unlock in theory KIRIN 970 | 960 | 955 | 950 | 935 | 925 | 810 | 710 | 65X | 620 | 620</p>
+				<div class="CRNER-buttons">
+					<a href="https://github.com/werasik2aa/Huawei-Unlock-Tool/releases/latest"><button class="btn">Download HUT</button></a>
+					<a href="https://github.com/mashed-potatoes/PotatoNV/releases/latest"><button class="btn">Download PotatoNV</button></a>
+				</div>
+			</div>
+      </div>
+    </div>
+    <span class="scroll-down"><i class="fas fa-arrow-down"></i></span>
+  </main>
+  <div class="Desc-box">
+    <h1 class="Desc-TITLE" id="Desc">Features Huawei Unlock Tool</h1>
+			<div class="Desc">
+				<div class="Item">
+					<div class="Desc-Data">
+						<img class="Desc-img" src="img/SC1.png"></img>
+					</div>
+											<h2>Unlock Tool</h2>
+						<p>Here you can unlock your device</p>
+						<p>List of supported devices you find</p>
+				</div>
+				<div class="Item">
+					<div class="Desc-Data">
+						<img class="Desc-img" src="img/SC2.png"></img>
+					</div>
+											<h2>GPT Manager</h2>
+						<p>Here you can write / read single</p>
+						<p>partitions.</p>
+				</div>
+				<div class="Item">
+					<div class="Desc-Data">
+						<img class="Desc-img" src="img/SC3.png"></img>
+					</div>
+											<h2>Oeminfo D/C Tools</h2>
+						<p>You can Decompile or Compile</p>
+						<p>Oeminfo.img.</p>
+				</div>
+				<div class="Item">
+					<div class="Desc-Data">
+						<img class="Desc-img" src="img/SC4.png"></img>
+					</div>
+					<h2>Flash Tool</h2>
+						<p>Here you can flash full ROM or</p>
+						<p>make Full backup emmc.</p>
+				</div>
+		</div>
+	</div>
+  </div>
+  <script>
+  var ratio;
+var left;
+resize();
+
+$(window).resize(function () {resize();});
+
+function resize()
+{
+    ratio = window.innerHeight / $('body').innerHeight();
+    if (window.innerWidth / $('body').innerWidth() < ratio) {
+        ratio = window.innerWidth / $('body').innerWidth();
+    }
+    ratio -= .04;
+    $('body').css('-ms-zoom', ratio);
+    $('body').css('-moz-transform', 'scale(' + ratio + ')');
+    $('body').css('-o-transform', 'scale(' + ratio + ')');
+    $('body').css('-webkit-transform', 'scale(' + ratio + ')');
+    $('body').css('transform', 'scale(' + ratio + ')');
+    left = ($(window).innerWidth() - $('body').outerWidth() * ratio) / 2;
+    $('body').css('left', left);
+}
+  </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+* {
+	margin: 0;
+	padding: 0;
+	color: var(--secondary);
+	font-size: 16px;
+	font-family: 'Roboto', sans-serif;
+	text-decoration: none;
+	scroll-behavior: smooth;
+	background-color: var(--primary);
+}
+
+.btn {
+	background-color: #2f2f30;
+	border: none;
+	background-color: var(--first);
+	padding: 10px 30px;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.btn2 {
+	border: none;
+	background-color: var(--third);
+	padding: 10px 30px;
+	cursor: pointer;
+	border-radius: 20px;
+	transition: 0.2s;
+}
+.ItemCont {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+.container {
+	margin: 0 auto;
+	align-items: center;
+	padding: 0 20px;
+}
+.search-box {
+  background-color: #2f2f30;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  color: #ffffff;
+  padding: 10px 22px;
+  border: 2px solid #2f2f30;
+}
+
+.search-box:focus {
+  border: 2px solid var(--main-color);
+}
