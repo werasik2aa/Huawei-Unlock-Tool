@@ -5,7 +5,7 @@ DonationAlerts : https://www.donationalerts.com/r/werasik2aa
 
 Free Huawei Unlock bootloader / FRP | EN/RU
 
-Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: https://disk.yandex.ru/d/rQ4e72f1FhbuWg
+Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: https://werasik2aa.github.io/Huawei-Unlock-Tool/
 
 KIRIN 620|620(CAM)|65x_a|65x_b|710|810|925|935|950|955|960|970 .
 
