@@ -113,11 +113,14 @@
 }
 
 .Desc .Item {
-	display: table-cell;
+	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
 	margin: 30px 0;
 	text-align: center;
 }
 .Desc-img {
-	width: 99%;
+	border-radius: 10px;
+	margin-top: 20px;
+	width: 50%;
 }
