@@ -18,6 +18,7 @@
 	border-radius: 20px;
 	cursor: pointer;
 	transition: 0.2s;
+	margin-top: 10px;
 }
 
 .btn:hover {
@@ -27,10 +28,6 @@
 .container {
 	margin: 0 auto;
 	padding: 0 20px;
-}
-
-.main {
-	height: 100vh;
 }
 
 
@@ -102,24 +99,25 @@
 	color: var(--secondary-disabled);
 	
 }
-
 .CRNER-item .CRNER-buttons {
 	margin-top: 30px;
 	flex-direction: row;
 }
-
-.Desc-box .Desc-TITLE {
-	font-size: 32px;
+.Desc-box .Desc-MAINTITLE {
 	text-align: center;
 	margin-bottom: 25px;
 	border-bottom: 3px solid var(--third);
 	margin: 0 auto;
 	border-radius: 10px;
-	margin-top: 7px;
+	margin-top: 300px;
 }
 
 .Desc .Item {
-	display: flex;
+	display: table-cell;
 	justify-content: space-between;
 	margin: 30px 0;
+	text-align: center;
+}
+.Desc-img {
+	width: 99%;
 }
