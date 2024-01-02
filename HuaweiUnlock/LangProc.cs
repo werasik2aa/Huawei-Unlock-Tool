@@ -20,7 +20,7 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "23F";
+        public const string APP_VERSION = "24F";
         public static TextBox LOGGBOX;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
         private static StreamWriter se = new StreamWriter("log.txt");
@@ -173,16 +173,12 @@ namespace HuaweiUnlocker
             Action action;
             j = Language.isExist(j.ToString()) ? Language.Get(j.ToString()) : j;
             j = j.ToString().Contains("/n") ? i.ToString().Replace("/n", newline) : j;
-            if (Program.ISWINDOW)
-            {
-                action = () => LOGGBOX.AppendText(newline + state + i + sepa + j.ToString());
-                if (LOGGBOX.InvokeRequired)
-                    LOGGBOX.Invoke(action);
-                else
-                    action();
-            }
-            else Console.WriteLine(newline + state + i + sepa + j.ToString());
-            se.WriteLine(LOGGBOX.Text);
+            action = () => LOGGBOX.AppendText(newline + state + i + sepa + j.ToString());
+            if (LOGGBOX.InvokeRequired)
+                LOGGBOX.Invoke(action);
+            else
+                action();
+            se.WriteLine(newline + state + i + sepa + j.ToString());
             return true;
         }
         public static Port_D GETPORT(string name, string devicename = "")

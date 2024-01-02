@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
 using System.Text;
+using QMSL_Library;
+using Org.BouncyCastle.Utilities.Encoders;
 
 namespace HuaweiUnlocker
 {
@@ -131,7 +133,7 @@ namespace HuaweiUnlocker
                 WritePA.Text = Language.Get("WritePA");
                 ErasePA.Text = Language.Get("ErasePA");
                 EraseDA.Text = Language.Get("EraseDA");
-                UnlockFrp.Text = Language.Get("UnlockBTN");
+                FrpHISIUnlock.Text = UnlockFrp.Text = Language.Get("UnlockBTN");
                 HomeTag.Text = Language.Get("HomeTag");
                 BackupRestoreTag.Text = Language.Get("BackupRestoreTag");
                 UnlockTag.Text = Language.Get("UnlockTag");
@@ -698,7 +700,7 @@ namespace HuaweiUnlocker
                     if (isVCOM.Checked)
                     {
                         Tab.Enabled = false;
-                        LOG(-1, "=============REWRITE KEY (KIRIN TESTPOINT)=============");
+                        LOG(-1, "=============UNLOCKER BL/FRP (KIRIN TESTPOINT)=============");
                         if (String.IsNullOrEmpty(HISIbootloaders.Text))
                         {
                             LOG(1, "HISISelectCpu");
@@ -718,7 +720,6 @@ namespace HuaweiUnlocker
                             client.DownloadFileCompleted += new AsyncCompletedEventHandler(Downloaded);
                             client.DownloadFileAsync(new Uri(source[device]), device + ".zip");
                             UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD");
-                            UNLOCKHISI_Click(sender, e);
                             return;
                         }
                         Path = "UnlockFiles\\" + device + "\\manifest.xml";
@@ -736,18 +737,27 @@ namespace HuaweiUnlocker
                                 VersionIdTxt.Text = HISI.BNUM;
                                 FblockStateTxt.Text = HISI.FBLOCKSTATE;
                                 BLKEYTXT.Text = HISI.BLKEY;
-                                HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
-                                if (FRPchk.Checked) HISI.UnlockFRP();
+                                if (!FRPchk.Checked)
+                                    HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
+                                else
+                                    HISI.UnlockFRP();
                             }
-                            else LOG(2, "DeviceNotCon", "FASTBOOT TIMED OUT");
+                            else LOG(2, "DeviceNotCon", "[FastBoot] TIMED OUT");
                         }
                         else { Tab.Enabled = true; LOG(2, "DeviceNotCon"); }
                     }
                     else
                     {
-                        LOG(-1, "=============REWRITE KEY (FASTBOOT)=============");
-                        LOG(-1, "=============> KEY: " + BLkeyHI.Text + " <=============");
-                        LOG(-1, "=============> LENGHT: " + BLkeyHI.Text + " <=============");
+                        if (!FRPchk.Checked)
+                        {
+                            LOG(-1, "=============REWRITE KEY (FASTBOOT)=============");
+                            LOG(-1, "=============> KEY: " + BLkeyHI.Text + " <=============");
+                            LOG(-1, "=============> LENGHT: " + BLkeyHI.Text + " <=============");
+                        }
+                        else
+                            LOG(-1, "=============UNLOCK FRP (FASTBOOT)=============");
+                        LOG(-1, "=============Only for unlocked bootloader=============");
+
                         if (HISI.ReadInfo())
                         {
                             BuildIdTxt.Text = HISI.AVER;
@@ -755,8 +765,10 @@ namespace HuaweiUnlocker
                             VersionIdTxt.Text = HISI.BNUM;
                             FblockStateTxt.Text = HISI.FBLOCKSTATE;
                             BLKEYTXT.Text = BLkeyHI.Text;
-                            HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
-                            if (FRPchk.Checked) HISI.UnlockFRP();
+                            if (!FRPchk.Checked)
+                                HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
+                            else
+                                HISI.UnlockFRP();
                         }
                         else LOG(-1, "DeviceNotCon");
                     }
@@ -1052,9 +1064,8 @@ namespace HuaweiUnlocker
         private void SendCMDtestBTN_Click(object sender, EventArgs e)
         {
             if (!Find()) return;
-            var ss = DIAG.READ_SECRET_KEY();
-            var scr = LibCrypt.Decrypt7Cisco(ss);
-            CMDbox.Text = "[KEY_READ]" + newline + CRC.HexDump(ss) + newline + "[CISCO7_DECRYPT]" + newline + CRC.HexDump(scr) + newline + "[AUTH_RESPONSE]" + newline + CRC.HexDump(DIAG.AUTH_PHONE(scr));
+            var ss = DIAG.AUTH_PHONE(Base64.Decode("OQMhzRP7Zu8zw6pDsPKf2ZZdlqWT1rgMo5tHxV0GgWnWPM9gKsxOiZMmNHqC7GafDII17P9mOcsZ8Km862fzag=="));
+            CMDbox.Text = "[ANSWER]" + CRC.HexDump(ss);
         }
 
         private void RDinf_Click(object sender, EventArgs e)
@@ -1108,6 +1119,12 @@ namespace HuaweiUnlocker
             else
                 LoaderBox.DropDownStyle = ComboBoxStyle.DropDown;
             SelectLOADER.Enabled = !AutoLdr.Checked;
+        }
+
+        private void FrpHISIUnlock_Click(object sender, EventArgs e)
+        {
+            FRPchk.Checked = true;
+            UNLOCKHISI_Click(sender, e);
         }
     }
 }
