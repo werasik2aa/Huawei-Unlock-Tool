@@ -31,7 +31,7 @@
 				HUT - Huawei Unlock Tool
 				<br>Developed to support unlocking functions for Qualcomm CPUs-based Huawei devices
 				<br>Provides a convenient interface for Restoring/Backuping Huawei devices
-				<br>This tool can Unlock in theory KIRIN 970 | 960 | 955 | 950 | 935 | 925 | 810 | 710 | 65X | 620 | 620</p>
+				<br>This tool can Unlock in theory KIRIN 970 | 960 | 955 | 950 | 935 | 925 | 810 | 710 | 65X | 620(CAM) | 620</p>
 				<div class="CRNER-buttons">
 					<a href="https://github.com/werasik2aa/Huawei-Unlock-Tool/releases/latest"><button class="btn">Download HUT</button></a>
 					<a href="https://github.com/mashed-potatoes/PotatoNV/releases/latest"><button class="btn">Download PotatoNV</button></a>
@@ -77,28 +77,5 @@
 		</div>
 	</div>
   </main>
-  <script>
-  var ratio;
-var left;
-resize();
-
-$(window).resize(function () {resize();});
-
-function resize()
-{
-    ratio = window.innerHeight / $('body').innerHeight();
-    if (window.innerWidth / $('body').innerWidth() < ratio) {
-        ratio = window.innerWidth / $('body').innerWidth();
-    }
-    ratio -= .04;
-    $('body').css('-ms-zoom', ratio);
-    $('body').css('-moz-transform', 'scale(' + ratio + ')');
-    $('body').css('-o-transform', 'scale(' + ratio + ')');
-    $('body').css('-webkit-transform', 'scale(' + ratio + ')');
-    $('body').css('transform', 'scale(' + ratio + ')');
-    left = ($(window).innerWidth() - $('body').outerWidth() * ratio) / 2;
-    $('body').css('left', left);
-}
-  </script>
 </body>
 </html>

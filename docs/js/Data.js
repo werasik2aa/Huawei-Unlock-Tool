@@ -82,10 +82,11 @@ const Tools = [
 ];
 
 const Drivers = [
-	"FULL QUALCOMM Drivers'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Tools/FULL+QUALCOMM+Drivers.zip",
-	"QDLoader HS-USB Driver 64bit Setup'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Tools/QDLoader+HS-USB+Driver_64bit_Setup.exe",
-	"Huawei Service Driver Manufacture 2.01.03.00'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Tools/Huawei_Service_Driver_Manufacture_2_01_03_00.exe",
-	"vivo usb driver2.4'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Tools/vivo_usb_driver2.4.exe"
+	"FULL QUALCOMM Drivers'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/FULL+QUALCOMM+Drivers.zip",
+	"QDLoader HS-USB Driver 64bit Setup'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/QDLoader+HS-USB+Driver_64bit_Setup.exe",
+	"Huawei Service Driver Manufacture 2.01.03.00'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/Huawei_Service_Driver_Manufacture_2_01_03_00.exe",
+	"vivo usb driver2.4'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/vivo_usb_driver2.4.exe",
+	"Kirin Hisi Huawei COM 1.0 Driver'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/KirinComDriver.rar"
 ];
 
 const Loaders = [
@@ -213,8 +214,31 @@ const GPTS = [
 ];
 
 const MTKDAS = [
-	"",
-	"",
-	"",
-	"",
+	"AMN DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/.zip",
+	"BG2 DA+AUTH+PRELOADER'Loaders/MTK/BG2-W09.zip",
+	"CAG-L23 DA'Loaders/MTK/CAG-L23.zip",
+	"CND-AN00 DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/CND-AN00.zip",
+	"CRO-L22 DA'Loaders/MTK/CRO-L22.zip",
+	"CUN-U29 DA'Loaders/MTK/CUN-U29.zip",
+	"DRA-XXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/DRA-XXX.zip",
+	"DUA-XXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/DUA-XXX.zip",
+	"DVC-ANXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/DVC-ANXX.zip",
+	"G730-U10 DA'Loaders/MTK/G730-U10.zip",
+	"H30-U10 DA'Loaders/MTK/H30-U10.zip",
+	"JAT-XXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/JAT-XXX.zip",
+	"JLH-AN00 DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/JLH-AN00.zip",
+	"JMM-XXX DA'Loaders/MTK/JMM-XXX.zip",
+	"JSC-AN00 DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/JSC-AN00.zip",
+	"KOB-XXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/.zip",
+	"KSA-XXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/KSA-XXX.zip",
+	"LUA-XXX DA'Loaders/MTK/LUA-XXX.zip",
+	"LYO-L21 DA'Loaders/MTK/LYO-L21.zip",
+	"MED-XXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/MED-XXX.zip",
+	"MOA-XXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/MOA-XXX.zip",
+	"MRD-XXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/MRD-XXX.zip",
+	"MYA-XXX DA+SCATTER'Loaders/MTK/MYA-XXX.zip",
+	"NCE-AL10 DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/NCE-AL10.zip",
+	"TAG-XXX DA'Loaders/MTK/TAG-XXX.zip",
+	"TIT-XXX DA'Loaders/MTK/TIT-XXX.zip",
+	"WKG-XXX DA+AUTH+PRELOADER+SCATTER'Loaders/MTK/WKG-XXX.zip"
 ];
