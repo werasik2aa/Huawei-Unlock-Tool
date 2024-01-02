@@ -232,7 +232,7 @@ namespace HuaweiUnlocker
             if (!RAW.Checked)
             {
                 LOG(0, "EemmcXML_WPS", pather.Text);
-                FlashPartsXml(Xm.Text, PatXm.Text, AutoLdr.Checked ? "" : LoaderBox.Text, pather.Text);
+                FlashPartsXml(Xm.Text, PatXm.Text, AutoLdr.Checked ? GuessMbn() : LoaderBox.Text, pather.Text);
             }
             else
             {
@@ -247,13 +247,16 @@ namespace HuaweiUnlocker
         {
             if (!RAW.Checked)
             {
-                FolderBrowserDialog openFileDialog = new FolderBrowserDialog();
+                OpenFileDialog openFileDialog = new OpenFileDialog()
+                {
+                    Filter = "XML Files (*.xml)|*.xml",
+                };
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    pather.Text = openFileDialog.SelectedPath;
+                    pather.Text = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
                     if (AutoXml.Checked)
                     {
-                        foreach (var a in Directory.GetFiles(openFileDialog.SelectedPath))
+                        foreach (var a in Directory.GetFiles(pather.Text))
                         {
                             if (AutoXml.Checked && a.EndsWith(".xml"))
                             {
@@ -638,7 +641,7 @@ namespace HuaweiUnlocker
         private void FBLstHISI_Click(object sender, EventArgs e)
         {
             LOG(-1, "=============WRITE FBLOCK (FASTBOOT)=============");
-            LOG(-1, "=============> VALUE: " + (EnDisFBLOCK.Checked ? 1 : 0) + " <=============");
+            LOG(-1, "=============> VALUE: " + (EnDisFBLOCK.Checked ? 0 : 1) + " <=============");
             try
             {
                 if (HISI.ReadInfo())
@@ -649,7 +652,7 @@ namespace HuaweiUnlocker
                     FblockStateTxt.Text = HISI.FBLOCKSTATE;
                     BLKEYTXT.Text = HISI.BLKEY;
                     VersionIdTxt.Text = HISI.AVER;
-                    HISI.SetFBLOCK(EnDisFBLOCK.Checked ? 1 : 0);
+                    HISI.SetNVMEProp("FBLOCK", new[] { (byte)(EnDisFBLOCK.Checked ? 0 : 1) });
                 }
             }
             catch (Exception se)
@@ -688,8 +691,7 @@ namespace HuaweiUnlocker
                     LOG(2, se.Message);
             }
         }
-
-        private void UNLOCKHISI_Click(object sender, EventArgs e)
+        private async void UNLOCKHISI_Click(object sender, EventArgs e)
         {
             LOG(-1, "-->HISI UNL LOGS<--");
             try
@@ -728,21 +730,16 @@ namespace HuaweiUnlocker
                         LangProc.DeviceInfo.Port = GETPORT("huawei usb com", PORTBOX.Text);
                         if (LangProc.DeviceInfo.Port.ComName != "NaN")
                         {
-                            FlashToolHisi.FlashBootloader(Bootloader.ParseBootloader(Path));
-                            LOG(0, "[FastBoot] ", "CheckCon");
-                            if (HISI.ReadInfo())
+                            CurTask = Task.Run(() =>
                             {
-                                BuildIdTxt.Text = HISI.AVER;
-                                ModelIdTxt.Text = HISI.MODEL;
-                                VersionIdTxt.Text = HISI.BNUM;
-                                FblockStateTxt.Text = HISI.FBLOCKSTATE;
-                                BLKEYTXT.Text = HISI.BLKEY;
-                                if (!FRPchk.Checked)
-                                    HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
-                                else
-                                    HISI.UnlockFRP();
-                            }
-                            else LOG(2, "DeviceNotCon", "[FastBoot] TIMED OUT");
+                                HISI.StartUnlockPRCS(FRPchk.Checked, BLkeyHI.Text, Bootloader.ParseBootloader(Path), LangProc.DeviceInfo.Port.ComName);
+                            });
+                            await CurTask;
+                            BuildIdTxt.Text = HISI.AVER;
+                            ModelIdTxt.Text = HISI.MODEL;
+                            VersionIdTxt.Text = HISI.BNUM;
+                            FblockStateTxt.Text = HISI.FBLOCKSTATE;
+                            BLKEYTXT.Text = HISI.BLKEY;
                         }
                         else { Tab.Enabled = true; LOG(2, "DeviceNotCon"); }
                     }

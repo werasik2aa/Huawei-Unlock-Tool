@@ -15,6 +15,29 @@ namespace HuaweiUnlocker.TOOLS
         private readonly static byte[] dataframe = new byte[] { 0xDA };
         private readonly static byte[] tailframe = new byte[] { 0xED };
 
+        private SerialPort port;
+
+        public void Open(string portName)
+        {
+            port = new SerialPort
+            {
+                PortName = portName,
+                BaudRate = BAUDRATE,
+                DtrEnable = true,
+                RtsEnable = true,
+                ReadTimeout = 1000,
+                WriteTimeout = 1000
+            };
+            port.Open();
+        }
+
+        public void Close()
+        {
+            port.Close();
+            port.Dispose();
+            port = null;
+        }
+
         public void Write(string path, int address, Action<int> reportProgress = null)
         {
             var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
@@ -34,7 +57,9 @@ namespace HuaweiUnlocker.TOOLS
                 length -= MAX_DATA_LEN;
 
                 if (n % (nframes > 250 ? 10 : 3) == 0)
+                {
                     reportProgress?.Invoke((int)(100f * n / nframes));
+                }
             }
 
             if (length > 0)
@@ -95,15 +120,17 @@ namespace HuaweiUnlocker.TOOLS
             var count = frameList.Count();
             var frame = frameList.ToArray();
 
-            SerialManager.Port.Write(frame, 0, count);
+            port.Write(frame, 0, count);
 
-            byte _ack = (byte)SerialManager.Port.ReadByte();
+            byte _ack = (byte)port.ReadByte();
 
-            SerialManager.Port.DiscardInBuffer();
-            SerialManager.Port.DiscardOutBuffer();
+            port.DiscardInBuffer();
+            port.DiscardOutBuffer();
 
             if (_ack != 0xAA)
+            {
                 throw new Exception(string.Format("ACK is invalid! ACK={0:X2}; Excepted={1:X2}", _ack, 0xAA));
+            }
         }
     }
 }

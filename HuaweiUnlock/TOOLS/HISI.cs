@@ -1,63 +1,77 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography;
+﻿using HuaweiUnlocker.DIAGNOS;
+using Microsoft.VisualBasic.Logging;
 using System;
-using static HuaweiUnlocker.LangProc;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
-
+using System.Text.RegularExpressions;
+using static HuaweiUnlocker.LangProc;
 namespace HuaweiUnlocker.TOOLS
 {
     public class HISI
     {
-        private Fastboot fb = new Fastboot();
-        public bool DisableFBLOCK;
+        public delegate void RunWorkerCompletedHandler();
+        public event RunWorkerCompletedHandler RunWorkerCompleted;
+
+        private Fastboot fb;
         public string BSN = "NaN";
         public string BNUM = "NaN";
         public string AVER = "NaN";
         public string MODEL = "NaN";
         public string BLKEY = "NaN";
         public string FBLOCKSTATE = "NaN";
-        public bool SetHWDogState(byte state)
+
+        public void FlashBootloader(Bootloader bootloader, string port)
         {
-            foreach (var command in new[] { "hwdog certify set", "backdoor set" })
-            {
-                LOG(0, "Trying: " + command);
-                Fastboot.Response res = fb.Command("oem " + command + " " + state);
-                if (debug) LOG(0, Encoding.UTF8.GetString(res.RawData));
-                if (res.Status == Fastboot.FastbootStatus.Ok || res.Payload.Contains("equal"))
+            var flasher = new ImageFlasher();
+
+            LOG(0, "Verifying images...");
+
+            int asize = 0, dsize = 0;
+
+            foreach (var image in bootloader.Images)
+            {   
+                if (!image.IsValid)
                 {
-                    LOG(0, command + " success");
-                    return true;
+                    throw new Exception($"Image `{image.Role}` is not valid!");
                 }
+
+                asize += image.Size;
             }
 
-           LOG(2, "Failed to set FBLOCK state!");
-           return false;
+            if(debug) LOG(0, ($"Opening {port}..."));
+
+            flasher.Open(port);
+
+            LOG(0, $"Uploading {bootloader.Name}...");
+
+            foreach (var image in bootloader.Images)
+            {
+                var size = image.Size;
+
+                LOG(0, $"- {image.Role}");
+
+                flasher.Write(image.Path, (int)image.Address, x => {
+                    Progress(dsize + (int)(size / 100f * x));
+                });
+
+                dsize += size;
+            }
+
+            flasher.Close();
         }
-        public void UnlockFRP()
-        {
-            LOG(0, "Unlocker", "FRP (BETA)");
-            string command = "Tools\\fastboot.exe";
-            string subcommand = "flash devinfo Tools\\frpUnlocked.img";
-            string subcommand2 = "flash frp Tools\\frpPartition.img";
-            fb.Command("oem erase frp");
-            fb.Command("oem unlock-frp");
-            fb.Command("oem frp-unlock");
-            LOG(1, "THIS IS BETA!");
-            SyncRUN(command, subcommand);
-            SyncRUN(command, subcommand2);
-            LOG(1, "THIS IS BETA AND MAY NOT WORK!");
-            LOG(1, "Recomended to open the fastboot and flash devinfo(frpunlocked.img) or frp(frpPartition.img) (frp from program Tools folder!");
-        }
+
         public bool ReadInfo()
         {
-            if (fb.Connect()) {
+            if (fb.Connect())
+            {
                 string serial = fb.GetSerialNumber();
                 LOG(0, "SerialnTag", serial);
                 AVER = serial;
 
                 Fastboot.Response bsn = fb.Command("oem read_bsn");
-                if (bsn.Status == Fastboot.FastbootStatus.Ok) {
+                if (bsn.Status == Fastboot.FastbootStatus.Ok)
+                {
                     LOG(0, "BSNTag", bsn.Payload);
                     BSN = bsn.Payload;
                 }
@@ -98,9 +112,25 @@ namespace HuaweiUnlocker.TOOLS
             }
             return false;
         }
-        public void SetProp(string prop, byte[] value)
+        public void UnlockFRP()
         {
-            LOG(0, "WritingPropTAG", prop);
+            LOG(0, "Unlocker", "FRP (BETA)");
+            string command = "Tools\\fastboot.exe";
+            string subcommand = "flash devinfo Tools\\frpUnlocked.img";
+            string subcommand2 = "flash frp Tools\\frpPartition.img";
+            fb.Command("oem erase frp");
+            fb.Command("oem unlock-frp");
+            fb.Command("oem frp-unlock");
+            LOG(1, "THIS IS BETA!");
+            SyncRUN(command, subcommand);
+            SyncRUN(command, subcommand2);
+            LOG(1, "THIS IS BETA AND MAY NOT WORK!");
+            LOG(1, "Recomended to open the fastboot and flash devinfo(frpunlocked.img) or frp(frpPartition.img) (frp from program Tools folder!");
+        }
+        public void SetNVMEProp(string prop, byte[] value)
+        {
+            LOG(0, $"Writing {prop}...");
+
             var cmd = new List<byte>();
 
             cmd.AddRange(Encoding.ASCII.GetBytes($"getvar:nve:{prop}@"));
@@ -108,11 +138,39 @@ namespace HuaweiUnlocker.TOOLS
 
             var res = fb.Command(cmd.ToArray());
 
-            if(debug) LOG(1, Encoding.UTF8.GetString(res.RawData));
+            LOG(0, "", res.ToString());
 
             if (!res.Payload.Contains("set nv ok"))
-                throw new Exception("Failed to set: "+ res.Payload);
+            {
+                throw new Exception($"Failed to set: {res.Payload}");
+            }
         }
+
+        public static byte[] GetSHA256(string str)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                return sha256.ComputeHash(Encoding.ASCII.GetBytes(str));
+            }
+        }
+
+        public void SetHWDogState(byte state)
+        {
+            foreach (var command in new[] { "hwdog certify set", "backdoor set" })
+            {
+                LOG(0, $"Trying {command}...");
+                var res = fb.Command($"oem {command} {state}");
+                LOG(0, "", res.ToString());
+                if (res.Status == Fastboot.FastbootStatus.Ok || res.Payload.Contains("equal"))
+                {
+                    LOG(0, $"{command}: success");
+                    return;
+                }
+            }
+
+            LOG(2, "Failed to set FBLOCK state!");
+        }
+
         public string ReadFactoryKey()
         {
             var res = fb.Command("getvar:nve:WVLOCK");
@@ -120,31 +178,61 @@ namespace HuaweiUnlocker.TOOLS
 
             return match.Success ? match.Value : null;
         }
-        public void SetFBLOCK(int state)
+
+        public void WriteBOOTLOADERKEY(string key)
         {
-            try
-            {
-                SetProp("FBLOCK", new[] { (byte) state });
-            }
-            catch (Exception ex)
-            {
-                LOG(1, "FBLOCKSetTag");
-                LOG(2, ex.Message);
-                SetHWDogState((byte)state);
-            }
-        }
-        public void WriteBOOTLOADERKEY(string KEY)
-        {
-            SetFBLOCK(1);
+            var fblockState = (byte)1;
 
             try
             {
-                SetProp("WVLOCK", Encoding.ASCII.GetBytes(KEY));
-                SetProp("USRKEY", SHA256.Create().ComputeHash(Encoding.ASCII.GetBytes(KEY)));
+                SetNVMEProp("FBLOCK", new[] { fblockState });
             }
             catch (Exception ex)
             {
-                LOG(2, "Failed to set the key.", ex.Message);
+                LOG(2, "Failed to set the FBLOCK, using the alternative method...");
+                if(debug) LOG(0, ex.Message);
+                SetHWDogState(fblockState);
+            }
+
+            try
+            {
+                SetNVMEProp("WVLOCK", Encoding.ASCII.GetBytes(key));
+                SetNVMEProp("USRKEY", GetSHA256(key));
+            }
+            catch (Exception ex)
+            {
+                LOG(2, "Failed to set the key.");
+                if(debug) LOG(2, ex.Message);
+            }
+        }
+
+        public void StartUnlockPRCS(bool frp, string key, Bootloader d, string port)
+        {
+            fb = new Fastboot();
+
+            try
+            {
+                FlashBootloader(d, port);
+
+                if (frp)
+                {
+                    LOG(1, "Unlocking frp only");
+                    if (ReadInfo())
+                        UnlockFRP();
+                    return;
+                }
+                LOG(0, "[Fastboot] ", "CheckCon");
+                if (ReadInfo())
+                {
+                    WriteBOOTLOADERKEY(key);
+                    LOG(0, $"New unlock code:");
+                    fb.Disconnect();
+                }
+            }
+            catch (Exception ex)
+            {
+                LOG(2, ex.Message);
+                if (debug) LOG(2, ex.StackTrace);
             }
         }
     }

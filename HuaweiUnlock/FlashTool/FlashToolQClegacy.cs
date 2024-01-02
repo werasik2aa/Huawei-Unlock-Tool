@@ -213,7 +213,7 @@ namespace HuaweiUnlocker.FlashTool
             {
                 Progress(2);
                 string command = "Tools\\fh_loader.exe";
-                string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --sendxml=" + '"' + rawxml + '"' + " --search_path=" + '"' + path + '"';
+                string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendxml=" + '"' + rawxml + '"' + " --search_path=" + '"' + path + '"';
                 string subcommandp = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendxml=" + '"' + patchxml + '"' + " --search_path=" + '"' + path + '"';
                 if (debug) LOG(-1, "===Flash Partitions XML===" + newline + newline);
                 if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); CurTask.Dispose(); }

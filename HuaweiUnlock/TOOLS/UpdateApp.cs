@@ -65,7 +65,9 @@ namespace HuaweiUnlocker.TOOLS
                             if (gpttable.ContainsKey(a.FileType.ToLower()))
                             {
                                 FlashToolQClegacy.CurPartLenght = (int)a.FileSize;
-                                FlashToolQClegacy.Write(a.FileType.ToLower(), loader, "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img");
+                                string command = "Tools\\emmcdl.exe";
+                                string subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b " + a.FileType.ToLower() + " " + '"' + "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img" + '"';
+                                SyncRUN(command, subcommand);
                                 i++;
                             }
                             Progress(i / gpttable.Count * 100);

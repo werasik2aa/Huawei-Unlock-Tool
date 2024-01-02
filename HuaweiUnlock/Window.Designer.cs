@@ -18,9 +18,9 @@
                                         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window));
             this.pather = new System.Windows.Forms.TextBox();
             this.DETECTED = new System.Windows.Forms.Label();
@@ -93,6 +93,8 @@
             this.CMDbox = new System.Windows.Forms.TextBox();
             this.NC = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.FRPchk = new System.Windows.Forms.CheckBox();
+            this.FrpHISIUnlock = new HuaweiUnlocker.UI.NButton();
             this.UNLOCKHISI = new HuaweiUnlocker.UI.NButton();
             this.HISI_board_FB = new HuaweiUnlocker.UI.NButton();
             this.EnDisFBLOCK = new System.Windows.Forms.CheckBox();
@@ -153,7 +155,6 @@
             this.PortFindUpd = new System.Windows.Forms.Timer(this.components);
             this.IdentifyBTN = new System.Windows.Forms.Button();
             this.PGG = new HuaweiUnlocker.UI.NProgressBar();
-            this.FRPchk = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.Tab.SuspendLayout();
             this.MA.SuspendLayout();
@@ -246,6 +247,8 @@
             // AutoXml
             // 
             this.AutoXml.AutoSize = true;
+            this.AutoXml.Checked = true;
+            this.AutoXml.CheckState = System.Windows.Forms.CheckState.Checked;
             this.AutoXml.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold);
             this.AutoXml.ForeColor = System.Drawing.Color.AntiqueWhite;
             this.AutoXml.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -1337,40 +1340,40 @@
             this.PARTLIST.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.PARTLIST.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.Menu;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.Menu;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(42)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.PARTLIST.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PARTLIST.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.P,
             this.O,
             this.L});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Snow;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.PARTLIST.DefaultCellStyle = dataGridViewCellStyle14;
             this.PARTLIST.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(38)))), ((int)(((byte)(49)))));
             this.PARTLIST.ImeMode = System.Windows.Forms.ImeMode.Close;
             this.PARTLIST.Location = new System.Drawing.Point(-2, -2);
             this.PARTLIST.Name = "PARTLIST";
             this.PARTLIST.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(47)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PARTLIST.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.PARTLIST.RowHeadersVisible = false;
             this.PARTLIST.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.PARTLIST.RowTemplate.ReadOnly = true;
@@ -1486,6 +1489,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.FRPchk);
+            this.groupBox3.Controls.Add(this.FrpHISIUnlock);
             this.groupBox3.Controls.Add(this.UNLOCKHISI);
             this.groupBox3.Controls.Add(this.HISI_board_FB);
             this.groupBox3.Controls.Add(this.EnDisFBLOCK);
@@ -1499,6 +1503,43 @@
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Fastboot";
+            // 
+            // FRPchk
+            // 
+            this.FRPchk.AutoSize = true;
+            this.FRPchk.Location = new System.Drawing.Point(129, 336);
+            this.FRPchk.Name = "FRPchk";
+            this.FRPchk.Size = new System.Drawing.Size(132, 20);
+            this.FRPchk.TabIndex = 25;
+            this.FRPchk.Text = "FRP Unlock Only";
+            this.FRPchk.UseVisualStyleBackColor = true;
+            // 
+            // FrpHISIUnlock
+            // 
+            this.FrpHISIUnlock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(37)))), ((int)(((byte)(90)))));
+            this.FrpHISIUnlock.BackColorAdditional = System.Drawing.Color.Gray;
+            this.FrpHISIUnlock.BackColorGradientEnabled = false;
+            this.FrpHISIUnlock.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.FrpHISIUnlock.BorderColor = System.Drawing.Color.Tomato;
+            this.FrpHISIUnlock.BorderColorEnabled = false;
+            this.FrpHISIUnlock.BorderColorOnHover = System.Drawing.Color.Tomato;
+            this.FrpHISIUnlock.BorderColorOnHoverEnabled = false;
+            this.FrpHISIUnlock.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.FrpHISIUnlock.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FrpHISIUnlock.ForeColor = System.Drawing.Color.White;
+            this.FrpHISIUnlock.Location = new System.Drawing.Point(6, 364);
+            this.FrpHISIUnlock.Name = "FrpHISIUnlock";
+            this.FrpHISIUnlock.RippleColor = System.Drawing.Color.Black;
+            this.FrpHISIUnlock.RoundingEnable = false;
+            this.FrpHISIUnlock.Size = new System.Drawing.Size(405, 28);
+            this.FrpHISIUnlock.TabIndex = 24;
+            this.FrpHISIUnlock.Text = "FRP Unlock";
+            this.FrpHISIUnlock.TextHover = null;
+            this.FrpHISIUnlock.UseDownPressEffectOnClick = false;
+            this.FrpHISIUnlock.UseRippleEffect = true;
+            this.FrpHISIUnlock.UseVisualStyleBackColor = false;
+            this.FrpHISIUnlock.UseZoomEffectOnHover = false;
+            this.FrpHISIUnlock.Click += new System.EventHandler(this.FrpHISIUnlock_Click);
             // 
             // UNLOCKHISI
             // 
@@ -1557,9 +1598,7 @@
             // EnDisFBLOCK
             // 
             this.EnDisFBLOCK.AutoSize = true;
-            this.EnDisFBLOCK.Checked = true;
-            this.EnDisFBLOCK.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.EnDisFBLOCK.Location = new System.Drawing.Point(6, 365);
+            this.EnDisFBLOCK.Location = new System.Drawing.Point(6, 338);
             this.EnDisFBLOCK.Name = "EnDisFBLOCK";
             this.EnDisFBLOCK.Size = new System.Drawing.Size(79, 20);
             this.EnDisFBLOCK.TabIndex = 20;
@@ -1625,7 +1664,7 @@
             this.isVCOM.AutoSize = true;
             this.isVCOM.Checked = true;
             this.isVCOM.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.isVCOM.Location = new System.Drawing.Point(306, 365);
+            this.isVCOM.Location = new System.Drawing.Point(306, 336);
             this.isVCOM.Name = "isVCOM";
             this.isVCOM.Size = new System.Drawing.Size(105, 20);
             this.isVCOM.TabIndex = 14;
@@ -2423,16 +2462,6 @@
             this.PGG.ValueMaximum = 100;
             this.PGG.ValueMinimum = 0;
             // 
-            // FRPchk
-            // 
-            this.FRPchk.AutoSize = true;
-            this.FRPchk.Location = new System.Drawing.Point(152, 365);
-            this.FRPchk.Name = "FRPchk";
-            this.FRPchk.Size = new System.Drawing.Size(99, 20);
-            this.FRPchk.TabIndex = 25;
-            this.FRPchk.Text = "FRP-Unlock";
-            this.FRPchk.UseVisualStyleBackColor = true;
-            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2638,6 +2667,7 @@
         public System.Windows.Forms.ComboBox LoaderBox;
         private System.Windows.Forms.Label TUTR2;
         public System.Windows.Forms.ComboBox IndexiesOEMdata;
+        private UI.NButton FrpHISIUnlock;
         private System.Windows.Forms.CheckBox FRPchk;
     }
 }

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.ServiceProcess;
+using System.Threading;
 
 namespace HuaweiUnlocker.DIAGNOS
 {
@@ -332,6 +333,7 @@ namespace HuaweiUnlocker.DIAGNOS
             byte[] status = DIAG_SEND(pkt, true, true);
             if (DataS.GetStatus(status))
                 return status.Skip(4).Take(status.Length - 11).ToArray();
+            Thread.Sleep(100);
             return Encoding.ASCII.GetBytes("Please Auth");
         }
         public static byte[] AUTH_PHONE(byte[] hexdata)

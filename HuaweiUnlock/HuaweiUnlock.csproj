@@ -77,13 +77,10 @@
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="QC.QMSLPhone">
-      <HintPath>C:\Users\werasik2aa\Desktop\QC.QMSLPhone.dll</HintPath>
+      <HintPath>..\packages\add\QC.QMSLPhone.dll</HintPath>
     </Reference>
     <Reference Include="QMSL_Library">
-      <HintPath>C:\Users\werasik2aa\Desktop\QMSL_Library.dll</HintPath>
-    </Reference>
-    <Reference Include="SwDownloadDLL">
-      <HintPath>C:\Users\werasik2aa\Desktop\SwDownloadDLL.dll</HintPath>
+      <HintPath>..\packages\add\QMSL_Library.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -105,12 +102,11 @@
     <Compile Include="DIAGNOS\LibCrypt.cs" />
     <Compile Include="DIAGNOS\OemInfoTool.cs" />
     <Compile Include="FlashTool\MTKFlash.cs" />
-    <Compile Include="ResourcesMNG.cs" />
+    <Compile Include="DIAGNOS\Bootloader.cs" />
     <Compile Include="TOOLS\Guide.cs" />
-    <Compile Include="TOOLS\HISI.cs" />
-    <Compile Include="FlashTool\FlashToolHisi.cs" />
     <Compile Include="TOOLS\Fastboot.cs" />
     <Compile Include="TOOLS\ImageFlasher.cs" />
+    <Compile Include="TOOLS\HISI.cs" />
     <Compile Include="TOOLS\UpdateApp.cs" />
     <Compile Include="TOOLS\UpdateUtil\EventStream.cs" />
     <Compile Include="TOOLS\UpdateUtil\FileHeader.cs" />
@@ -155,7 +151,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config" />
     <EmbeddedResource Include="English.ini" />
     <None Include="ILMerge.props" />
     <None Include="packages.config" />
