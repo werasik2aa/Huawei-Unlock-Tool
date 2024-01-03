@@ -77,6 +77,7 @@ KIRIN620(CAM) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloa
 KIRIN650(A) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi65x_a.zip
 KIRIN650(B) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi65x_b.zip
 KIRIN710 https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710.zip
+KIRIN710_V2 https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710_V2.zip
 KIRIN810 https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi810.zip
 KIRIN925 https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi925.zip
 KIRIN935 https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi935.zip
