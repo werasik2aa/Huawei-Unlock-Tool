@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,7 +26,7 @@ namespace HuaweiUnlocker.TOOLS
         {
             var flasher = new ImageFlasher();
 
-            LOG(0, "Verifying images...");
+            LOG(0, "HISIVerifyHash");
 
             int asize = 0, dsize = 0;
 
@@ -39,20 +40,19 @@ namespace HuaweiUnlocker.TOOLS
                 asize += image.Size;
             }
 
-            if(debug) LOG(0, ($"Opening {port}..."));
-
+            LOG(0, "CPort", port);
             flasher.Open(port);
 
-            LOG(0, $"Uploading {bootloader.Name}...");
+            LOG(0, "Writer", bootloader.Name);
 
             foreach (var image in bootloader.Images)
             {
                 var size = image.Size;
 
-                LOG(0, $"- {image.Role}");
+                LOG(0, "EwPS", image.Role);
 
                 flasher.Write(image.Path, (int)image.Address, x => {
-                    Progress(dsize + (int)(size / 100f * x));
+                    Progress(dsize + (int)(size / 100f * x), asize);
                 });
 
                 dsize += size;
@@ -63,7 +63,7 @@ namespace HuaweiUnlocker.TOOLS
 
         public bool ReadInfo()
         {
-            if (fb.Connect())
+            if (IsConnected())
             {
                 string serial = fb.GetSerialNumber();
                 LOG(0, "SerialnTag", serial);
@@ -104,7 +104,7 @@ namespace HuaweiUnlocker.TOOLS
                     string factoryKey = ReadFactoryKey();
                     if (factoryKey != null)
                     {
-                        LOG(0, "KEYTag", factoryKey);
+                        LOG(0, "HISIOldKey", factoryKey);
                         BLKEY = factoryKey;
                     }
                 }
@@ -120,7 +120,9 @@ namespace HuaweiUnlocker.TOOLS
             string subcommand2 = "flash frp Tools\\frpPartition.img";
             fb.Command("oem erase frp");
             fb.Command("oem unlock-frp");
+            fb.Command("oem frp-erase");
             fb.Command("oem frp-unlock");
+            fb.Command("oem format cache");
             LOG(1, "THIS IS BETA!");
             SyncRUN(command, subcommand);
             SyncRUN(command, subcommand2);
@@ -178,6 +180,11 @@ namespace HuaweiUnlocker.TOOLS
 
             return match.Success ? match.Value : null;
         }
+        public string ReadUnlockCodeMethod2()
+        {
+            var res = fb.Command("oem get_identifier_token");
+            return res.ToString();
+        }
 
         public void WriteBOOTLOADERKEY(string key)
         {
@@ -205,7 +212,30 @@ namespace HuaweiUnlocker.TOOLS
                 if(debug) LOG(2, ex.Message);
             }
         }
-
+        public string UnlockSec_Method2()
+        {
+            if(fb.Connect())
+            {
+                var res = fb.Command("oem sec_unlock");
+                LOG(0, res.ToString());
+                return res.ToString();
+            }
+            return "NaN";
+        }
+        public bool IsConnected()
+        {
+            return fb.Connect();
+        }
+        public string Reboot()
+        {
+            if (IsConnected())
+            {
+                var res = fb.Command("reboot");
+                LOG(0, res.ToString());
+                return res.ToString();
+            }
+            return "NaN";
+        }
         public void StartUnlockPRCS(bool frp, string key, Bootloader d, string port)
         {
             fb = new Fastboot();
@@ -216,16 +246,25 @@ namespace HuaweiUnlocker.TOOLS
 
                 if (frp)
                 {
-                    LOG(1, "Unlocking frp only");
-                    if (ReadInfo())
-                        UnlockFRP();
-                    return;
+                    LOG(1, "Unlocker", "(KIRIN FRP)");
+                    if (ReadInfo()) UnlockFRP();
                 }
                 LOG(0, "[Fastboot] ", "CheckCon");
-                if (ReadInfo())
+                if (IsConnected())
                 {
-                    WriteBOOTLOADERKEY(key);
-                    LOG(0, $"New unlock code:");
+                    if (ReadInfo())
+                    {
+                        ReadFactoryKey();
+                        WriteBOOTLOADERKEY(key);
+                        LOG(0, "HISINewKey", key);
+                    }
+                    else
+                    {
+                        LOG(1, "HISINewKeyErr");
+                        LOG(0, "HISINewKeyErr2");
+                        UnlockSec_Method2();
+                        BLKEY = ReadUnlockCodeMethod2();
+                    }
                     fb.Disconnect();
                 }
             }

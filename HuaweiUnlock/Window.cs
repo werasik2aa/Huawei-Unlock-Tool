@@ -153,8 +153,7 @@ namespace HuaweiUnlocker
                 Tab.TabPages[1].Text = Language.Get("BackupRestoreTagSimpl");
                 Tab.TabPages[2].Text = Language.Get("UnlockSimpl");
                 Tab.TabPages[3].Text = Language.Get("GPTtagSimpl");
-                Tab.TabPages[4].Text = Language.Get("DiagTagSimpl");
-                Tab.TabPages[5].Text = Language.Get("UnlockSimplHISI");
+                Tab.TabPages[4].Text = Language.Get("UnlockSimplHISI");
 
                 PARTLIST.Columns[0].HeaderText = Language.Get("NameTABLE0");
                 PARTLIST.Columns[1].HeaderText = Language.Get("NameTABLE1");
@@ -162,7 +161,7 @@ namespace HuaweiUnlocker
 
                 groupBox2.Text = DevInfoQCBox.Text = Language.Get("DeviceInfoTag");
                 TUTR2.Text = Language.Get("Tutr2");
-                ACTBOX.Text = Language.Get("Action");
+                groupBox13.Text = groupBox3.Text = ACTBOX.Text = Language.Get("Action");
                 RDinf.Text = Language.Get("DiagTagRead");
                 UpgradMDbtn.Text = Language.Get("DiagTagUpgradeMode");
                 ReBbtn.Text = Language.Get("DiagTagReboot");
@@ -330,7 +329,7 @@ namespace HuaweiUnlocker
                 string partition = PARTLIST.CurrentRow.Cells[0].Value.ToString();
                 WHAT.Text = Language.Get("Action") + partition;
                 Temp = partition;
-                LOG(0, "sl", partition);
+                LOG(0, "PartSled", partition);
             }
         }
 
@@ -555,24 +554,21 @@ namespace HuaweiUnlocker
             Tab.SelectTab(3);
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void button9_Click(object sender, EventArgs e)
         {
             Tab.SelectTab(4);
         }
-
-        private void button9_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             Tab.SelectTab(5);
         }
-
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Tab.SelectTab(6);
+        }
         private void DebugE_ch(object sender, EventArgs e)
         {
             debug = DBB.Checked;
-        }
-
-        private void CLEARDD_Click(object sender, EventArgs e)
-        {
-            CMDbox.Text = "";
         }
 
         private void SelLanguage_Click(object sender, EventArgs e)
@@ -823,12 +819,6 @@ namespace HuaweiUnlocker
             RdGPT.Visible = RdGPT.Enabled = true;
             WHAT.Enabled = WHAT.Visible;
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Tab.SelectTab(6);
-        }
-
         private void button12_Click(object sender, EventArgs e)
         {
             //RESET CANCEL BTN
@@ -854,7 +844,6 @@ namespace HuaweiUnlocker
             Tab.Enabled = true;
             UpdateApp.unpacked = false;
             LOG(1, "Canceled");
-            CMDbox.Text = "";
         }
 
         private void FlashUpdAppBTN_Click(object sender, EventArgs e)
@@ -869,7 +858,7 @@ namespace HuaweiUnlocker
             };
             if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-                UpdateApp.Unpack(openFileDialog.FileName, 2, AutoLdr.Checked ? "" : LoaderBox.Text);
+                UpdateApp.Unpack(openFileDialog.FileName, 2);
         }
 
         private void Searching(object sender, EventArgs e)
@@ -928,7 +917,7 @@ namespace HuaweiUnlocker
                         Progress(50);
                         LOG(0, "RrGPTXMLSPR", saveFileDialog.FileName);
                         LOG(0, "File", openFileDialog.FileName + "<==-");
-                        WriteGPT_TO_XML(saveFileDialog.FileName, gpttable);
+                        WriteGPT_TO_XML(saveFileDialog.FileName, gpttable, false);
                         Progress(100);
                     }
                     else
@@ -979,7 +968,7 @@ namespace HuaweiUnlocker
                             Progress(50);
                             LOG(0, "SUCC_ReadGPT");
                             LOG(0, "RrGPTXMLSPR", papthto);
-                            WriteGPT_TO_XML(papthto, LangProc.DeviceInfo.Partitions);
+                            WriteGPT_TO_XML(papthto, LangProc.DeviceInfo.Partitions, false);
                             Progress(100);
                         }
                         else
@@ -1058,13 +1047,6 @@ namespace HuaweiUnlocker
             LOG(0, "Done");
         }
 
-        private void SendCMDtestBTN_Click(object sender, EventArgs e)
-        {
-            if (!Find()) return;
-            var ss = DIAG.AUTH_PHONE(Base64.Decode("OQMhzRP7Zu8zw6pDsPKf2ZZdlqWT1rgMo5tHxV0GgWnWPM9gKsxOiZMmNHqC7GafDII17P9mOcsZ8Km862fzag=="));
-            CMDbox.Text = "[ANSWER]" + CRC.HexDump(ss);
-        }
-
         private void RDinf_Click(object sender, EventArgs e)
         {
             if (!Find()) return;
@@ -1122,6 +1104,11 @@ namespace HuaweiUnlocker
         {
             FRPchk.Checked = true;
             UNLOCKHISI_Click(sender, e);
+        }
+
+        private void RebootFB_Click(object sender, EventArgs e)
+        {
+            HISI.Reboot();
         }
     }
 }

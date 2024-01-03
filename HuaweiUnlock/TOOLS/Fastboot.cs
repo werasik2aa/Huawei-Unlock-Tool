@@ -17,7 +17,7 @@ namespace HuaweiUnlocker.TOOLS
         private const int BLOCK_SIZE = 512 * 1024; // 512 KB
 
         public int Timeout = 3000;
-        public int TimeoutWait = 1000;
+        public int TimeoutWait = 100;
         private UsbDevice device;
 
         public enum FastbootStatus

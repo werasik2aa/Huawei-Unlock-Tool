@@ -207,14 +207,28 @@ namespace HuaweiUnlocker.FlashTool
                 return false;
             }
         }
+        public static async void FromEDLReboot()
+        {
+            Progress(2);
+            string command = "Tools\\fh_loader.exe";
+            string subcommandr = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --reset --showpercentagecomplete --zlpawarehost=1 --noprompt --noprompt";
+            //final set active
+            LOG(0, "MarkUpGPT");
+            if (!SyncRUN(command, subcommandr))
+                LOG(2, "EwRGPT2");
+            else
+                LOG(0, "IwRGPT2");
+        }
         public static async void FlashPartsXml(string rawxml, string patchxml, string loader, string path)
         {
             CurTask = Task.Run(() =>
             {
                 Progress(2);
                 string command = "Tools\\fh_loader.exe";
-                string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendxml=" + '"' + rawxml + '"' + " --search_path=" + '"' + path + '"';
-                string subcommandp = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendxml=" + '"' + patchxml + '"' + " --search_path=" + '"' + path + '"';
+                string subcommandr = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --reset";
+                string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --sendxml=" + '"' + rawxml + '"' + " --search_path=" + '"' + path + '"';
+                string subcommandp = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --sendxml=" + '"' + patchxml + '"' + " --search_path=" + '"' + path + '"';
+                string subcommandf = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --setactivepartition=0";
                 if (debug) LOG(-1, "===Flash Partitions XML===" + newline + newline);
                 if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); CurTask.Dispose(); }
                 try
@@ -222,27 +236,21 @@ namespace HuaweiUnlocker.FlashTool
                     Progress(0);
                     LOG(0, "Flasher", path);
                     LOG(0, "Info: ", patchxml);
-                    if (!String.IsNullOrEmpty(patchxml))
+                    if (!String.IsNullOrEmpty(patchxml) & File.Exists(patchxml))
                     {
-                        if (!File.Exists(patchxml))
-                            LOG(1, "NotFoundF", patchxml);
-                        else
                         if (!SyncRUN(command, subcommandp))
                             LOG(2, "EwRGPT", patchxml);
-                        else 
+                        else
                             LOG(0, "IwRGPT");
                     }
-                    LOG(0, "Info", rawxml);
-                    if (!String.IsNullOrEmpty(rawxml))
-                    {
-                        if (!File.Exists(rawxml))
-                            LOG(1, "NotFoundF", rawxml);
-                        else
-                        if (!SyncRUN(command, subcommand))
-                            LOG(2, "ErrXML2", rawxml);
-                        else
-                            LOG(0, "RrGPTXMLS");
-                    }
+
+                    if (String.IsNullOrEmpty(rawxml) || !File.Exists(rawxml))
+                        return !LOG(1, "NotFoundF", rawxml);
+
+                    if (!SyncRUN(command, subcommand))
+                        LOG(2, "ErrXML2", rawxml);
+                    else
+                        LOG(0, "RrGPTXMLS");
                     return true;
                 }
                 catch (Exception e)
@@ -277,7 +285,7 @@ namespace HuaweiUnlocker.FlashTool
             {
                 Progress(2);
                 string command = "Tools\\fh_loader.exe";
-                string subcommand = " --port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendimage=" + '"' + file + '"' + " --noprompt --showpercentagecomplete --zlpawarehost=1 --memoryname=eMMC";
+                string subcommand = " --port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendimage=" + '"' + file + '"' + " --showpercentagecomplete --zlpawarehost=1 --noprompt --memoryname=eMMC";
                 if (debug) LOG(-1, "===Flash Partitions RAW===" + newline + newline);
                 if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); CurTask.Dispose(); }
                 try

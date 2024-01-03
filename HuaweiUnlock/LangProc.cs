@@ -20,7 +20,7 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "24F";
+        public const string APP_VERSION = "25F";
         public static TextBox LOGGBOX;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
         private static StreamWriter se = new StreamWriter("log.txt");
@@ -121,7 +121,7 @@ namespace HuaweiUnlocker
                 if (outtext.StartsWith("SerialNumber"))
                     DeviceInfo.SerialNum = outtext.Split(' ')[1];
                 if (outtext.StartsWith("MSM_HW_ID"))
-                    DeviceInfo.CPUName = IdentifyCPUbyID(DeviceInfo.HWID = outtext.Split(' ')[1]);
+                    DeviceInfo.CPUName = DataS.IdentifyCPUbyID(DeviceInfo.HWID = outtext.Split(' ')[1]);
                 if (outtext.StartsWith("OEM_PK_HASH"))
                     DeviceInfo.PK_HASH = outtext.Split(' ')[1];
                 if (outtext.Contains("SBL SW Version"))
@@ -239,194 +239,6 @@ namespace HuaweiUnlocker
                 if (a.EndsWith(".mbn") || a.EndsWith(".elf") || a.EndsWith(".hex")) return a;
             return "";
         }
-        public static string CertExtr(string SFDump)
-        {
-            int rootcert = 0;
-            string pattern = "3082.{4}3082";
-            MatchCollection matchs = Regex.Matches(SFDump, pattern);
-            List<string> certs = new List<string>();
-            StringBuilder SHAstr = new StringBuilder(string.Empty);
-            SHA256 mysha256 = SHA256.Create();
-            SHA384 rsaPSS = SHA384.Create();
-            byte[] hashbytes = null;
-            if (matchs.Count >= 2)
-            {
-                string certl = SFDump.Substring(matchs[0].Index + 4, 4);
-                int certlen = int.Parse(certl, NumberStyles.HexNumber);
-                if ((matchs[0].Index + certlen * 2 + 8) == matchs[1].Index)
-                {
-                    rootcert = 2;
-                    if (matchs.Count >= 3) rootcert = 3;
-                }
-            }
-            if (rootcert > 0)
-            {
-                for (int i = 0; i < rootcert; i++)
-                {
-                    string certl = SFDump.Substring(matchs[i].Index + 4, 4);
-                    int certlen = Int32.Parse(certl, NumberStyles.HexNumber);
-                    certs.Insert(i, matchs[i].Value + SFDump.Substring(matchs[i].Index + 12, certlen * 2 - 4));
-                }
-                Guide guide = new Guide();
-                foreach (KeyValuePair<string, int> correct_SHA in guide.SHA_magic_numbers)
-                {
-                    if (certs[rootcert - 1].Contains(correct_SHA.Key))
-                    {
-                        switch (correct_SHA.Value)
-                        {
-                            case 0://SHA384 - старые серты
-                                hashbytes = rsaPSS.ComputeHash(CRC.HexStringToBytes(certs[rootcert - 1]));
-                                break;
-                            case 1://SHA256 - старые серты
-                                hashbytes = mysha256.ComputeHash(CRC.HexStringToBytes(certs[rootcert - 1]));
-                                break;
-                            case 2://SHA256 - нормальные серты
-                                hashbytes = mysha256.ComputeHash(CRC.HexStringToBytes(certs[rootcert - 1]));
-                                break;
-                            case 3://SHA384 - новые серты
-                                hashbytes = rsaPSS.ComputeHash(CRC.HexStringToBytes(certs[rootcert - 1]));
-                                break;
-                            case 4://SHA384 - паченый старый программер
-                                hashbytes = rsaPSS.ComputeHash(CRC.HexStringToBytes(certs[rootcert - 1]));
-                                break;
-                            default:
-                                //hashbytes = mysha256.ComputeHash(StringToByteArray(certs[rootcert - 1]));
-                                hashbytes = null;
-                                break;
-                        }
-                    }
-                }
-                if (hashbytes != null)
-                {
-                    SHAstr.Append(BitConverter.ToString(hashbytes));
-                    SHAstr.Replace("-", string.Empty);
-                    while (SHAstr.Length < 64) SHAstr.Insert(0, '0');
-                }
-            }
-            return SHAstr.ToString();
-        }
-        public static string[] IDs(string dumpfile)
-        {
-            string[] certarray = new string[6] { "-", "-", "-", "-", "-", "-" };
-            int HWIDstrInd = dumpfile.IndexOf("2048575F4944"); // HW_ID
-            int SWIDstrInd = dumpfile.IndexOf("2053575F4944"); // SW_ID
-            string HWID = "3F3F3F3F3F3F3F3F3F3F3F3F3F3F3F3F"; // Для неопределённого HWID ставим ??
-            string SWID = "3F3F3F3F3F3F3F3F3F3F3F3F3F3F3F3F"; // Для неопределённого SWID ставим ??
-            //Выбираем новый или старый способ поиска идентификаторов
-            if (dumpfile.Length > 8600 && dumpfile.Substring(8200, 2).Equals("06")) //Новый шланг
-            {
-                StringBuilder hw_res = new StringBuilder(string.Empty);
-                for (int i = 0; i < 4; i++)
-                {
-                    hw_res.Insert(0, dumpfile.Substring(8312 + i * 2, 2)); //103C, 4byte, HW_ID -идентификатор процессора
-                }
-                certarray[0] = hw_res.ToString();
-                certarray[1] = dumpfile.Substring(8322, 2) + dumpfile.Substring(8320, 2); //1040, 2byte, OEM_ID -идентификатор OEM
-                certarray[2] = dumpfile.Substring(8330, 2) + dumpfile.Substring(8328, 2); //1043 (1044 корректно), 2byte, MODEL_ID -идентификатор модели
-                if (string.IsNullOrEmpty(CertExtr(dumpfile))) certarray[3] = "?"; else certarray[3] = CertExtr(dumpfile);  //хеш
-                certarray[4] = dumpfile.Substring(8304, 2).TrimStart('0'); //1038, 1byte, SW_ID -идентификатор образа
-                if (dumpfile.Substring(8520, 2) == "00") certarray[5] = string.Empty;
-                else certarray[5] = "(" + dumpfile.Substring(8520, 2).TrimStart('0') + ")"; //10A4, 1byte, SW_VER -версия образа
-            }
-            else //Старый шланг 5 или 3 или ещё что-то
-            {
-                if (HWIDstrInd >= 32 && SWIDstrInd >= 32)
-                {
-                    HWID = dumpfile.Substring(HWIDstrInd - 32, 32);
-                    SWID = dumpfile.Substring(SWIDstrInd - 32, 32);
-                }
-                for (int i = 0; i < certarray.Length; i++)
-                {
-                    switch (i)
-                    {
-                        case 0: // Вытягиваем процессор
-                            string[] HStr = new string[8];
-                            int counth = 0;
-                            for (int j = 0; j < 16; j += 2)
-                            {
-                                HStr[counth] = Convert.ToString((char)int.Parse(HWID.Substring(j, 2), NumberStyles.HexNumber));
-                                counth++;
-                            }
-                            certarray[i] = string.Join(string.Empty, HStr);
-                            break;
-                        case 1: // Вытягиваем производителя
-                            string[] OStr = new string[4];
-                            int counto = 0;
-                            for (int j = 16; j < 24; j += 2)
-                            {
-                                OStr[counto] = Convert.ToString((char)int.Parse(HWID.Substring(j, 2), NumberStyles.HexNumber));
-                                counto++;
-                            }
-                            certarray[i] = string.Join(string.Empty, OStr);
-                            break;
-                        case 2: // Вытягиваем номер модели
-                            string[] MStr = new string[4];
-                            int countm = 0;
-                            for (int j = 24; j < 32; j += 2)
-                            {
-                                MStr[countm] = Convert.ToString((char)int.Parse(HWID.Substring(j, 2), NumberStyles.HexNumber));
-                                countm++;
-                            }
-                            certarray[i] = string.Join(string.Empty, MStr);
-                            break;
-                        case 3: // Расчитываем хеш
-                            if (string.IsNullOrEmpty(CertExtr(dumpfile))) certarray[i] = "?"; else certarray[i] = CertExtr(dumpfile);
-                            break;
-                        case 4: // Формируем тип софтвера
-                            string[] SNStr = new string[8];
-                            int countn = 0;
-                            for (int j = 16; j < 32; j += 2)
-                            {
-                                SNStr[countn] = Convert.ToString((char)int.Parse(SWID.Substring(j, 2), NumberStyles.HexNumber));
-                                countn++;
-                            }
-                            string nstr = string.Join(string.Empty, SNStr);
-                            string nend;
-                            switch (nstr)
-                            {
-                                case "????????":
-                                    nend = "?";
-                                    break;
-                                case "00000000":
-                                    nend = "0";
-                                    break;
-                                default:
-                                    nend = nstr.TrimStart('0');
-                                    break;
-                            }
-                            certarray[i] = nend;
-                            break;
-                        case 5: //  Формируем версию софтвера
-                            string[] SWStr = new string[8];
-                            int countv = 0;
-                            for (int j = 0; j < 16; j += 2)
-                            {
-                                SWStr[countv] = Convert.ToString((char)int.Parse(SWID.Substring(j, 2), NumberStyles.HexNumber));
-                                countv++;
-                            }
-                            string verstr = string.Join(string.Empty, SWStr);
-                            string verend;
-                            switch (verstr)
-                            {
-                                case "????????":
-                                    verend = string.Empty;
-                                    break;
-                                case "00000000":
-                                    verend = string.Empty;
-                                    break;
-                                default:
-                                    verend = "(" + verstr.TrimStart('0') + ")";
-                                    break;
-                            }
-                            certarray[i] = verend;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-            return certarray;
-        }
         public static Dictionary<string, Partition> GET_GPT_FROM_FILE(string GPT_File, int block_size)
         {
             Dictionary<string, Partition> GPT = new Dictionary<string, Partition>();
@@ -540,69 +352,21 @@ namespace HuaweiUnlocker
             }
             return false;
         }
-        public static string IdentifyCPUbyID(string id)
-        {
-            switch (id)
-            {
-                case "0x009690e1":
-                    return "MSM8992";
-                case "0x009600e1":
-                    return "MSM8909";
-                case "0x000460e1":
-                    return "MSM8953";
-                case "0x0091b0e1":
-                    return "MSM8929";
-                case "0x006220e1":
-                    return "MSM7227A";
-                case "0x009470e1":
-                    return "MSM8996";
-                case "0x009900e1":
-                    return "MSM8976";
-                case "0x009b00e1":
-                    return "MSM8976";
-                case "0X008A30E1":
-                    return "MSM8930";
-                case "0x0004f0e1":
-                    return "MSM8937";
-                case "0x0090b0e1":
-                    return "MSM8936";
-                case "0x009180e1":
-                    return "MSM8928";
-                case "0x008140e1":
-                    return "MSM8x10";
-                case "0x008050e2":
-                    return "MSM8926";
-                case "0x0005f0e1":
-                    return "MSM8996";
-                case "0x007B80E1":
-                    return "MSM8974";
-                case "0x009400e1":
-                    return "MSM8994";
-                case "0x008150e1":
-                    return "MSM8x10";
-                case "0x008050e1":
-                    return "MSM8926";
-                case "0x000560e1":
-                    return "MSM8917";
-                case "0x007050e1":
-                    return "MSM8916";
-                case "0x008110e1":
-                    return "MSM8210";
-                default:
-                    return "Unknown";
-            }
-        }
-        public static bool WriteGPT_TO_XML(string papthto, Dictionary<string, Partition> partbI)
+        public static bool WriteGPT_TO_XML(string papthto, Dictionary<string, Partition> partbI, bool verify)
         {
             StreamWriter writer = new StreamWriter(papthto);
             writer.WriteLine("<?xml version=\"1.0\" ?>");
             writer.WriteLine("<data>");
+            writer.WriteLine("  <!--NOTE: This is an ** Autogenerated file **-->");
+            writer.WriteLine("  <!--NOTE: HUT_HUAWEI UNLOCK TOOL **-->");
+
             foreach (var i in partbI)
             {
                 if (string.IsNullOrEmpty(i.Key)) continue;
-                string line = "<program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + i.Value.BlockNumSectors + "\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_sector=\"" + i.Value.BlockStart + "\"/>";
+                if (verify && !File.Exists("UnlockFiles/UpdateAPP/" + i.Key + ".img")) continue;
+                string line = "  <program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + i.Value.BlockNumSectors + "\" physical_partition_number=\"0\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_sector=\"" + i.Value.BlockStart + "\" />";
                 if (i.Key.ToLower() == "userdata")
-                    line = "<program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + 1 + "\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_sector=\"" + i.Value.BlockStart + "\"/>";
+                    line = "  <program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + 1 + "\" physical_partition_number=\"0\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_sector=\"" + i.Value.BlockStart + "\" />";
                 writer.WriteLine(line);
                 if (debug) LOG(0, line);
             }
@@ -613,9 +377,9 @@ namespace HuaweiUnlocker
             writer.Dispose();
             return partbI.Count > 0;
         }
-        public static void Progress(int v)
+        public static void Progress(int v, int max=100)
         {
-            action = () => PRG.Value = v;
+            action = () => { PRG.Value = v; PRG.ValueMaximum = max; };
             if (PRG.InvokeRequired)
                 PRG.Invoke(action);
             else
