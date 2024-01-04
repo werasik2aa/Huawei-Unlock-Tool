@@ -8,7 +8,7 @@ Free Huawei Unlock bootloader / FRP | EN/RU
 Free Huawei FILES MTK | DA | QC FIREHOSE | LOADERS | SCATTERS | TEST-POINTS: 
 https://werasik2aa.github.io/Huawei-Unlock-Tool/
 
-Can support 620|620(CAM)|65x_a|65x_b|710|810|925|935|950|955|960|970 .
+Can support 620|620(CAM)|65x_a|65x_b|710|810|925|935|950|955|960|970 . in theory 980
 
 <a href="https://github.com/werasik2aa/UnlockedHuaweiBootloader/blob/main/README.md">Bootloader Unlocker Status</a>
 
