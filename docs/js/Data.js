@@ -63,6 +63,7 @@ const Devices = [
 		"KIRIN650(A) UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi65x_a.zip",
 		"KIRIN650(B) UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi65x_b.zip",
 		"KIRIN710 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710.zip",
+		"KIRIN710_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710_V2.zip",
 		"KIRIN810 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi810.zip",
 		"KIRIN925 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi925.zip",
 		"KIRIN935 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi935.zip",
@@ -77,6 +78,7 @@ const Devices = [
 const Tools = [
 	"Exclusive Huawei QDCFG'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/Exclusive+Huawei+QDCFG.zip",
 	"Qmsl IMEI Tool v1.4'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/Qmsl+IMEI+Tool+v1.4.zip",
+	"OMH diag Mode On Tool NotTested'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/OMH_diag_Mode_On_Tool.zip",
 	"PotatoNV Latest'https://github.com/mashed-potatoes/PotatoNV/releases/latest",
 	"HUT (Huawei Unlock Tool) Latest'https://github.com/werasik2aa/Huawei-Unlock-Tool/releases/latest",
 ];
@@ -103,7 +105,6 @@ const Loaders = [
 	"BAH firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/BAH/Qualcomm MSM8940.mbn",
 	"BKK firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/BKK/Qualcomm Snapdragon 632.mbn",
 	"C8816 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/C8816/Qualcomm MSM8X10.mbn",
-	"CAM firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/CAM/.mbn",
 	"CAN firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/CAN/Qualcomm MSM8953.mbn",
 	"CAZ firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/CAZ/Qualcomm Snapdragon 625.mbn",
 	"CHE1-CL10 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/CHE1-CL10/Qualcomm MSM8916.mbn",
@@ -143,13 +144,15 @@ const Loaders = [
 ];
 
 const Firmwares = [
+	"[Stock Software] Huawei Honor 5X GR5X KII-L23'https://mega.nz/file/rFwADa5A#vW6KvK0Sdab6dWxQhA9IZ5MikCP66nlEv4oaBhBZIsg",
+	"[Stock Software] Huawei Honor 6A DLI-TL20'https://drive.google.com/file/d/1-kgbAiAVLXfQOF6GEQ2oCLLSI1MT0WLo/view?usp=sharing",
+	"[Stock Software] Huawei G630 Password:www.cfix.ir'https://drive.google.com/file/d/1aGrKXne5zgSeGg1B4x_eU16xf-oiH2f7/view",
 	"[Board Software] Huawei Y6 Prime 2018 ATU-L31-L21-LOWER'https://androidhost.ru/SEj",
 	"[Board Software] Huawei Y6 Prime 2018 ATU-L42'https://drive.google.com/file/d/1SAB7YvwwNjLIRdwHLU-FWv7gvgjqt-RJ/view?usp=drivesdk",
 	"[Board Software] Huawei AGS L03 C500B001'https://drive.google.com/file/d/1-uUQKZVCoYgT7ZQjly_8kkmOxbXkV5Ow/view",
 	"[Board Software] Huawei Y6II CAM-L21'https://drive.google.com/file/d/1DAZ6XRhcATQm_hPvKzcEst0YFAmeNQDH/view",
 	"[Board Software] Huawei Honor 7a (Pro) AUM-LXX'https://androidhost.ru/SHd",
 	"[Board Software] Huawei Honor 7c LND'https://drive.google.com/file/d/1aFHRGXS9ltyCr1TZYXxmeOArU7VTlOiG/view?usp=drivesdk",
-	"[Stock Software] Huawei Honor 5X GR5X KII-L23'https://mega.nz/file/rFwADa5A#vW6KvK0Sdab6dWxQhA9IZ5MikCP66nlEv4oaBhBZIsg",
 	"[Board Software] Huawei GR5 KII-L21'https://drive.google.com/file/d/1BgYa9FjDGV27GD_wBHDyEvFXXTn62AYz/view?usp=drivesdk",
 	"[Board Software] Huawei Y7 Prime 2018 LDN-LXX'https://androidhost.ru/X7d",
 	"[Board Software] Huawei P8 Lite ALE-LXX'https://androidhost.ru/1PK2",
@@ -173,7 +176,7 @@ const Firmwares = [
 	"[Board Software] Huawei Y6 SCL-L01'https://drive.google.com/file/d/16S5-_TffJ_30M7gsyWxoQDwiMImEHGuv/view?usp=drivesdk",
 	"[Board Software] Huawei Y625-U32'https://drive.google.com/file/d/1y_c6rIKCy0Jhj11JIXKqk20qMPdbj5Ak/view?usp=drivesdk",
 	"[Board Software] Huawei Y625-U32'https://drive.google.com/file/d/1y_c6rIKCy0Jhj11JIXKqk20qMPdbj5Ak/view",
-	"[Board Software] Huawei Y625-U51'https://drive.google.com/file/d/1Qc6E4HKbygeRnW3pVi13Jt5OoGyttvc4/view",
+	"[Board Software] Huawei Y625-U51'https://drive.google.com/file/d/1Qc6E4HKbygeRnW3pVi13Jt5OoGyttvc4/view"
 ];
 
 const GPTS = [
