@@ -84,11 +84,11 @@ const Tools = [
 ];
 
 const Drivers = [
-	"FULL QUALCOMM Drivers'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/FULL+QUALCOMM+Drivers.zip",
-	"QDLoader HS-USB Driver 64bit Setup'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/QDLoader+HS-USB+Driver_64bit_Setup.exe",
-	"Huawei Service Driver Manufacture 2.01.03.00'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/Huawei_Service_Driver_Manufacture_2_01_03_00.exe",
-	"vivo usb driver2.4'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/vivo_usb_driver2.4.exe",
-	"Kirin Hisi Huawei COM 1.0 Driver'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/Drivers/KirinComDriver.rar"
+	"FULL QUALCOMM Drivers'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Drivers/FULL+QUALCOMM+Drivers.zip",
+	"QDLoader HS-USB Driver 64bit Setup'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Drivers/QDLoader+HS-USB+Driver_64bit_Setup.exe",
+	"Huawei Service Driver Manufacture 2.01.03.00'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Drivers/Huawei_Service_Driver_Manufacture_2_01_03_00.exe",
+	"vivo usb driver2.4'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Drivers/vivo_usb_driver2.4.exe",
+	"Kirin Hisi Huawei COM 1.0 Driver'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Drivers/KirinComDriver.rar"
 ];
 
 const Loaders = [
@@ -180,9 +180,9 @@ const Firmwares = [
 ];
 
 const GPTS = [
-	"AGS GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/GPT_PRG/AGS.zip",
-	"ALE GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/GPT_PRG/ALE.zip",
-	"ARE GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/GPT_PRG/ARE.zip",
+	"AGS GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/AGS.zip",
+	"ALE GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/ALE.zip",
+	"ARE GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/ARE.zip",
 	"ARS GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/ARS.zip",
 	"ATU GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/ATU.zip",
 	"BAH GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/BAH.zip",
