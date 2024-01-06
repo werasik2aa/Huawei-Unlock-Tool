@@ -263,7 +263,9 @@ namespace HuaweiUnlocker.TOOLS
                         LOG(1, "HISINewKeyErr");
                         LOG(0, "HISINewKeyErr2");
                         UnlockSec_Method2();
+                        WriteBOOTLOADERKEY(key);
                         BLKEY = ReadUnlockCodeMethod2();
+                        LOG(0, "[Fastboot] BL-CODE: " + key + " OR " + BLKEY.ToString());
                     }
                     fb.Disconnect();
                 }
