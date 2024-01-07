@@ -989,11 +989,21 @@ namespace HuaweiUnlocker
 
         private void IdentifyBTN_Click(object sender, EventArgs e)
         {
-            LOG(0, "CheckCon");
-            LangProc.DeviceInfo.Port = GETPORT("qdloader 9008", PORTBOX.Text);
-            GetIdentifier();
-            LOG(0, "LoaderSearch");
-            GuessMbnTest();
+            LOG(0, "CheckCon", " [HISI]");
+            var portQC = LangProc.DeviceInfo.Port = GETPORT("huawei usb com", PORTBOX.Text);
+            LOG(0, "CheckCon", " [QCOM]");
+            var portHISI = LangProc.DeviceInfo.Port = GETPORT("qdloader 9008", PORTBOX.Text);
+            if (!portHISI.Equals("NaN"))
+                LOG(0, "CPort", "[HISI] " + LangProc.DeviceInfo.Port.FullName);
+            if (!portQC.Equals("NaN"))
+            {
+                LOG(0, "CPort", "[QCOM] " + LangProc.DeviceInfo.Port.FullName);
+                GetIdentifier();
+                LOG(0, "LoaderSearch");
+                GuessMbnTest();
+            }
+            if (portQC == portHISI) 
+                LOG(1, "NoDEVICEAnsw");
         }
         private async void ReadOemBTN_Click(object sender, EventArgs e)
         {

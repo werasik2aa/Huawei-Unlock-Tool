@@ -189,7 +189,6 @@ namespace HuaweiUnlocker.TOOLS
         public void WriteBOOTLOADERKEY(string key)
         {
             var fblockState = (byte)1;
-
             try
             {
                 SetNVMEProp("FBLOCK", new[] { fblockState });
@@ -217,8 +216,8 @@ namespace HuaweiUnlocker.TOOLS
             if(fb.Connect())
             {
                 var res = fb.Command("oem sec_unlock");
-                LOG(0, res.ToString());
-                return res.ToString();
+                LOG(0, res.Payload);
+                return res.Payload;
             }
             return "NaN";
         }
@@ -231,8 +230,8 @@ namespace HuaweiUnlocker.TOOLS
             if (IsConnected())
             {
                 var res = fb.Command("reboot");
-                LOG(0, res.ToString());
-                return res.ToString();
+                LOG(0, res.Payload);
+                return res.Payload;
             }
             return "NaN";
         }
