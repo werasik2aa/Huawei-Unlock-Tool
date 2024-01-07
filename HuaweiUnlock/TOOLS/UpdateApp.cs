@@ -29,9 +29,9 @@ namespace HuaweiUnlocker.TOOLS
                     {
                         if (!unpacked)
                         {
-                            if (a.FileType.ToString().ToUpper().Equals("ERECOVERY_RAMDIS"))
+                            if (a.FileType.ToString().ToUpper().StartsWith("ERECOVERY_RAMDIS"))
                                 a.FileType = "ERECOVERY_RAMDISK";
-                            if (a.FileType.ToString().ToUpper().Equals("RECOVERY_RAMDIS"))
+                            if (a.FileType.ToString().ToUpper().StartsWith("RECOVERY_RAMDIS"))
                                 a.FileType = "RECOVERY_RAMDISK";
                             LOG(0, "Extracting", a.FileType);
                             UpdFile.Extract(i, "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img");
@@ -56,7 +56,23 @@ namespace HuaweiUnlocker.TOOLS
                         return;
                     }
 
-                    FlashToolQClegacy.FlashPartsXml(pathxmlE, "", GuessMbn(), "UnlockFiles/UpdateAPP");
+                    var gpttable = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
+                    foreach (var a in UpdFile)
+                    {
+                        if (a.FileType.ToString().ToUpper().StartsWith("ERECOVERY_RAMDIS"))
+                            a.FileType = "ERECOVERY_RAMDISK";
+                        if (a.FileType.ToString().ToUpper().StartsWith("RECOVERY_RAMDIS"))
+                            a.FileType = "RECOVERY_RAMDISK";
+                        if (gpttable.ContainsKey(a.FileType.ToLower()))
+                        {
+                            FlashToolQClegacy.CurPartLenght = (int)a.FileSize;
+                            string command = "Tools\\emmcdl.exe";
+                            string subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + GuessMbn() + '"' + " -b " + a.FileType.ToLower() + " " + '"' + "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img" + '"';
+                            SyncRUN(command, subcommand);
+                            i++;
+                        }
+                        Progress(i / gpttable.Count * 100);
+                    }
                 }
             }
             else
