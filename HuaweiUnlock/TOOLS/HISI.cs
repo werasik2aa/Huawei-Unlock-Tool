@@ -186,7 +186,7 @@ namespace HuaweiUnlocker.TOOLS
             return res.ToString();
         }
 
-        public void WriteBOOTLOADERKEY(string key)
+        public string WriteBOOTLOADERKEY(string key)
         {
             var fblockState = (byte)1;
             try
@@ -204,12 +204,14 @@ namespace HuaweiUnlocker.TOOLS
             {
                 SetNVMEProp("WVLOCK", Encoding.ASCII.GetBytes(key));
                 SetNVMEProp("USRKEY", GetSHA256(key));
+                return key;
             }
             catch (Exception ex)
             {
                 LOG(2, "Failed to set the key.");
                 if(debug) LOG(2, ex.Message);
             }
+            return "NaN";
         }
         public string UnlockSec_Method2()
         {
@@ -243,28 +245,28 @@ namespace HuaweiUnlocker.TOOLS
             {
                 FlashBootloader(d, port);
 
-                if (frp)
-                {
-                    LOG(1, "Unlocker", "(KIRIN FRP)");
-                    if (ReadInfo()) UnlockFRP();
-                }
                 LOG(0, "[Fastboot] ", "CheckCon");
                 if (IsConnected())
                 {
-                    if (ReadInfo())
+                    if (!frp)
                     {
-                        ReadFactoryKey();
-                        WriteBOOTLOADERKEY(key);
-                        LOG(0, "HISINewKey", key);
-                    }
-                    else
-                    {
-                        LOG(1, "HISINewKeyErr");
-                        LOG(0, "HISINewKeyErr2");
-                        UnlockSec_Method2();
-                        WriteBOOTLOADERKEY(key);
-                        BLKEY = ReadUnlockCodeMethod2();
-                        LOG(0, "[Fastboot] BL-CODE: " + key + " OR " + BLKEY.ToString());
+                        if (ReadInfo())
+                        {
+                            LOG(0, "HISIOldKey", ReadFactoryKey());
+                            LOG(0, "HISINewKey", BLKEY = WriteBOOTLOADERKEY(key));
+                        }
+                        else
+                        {
+                            LOG(1, "HISINewKeyErr");
+                            LOG(0, "HISINewKeyErr2");
+                            UnlockSec_Method2();
+                            LOG(0, "[Fastboot] Possible BL-CODE|Indetifier: " + ReadUnlockCodeMethod2());
+                            LOG(0, "HISIOldKey", ReadFactoryKey());
+                            LOG(0, "HISINewKey", BLKEY = WriteBOOTLOADERKEY(key));
+                        }
+                    } else {
+                        LOG(1, "Unlocker", "(KIRIN FRP)");
+                        UnlockFRP();
                     }
                     fb.Disconnect();
                 }
