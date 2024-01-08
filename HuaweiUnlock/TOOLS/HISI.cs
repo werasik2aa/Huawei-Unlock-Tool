@@ -21,7 +21,7 @@ namespace HuaweiUnlocker.TOOLS
         public string MODEL = "NaN";
         public string BLKEY = "NaN";
         public string FBLOCKSTATE = "NaN";
-
+        public bool FBLOCK = true;
         public void FlashBootloader(Bootloader bootloader, string port)
         {
             var flasher = new ImageFlasher();
@@ -60,57 +60,61 @@ namespace HuaweiUnlocker.TOOLS
 
             flasher.Close();
         }
-
-        public bool ReadInfo()
+        public bool ReadInfo(int waittime = 0)
         {
-            if (IsConnected())
+            if (fb.Connect(waittime))
             {
-                string serial = fb.GetSerialNumber();
-                LOG(0, "SerialnTag", serial);
-                AVER = serial;
-
-                Fastboot.Response bsn = fb.Command("oem read_bsn");
-                if (bsn.Status == Fastboot.FastbootStatus.Ok)
-                {
-                    LOG(0, "BSNTag", bsn.Payload);
-                    BSN = bsn.Payload;
-                }
-
-                Fastboot.Response model = fb.Command("oem get-product-model");
-                LOG(0, "ModelTag", model.Payload);
-                MODEL = model.Payload;
-
-                Fastboot.Response build = fb.Command("oem get-build-number");
-                LOG(0, "BuildIdTag", build.Payload.Replace(":", ""));
-                BNUM = build.Payload.Replace(":", "");
-
-                Fastboot.Response fblock = fb.Command("oem lock-state info");
-                bool state = Regex.IsMatch(fblock.Payload, @"FB[\w: ]{1,}UNLOCKED");
-                if (!state)
-                {
-                    fblock = fb.Command("oem backdoor info");
-                    state = Regex.IsMatch(fblock.Payload, @"FB[\w: ]{1,}UNLOCKED");
-                }
-                FBLOCKSTATE = state ? "UNLOCKED" : "LOCKED";
-                LOG(0, "FBLOCK-Tag", FBLOCKSTATE);
-                if (debug) LOG(1, Encoding.UTF8.GetString(fblock.RawData));
-                if (!state)
-                {
-                    LOG(2, "HISIInfoS");
-                    return false;
-                }
-                else
-                {
-                    string factoryKey = ReadFactoryKey();
-                    if (factoryKey != null)
-                    {
-                        LOG(0, "HISIOldKey", factoryKey);
-                        BLKEY = factoryKey;
-                    }
-                }
+                GetASerial();
+                GetModelProduct();
+                GetModelBSN();
+                GetBuildID();
+                GetFBLockState();
+                ReadAllMethods();
                 return true;
             }
             return false;
+        }
+        public string GetASerial()
+        {
+            string serial = fb.GetSerialNumber();
+            LOG(0, "SerialnTag", serial);
+            return AVER = serial;
+        }
+        public string GetModelBSN()
+        {
+            Fastboot.Response bsn = fb.Command("oem read_bsn");
+            if (bsn.Status == Fastboot.FastbootStatus.Ok)
+            {
+                LOG(0, "BSNTag", bsn.Payload);
+                BSN = bsn.Payload;
+            }
+            return BSN;
+        }
+        public string GetModelProduct()
+        {
+            Fastboot.Response model = fb.Command("oem get-product-model");
+            LOG(0, "ModelTag", model.Payload);
+            return MODEL = model.Payload;
+        }
+        public string GetBuildID()
+        {
+            Fastboot.Response build = fb.Command("oem get-build-number");
+            LOG(0, "BuildIdTag", build.Payload.Replace(":", ""));
+            return BNUM = build.Payload.Replace(":", "");
+        }
+        public bool GetFBLockState()
+        {
+            Fastboot.Response fblock = fb.Command("oem lock-state info");
+            bool state = Regex.IsMatch(fblock.Payload, @"FB[\w: ]{1,}UNLOCKED");
+            if (!state)
+            {
+                fblock = fb.Command("oem backdoor info");
+                state = Regex.IsMatch(fblock.Payload, @"FB[\w: ]{1,}UNLOCKED");
+            }
+            LOG(0, "FBLOCKTag", FBLOCKSTATE = (FBLOCK = state) ? "UNLOCKED" : "LOCKED");
+            if(!state)
+                LOG(2, "HISIInfoS");
+            return FBLOCK;
         }
         public void UnlockFRP()
         {
@@ -172,7 +176,15 @@ namespace HuaweiUnlocker.TOOLS
 
             LOG(2, "Failed to set FBLOCK state!");
         }
-
+        public void ReadAllMethods()
+        {
+            if ((BLKEY = ReadFactoryKeyMethod2()).Length >= 8)
+                LOG(0, "HISIOldKey", " POSSIBLE-> " + BLKEY);
+            if ((BLKEY = ReadFactoryKey()).Length >= 8)
+                LOG(0, "HISIOldKey", " POSSIBLE-> " + BLKEY);
+            if ((BLKEY = ReadIndentifier()).Length >= 8)
+                LOG(0, "HISIOldKey", " POSSIBLE-> " + BLKEY);
+        }
         public string ReadFactoryKey()
         {
             var res = fb.Command("getvar:nve:WVLOCK");
@@ -180,13 +192,19 @@ namespace HuaweiUnlocker.TOOLS
 
             return match.Success ? match.Value : null;
         }
-        public string ReadUnlockCodeMethod2()
+        public string ReadFactoryKeyMethod2()
+        {
+            var res = fb.Command("getvar:nve:USRKEY");
+            var match = Regex.Match(res.Payload, @"[\w\d]{16}");
+
+            return match.Success ? match.Value : null;
+        }
+        public string ReadIndentifier()
         {
             var res = fb.Command("oem get_identifier_token");
             return res.ToString();
         }
-
-        public string WriteBOOTLOADERKEY(string key)
+        public void UnlockFBLOCK()
         {
             var fblockState = (byte)1;
             try
@@ -196,10 +214,26 @@ namespace HuaweiUnlocker.TOOLS
             catch (Exception ex)
             {
                 LOG(2, "Failed to set the FBLOCK, using the alternative method...");
-                if(debug) LOG(0, ex.Message);
+                if (debug) LOG(0, ex.Message);
                 SetHWDogState(fblockState);
             }
-
+        }
+        public void LockFBLOCK()
+        {
+            var fblockState = (byte)0;
+            try
+            {
+                SetNVMEProp("FBLOCK", new[] { fblockState });
+            }
+            catch (Exception ex)
+            {
+                LOG(2, "Failed to set the FBLOCK, using the alternative method...");
+                if (debug) LOG(0, ex.Message);
+                SetHWDogState(fblockState);
+            }
+        }
+        public string WriteBOOTLOADERKEY(string key)
+        {
             try
             {
                 SetNVMEProp("WVLOCK", Encoding.ASCII.GetBytes(key));
@@ -223,19 +257,35 @@ namespace HuaweiUnlocker.TOOLS
             }
             return "NaN";
         }
-        public bool IsConnected()
+        public bool IsDeviceConnected()
         {
-            return fb.Connect();
+            return fb.device != null;
         }
         public string Reboot()
         {
-            if (IsConnected())
+            if (fb.Connect())
             {
                 var res = fb.Command("reboot");
                 LOG(0, res.Payload);
                 return res.Payload;
             }
             return "NaN";
+        }
+        public void WriteKirinBootloader(Bootloader d, string port)
+        {
+            FlashBootloader(d, port);
+            LOG(0, "Unlocker", "[KIRIN FBLOCK]");
+            if (ReadInfo())
+            {
+                DeviceInfo.loadedhose = true;
+                UnlockFBLOCK();
+                if (!GetFBLockState())
+                {
+                    LOG(1, "HISINewKeyErr");
+                    LOG(0, "HISINewKeyErr2");
+                    UnlockSec_Method2();
+                }
+            }
         }
         public void StartUnlockPRCS(bool frp, string key, Bootloader d, string port)
         {
@@ -246,30 +296,28 @@ namespace HuaweiUnlocker.TOOLS
                 FlashBootloader(d, port);
 
                 LOG(0, "[Fastboot] ", "CheckCon");
-                if (IsConnected())
+                if (ReadInfo())
                 {
                     if (!frp)
                     {
-                        if (ReadInfo())
-                        {
-                            LOG(0, "HISIOldKey", ReadFactoryKey());
-                            LOG(0, "HISINewKey", BLKEY = WriteBOOTLOADERKEY(key));
-                        }
-                        else
+                        UnlockFBLOCK();
+                        if (!FBLOCK)
                         {
                             LOG(1, "HISINewKeyErr");
                             LOG(0, "HISINewKeyErr2");
                             UnlockSec_Method2();
-                            LOG(0, "[Fastboot] Possible BL-CODE|Indetifier: " + ReadUnlockCodeMethod2());
-                            LOG(0, "HISIOldKey", ReadFactoryKey());
-                            LOG(0, "HISINewKey", BLKEY = WriteBOOTLOADERKEY(key));
                         }
-                    } else {
+                        ReadAllMethods();
+                        LOG(0, "HISINewKey", BLKEY = WriteBOOTLOADERKEY(key));
+                    }
+                    else
+                    {
                         LOG(1, "Unlocker", "(KIRIN FRP)");
                         UnlockFRP();
                     }
                     fb.Disconnect();
                 }
+                else LOG(1, "NoDEVICEAnsw", " [HISI] Maybe hisi Loaders Wont boot");
             }
             catch (Exception ex)
             {

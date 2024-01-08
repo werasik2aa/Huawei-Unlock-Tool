@@ -16,9 +16,9 @@ namespace HuaweiUnlocker.TOOLS
         private const int HEADER_SIZE = 4;
         private const int BLOCK_SIZE = 512 * 1024; // 512 KB
 
-        public int Timeout = 3000;
-        public int TimeoutWait = 100;
-        private UsbDevice device;
+        public int DefaultRWTimeout = 3000;
+        public int DefaultTimeoutWait = 100;
+        public UsbDevice device;
 
         public enum FastbootStatus
         {
@@ -58,8 +58,9 @@ namespace HuaweiUnlocker.TOOLS
                     return FastbootStatus.Unknown;
             }
         }
-        public bool Connect()
+        public bool Connect(int waittime = 0)
         {
+            if (waittime == 0) waittime = DefaultTimeoutWait;
             if (device != null) Disconnect();
             var counter = 0;
             while (true)
@@ -67,7 +68,7 @@ namespace HuaweiUnlocker.TOOLS
                 var allDevices = UsbDevice.AllDevices;
                 if (allDevices.Any(x => x.Vid == USB_VID & x.Pid == USB_PID))
                     break;
-                if (counter == TimeoutWait)
+                if (counter == DefaultTimeoutWait)
                 {
                     LOG(2, "TimeoutWait error.");
                     return false;
@@ -109,7 +110,7 @@ namespace HuaweiUnlocker.TOOLS
         {
             var writeEndpoint = device.OpenEndpointWriter(WriteEndpointID.Ep01);
 
-            writeEndpoint.Write(command, Timeout, out int WroteNum);
+            writeEndpoint.Write(command, DefaultRWTimeout, out int WroteNum);
 
             if (WroteNum != command.Length)
                 throw new Exception("Failed to write command! Transfered: " + WroteNum + "of" + command.Length + "bytes");
@@ -122,7 +123,7 @@ namespace HuaweiUnlocker.TOOLS
             while (true)
             {
                 byte[] buffer = new byte[64];
-                readEndpoint.Read(buffer, Timeout, out int ReadNum);
+                readEndpoint.Read(buffer, DefaultRWTimeout, out int ReadNum);
                 ASCI = Encoding.ASCII.GetString(buffer);
 
                 if (ASCI.Length < HEADER_SIZE)
@@ -152,7 +153,7 @@ namespace HuaweiUnlocker.TOOLS
         private void TransferBlock(FileStream stream, UsbEndpointWriter writeEndpoint, byte[] buffer, int size)
         {
             stream.Read(buffer, 0, size);
-            writeEndpoint.Write(buffer, Timeout, out int wroteSize);
+            writeEndpoint.Write(buffer, DefaultRWTimeout, out int wroteSize);
 
             if (wroteSize != size)
                 throw new Exception("Failed to transfer block (sent " + wroteSize + " of " + size + ")");
@@ -180,7 +181,7 @@ namespace HuaweiUnlocker.TOOLS
 
             //READ_ED
             var resBuffer = new byte[64];
-            ErrorCode ErrorEr = device.OpenEndpointReader(ReadEndpointID.Ep01).Read(resBuffer, Timeout, out _);
+            ErrorCode ErrorEr = device.OpenEndpointReader(ReadEndpointID.Ep01).Read(resBuffer, DefaultRWTimeout, out _);
             var strBuffer = Encoding.ASCII.GetString(resBuffer);
             if (strBuffer.Length < HEADER_SIZE)
                 throw new Exception("Invalid response from device: " + strBuffer);

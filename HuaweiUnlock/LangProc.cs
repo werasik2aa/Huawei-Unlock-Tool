@@ -20,7 +20,7 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "26F";
+        public const string APP_VERSION = "27F";
         public static TextBox LOGGBOX;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
         private static StreamWriter se = new StreamWriter("log.txt");
@@ -149,7 +149,7 @@ namespace HuaweiUnlocker
             if (i.Contains("failed") || i.Contains("error") || i.Contains("error setting com port timeouts") || i.Contains("fail") || i.Contains("status: 2") || i.Contains("failed to write hello response back to device") || i.Contains("failed to open com port")) return true;
             return false;
         }
-        public static bool LOG(int o, string i, object j = null, string sepa = " ")
+        public static bool LOG(int o, object i, object j = null, string sepa = " ")
         {
             string state = "";
             j = j == null ? "" : j;
@@ -168,8 +168,8 @@ namespace HuaweiUnlocker
                     state = Language.Get("Error");
                     break;
             }
-            i = Language.isExist(i) ? Language.Get(i) : i;
-            i = i.Contains("/n") ? i.Replace("/n", newline) : i;
+            i = Language.isExist(i.ToString()) ? Language.Get(i.ToString()) : i;
+            i = i.ToString().Contains("/n") ? i.ToString().Replace("/n", newline) : i;
             Action action;
             j = Language.isExist(j.ToString()) ? Language.Get(j.ToString()) : j;
             j = j.ToString().Contains("/n") ? i.ToString().Replace("/n", newline) : j;
