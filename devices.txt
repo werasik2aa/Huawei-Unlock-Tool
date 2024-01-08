@@ -45,8 +45,7 @@ G660-LXXX(FB_NOTESTED) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaw
 G718(FB_NOTESTED) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G718.zip
 G730-UXX(FB_NOTESTED) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G730-UXX.zip
 G750-CXX(FB_NOTESTED) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G750-CXX.zip
-G7-L01(FB_NOTESTED) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G7-L01.zip
-G7-L11(FULL) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G7-L03.zip
+G7-L0X(FULL) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G7-L0X.zip
 H30-CXX(FB_NOTESTED) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/H30-CXX.zip
 KIW-ALXX(FB_NOTESTED) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KIW-ALXX.zip
 KII-L21(FB_NOTESTED) https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KII-LXX.zip
