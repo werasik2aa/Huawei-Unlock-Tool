@@ -33,6 +33,7 @@ function ClientDataOut()
 		var part = Devices[i].split("'");
 		document.documentElement.innerHTML += '\n' + part[0] + "'" + part[1];
 	}
+	return document.documentElement.innerHTML;
 }
 	
 function BrowserDataOut()

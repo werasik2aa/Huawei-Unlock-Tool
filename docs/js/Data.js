@@ -39,7 +39,7 @@ const Devices = [
 		"G718(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G718.zip",
 		"G730-UXX(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G730-UXX.zip",
 		"G750-CXX(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G750-CXX.zip",
-		"G760-LXX(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G760-LXX.zip",
+		"G7-L0X(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G7-L0X.zip",
 		"H30-CXX(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/H30-CXX.zip",
 		"KIW-ALXX(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KIW-ALXX.zip",
 		"KII-L21(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KII-LXX.zip",
@@ -79,6 +79,7 @@ const Tools = [
 	"Exclusive Huawei QDCFG'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/Exclusive+Huawei+QDCFG.zip",
 	"Qmsl IMEI Tool v1.4'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/Qmsl+IMEI+Tool+v1.4.zip",
 	"OMH diag Mode On Tool NotTested'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/OMH_diag_Mode_On_Tool.zip",
+	"Huawei Multi-Download Tool QPBLFBML01'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/QPBLFBML01.zip",
 	"PotatoNV Latest'https://github.com/mashed-potatoes/PotatoNV/releases/latest",
 	"HUT (Huawei Unlock Tool) Latest'https://github.com/werasik2aa/Huawei-Unlock-Tool/releases/latest",
 ];
