@@ -138,7 +138,6 @@ namespace HuaweiUnlocker
                 ReadPA.Text = Language.Get("ReadPA");
                 WritePA.Text = Language.Get("WritePA");
                 ErasePA.Text = Language.Get("ErasePA");
-                EraseDA.Text = Language.Get("EraseDA");
                 FrpHISIUnlock.Text = UnlockFrp.Text = Language.Get("UnlockBTN");
                 HomeTag.Text = Language.Get("HomeTag");
                 UnlockTag.Text = Language.Get("UnlockTag");
@@ -551,25 +550,13 @@ namespace HuaweiUnlocker
             DIAG.FACTORY_RESET_MNF(1);
         }
 
-        private void EraseDA_Click(object sender, EventArgs e)
-        {
-            if (!CheckDevice(AutoLdr.Checked ? "" : LoaderBox.Text, PORTBOX.Text)) return;
-            DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(Language.Get("AreY") + Temp, "WARNING: CAN CAUSE DAMAGE", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                LOG(0, "ErPS", Temp);
-                Erase("userdata", AutoLdr.Checked ? "" : LoaderBox.Text);
-                Progress(100);
-            }
-        }
-
         private void RdHISIinfo_Click(object sender, EventArgs e)
         {
             Tab.Enabled = false;
             try
             {
                 LOG(-1, "=============READ INFO (FASTBOOT)=============");
-                if (HISI.ReadInfo())
+                if (HISI.ReadInfo(60))
                 {
                     BuildIdTxt.Text = HISI.AVER;
                     ModelIdTxt.Text = HISI.MODEL;
@@ -592,7 +579,7 @@ namespace HuaweiUnlocker
             LOG(-1, "=============> VALUE: " + (EnDisFBLOCK.Checked ? 0 : 1) + " <=============");
             try
             {
-                if (HISI.ReadInfo())
+                if (HISI.ReadInfo(60))
                 {
                     BuildIdTxt.Text = HISI.AVER;
                     ModelIdTxt.Text = HISI.MODEL;
@@ -619,7 +606,7 @@ namespace HuaweiUnlocker
                     LOG(-1, "=============REWRITE KEY (FASTBOOT)=============");
                     LOG(-1, "=============> KEY: " + BLkeyHI.Text + " <=============");
                     LOG(-1, "=============> LENGHT: 16 <=============");
-                    if (HISI.ReadInfo())
+                    if (HISI.ReadInfo(60))
                     {
                         BuildIdTxt.Text = HISI.AVER;
                         ModelIdTxt.Text = HISI.MODEL;

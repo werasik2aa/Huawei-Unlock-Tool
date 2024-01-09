@@ -14,7 +14,7 @@ namespace HuaweiUnlocker.TOOLS
         public delegate void RunWorkerCompletedHandler();
         public event RunWorkerCompletedHandler RunWorkerCompleted;
 
-        private Fastboot fb;
+        private Fastboot fb = new Fastboot();
         public string BSN = "NaN";
         public string BNUM = "NaN";
         public string AVER = "NaN";
@@ -60,7 +60,7 @@ namespace HuaweiUnlocker.TOOLS
 
             flasher.Close();
         }
-        public bool ReadInfo(int waittime = 0)
+        public bool ReadInfo(int waittime = 100)
         {
             if (fb.Connect(waittime))
             {
@@ -190,14 +190,14 @@ namespace HuaweiUnlocker.TOOLS
             var res = fb.Command("getvar:nve:WVLOCK");
             var match = Regex.Match(res.Payload, @"[\w\d]{16}");
 
-            return match.Success ? match.Value : null;
+            return match.Success ? match.Value : "NaN";
         }
         public string ReadFactoryKeyMethod2()
         {
             var res = fb.Command("getvar:nve:USRKEY");
             var match = Regex.Match(res.Payload, @"[\w\d]{16}");
 
-            return match.Success ? match.Value : null;
+            return match.Success ? match.Value : "NaN";
         }
         public string ReadIndentifier()
         {
@@ -249,7 +249,7 @@ namespace HuaweiUnlocker.TOOLS
         }
         public string UnlockSec_Method2()
         {
-            if(fb.Connect())
+            if(IsDeviceConnected())
             {
                 var res = fb.Command("oem sec_unlock");
                 LOG(0, res.Payload);
@@ -263,13 +263,9 @@ namespace HuaweiUnlocker.TOOLS
         }
         public string Reboot()
         {
-            if (fb.Connect())
-            {
-                var res = fb.Command("reboot");
-                LOG(0, res.Payload);
-                return res.Payload;
-            }
-            return "NaN";
+            var res = fb.Command("reboot");
+            LOG(0, res.Payload);
+            return res.Payload;
         }
         public void WriteKirinBootloader(Bootloader d, string port)
         {
@@ -296,7 +292,7 @@ namespace HuaweiUnlocker.TOOLS
                 FlashBootloader(d, port);
 
                 LOG(0, "[Fastboot] ", "CheckCon");
-                if (ReadInfo())
+                if (fb.Connect())
                 {
                     if (!frp)
                     {

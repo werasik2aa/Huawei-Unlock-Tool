@@ -58,7 +58,7 @@ namespace HuaweiUnlocker.TOOLS
                     return FastbootStatus.Unknown;
             }
         }
-        public bool Connect(int waittime = 0)
+        public bool Connect(int waittime = 100)
         {
             if (waittime == 0) waittime = DefaultTimeoutWait;
             if (device != null) Disconnect();
