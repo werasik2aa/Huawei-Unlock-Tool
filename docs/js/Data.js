@@ -64,7 +64,7 @@ const Devices = [
 	"KIRIN650(B) UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi65x_b.zip",
 	"KIRIN710 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710.zip",
 	"KIRIN710_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710_V2.zip",
-	"KIRIN710F_V1 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710_V1.zip",
+	"KIRIN710F_V1 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710F_V1.zip",
 	"KIRIN710F_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710F_V2.zip",
 	"KIRIN710F_V3 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710F_V3.zip",
 	"KIRIN710F_V4 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710F_V4.zip",
