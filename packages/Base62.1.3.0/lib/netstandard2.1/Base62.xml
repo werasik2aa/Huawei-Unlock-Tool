@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Base62</name>
+    </assembly>
+    <members>
+        <member name="T:Base62.Base62Converter">
+            <summary>
+            Encodes and decodes text to and from base62 encoding.
+            </summary>
+        </member>
+        <member name="M:Base62.Base62Converter.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Base62.Base62Converter"/>.
+            </summary>
+        </member>
+        <member name="M:Base62.Base62Converter.#ctor(Base62.Base62Converter.CharacterSet)">
+            <summary>
+            Initializes a new instance of <see cref="T:Base62.Base62Converter"/> with the provided <see cref="T:Base62.Base62Converter.CharacterSet"/>.
+            </summary>
+            <param name="charset"></param>
+        </member>
+        <member name="M:Base62.Base62Converter.Encode(System.String)">
+            <summary>
+            Encodes the input text to Base62 format.
+            </summary>
+            <param name="value">The input value.</param>
+            <returns>Encoded base62 value.</returns>
+        </member>
+        <member name="M:Base62.Base62Converter.Decode(System.String)">
+            <summary>
+            Decodes the input text from Base62 format.
+            </summary>
+            <param name="value">The input value.</param>
+            <returns>The decoded value.</returns>
+        </member>
+        <member name="M:Base62.Base62Converter.Encode(System.Byte[])">
+            <summary>
+            Encodes the input bytes to Base62 format.
+            </summary>
+            <param name="value">The input value.</param>
+            <returns>Encoded base62 value.</returns>
+        </member>
+        <member name="M:Base62.Base62Converter.Decode(System.Byte[])">
+            <summary>
+            Decodes the input bytes from Base62 format.
+            </summary>
+            <param name="value">The inpnut value.</param>
+            <returns>The decoded value.</returns>
+        </member>
+        <member name="M:Base62.Base62Converter.BaseConvert(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Converts source byte array from the source base to the destination base.
+            </summary>
+            <param name="source">Byte array to convert.</param>
+            <param name="sourceBase">Source base to convert from.</param>
+            <param name="targetBase">Target base to convert to.</param>
+            <returns>Converted byte array.</returns>
+        </member>
+        <member name="T:Base62.Base62Converter.CharacterSet">
+            <summary>
+            Character set to use for encoding/decoding.
+            </summary>
+        </member>
+        <member name="F:Base62.Base62Converter.CharacterSet.DEFAULT">
+            <summary>
+            Alpha numeric character set, using capital letters first before lowercase.
+            </summary>
+        </member>
+        <member name="F:Base62.Base62Converter.CharacterSet.INVERTED">
+            <summary>
+            Alpha numeric character set, using lower case letters first before uppercase.
+            </summary>
+        </member>
+    </members>
+</doc>
