@@ -39,7 +39,7 @@ const Devices = [
 	"G718(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G718.zip",
 	"G730-UXX(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G730-UXX.zip",
 	"G750-CXX(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G750-CXX.zip",
-	"G7-L0X(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G7-L0X.zip",
+	"G7-L0X(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G7-L0X.zip",
 	"H30-CXX(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/H30-CXX.zip",
 	"KIW-ALXX(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KIW-ALXX.zip",
 	"KII-L21(FB_NOTESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KII-LXX.zip",
@@ -76,7 +76,7 @@ const Devices = [
 	"KIRIN960 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi960.zip",
 	"KIRIN970 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi970.zip",
 	"KIRIN980_V1_NOTESTED UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980_V1(DANGER).zip",
-	"KIRIN980_V2_NOTESTED UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980_V2(DANGER).zip",
+	"KIRIN980_V2_NOTESTED UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980_V2(DANGER).zip"
 ];
 
 const Tools = [
@@ -85,7 +85,7 @@ const Tools = [
 	"OMH diag Mode On Tool NotTested'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/OMH_diag_Mode_On_Tool.zip",
 	"Huawei Multi-Download Tool QPBLFBML01'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/QPBLFBML01.zip",
 	"PotatoNV Latest'https://github.com/mashed-potatoes/PotatoNV/releases/latest",
-	"HUT (Huawei Unlock Tool) Latest'https://github.com/werasik2aa/Huawei-Unlock-Tool/releases/latest",
+	"HUT (Huawei Unlock Tool) Latest'https://github.com/werasik2aa/Huawei-Unlock-Tool/releases/latest"
 ];
 
 const Drivers = [
@@ -218,7 +218,7 @@ const GPTS = [
 	"TOR GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/TOR.zip",
 	"TRT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/TRT.zip",
 	"ATH-UL GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/ATH-UL.zip",
-	"Y625-U32 GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/Y625-U32.zip",
+	"Y625-U32 GPT'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/GPT_PRG/Y625-U32.zip"
 ];
 
 const MTKDAS = [
