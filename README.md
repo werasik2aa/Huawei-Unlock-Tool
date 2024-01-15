@@ -24,6 +24,8 @@ Can support 620|620(CAM)|65x_a|65x_b|710|810|925|935|950|955|960|970 . in theory
 7. DBadapter reserver interface com port - basic info read.
 8. Rawprogram0.xml generator from device + from file.
 9. HISI UNLOCKER -> Uses Source Code from <a href="https://github.com/mashed-potatoes/PotatoNV">Potato_NV</a> For mergering programms.
+10. HISI Flash tool.
+11. Hisi FRP unlock tool
 
 So much editions in code base for allow to work with phone in this tool. ALL in ONE Tool! Multi Language...
 For peoples who need like dongle box tool... But without dongle...
