@@ -1,9 +1,9 @@
 const Devices = [
 	"AGS-LXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/AGS-LXX.zip",
-	"ALE-CLXX(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ALE-CLXX.zip",
-	"ARE-AL10BD(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ARE-AL10BD.zip",
-	"ATH-TLXX(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATH-TLXX.zip",
-	"ATH-ULXX.zip(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATH-ULXX.zip",
+	"ALE-CLXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ALE-CLXX.zip",
+	"ARE-AL10BD(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ARE-AL10BD.zip",
+	"ATH-TLXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATH-TLXX.zip",
+	"ATH-ULXX.zip(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATH-ULXX.zip",
 	"ATU-L31-L21-LOWER(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATU-LXX.zip",
 	"ATU-L42(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATU-L42.zip",
 	"AUM-LXX(FULL_METHOD1)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/AUM-LXX.zip",
