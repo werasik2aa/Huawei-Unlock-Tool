@@ -53,7 +53,6 @@ const Devices = [
 	"SCL-U23(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/SCL-U23.zip",
 	"TOR-A1(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/TOR-A1.zip",
 	"TRT-XXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/TRT-XXX.zip",
-	"(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/.zip",
 	"Y330-C00(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/Y330-C00.zip",
 	"Y635-L02(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/Y635-L02.zip",
 	"Y635-TL00(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/Y635-TL00.zip",
