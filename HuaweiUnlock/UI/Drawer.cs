@@ -18,7 +18,7 @@ namespace HuaweiUnlocker.UI
 
             return gp;
         }
-        
+
         public static void DrawBlurredLine(Graphics graph, Color lineColor, Point p1, Point p2, int maxAlpha, int penWidth)
         {
             float stepAlpha = (float)maxAlpha / penWidth;
@@ -30,7 +30,7 @@ namespace HuaweiUnlocker.UI
                 Pen BlurredPen = new Pen(BlurredColor, pWidth);
                 BlurredPen.StartCap = LineCap.Round;
                 BlurredPen.EndCap = LineCap.Round;
-                
+
                 graph.DrawLine(BlurredPen, p1, p2);
 
                 actualAlpha += stepAlpha;
@@ -48,7 +48,7 @@ namespace HuaweiUnlocker.UI
                 Pen BlurredPen = new Pen(BlurredColor, pWidth);
                 BlurredPen.StartCap = LineCap.Round;
                 BlurredPen.EndCap = LineCap.Round;
-                
+
                 graph.DrawRectangle(BlurredPen, rect);
 
                 actualAlpha += stepAlpha;

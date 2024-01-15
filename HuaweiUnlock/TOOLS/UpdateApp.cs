@@ -1,12 +1,10 @@
 ﻿using HuaweiUnlocker.Core;
 using HuaweiUnlocker.FlashTool;
-using HuaweiUnlocker.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using static HuaweiUnlocker.LangProc;
 
 namespace HuaweiUnlocker.TOOLS
@@ -44,7 +42,7 @@ namespace HuaweiUnlocker.TOOLS
                     }
                     //Set 0
                     unpacked = true;
-                    if(state != 3) 
+                    if (state != 3)
                         CreateRWProgram0xml();
                     else
                         ReadFilesInDirAsPartitions();
@@ -108,7 +106,8 @@ namespace HuaweiUnlocker.TOOLS
             DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo("UnlockFiles/UpdateAPP/");
             FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles();
             foreach (var a in filesInDir)
-                gpttable.Add(a.FullName.Split('\\').Last(),new Partition() {
+                gpttable.Add(a.FullName.Split('\\').Last(), new Partition()
+                {
                     BlockLength = new FileInfo(a.FullName).Length.ToString(),
                 });
             DeviceInfo.Partitions = gpttable;

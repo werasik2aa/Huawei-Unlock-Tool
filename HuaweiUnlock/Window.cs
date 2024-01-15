@@ -1,22 +1,19 @@
-﻿using System;
-using System.Windows.Forms;
-using System.IO;
-using System.Collections.Generic;
-using static HuaweiUnlocker.FlashTool.FlashToolQClegacy;
-using static HuaweiUnlocker.LangProc;
-using System.ComponentModel;
-using System.Net;
-using Ionic.Zip;
-using HuaweiUnlocker.DIAGNOS;
-using System.Linq;
-using HuaweiUnlocker.FlashTool;
+﻿using HuaweiUnlocker.DIAGNOS;
 using HuaweiUnlocker.TOOLS;
 using HuaweiUnlocker.UI;
-using System.Threading.Tasks;
-using System.Threading;
+using Ionic.Zip;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Text;
-using Org.BouncyCastle.Utilities.Encoders;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static HuaweiUnlocker.FlashTool.FlashToolQClegacy;
+using static HuaweiUnlocker.LangProc;
 
 namespace HuaweiUnlocker
 {
@@ -323,16 +320,16 @@ namespace HuaweiUnlocker
 
         private void PARTLIST_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (PARTLIST.Rows.Count > 0)
+            if (PARTLIST.Rows.Count > 0 || KirinFiles.Rows.Count > 0)
             {
-                PARTLIST.Enabled = false;
+                KirinFiles.Enabled = PARTLIST.Enabled = false;
                 string partition = "NaN";
-                if (Tab.SelectedIndex == 2)
+                if (Tab.SelectedIndex == 2 & PARTLIST.Rows.Count > 0)
                 {
                     partition = PARTLIST.CurrentRow.Cells[0].Value.ToString();
                     WHAT.Visible = WHAT.Enabled = true;
                 }
-                else
+                if (Tab.SelectedIndex != 2 & KirinFiles.Rows.Count > 0)
                 {
                     partition = KirinFiles.CurrentRow.Cells[0].Value.ToString();
                     WHAT2.Visible = WHAT2.Enabled = true;
@@ -346,9 +343,9 @@ namespace HuaweiUnlocker
         private void button7_Click(object sender, EventArgs e)
         {
             if (Tab.SelectedIndex == 2)
-                WHAT.Visible = WHAT.Enabled = true;
+                WHAT.Visible = WHAT.Enabled = false;
             else
-                WHAT2.Visible = WHAT2.Enabled = true;
+                WHAT2.Visible = WHAT2.Enabled = false;
             KirinFiles.Enabled = PARTLIST.Enabled = true;
         }
 
@@ -1117,7 +1114,7 @@ namespace HuaweiUnlocker
             if (HISI.FBLOCK)
             {
                 LOG(2, "HISIInfoS");
-                return;
+                LOG(0, "Trying to continue");
             }
             if (DeviceInfo.Partitions.Count <= 1)
             {
@@ -1198,6 +1195,8 @@ namespace HuaweiUnlocker
             OpenFileDialog file = new OpenFileDialog();
             if (file.ShowDialog() == DialogResult.OK)
             {
+                if (!HISI.IsDeviceConnected()) HISI.fb.Connect(10);
+                if (!HISI.IsDeviceConnected()) return;
                 LOG(0, "Writer", file.FileName);
                 HISI.fb.UploadData(file.FileName);
             }

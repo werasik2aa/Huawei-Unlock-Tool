@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LibUsbDotNet;
+using LibUsbDotNet.Main;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
-using LibUsbDotNet;
-using LibUsbDotNet.Main;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static HuaweiUnlocker.LangProc;
 namespace HuaweiUnlocker.TOOLS
 {

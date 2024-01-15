@@ -1,22 +1,18 @@
-﻿using System;
+﻿using HuaweiUnlocker.DIAGNOS;
+using HuaweiUnlocker.FlashTool;
+using HuaweiUnlocker.UI;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Windows.Forms;
 using System.IO;
-using System.Management;
-using HuaweiUnlocker.UI;
-using HuaweiUnlocker.FlashTool;
 using System.Linq;
-using System.Threading;
-using HuaweiUnlocker.DIAGNOS;
-using System.Globalization;
-using System.Text;
-using System.Security.Cryptography;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Base62;
-using System.Runtime.CompilerServices;
+using System.Management;
 using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace HuaweiUnlocker
 {
@@ -317,15 +313,15 @@ namespace HuaweiUnlocker
                 if (!string.IsNullOrEmpty(bsa) && !string.IsNullOrEmpty(bea))
                 {
                     uint blocks_count = Convert.ToUInt32(bea, 16) - Convert.ToUInt32(bsa, 16) + 1;
-                    if(!GPT.ContainsKey(bn.ToString()) & !bn.ToString().Contains("userdata") & !string.IsNullOrEmpty(bn.ToString()))
-                    GPT.Add(bn.ToString().Replace(".img", ""), new Partition()
-                    {
-                        BlockStart = Convert.ToInt32(bsa, 16).ToString(),
-                        BlockEnd = Convert.ToInt32(bea, 16).ToString(),
-                        BlockBytes = (blocks_count * block_size).ToString(),
-                        BlockNumSectors = blocks_count.ToString(),
-                        BlockLength = (blocks_count / 2).ToString(),
-                    });
+                    if (!GPT.ContainsKey(bn.ToString()) & !bn.ToString().Contains("userdata") & !string.IsNullOrEmpty(bn.ToString()))
+                        GPT.Add(bn.ToString().Replace(".img", ""), new Partition()
+                        {
+                            BlockStart = Convert.ToInt32(bsa, 16).ToString(),
+                            BlockEnd = Convert.ToInt32(bea, 16).ToString(),
+                            BlockBytes = (blocks_count * block_size).ToString(),
+                            BlockNumSectors = blocks_count.ToString(),
+                            BlockLength = (blocks_count / 2).ToString(),
+                        });
                 }
             }
             return GPT;
@@ -399,7 +395,7 @@ namespace HuaweiUnlocker
             writer.Dispose();
             return partbI.Count > 0;
         }
-        public static void Progress(int v, int max=100)
+        public static void Progress(int v, int max = 100)
         {
             action = () => { PRG.Value = v; PRG.ValueMaximum = max; };
             if (PRG.InvokeRequired)
@@ -410,7 +406,7 @@ namespace HuaweiUnlocker
         }
         public static string GuessMbn()
         {
-            if(!string.IsNullOrEmpty(wndw.LoaderBox.Text))
+            if (!string.IsNullOrEmpty(wndw.LoaderBox.Text))
                 return PickLoader(wndw.LoaderBox.Text);
             if (wndw.AutoLdr.Checked & DeviceInfo.HWID.Contains("NaN"))
                 return LOG(0, "NoDEVICEAnsw").ToString();

@@ -14,7 +14,7 @@ namespace HuaweiUnlocker.UI
 
         [Description("Цвет обводки (границы) кнопки")]
         public Color BorderColor { get; set; } = Color.Tomato;
-        
+
         [Description("Указывает, включено ли использование отдельного цвета обводки (границы) кнопки")]
         public bool BorderColorEnabled { get; set; } = false;
 
@@ -134,7 +134,7 @@ namespace HuaweiUnlocker.UI
             SF.Alignment = StringAlignment.Center;
             SF.LineAlignment = StringAlignment.Center;
         }
-        
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -146,7 +146,7 @@ namespace HuaweiUnlocker.UI
             graph.SmoothingMode = SmoothingMode.AntiAlias;
 
             graph.Clear(Parent.BackColor);
-            
+
             Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
             Rectangle rectCurtain = new Rectangle(0, 0, (int)CurtainButtonAnim.Value, Height - 1);
             //Rectangle rectRipple = new Rectangle(
@@ -200,7 +200,7 @@ namespace HuaweiUnlocker.UI
             graph.DrawRectangle(new Pen(Color.FromArgb(60, Color.White)), rectCurtain);
             graph.FillRectangle(new SolidBrush(Color.FromArgb(60, Color.White)), rectCurtain);
 
-            
+
             if (UseRippleEffect == false)
             {
                 // Стандартное рисование праямоугольника при клике
@@ -273,7 +273,7 @@ namespace HuaweiUnlocker.UI
             //////        graph.FillEllipse(new SolidBrush(Color.FromArgb(30, Color.Black)), rectRipple);
             //////    }
             //////}
-            
+
 
             // Рисуем текст
             if (string.IsNullOrEmpty(TextHover))
@@ -314,7 +314,7 @@ namespace HuaweiUnlocker.UI
         {
             Animation MultiRippleButtonAnim = new Animation("ButtonMultiRipple_" + Handle + DateTime.Now.Millisecond, Invalidate, 0, Width * 3);
             MultiRippleButtonAnim.StepDivider = 20;
-            
+
             Animator.Request(MultiRippleButtonAnim);
 
             RippleButtonAnimDic.Add(MultiRippleButtonAnim, new Rectangle());
@@ -369,7 +369,7 @@ namespace HuaweiUnlocker.UI
 
             ButtonCurtainAction();
             TextSlideAction();
-            
+
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -383,7 +383,7 @@ namespace HuaweiUnlocker.UI
             ClickLocation = e.Location;
             //ButtonRippleAction();
             ButtonMultiRippleAction();
-            
+
             if (UseDownPressEffectOnClick) Location = new Point(Location.X, Location.Y + 2);
 
             Focus();

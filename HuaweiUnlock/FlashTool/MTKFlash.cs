@@ -1,6 +1,4 @@
-﻿using HuaweiUnlocker.DIAGNOS;
-using System;
-using static HuaweiUnlocker.LangProc;
+﻿using static HuaweiUnlocker.LangProc;
 namespace HuaweiUnlocker.FlashTool
 {
     public class MTKFlash

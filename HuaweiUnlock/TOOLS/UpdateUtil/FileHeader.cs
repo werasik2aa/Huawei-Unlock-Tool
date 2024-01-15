@@ -24,7 +24,7 @@ namespace HuaweiUnlocker.Core
         public UInt16 HeaderChecksum;
         public UInt16 BlockSize;
         public UInt16 Blank2;
-        public static readonly int Size = Marshal.SizeOf(typeof (FileHeader));
+        public static readonly int Size = Marshal.SizeOf(typeof(FileHeader));
         public static FileHeader Create()
         {
             var result = new FileHeader

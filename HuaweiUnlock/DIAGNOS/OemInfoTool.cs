@@ -1,9 +1,6 @@
-﻿using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using static HuaweiUnlocker.LangProc;
 namespace HuaweiUnlocker.DIAGNOS
 {
@@ -28,7 +25,8 @@ namespace HuaweiUnlocker.DIAGNOS
             for (var i = 0; i < Offsets.Count; i++)
                 data.Add("OEM_INFO_" + Offsets[i] + ".header");
             File.WriteAllBytes("UnlockFiles/OemInfoData/OEM_INFO_" + 0 + ".header", FileAll.Take(Offsets[0]).ToArray());
-            for (int i = 0; i < Offsets.Count; i++) {
+            for (int i = 0; i < Offsets.Count; i++)
+            {
                 int curof = Offsets[i];
                 LOG(0, "Writting: OEM_INFO_" + curof + ".header");
                 if (Offsets.Count > i + 1)

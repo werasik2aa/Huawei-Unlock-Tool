@@ -7,8 +7,8 @@ namespace HuaweiUnlocker.Core
 {
     internal static class Utilities
     {
-        public const Int32 UintSize = sizeof (UInt32);
-        public const Int32 UshortSize = sizeof (ushort);
+        public const Int32 UintSize = sizeof(UInt32);
+        public const Int32 UshortSize = sizeof(ushort);
 
         public static bool ByteToType<T>(BinaryReader reader, out T result)
         {
@@ -64,7 +64,7 @@ namespace HuaweiUnlocker.Core
         public static string GetString(byte[] source)
         {
             var index = Array.FindIndex(source, b => b == 0);
-            if (index == -1) 
+            if (index == -1)
                 index = source.Length;
             return Encoding.ASCII.GetString(source, 0, index);
         }

@@ -1,12 +1,10 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Globalization;
+using System.Text;
 
 namespace HuaweiUnlocker.DIAGNOS
 {

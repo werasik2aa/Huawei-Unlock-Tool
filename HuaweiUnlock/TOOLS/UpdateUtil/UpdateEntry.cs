@@ -1,7 +1,7 @@
-﻿using HuaweiUnlocker.Streams;
-using System.IO;
+﻿using HuaweiUnlocker.DIAGNOS;
+using HuaweiUnlocker.Streams;
 using System;
-using HuaweiUnlocker.DIAGNOS;
+using System.IO;
 
 namespace HuaweiUnlocker.Core
 {

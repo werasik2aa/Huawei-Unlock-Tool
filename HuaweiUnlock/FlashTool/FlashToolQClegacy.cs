@@ -1,13 +1,9 @@
 ﻿using System;
-using static HuaweiUnlocker.LangProc;
 using System.Collections.Generic;
-using HuaweiUnlocker.DIAGNOS;
 using System.IO;
-using System.Collections.Concurrent;
-using System.Threading.Tasks;
-using System.Security.Cryptography.Xml;
-using System.Threading;
 using System.Linq;
+using System.Threading.Tasks;
+using static HuaweiUnlocker.LangProc;
 
 namespace HuaweiUnlocker.FlashTool
 {

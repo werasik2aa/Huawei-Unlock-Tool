@@ -1,12 +1,9 @@
 ﻿using HuaweiUnlocker.DIAGNOS;
-using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using static HuaweiUnlocker.LangProc;
 namespace HuaweiUnlocker.TOOLS
 {
@@ -53,7 +50,8 @@ namespace HuaweiUnlocker.TOOLS
 
                 LOG(0, "EwPS", image.Role);
 
-                flasher.Write(image.Path, (int)image.Address, x => {
+                flasher.Write(image.Path, (int)image.Address, x =>
+                {
                     Progress(dsize, asize);
                 });
 
@@ -145,7 +143,7 @@ namespace HuaweiUnlocker.TOOLS
 
             var res = fb.Command(cmd.ToArray());
 
-            LOG(0, "", res.Payload) ;
+            LOG(0, "", res.Payload);
 
             if (!res.Payload.Contains("set nv ok"))
             {
@@ -155,7 +153,7 @@ namespace HuaweiUnlocker.TOOLS
 
         public static byte[] GetSHA256(string str)
         {
-                return SHA256.Create().ComputeHash(Encoding.ASCII.GetBytes(str));
+            return SHA256.Create().ComputeHash(Encoding.ASCII.GetBytes(str));
         }
 
         public static void SetHWDogState(byte state)
@@ -312,7 +310,7 @@ namespace HuaweiUnlocker.TOOLS
                         LOG(1, "Unlocker", "(KIRIN FRP)");
                         UnlockFRP();
                     }
-                    if(rb) Reboot();
+                    if (rb) Reboot();
                     fb.Disconnect();
                 }
                 else LOG(1, "NoDEVICEAnsw", " [HISI] Maybe hisi Loaders Wont boot");

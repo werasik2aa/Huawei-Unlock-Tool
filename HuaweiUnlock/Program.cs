@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using static HuaweiUnlocker.LangProc;
 
 namespace HuaweiUnlocker
 {

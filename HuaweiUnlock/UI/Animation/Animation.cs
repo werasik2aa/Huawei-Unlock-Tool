@@ -42,9 +42,9 @@ namespace HuaweiUnlocker.UI
             float basicStep = Math.Abs(Volume) / StepDivider; // Math.Abs - превращает числа 0< в >0
             float resultStep = 0;
 
-            if(Reverse == false)
+            if (Reverse == false)
             {
-                if(Value <= p15 || Value >= p85)
+                if (Value <= p15 || Value >= p85)
                 {
                     resultStep = basicStep / 3.5f;
                 }
@@ -52,7 +52,7 @@ namespace HuaweiUnlocker.UI
                 {
                     resultStep = basicStep / 2f;
                 }
-                else if(Value > p30 && Value < p70)
+                else if (Value > p30 && Value < p70)
                 {
                     resultStep = basicStep;
                 }
@@ -94,11 +94,11 @@ namespace HuaweiUnlocker.UI
 
             if (Reverse == false)
             {
-                if(Value <= targetValue)
+                if (Value <= targetValue)
                 {
                     Value += Step();
 
-                    if(Value >= targetValue)
+                    if (Value >= targetValue)
                     {
                         Value = targetValue;
                         Status = AnimationStatus.Completed;

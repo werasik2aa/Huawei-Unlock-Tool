@@ -19,7 +19,7 @@ namespace HuaweiUnlocker.UI
         private static double Interval;
 
         public static bool IsWork = false;
-        
+
         public static void Start()
         {
             if (IsWork) return;
@@ -53,7 +53,7 @@ namespace HuaweiUnlocker.UI
 
         public static void Request(Animation Anim, bool ReplaceIfExists = true)
         {
-            if(AnimatorThread == null || IsWork == false)
+            if (AnimatorThread == null || IsWork == false)
             {
                 Start();
             }
@@ -63,9 +63,9 @@ namespace HuaweiUnlocker.UI
 
             Animation dupAnim = GetDuplicate(Anim);
 
-            if(dupAnim != null)
+            if (dupAnim != null)
             {
-                if(ReplaceIfExists == true)
+                if (ReplaceIfExists == true)
                 {
                     dupAnim.Status = Animation.AnimationStatus.Completed;
                 }

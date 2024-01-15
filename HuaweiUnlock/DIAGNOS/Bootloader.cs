@@ -28,7 +28,8 @@ namespace HuaweiUnlocker.DIAGNOS
                     return true;
                 }
 
-                using (var stream = File.OpenRead(Path)) {
+                using (var stream = File.OpenRead(Path))
+                {
                     using (var sha1 = SHA1.Create())
                     {
                         stream.Position = 0;

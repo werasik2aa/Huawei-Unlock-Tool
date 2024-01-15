@@ -1,9 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using HuaweiUnlocker;
 
 namespace HuaweiUnlocker.UI
 {
@@ -58,7 +55,7 @@ namespace HuaweiUnlocker.UI
                 {
                     _valueMinimum = value;
 
-                    if(_valueMinimum > Value)
+                    if (_valueMinimum > Value)
                     {
                         Value = _valueMinimum;
                         Invalidate();
@@ -140,7 +137,7 @@ namespace HuaweiUnlocker.UI
         }
 
         #region -- Рисование объектов --
-        
+
         private void DrawBase(Graphics graph, GraphicsPath gpath)
         {
             graph.FillPath(new SolidBrush(BackColor), gpath);
@@ -180,9 +177,9 @@ namespace HuaweiUnlocker.UI
 
         public bool PerformStep()
         {
-            if(Value < ValueMaximum)
+            if (Value < ValueMaximum)
             {
-                if(Value + Step >= ValueMaximum)
+                if (Value + Step >= ValueMaximum)
                 {
                     Value = ValueMaximum;
                     return false;

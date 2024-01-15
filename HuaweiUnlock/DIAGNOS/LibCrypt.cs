@@ -1,14 +1,11 @@
 ﻿using Base62;
-using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Windows.Input;
 using static HuaweiUnlocker.LangProc;
 namespace HuaweiUnlocker.DIAGNOS
 {
