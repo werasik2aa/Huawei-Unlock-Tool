@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/now-ui-kit.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700,800&display=swap" rel="stylesheet">
+    <title>Huawei Unlock Tool</title>
+</head>
+<body>
+	<div class="heading text-center">
+		<nav class="navbar navbar-expand-lg bg-transparent">
+							<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="DownloadCenter.html">Firmwares, Drivers & Softwares</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/werasik2aa/Huawei-Unlock-Tool">Source</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="DevStatus.html">Broken Device Status</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://t.me/+TztmQ7N2xz9lN2Uy">Contact</a>
+					</li>
+				</ul>
+		
+			<button class="btn" onclick="SearchIt('')">ALL</button>
+			<button class="btn" onclick="SearchIt('UBootloaderTAG')">Unlocked Bootloaders</button>
+			<button class="btn" onclick="SearchIt('UFirmwareTAG')">Board Firmwares</button>
+			<button class="btn" onclick="SearchIt('ULoaderTAG')">Firehose loaders</button>
+			<button class="btn" onclick="SearchIt('UGptTAG')">GPT + rawprogram0.xml</button>
+			<button class="btn" onclick="SearchIt('UMtkTAG')">MTK_DA + scatter.txt</button>
+			<button class="btn" onclick="SearchIt('UToolTAG')">Tools</button>
+			<button class="btn" onclick="SearchIt('UDriverTAG')">Drivers</button>
+		</nav>
+		<input  class="form-control" type="search" type="text"  oninput="SearchIt(this.value)" placeholder="Search for files" /></input>
+		<div class="features">
+			<div class="card-title">Search results:</div>
+			<div id="DATA">
+			</div>
+		</div>
+		<script type="text/javascript" src="js/Data.js"></script>
+		<script type="text/javascript" src="js/Filter.js"></script>
+	</body>
+</html>
