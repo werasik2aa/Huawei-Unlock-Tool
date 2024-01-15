@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using LibUsbDotNet;
 using LibUsbDotNet.Main;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static HuaweiUnlocker.LangProc;
 namespace HuaweiUnlocker.TOOLS
 {
@@ -14,11 +17,13 @@ namespace HuaweiUnlocker.TOOLS
         private const int USB_VID = 0x18D1;
         private const int USB_PID = 0xD00D;
         private const int HEADER_SIZE = 4;
-        private const int BLOCK_SIZE = 512 * 1024; // 512 KB
+        private const int BLOCK_SIZE = 512 * 1024;
 
-        public int DefaultRWTimeout = 3000;
+        public int DefaultRWTimeout = 500000;
         public int DefaultTimeoutWait = 100;
         public UsbDevice device;
+        UsbEndpointWriter WriteEp;
+        UsbEndpointReader ReadEp;
 
         public enum FastbootStatus
         {
@@ -80,7 +85,6 @@ namespace HuaweiUnlocker.TOOLS
 
             UsbDeviceFinder finder;
             finder = new UsbDeviceFinder(USB_VID, USB_PID);
-
             device = UsbDevice.OpenUsbDevice(finder);
 
             if (device == null)
@@ -96,6 +100,8 @@ namespace HuaweiUnlocker.TOOLS
                 wDev.SetConfiguration(1);
                 wDev.ClaimInterface(0);
             }
+            WriteEp = device.OpenEndpointWriter(WriteEndpointID.Ep01);
+            ReadEp = device.OpenEndpointReader(ReadEndpointID.Ep01);
             return device != null;
         }
         public void Disconnect()
@@ -108,9 +114,8 @@ namespace HuaweiUnlocker.TOOLS
         }
         public Response Command(byte[] command)
         {
-            var writeEndpoint = device.OpenEndpointWriter(WriteEndpointID.Ep01);
 
-            writeEndpoint.Write(command, DefaultRWTimeout, out int WroteNum);
+            WriteEp.Write(command, DefaultRWTimeout, out int WroteNum);
 
             if (WroteNum != command.Length)
                 throw new Exception("Failed to write command! Transfered: " + WroteNum + "of" + command.Length + "bytes");
@@ -118,12 +123,11 @@ namespace HuaweiUnlocker.TOOLS
             //READ point
             FastbootStatus status;
             StringBuilder response = new StringBuilder();
-            UsbEndpointReader readEndpoint = device.OpenEndpointReader(ReadEndpointID.Ep01);
             string ASCI;
             while (true)
             {
                 byte[] buffer = new byte[64];
-                readEndpoint.Read(buffer, DefaultRWTimeout, out int ReadNum);
+                ReadEp.Read(buffer, DefaultRWTimeout, out int ReadNum);
                 ASCI = Encoding.ASCII.GetString(buffer);
 
                 if (ASCI.Length < HEADER_SIZE)
@@ -145,53 +149,79 @@ namespace HuaweiUnlocker.TOOLS
             };
         }
 
-        private void SendDataCommand(long size)
+        private bool SendDataCommand(long size)
         {
-            if (Command($"download:{size:X8}").Status != FastbootStatus.Data)
+            var res = Command($"download:{size:X8}");
+            if (res.Status != FastbootStatus.Data)
                 throw new Exception($"Invalid response from device! (data size: {size})");
+            if (res.Payload.Contains("too large"))
+                LOG(2, "EwPE", "Partition size Too Large");
+            return !res.Payload.Contains("too large");
         }
-        private void TransferBlock(FileStream stream, UsbEndpointWriter writeEndpoint, byte[] buffer, int size)
+        private void TransferBlock(FileStream stream, byte[] buffer, int size)
         {
             stream.Read(buffer, 0, size);
-            writeEndpoint.Write(buffer, DefaultRWTimeout, out int wroteSize);
+            WriteEp.Write(buffer, DefaultRWTimeout, out int wroteSize);
 
             if (wroteSize != size)
                 throw new Exception("Failed to transfer block (sent " + wroteSize + " of " + size + ")");
         }
-        public void UploadData(FileStream stream)
+        public bool UploadData(string path)
         {
             //WRITE_D
-            var writeEp = device.OpenEndpointWriter(WriteEndpointID.Ep01);
-            var length = stream.Length;
-            var buffer = new byte[BLOCK_SIZE];
-
-            SendDataCommand(length);
-
-            while (length >= BLOCK_SIZE)
-            {
-                TransferBlock(stream, writeEp, buffer, BLOCK_SIZE);
-                length -= BLOCK_SIZE;
-            }
-
-            if (length > 0)
-            {
-                buffer = new byte[length];
-                TransferBlock(stream, writeEp, buffer, (int)length);
-            }
-
-            //READ_ED
-            var resBuffer = new byte[64];
-            ErrorCode ErrorEr = device.OpenEndpointReader(ReadEndpointID.Ep01).Read(resBuffer, DefaultRWTimeout, out _);
-            var strBuffer = Encoding.ASCII.GetString(resBuffer);
-            if (strBuffer.Length < HEADER_SIZE)
-                throw new Exception("Invalid response from device: " + strBuffer);
-            if (GetStatus(new string(strBuffer.Take(HEADER_SIZE).ToArray())) != FastbootStatus.Ok)
-                throw new Exception("Invalid status: " + strBuffer);
-        }
-        public void UploadData(string path)
-        {
             FileStream stream = new FileStream(path, FileMode.Open);
-            UploadData(stream);
+            string madx = Command("getvar:max-download-size").Payload;
+            int MAX_DWN_SIZE = (int)new Int32Converter().ConvertFromString(madx);
+            Progress(0, (int)stream.Length);
+            int i = 1;
+            long totalenremain = stream.Length;
+            if (SendDataCommand(totalenremain))
+            {
+                while (totalenremain > 0)
+                {
+                    long curlenremain = totalenremain >= MAX_DWN_SIZE ? MAX_DWN_SIZE : totalenremain;
+                    string partname = stream.Name.Split('.')[0].Split('\\').Last();
+                    LOG(0, "[Fastboot] Sending: ", curlenremain == MAX_DWN_SIZE ? partname + " Part: " + (i++) : partname);
+                    while (curlenremain > 0)
+                    {
+                        if (curlenremain < BLOCK_SIZE)
+                        {
+                            TransferBlock(stream, new byte[curlenremain], (int)curlenremain);
+                            totalenremain -= curlenremain;
+                            curlenremain = 0;
+                        }
+                        else
+                        {
+                            TransferBlock(stream, new byte[BLOCK_SIZE], BLOCK_SIZE);
+                            totalenremain -= BLOCK_SIZE;
+                            curlenremain -= BLOCK_SIZE;
+                        }
+                        Progress((int)((stream.Length - totalenremain) / stream.Length) * 100);
+                    }
+                    //READ_ED
+                    var resBuffer = new byte[64];
+                    ReadEp.Read(resBuffer, DefaultRWTimeout, out _);
+                    var strBuffer = Encoding.ASCII.GetString(resBuffer);
+                    if (strBuffer.Length < HEADER_SIZE)
+                        throw new Exception("Invalid response from device: " + strBuffer);
+                    if (GetStatus(new string(strBuffer.Take(HEADER_SIZE).ToArray())) != FastbootStatus.Ok)
+                        throw new Exception("Invalid status: " + strBuffer);
+                    else
+                    {
+                        LOG(0, "[Fastboot] Writing: ", partname);
+                        if (partname.Equals("gpt")) partname = "partition";
+                        var res = Command("flash:" + partname).Payload;
+                        if (res.Contains("table doesn't exist"))
+                        {
+                            LOG(1, "Skip Partition. ", res);
+                            break;
+                        }
+                    }
+                }
+            }
+            stream.Close();
+            stream.Dispose();
+            return true;
         }
         public Response Command(string command)
         {

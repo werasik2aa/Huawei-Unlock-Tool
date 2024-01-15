@@ -15,12 +15,14 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Base62;
+using System.Runtime.CompilerServices;
+using System.Reflection;
 
 namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "28F";
+        public const string APP_VERSION = "29F";
         public static TextBox LOGGBOX;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
         private static StreamWriter se = new StreamWriter("log.txt");
@@ -168,12 +170,23 @@ namespace HuaweiUnlocker
                     state = Language.Get("Error");
                     break;
             }
+            //GET STRING LANGS
             i = Language.isExist(i.ToString()) ? Language.Get(i.ToString()) : i;
-            i = i.ToString().Contains("/n") ? i.ToString().Replace("/n", newline) : i;
-            Action action;
+            i = i.ToString().Contains("/n") ? i.ToString() : i;
+
             j = Language.isExist(j.ToString()) ? Language.Get(j.ToString()) : j;
-            j = j.ToString().Contains("/n") ? i.ToString().Replace("/n", newline) : j;
-            action = () => LOGGBOX.AppendText(newline + state + i + sepa + j.ToString());
+            j = j.ToString().Contains("/n") ? i.ToString() : j;
+
+            try
+            {
+                i = string.Join("", Regex.Split((string)i, @"(?:\r\n|\n|\r)"));
+                j = string.Join("", Regex.Split((string)j, @"(?:\r\n|\n|\r)"));
+            }
+            catch
+            {
+
+            }
+            action = () => LOGGBOX.AppendText((newline + state + i + sepa + j.ToString()).Replace("/n", newline).Replace("\n", newline));
             if (LOGGBOX.InvokeRequired)
                 LOGGBOX.Invoke(action);
             else
@@ -181,6 +194,7 @@ namespace HuaweiUnlocker
             se.WriteLine(newline + state + i + sepa + j.ToString());
             return true;
         }
+        //GET PORTS
         public static Port_D GETPORT(string name, string devicename = "")
         {
             Port_D req = new Port_D();
@@ -210,6 +224,7 @@ namespace HuaweiUnlocker
             }
             return req;
         }
+        //ALL LIST OF COM PORTS
         public static List<Port_D> GETPORTLIST()
         {
             List<Port_D> req = new List<Port_D>();
@@ -230,6 +245,8 @@ namespace HuaweiUnlocker
             }
             return req;
         }
+
+        //GetLoader by model name
         public static string PickLoader(string dev)
         {
             DeviceInfo.Name = dev;
@@ -239,6 +256,8 @@ namespace HuaweiUnlocker
                 if (a.EndsWith(".mbn") || a.EndsWith(".elf") || a.EndsWith(".hex")) return a;
             return "";
         }
+
+        //GPT READER
         public static Dictionary<string, Partition> GET_GPT_FROM_FILE(string GPT_File, int block_size)
         {
             Dictionary<string, Partition> GPT = new Dictionary<string, Partition>();
@@ -250,7 +269,7 @@ namespace HuaweiUnlocker
             string GPT_Header = Full_GPT.Remove(0, block_size * 2);
             string gpt_header = GPT_Header.Remove(block_size * 2);
             magic_number.ValueString = gpt_header.Substring(magic_number.StartAdress * 2, magic_number.Length * 2);
-            if (!magic_number.ValueString.Equals("4546492050415254"))
+            if (!magic_number.ValueString.Equals("4546492050415254")) //HEADER OF GPT FILE
             {
                 LOG(2, "THIS FILE IS NOT a gpt_####0.bin");
                 return GPT;
@@ -298,7 +317,8 @@ namespace HuaweiUnlocker
                 if (!string.IsNullOrEmpty(bsa) && !string.IsNullOrEmpty(bea))
                 {
                     uint blocks_count = Convert.ToUInt32(bea, 16) - Convert.ToUInt32(bsa, 16) + 1;
-                    GPT.Add(bn.ToString(), new Partition()
+                    if(!GPT.ContainsKey(bn.ToString()) & !bn.ToString().Contains("userdata") & !string.IsNullOrEmpty(bn.ToString()))
+                    GPT.Add(bn.ToString().Replace(".img", ""), new Partition()
                     {
                         BlockStart = Convert.ToInt32(bsa, 16).ToString(),
                         BlockEnd = Convert.ToInt32(bea, 16).ToString(),
@@ -315,6 +335,7 @@ namespace HuaweiUnlocker
             LOGGBOX.Text = "";
             LOGGBOX.Copy();
         }
+        //IT'S CAN BE SIMPLE. BUT WHO I AM FOR DO THE SIMPLE?
         public static bool CheckDevice(string path, string DeviceName = "")
         {
             LOGGBOX.Text = "";
@@ -352,6 +373,7 @@ namespace HuaweiUnlocker
             }
             return false;
         }
+        //MAYBE NEED STARTBYTE in HEX ...
         public static bool WriteGPT_TO_XML(string papthto, Dictionary<string, Partition> partbI, bool verify)
         {
             StreamWriter writer = new StreamWriter(papthto);
@@ -364,9 +386,9 @@ namespace HuaweiUnlocker
             {
                 if (string.IsNullOrEmpty(i.Key)) continue;
                 if (verify && !File.Exists("UnlockFiles/UpdateAPP/" + i.Key + ".img")) continue;
-                string line = "  <program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + i.Value.BlockNumSectors + "\" physical_partition_number=\"0\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_sector=\"" + i.Value.BlockStart + "\" />";
+                string line = "  <program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + i.Value.BlockNumSectors + "\" physical_partition_number=\"0\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_byte_hex=\"" + string.Format("0x{0:x16}", i.Value.BlockStart) + "\" start_sector=\"" + i.Value.BlockStart + "\" />";
                 if (i.Key.ToLower() == "userdata")
-                    line = "  <program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + 1 + "\" physical_partition_number=\"0\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_sector=\"" + i.Value.BlockStart + "\" />";
+                    line = "  <program SECTOR_SIZE_IN_BYTES=\"512\" file_sector_offset=\"0\" filename=\"" + i.Key + ".img\"" + " label=\"" + i.Key + "\" num_partition_sectors=\"" + 1 + "\" physical_partition_number=\"0\" size_in_KB=\"" + i.Value.BlockLength + "\" sparse=\"false\" start_byte_hex=\"" + string.Format("0x{0:x16}", i.Value.BlockStart) + "\" start_sector=\"" + i.Value.BlockStart + "\" />";
                 writer.WriteLine(line);
                 if (debug) LOG(0, line);
             }
@@ -384,6 +406,7 @@ namespace HuaweiUnlocker
                 PRG.Invoke(action);
             else
                 action();
+            Application.DoEvents();
         }
         public static string GuessMbn()
         {
@@ -418,10 +441,27 @@ namespace HuaweiUnlocker
             {
                 var a = Directory.GetFiles(subdirectory).First();
                 var b = File.ReadAllBytes(a);
-                if (Encoding.ASCII.GetString(b).ToLower().Contains(LangProc.DeviceInfo.HWID.Replace("0x", "")))
+                if (Encoding.ASCII.GetString(b).ToLower().Contains(DeviceInfo.HWID.Replace("0x", "")))
                     LOG(0, "LoaderFound", any = a);
             }
             return any;
+        }
+        public static byte[] GetResource(string ResourceName)
+        {
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(ResourceName);
+            byte[] data = new byte[stream.Length];
+            stream.Read(data, 0, (int)stream.Length);
+            return data;
+        }
+        public static void SaveResources(string ResourceName, string SavePath, string SaveName = "")
+        {
+            if (!Directory.Exists(SavePath)) Directory.CreateDirectory(SavePath);
+            string myspace = typeof(LangProc).Namespace;
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(myspace + "." + ResourceName);
+            FileStream filewritter = new FileStream(SavePath + "\\" + (string.IsNullOrEmpty(SaveName) ? ResourceName : SaveName), FileMode.CreateNew);
+            for (int i = 0; i < stream.Length; i++) filewritter.WriteByte((byte)stream.ReadByte());
+            filewritter.Close();
+            filewritter.Dispose();
         }
     }
 }

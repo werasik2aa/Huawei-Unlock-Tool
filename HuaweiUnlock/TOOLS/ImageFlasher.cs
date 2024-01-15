@@ -25,8 +25,8 @@ namespace HuaweiUnlocker.TOOLS
                 BaudRate = BAUDRATE,
                 DtrEnable = true,
                 RtsEnable = true,
-                ReadTimeout = 1000,
-                WriteTimeout = 1000
+                ReadTimeout = 10000,
+                WriteTimeout = 10000
             };
             port.Open();
         }
@@ -57,9 +57,7 @@ namespace HuaweiUnlocker.TOOLS
                 length -= MAX_DATA_LEN;
 
                 if (n % (nframes > 250 ? 10 : 3) == 0)
-                {
                     reportProgress?.Invoke((int)(100f * n / nframes));
-                }
             }
 
             if (length > 0)

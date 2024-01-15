@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
 using System.Text;
-using QMSL_Library;
 using Org.BouncyCastle.Utilities.Encoders;
 
 namespace HuaweiUnlocker
@@ -27,7 +26,6 @@ namespace HuaweiUnlocker
         private static string device;
         private static string loader;
         public static string Path;
-        public static HISI HISI = new HISI();
         private Dictionary<string, string> source = new Dictionary<string, string>();
         private Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\4PDA_HUAWEI_UNLOCK", true);
         private static string Temp;
@@ -41,7 +39,6 @@ namespace HuaweiUnlocker
             foreach (var process in Process.GetProcesses())
                 if (process.ProcessName.Contains("fh_loader.exe"))
                     process.Kill();
-
             //Create Folders
             if (!Directory.Exists("UnlockFiles")) Directory.CreateDirectory("UnlockFiles");
             if (!Directory.Exists("LOGS")) Directory.CreateDirectory("LOGS");
@@ -49,8 +46,8 @@ namespace HuaweiUnlocker
             if (!Directory.Exists("Tools")) Directory.CreateDirectory("Tools");
 
             //Extract languages if not exist
-            if (!File.Exists("Languages\\Russian.ini")) ResourcesMNG.SaveResources("Russian.ini", "Languages");
-            if (!File.Exists("Languages\\English.ini")) ResourcesMNG.SaveResources("English.ini", "Languages");
+            if (!File.Exists("Languages\\Russian.ini")) SaveResources("Russian.ini", "Languages");
+            if (!File.Exists("Languages\\English.ini")) SaveResources("English.ini", "Languages");
 
             foreach (string i in Directory.GetFiles("Languages", "*.ini"))
                 LBOX.Items.Add(i.Split('\\').Last().Replace(".ini", ""));
@@ -136,8 +133,8 @@ namespace HuaweiUnlocker
                 GPfir.Text = Language.Get("BackupRestoreTag");
                 RdGPT.Text = Language.Get("RdGPTBtn");
                 ReadPA.Text = Language.Get("ReadPA");
-                WritePA.Text = Language.Get("WritePA");
-                ErasePA.Text = Language.Get("ErasePA");
+                WritePA2.Text = WritePA.Text = Language.Get("WritePA");
+                ErasePA2.Text = ErasePA.Text = Language.Get("ErasePA");
                 FrpHISIUnlock.Text = UnlockFrp.Text = Language.Get("UnlockBTN");
                 HomeTag.Text = Language.Get("HomeTag");
                 UnlockTag.Text = Language.Get("UnlockTag");
@@ -329,10 +326,18 @@ namespace HuaweiUnlocker
             if (PARTLIST.Rows.Count > 0)
             {
                 PARTLIST.Enabled = false;
-                WHAT.Enabled = true;
-                WHAT.Visible = true;
-                string partition = PARTLIST.CurrentRow.Cells[0].Value.ToString();
-                WHAT.Text = Language.Get("Action") + partition;
+                string partition = "NaN";
+                if (Tab.SelectedIndex == 2)
+                {
+                    partition = PARTLIST.CurrentRow.Cells[0].Value.ToString();
+                    WHAT.Visible = WHAT.Enabled = true;
+                }
+                else
+                {
+                    partition = KirinFiles.CurrentRow.Cells[0].Value.ToString();
+                    WHAT2.Visible = WHAT2.Enabled = true;
+                }
+                WHAT2.Text = WHAT.Text = Language.Get("Action") + partition;
                 Temp = partition;
                 LOG(0, "PartSled", partition);
             }
@@ -340,9 +345,11 @@ namespace HuaweiUnlocker
 
         private void button7_Click(object sender, EventArgs e)
         {
-            WHAT.Enabled = false;
-            PARTLIST.Enabled = true;
-            WHAT.Visible = false;
+            if (Tab.SelectedIndex == 2)
+                WHAT.Visible = WHAT.Enabled = true;
+            else
+                WHAT2.Visible = WHAT2.Enabled = true;
+            KirinFiles.Enabled = PARTLIST.Enabled = true;
         }
 
         private void ERASEevent_Click(object sender, EventArgs e)
@@ -411,6 +418,17 @@ namespace HuaweiUnlocker
             UnZip(Temp + ".zip", "UnlockFiles\\" + Temp);
             UNLBTN_Click(sender, e);
         }
+        private void Downloaded2(object sender, AsyncCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                LOG(2, "FailCon", newline + Language.Get("Error") + e.Error);
+                return;
+            }
+            LOG(0, "Downloaded", Temp + ".zip");
+            UnZip(Temp + ".zip", "UnlockFiles\\" + Temp);
+            ConnectKIRINBTN_Click(sender, e);
+        }
         private void ProgressBar(object sender, DownloadProgressChangedEventArgs e)
         {
             Progress(e.ProgressPercentage);
@@ -461,26 +479,6 @@ namespace HuaweiUnlocker
             PGG.ValueMaximum = 100;
             Progress(100);
             await CurTask;
-        }
-        private bool Find()
-        {
-            Port_D data = GETPORT("android adapter pcui");
-            if (DIAG.PCUI != data.ComName)
-            {
-                DIAG.PCUI = data.ComName;
-                LOG(0, data.ComName != "NaN" ? Language.Get("Info") + "PCUI PORT: " + data.FullName : Language.Get("Error") + "PCUI PORT not found");
-            }
-            else LOG(1, "Not Found PCUI");
-
-            data = GETPORT("dbadapter reserved interface");
-            if (DIAG.DBDA != data.ComName)
-            {
-                DIAG.DBDA = data.ComName;
-                LOG(0, data.ComName != "NaN" ? Language.Get("Info") + "DBADAPTER PORT: " + data.FullName : Language.Get("Error") + "DBADAPTER PORT not found");
-            }
-            else LOG(1, "Not Found DBADAPTER");
-
-            return DIAG.DBDA != "NaN" & DIAG.PCUI != "NaN";
         }
 
         private void BURGBTN_Click(object sender, EventArgs e)
@@ -544,11 +542,6 @@ namespace HuaweiUnlocker
             debug = DBB.Checked;
         }
 
-        private void FrBTN_Click(object sender, EventArgs e)
-        {
-            if (!Find()) return;
-            DIAG.FACTORY_RESET_MNF(1);
-        }
 
         private void RdHISIinfo_Click(object sender, EventArgs e)
         {
@@ -556,7 +549,7 @@ namespace HuaweiUnlocker
             try
             {
                 LOG(-1, "=============READ INFO (FASTBOOT)=============");
-                if (HISI.ReadInfo(60))
+                if (HISI.ReadInfo())
                 {
                     BuildIdTxt.Text = HISI.AVER;
                     ModelIdTxt.Text = HISI.MODEL;
@@ -564,6 +557,7 @@ namespace HuaweiUnlocker
                     FblockStateTxt.Text = HISI.FBLOCKSTATE;
                     BLKEYTXT.Text = HISI.BLKEY;
                     VersionIdTxt.Text = HISI.AVER;
+                    HISI.Disconnect();
                 }
                 else LOG(2, "DeviceNotCon");
             }
@@ -579,7 +573,7 @@ namespace HuaweiUnlocker
             LOG(-1, "=============> VALUE: " + (EnDisFBLOCK.Checked ? 0 : 1) + " <=============");
             try
             {
-                if (HISI.ReadInfo(60))
+                if (HISI.ReadInfo())
                 {
                     BuildIdTxt.Text = HISI.AVER;
                     ModelIdTxt.Text = HISI.MODEL;
@@ -606,14 +600,15 @@ namespace HuaweiUnlocker
                     LOG(-1, "=============REWRITE KEY (FASTBOOT)=============");
                     LOG(-1, "=============> KEY: " + BLkeyHI.Text + " <=============");
                     LOG(-1, "=============> LENGHT: 16 <=============");
-                    if (HISI.ReadInfo(60))
+                    if (HISI.ReadInfo())
                     {
                         BuildIdTxt.Text = HISI.AVER;
                         ModelIdTxt.Text = HISI.MODEL;
                         VersionIdTxt.Text = HISI.BNUM;
                         FblockStateTxt.Text = HISI.FBLOCKSTATE;
                         BLKEYTXT.Text = HISI.BLKEY;
-                        HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
+                        LOG(0, "HISINewKey", HISI.WriteBOOTLOADERKEY(BLkeyHI.Text));
+                        HISI.Disconnect();
                     }
                     else LOG(2, "DeviceNotCon");
                 }
@@ -669,7 +664,7 @@ namespace HuaweiUnlocker
                         {
                             CurTask = Task.Run(() =>
                             {
-                                HISI.StartUnlockPRCS(FRPchk.Checked, BLkeyHI.Text, Bootloader.ParseBootloader(Path), DeviceInfo.Port.ComName);
+                                HISI.StartUnlockPRCS(FRPchk.Checked, RbCheck.Checked, BLkeyHI.Text, Bootloader.ParseBootloader(Path), DeviceInfo.Port.ComName);
                             });
                             await CurTask;
                             if (HISI.AVER != HISI.BSN) DeviceInfo.loadedhose = true;
@@ -725,11 +720,6 @@ namespace HuaweiUnlocker
             if (!Directory.Exists(Path)) UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD"); else UNLOCKHISI.Text = Language.Get("HISIWriteKirinBL");
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (!Find()) return;
-            //CMDbox.Text = DIAG.TestHack();
-        }
 
         private void nButton2_Click(object sender, EventArgs e)
         {
@@ -756,10 +746,20 @@ namespace HuaweiUnlocker
         private void ClearS_Click(object sender, EventArgs e)
         {
             DeviceInfo.Partitions.Clear();
-            PARTLIST.Rows.Clear();
-            PARTLIST.Update();
-            RdGPT.Visible = RdGPT.Enabled = true;
-            WHAT.Enabled = WHAT.Visible;
+            if (Tab.SelectedIndex == 2)
+            {
+                PARTLIST.Rows.Clear();
+                PARTLIST.Update();
+                RdGPT.Visible = RdGPT.Enabled = true;
+                WHAT.Enabled = WHAT.Visible = false;
+
+            }
+            else
+            {
+                WHAT.Enabled = WHAT.Visible;
+                KirinFiles.Rows.Clear();
+                KirinFiles.Update();
+            }
         }
         private void button12_Click(object sender, EventArgs e)
         {
@@ -781,11 +781,14 @@ namespace HuaweiUnlocker
             DeviceInfo = new IDentifyDev();
             PARTLIST.Rows.Clear();
             PARTLIST.Update();
+            KirinFiles.Rows.Clear();
+            KirinFiles.Update();
             RdGPT.Visible = RdGPT.Enabled = true;
-            WHAT.Enabled = WHAT.Visible;
+            WHAT2.Enabled = WHAT2.Visible = WHAT.Enabled = WHAT.Visible = false;
             Tab.Enabled = true;
             UpdateApp.unpacked = false;
             HISI.BSN = HISI.AVER = HISI.BNUM = HISI.MODEL = "NaN";
+            HISI.fb.Disconnect();
             LOG(1, "Canceled");
         }
 
@@ -809,7 +812,6 @@ namespace HuaweiUnlocker
             var a = PORTBOX.Text;
             PORTBOX.Items.Clear();
             PORTBOX.Items.Add("");
-            PORTBOX.Items.Add("Auto");
             foreach (var i in GETPORTLIST())
                 PORTBOX.Items.Add(i.FullName);
             if (DeviceInfo.loadedhose && !PORTBOX.Items.Contains(DeviceInfo.Port.FullName))
@@ -824,8 +826,11 @@ namespace HuaweiUnlocker
                 }
                 PARTLIST.Rows.Clear();
                 PARTLIST.Update();
+                KirinFiles.Rows.Clear();
+                KirinFiles.Update();
                 RdGPT.Visible = RdGPT.Enabled = true;
-                WHAT.Enabled = WHAT.Visible;
+                WHAT2.Enabled = WHAT2.Visible = WHAT.Enabled = WHAT.Visible = false;
+                HISI.BSN = HISI.AVER = HISI.BNUM = HISI.MODEL = "NaN";
                 Tab.Enabled = true;
             }
             PORTBOX.SelectedText = a;
@@ -945,7 +950,7 @@ namespace HuaweiUnlocker
                 LOG(0, "LoaderSearch");
                 GuessMbnTest();
             }
-            HISI.ReadInfo(5);
+            HISI.ReadInfo();
             if (portQC.ComName == portHISI.ComName & !HISI.IsDeviceConnected())
                 LOG(1, "NoDEVICEAnsw");
         }
@@ -1068,9 +1073,9 @@ namespace HuaweiUnlocker
                 WebClient client = new WebClient();
                 client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressBar);
                 Temp = HISIbootloaders2.Text.ToUpper();
-                client.DownloadFileCompleted += new AsyncCompletedEventHandler(Downloaded);
+                client.DownloadFileCompleted += new AsyncCompletedEventHandler(Downloaded2);
                 client.DownloadFileAsync(new Uri(source[device]), device + ".zip");
-                UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD");
+                ConnectKIRINBTN.Text = Language.Get("HISIWriteKirinBLD");
                 return;
             }
             Path = "UnlockFiles\\" + device + "\\manifest.xml";
@@ -1098,14 +1103,15 @@ namespace HuaweiUnlocker
                     else
                         LOG(0, "Not ready for flash");
                 else
-                    Tab.Enabled = LOG(2, "DeviceNotCon");
+                    LOG(2, "DeviceNotCon");
             }
+            Tab.Enabled = true;
         }
 
         private void FlashUKIRINBtn_Click(object sender, EventArgs e)
         {
             ConnectKIRINBTN_Click(sender, e);
-            if (!HISI.FBLOCK & DeviceInfo.loadedhose)
+            if (HISI.FBLOCK)
             {
                 LOG(2, "HISIInfoS");
                 return;
@@ -1115,22 +1121,20 @@ namespace HuaweiUnlocker
                 LOG(2, "ErrBin");
                 return;
             }
-            Fastboot fb = new Fastboot();
             try
             {
-                if (fb.Connect())
+                if (HISI.fb.Connect(10))
                 {
                     foreach (var a in DeviceInfo.Partitions)
                     {
-                        LOG(0, "Writer", a);
-                        var res = fb.Command("flash:" + a.Key.Split('.')[0]);
-                        LOG(0, "Response:", res.Payload);
-                        fb.UploadData("UnlockFiles/UpdateAPP/" + a.Key);
+                        LOG(0, "Writer", a.Key);
+                        HISI.fb.UploadData("UnlockFiles/UpdateAPP/" + a.Key + ".img");
                     }
+                    LOG(0, "Done");
                 }
-                fb.Disconnect();
+                HISI.fb.Disconnect();
             }
-            catch(Exception ea)
+            catch (Exception ea)
             {
                 LOG(2, "Unknown", ea.Message);
             }
@@ -1142,15 +1146,24 @@ namespace HuaweiUnlocker
             {
                 Filter = "Firmware Files (*.img)|*.img|(*.app)|*.app",
             };
-            Tab.Enabled = false;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
+                Tab.Enabled = false;
                 KirinFirmPath.Text = openFileDialog.FileName;
                 if (!string.IsNullOrEmpty(KirinFirmPath.Text) & KirinFirmPath.Text.ToLower().EndsWith(".app") & File.Exists(KirinFirmPath.Text))
                     UpdateApp.Unpack(KirinFirmPath.Text, 3);
                 else if (!string.IsNullOrEmpty(KirinFirmPath.Text) & KirinFirmPath.Text.ToLower().EndsWith(".img") & File.Exists(KirinFirmPath.Text))
                 {
-                    UpdateApp.ReadFilesInDirAsPartitions();
+                    DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo("UnlockFiles/UpdateAPP/");
+                    FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + "gpt" + "*.img");
+                    if (filesInDir.Length == 0)
+                    {
+                        LOG(2, "RrGPTXMLE");
+                        LOG(2, "NotFoundF", "GPT.img");
+                        UpdateApp.ReadFilesInDirAsPartitions();
+                    }
+                    else
+                        DeviceInfo.Partitions = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
                     Tab.Enabled = true;
                 }
 
@@ -1167,7 +1180,24 @@ namespace HuaweiUnlocker
         private void HISIbootloaders2_SelectedIndexChanged(object sender, EventArgs e)
         {
             Path = "UnlockFiles\\" + HISIbootloaders2.Text.ToUpper();
-            if (!Directory.Exists(Path)) ConnectKIRINBTN.Text = Language.Get("HISIWriteKirinBLD"); else ConnectKIRINBTN.Text = Language.Get("HISIInitFB");
+            if (!Directory.Exists(Path)) ConnectKIRINBTN.Text = Language.Get("HISIWriteKirinBLD") + " & " + Language.Get("HISIInitFB"); else ConnectKIRINBTN.Text = Language.Get("HISIInitFB");
+        }
+
+        private void WritePA2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                LOG(0, "Writer", file.FileName);
+                HISI.fb.UploadData(file.FileName);
+            }
+        }
+
+        private void ErasePA2_Click(object sender, EventArgs e)
+        {
+            LOG(0, "Eraser", Temp);
+            var data = HISI.fb.Command("erase:" + Temp);
+            LOG(0, "DEBUG: ", data.RawData);
         }
     }
 }

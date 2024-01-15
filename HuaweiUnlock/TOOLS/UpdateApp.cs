@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static HuaweiUnlocker.LangProc;
 
 namespace HuaweiUnlocker.TOOLS
@@ -39,8 +40,7 @@ namespace HuaweiUnlocker.TOOLS
                             UpdFile.Extract(i, "UnlockFiles/UpdateAPP/" + a.FileType.ToLower() + ".img");
                             i++;
                         }
-                        LOG(0, "Percent", i / UpdFile.Count * 100);
-                        Progress(i / UpdFile.Count * 100, 100);
+                        Progress(i, UpdFile.Count);
                     }
                     //Set 0
                     unpacked = true;
@@ -78,7 +78,7 @@ namespace HuaweiUnlocker.TOOLS
                             SyncRUN(command, subcommand);
                             i++;
                         }
-                        Progress(i / gpttable.Count * 100);
+                        Progress(i, gpttable.Count);
                     }
                 }
             }
@@ -108,7 +108,7 @@ namespace HuaweiUnlocker.TOOLS
             DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo("UnlockFiles/UpdateAPP/");
             FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles();
             foreach (var a in filesInDir)
-                gpttable.Add(a.FullName.Split('\\').Last(),new Partition() { 
+                gpttable.Add(a.FullName.Split('\\').Last(),new Partition() {
                     BlockLength = new FileInfo(a.FullName).Length.ToString(),
                 });
             DeviceInfo.Partitions = gpttable;
@@ -128,13 +128,16 @@ namespace HuaweiUnlocker.TOOLS
                 LOG(2, "NotFoundF", "GPT.img");
                 return;
             }
-            LOG(0, "RrGPTXMLSPR", " -> ~/" + pathxml);
-            LOG(0, "RrGPTXMLSPR", " -> ~/" + pathxmlE);
-            Dictionary<string, Partition> gpttable = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
-            if (gpttable.Count > 0)
+            if (!filesInDir[0].FullName.StartsWith("hisi"))
             {
-                WriteGPT_TO_XML(pathxml, gpttable, false);
-                WriteGPT_TO_XML(pathxmlE, gpttable, true);
+                LOG(0, "RrGPTXMLSPR", " -> ~/" + pathxml);
+                LOG(0, "RrGPTXMLSPR", " -> ~/" + pathxmlE);
+                Dictionary<string, Partition> gpttable = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
+                if (gpttable.Count > 0)
+                {
+                    WriteGPT_TO_XML(pathxml, gpttable, false);
+                    WriteGPT_TO_XML(pathxmlE, gpttable, true);
+                }
             }
         }
     }

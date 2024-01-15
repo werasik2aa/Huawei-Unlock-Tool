@@ -76,12 +76,6 @@
       <HintPath>..\packages\LibUsbDotNet.2.2.29\lib\net45\LibUsbDotNet.LibUsbDotNet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="QC.QMSLPhone">
-      <HintPath>..\packages\add\QC.QMSLPhone.dll</HintPath>
-    </Reference>
-    <Reference Include="QMSL_Library">
-      <HintPath>..\packages\add\QMSL_Library.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -98,7 +92,6 @@
   <ItemGroup>
     <Compile Include="DIAGNOS\DataS.cs" />
     <Compile Include="DIAGNOS\CRC.cs" />
-    <Compile Include="DIAGNOS\HDLC.cs" />
     <Compile Include="DIAGNOS\LibCrypt.cs" />
     <Compile Include="DIAGNOS\OemInfoTool.cs" />
     <Compile Include="FlashTool\MTKFlash.cs" />
@@ -106,7 +99,6 @@
     <Compile Include="TOOLS\Fastboot.cs" />
     <Compile Include="TOOLS\ImageFlasher.cs" />
     <Compile Include="TOOLS\HISI.cs" />
-    <Compile Include="TOOLS\ResourcesMNG.cs" />
     <Compile Include="TOOLS\UpdateApp.cs" />
     <Compile Include="TOOLS\UpdateUtil\EventStream.cs" />
     <Compile Include="TOOLS\UpdateUtil\FileHeader.cs" />
@@ -115,7 +107,6 @@
     <Compile Include="TOOLS\UpdateUtil\UpdateFile.cs" />
     <Compile Include="TOOLS\UpdateUtil\Utilities.cs" />
     <Compile Include="TOOLS\UpgradeMode.cs" />
-    <Compile Include="TOOLS\SerialManager.cs" />
     <Compile Include="UI\Animation\Animation.cs" />
     <Compile Include="UI\Animation\Animator.cs" />
     <Compile Include="UI\Controls\NProgressBar.cs">
@@ -125,7 +116,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\Drawer.cs" />
-    <Compile Include="DIAGNOS\DIAG.cs" />
     <Compile Include="FlashTool\FlashToolQClegacy.cs" />
     <Compile Include="LangProc.cs" />
     <Compile Include="UI\Language.cs" />
