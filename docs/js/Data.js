@@ -4,7 +4,7 @@ const Devices = [
 	"ARE-AL10BD(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ARE-AL10BD.zip",
 	"ATH-TLXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATH-TLXX.zip",
 	"ATH-ULXX.zip(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATH-ULXX.zip",
-	"ATU-L31-L21-LOWER(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATU-LXX.zip",
+	"ATU-L31-L21-LOWER(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATU-L31-L21-LOWER.zip",
 	"ATU-L42(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATU-L42.zip",
 	"AUM-LXX(FULL_METHOD1)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/AUM-LXX.zip",
 	"AUM-L41(FULL_METHOD2)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/AUM-L41.zip",
