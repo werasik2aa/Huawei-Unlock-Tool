@@ -405,7 +405,10 @@ namespace HuaweiUnlocker
         }
         private void UnZip(string zipFile, string folderPath)
         {
-            ZipFile.Read(zipFile).ExtractAll(folderPath, ExtractExistingFileAction.OverwriteSilently);
+            var a = ZipFile.Read(zipFile);
+            a.ExtractAll(folderPath, ExtractExistingFileAction.OverwriteSilently);
+            a.Dispose();
+            File.Delete(zipFile);
         }
         private void Downloaded(object sender, AsyncCompletedEventArgs e)
         {
@@ -1148,30 +1151,37 @@ namespace HuaweiUnlocker
             };
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Tab.Enabled = false;
-                KirinFirmPath.Text = openFileDialog.FileName;
-                if (!string.IsNullOrEmpty(KirinFirmPath.Text) & KirinFirmPath.Text.ToLower().EndsWith(".app") & File.Exists(KirinFirmPath.Text))
-                    UpdateApp.Unpack(KirinFirmPath.Text, 3);
-                else if (!string.IsNullOrEmpty(KirinFirmPath.Text) & KirinFirmPath.Text.ToLower().EndsWith(".img") & File.Exists(KirinFirmPath.Text))
+                try
                 {
-                    DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo("UnlockFiles/UpdateAPP/");
-                    FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + "gpt" + "*.img");
-                    if (filesInDir.Length == 0)
+                    Tab.Enabled = false;
+                    KirinFirmPath.Text = openFileDialog.FileName;
+                    if (!string.IsNullOrEmpty(KirinFirmPath.Text) & KirinFirmPath.Text.ToLower().EndsWith(".app") & File.Exists(KirinFirmPath.Text))
+                        UpdateApp.Unpack(KirinFirmPath.Text, 3);
+                    else if (!string.IsNullOrEmpty(KirinFirmPath.Text) & KirinFirmPath.Text.ToLower().EndsWith(".img") & File.Exists(KirinFirmPath.Text))
                     {
-                        LOG(2, "RrGPTXMLE");
-                        LOG(2, "NotFoundF", "GPT.img");
-                        UpdateApp.ReadFilesInDirAsPartitions();
+                        DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo("UnlockFiles/UpdateAPP/");
+                        FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + "gpt" + "*.img");
+                        if (filesInDir.Length == 0)
+                        {
+                            LOG(2, "RrGPTXMLE");
+                            LOG(2, "NotFoundF", "GPT.img");
+                            UpdateApp.ReadFilesInDirAsPartitions();
+                        }
+                        else
+                            DeviceInfo.Partitions = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
+                        Tab.Enabled = true;
                     }
-                    else
-                        DeviceInfo.Partitions = GET_GPT_FROM_FILE(filesInDir[0].FullName, 512);
-                    Tab.Enabled = true;
-                }
 
-                while (Tab.Enabled != true)
-                    Application.DoEvents();
-                foreach (var p in DeviceInfo.Partitions)
-                    KirinFiles.Rows.Add(p.Key, p.Value.BlockLength);
-                KirinFiles.AutoResizeRows();
+                    while (Tab.Enabled != true)
+                        Application.DoEvents();
+                    foreach (var p in DeviceInfo.Partitions)
+                        KirinFiles.Rows.Add(p.Key, p.Value.BlockLength);
+                    KirinFiles.AutoResizeRows();
+                }
+                catch
+                {
+                    LOG(2, "Selected file not an Update.APP");
+                }
                 LOG(0, "Done");
             }
 
