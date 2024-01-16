@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using static HuaweiUnlocker.LangProc;
 namespace HuaweiUnlocker.TOOLS
 {
@@ -78,6 +79,7 @@ namespace HuaweiUnlocker.TOOLS
 
                 Thread.Sleep(500);
                 counter++;
+                Application.DoEvents();
             }
 
             UsbDeviceFinder finder;

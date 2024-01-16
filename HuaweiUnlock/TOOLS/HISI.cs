@@ -62,7 +62,7 @@ namespace HuaweiUnlocker.TOOLS
         }
         public static bool ReadInfo()
         {
-            if (!IsDeviceConnected(100)) {
+            if (!IsDeviceConnected(5)) {
                 LOG(1, "NoDEVICEAnsw", " [HISI] Maybe hisi Loaders Wont boot"); return false;
             } //if timeout and no device
             GetASerial();
