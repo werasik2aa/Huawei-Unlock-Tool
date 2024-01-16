@@ -683,24 +683,31 @@ namespace HuaweiUnlocker
             PORTBOX.Items.Add("");
             foreach (var i in GETPORTLIST())
                 PORTBOX.Items.Add(i.FullName);
-            if (DeviceInfo.loadedhose && !PORTBOX.Items.Contains(DeviceInfo.Port.FullName))
+            if (DeviceInfo.loadedhose)
             {
-                LOG(0, "DPort", DeviceInfo.Port.FullName);
-                PORTBOX.Items.Remove(DeviceInfo.Port.FullName);
-                DeviceInfo = new IDentifyDev();
-                if (CurProcess != null)
+                if (!PORTBOX.Items.Contains(DeviceInfo.Port.FullName))
                 {
-                    CurProcess.Close();
-                    CurProcess.Dispose();
+                    LOG(0, "DPort", DeviceInfo.Port.FullName);
+                    PORTBOX.Items.Remove(DeviceInfo.Port.FullName);
+                    DeviceInfo = new IDentifyDev();
+                    if (CurProcess != null)
+                    {
+                        CurProcess.Close();
+                        CurProcess.Dispose();
+                    }
+                    PARTLIST.Rows.Clear();
+                    PARTLIST.Update();
+                    KirinFiles.Rows.Clear();
+                    KirinFiles.Update();
+                    RdGPT.Visible = RdGPT.Enabled = true;
+                    WHAT2.Enabled = WHAT2.Visible = WHAT.Enabled = WHAT.Visible = false;
+                    Tab.Enabled = true;
                 }
-                PARTLIST.Rows.Clear();
-                PARTLIST.Update();
-                KirinFiles.Rows.Clear();
-                KirinFiles.Update();
-                RdGPT.Visible = RdGPT.Enabled = true;
-                WHAT2.Enabled = WHAT2.Visible = WHAT.Enabled = WHAT.Visible = false;
-                HISI.BSN = HISI.AVER = HISI.BNUM = HISI.MODEL = "NaN";
-                Tab.Enabled = true;
+                if (!HISI.fb.device.IsOpen)
+                {
+                    DeviceInfo.loadedhose = false;
+                    HISI.BSN = HISI.AVER = HISI.BNUM = HISI.MODEL = "NaN";
+                }
             }
             PORTBOX.SelectedItem = PORTBOX.SelectedText = a;
         }
