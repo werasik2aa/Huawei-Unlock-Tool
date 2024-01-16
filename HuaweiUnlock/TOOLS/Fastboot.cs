@@ -163,7 +163,7 @@ namespace HuaweiUnlocker.TOOLS
             if (wroteSize != size)
                 throw new Exception("Failed to transfer block (sent " + wroteSize + " of " + size + ")");
         }
-        public bool UploadData(string path)
+        public bool UploadData(string path, string partname)
         {
             //WRITE_D
             FileStream stream = new FileStream(path, FileMode.Open);
@@ -177,7 +177,6 @@ namespace HuaweiUnlocker.TOOLS
                 while (totalenremain > 0)
                 {
                     long curlenremain = totalenremain >= MAX_DWN_SIZE ? MAX_DWN_SIZE : totalenremain;
-                    string partname = stream.Name.Split('.')[0].Split('\\').Last();
                     LOG(0, "[Fastboot] Sending: ", curlenremain == MAX_DWN_SIZE ? partname + " Part: " + (i++) : partname);
                     while (curlenremain > 0)
                     {

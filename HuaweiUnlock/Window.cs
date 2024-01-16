@@ -79,10 +79,7 @@ namespace HuaweiUnlocker
                         if (!device[0].StartsWith("KIRIN"))
                             DEVICER.Items.Add(device[0]);
                         else
-                        {
                             HISIbootloaders.Items.Add(device[0]);
-                            HISIbootloaders2.Items.Add(device[0]);
-                        }
                         source.Add(device[0], device[1]);
                     }
                 }
@@ -98,10 +95,7 @@ namespace HuaweiUnlocker
             {
                 string folderDEV = a.Split('\\').Last();
                 if (folderDEV.StartsWith("KIRIN") & !HISIbootloaders.Items.Contains(folderDEV))
-                {
-                    HISIbootloaders2.Items.Add(folderDEV);
                     HISIbootloaders.Items.Add(folderDEV);
-                }
                 else if (!DEVICER.Items.Contains(folderDEV))
                     DEVICER.Items.Add(folderDEV);
             }
@@ -164,11 +158,7 @@ namespace HuaweiUnlocker
                 TUTR2.Text = Language.Get("Tutr2");
                 groupBox16.Text = groupBox13.Text = groupBox3.Text = ACTBOX.Text = Language.Get("Action");
                 //HISI TEXT
-                CpuHISIBox2.Text = CpuHISIBox.Text = Language.Get("HISISelectCpu");
-                RdHISIinfo.Text = Language.Get("HISIReadFB");
-                HISI_board_FB.Text = Language.Get("HISIWriteKirinFB");
-                ConnectKIRINBTN.Text = UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD");
-                FBLstHISI.Text = Language.Get("HISIWriteKirinFBL");
+
 
                 Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
                 if (!Directory.Exists(Path)) BoardU.Text = Language.Get("DdBtn"); else BoardU.Text = Language.Get("DdBtnE");
@@ -427,7 +417,7 @@ namespace HuaweiUnlocker
             }
             LOG(0, "Downloaded", Temp + ".zip");
             UnZip(Temp + ".zip", "UnlockFiles\\" + Temp);
-            ConnectKIRINBTN_Click(sender, e);
+            ConnectKirin();
         }
         private void ProgressBar(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -546,49 +536,31 @@ namespace HuaweiUnlocker
         private void RdHISIinfo_Click(object sender, EventArgs e)
         {
             Tab.Enabled = false;
-            try
-            {
-                LOG(-1, "=============READ INFO (FASTBOOT)=============");
-                if (HISI.ReadInfo())
-                {
-                    BuildIdTxt.Text = HISI.AVER;
-                    ModelIdTxt.Text = HISI.MODEL;
-                    VersionIdTxt.Text = HISI.BNUM;
-                    FblockStateTxt.Text = HISI.FBLOCKSTATE;
-                    BLKEYTXT.Text = HISI.BLKEY;
-                    VersionIdTxt.Text = HISI.AVER;
-                    HISI.Disconnect();
-                }
-                else LOG(2, "DeviceNotCon");
-            }
-            catch (Exception esd)
-            {
-                LOG(2, esd.Message);
-            }
+            ConnectKirin();
             Tab.Enabled = true;
         }
         private void FBLstHISI_Click(object sender, EventArgs e)
         {
+            Tab.Enabled = false;
             LOG(-1, "=============WRITE FBLOCK (FASTBOOT)=============");
             LOG(-1, "=============> VALUE: " + (EnDisFBLOCK.Checked ? 0 : 1) + " <=============");
             try
             {
-                if (HISI.ReadInfo())
+                ConnectKirin();
+                if (HISI.IsDeviceConnected())
                 {
-                    BuildIdTxt.Text = HISI.AVER;
-                    ModelIdTxt.Text = HISI.MODEL;
-                    VersionIdTxt.Text = HISI.BNUM;
-                    FblockStateTxt.Text = HISI.FBLOCKSTATE;
-                    BLKEYTXT.Text = HISI.BLKEY;
-                    VersionIdTxt.Text = HISI.AVER;
                     HISI.SetNVMEProp("FBLOCK", new[] { (byte)(EnDisFBLOCK.Checked ? 0 : 1) });
+                    HISI.Disconnect();
                 }
+                else LOG(2, "Unknown");
             }
             catch (Exception se)
             {
                 if (debug)
                     LOG(-1, "ERR: " + se);
             }
+            Tab.Enabled = true;
+            LOG(0, "Done");
         }
 
         private void HISI_board_FB_Click(object sender, EventArgs e)
@@ -600,17 +572,12 @@ namespace HuaweiUnlocker
                     LOG(-1, "=============REWRITE KEY (FASTBOOT)=============");
                     LOG(-1, "=============> KEY: " + BLkeyHI.Text + " <=============");
                     LOG(-1, "=============> LENGHT: 16 <=============");
-                    if (HISI.ReadInfo())
+                    ConnectKirin();
+                    if (HISI.IsDeviceConnected())
                     {
-                        BuildIdTxt.Text = HISI.AVER;
-                        ModelIdTxt.Text = HISI.MODEL;
-                        VersionIdTxt.Text = HISI.BNUM;
-                        FblockStateTxt.Text = HISI.FBLOCKSTATE;
-                        BLKEYTXT.Text = HISI.BLKEY;
-                        LOG(0, "HISINewKey", HISI.WriteBOOTLOADERKEY(BLkeyHI.Text));
+                        LOG(0, "HISINewKey", BLKEYTXT.Text = HISI.WriteKEY(BLkeyHI.Text));
                         HISI.Disconnect();
                     }
-                    else LOG(2, "DeviceNotCon");
                 }
                 else
                     LOG(2, "KeyLenghtERR");
@@ -621,87 +588,23 @@ namespace HuaweiUnlocker
                     LOG(2, se.Message);
             }
         }
-        private async void UNLOCKHISI_Click(object sender, EventArgs e)
+        private void UNLOCKHISI_Click(object sender, EventArgs e)
         {
             LOG(-1, "-->HISI UNL LOGS<--");
+            Tab.Enabled = false;
             try
             {
-                Tab.Enabled = false;
                 if (BLkeyHI.Text.Length == 16)
                 {
-                    if (isVCOM.Checked)
+                    ConnectKirin();
+                    LOG(-1, "=============UNLOCKER BL/FRP (KIRIN TESTPOINT)=============");
+                    if(DeviceInfo.loadedhose || !isVCOM.Checked & HISI.IsDeviceConnected())
                     {
-                        Tab.Enabled = false;
-                        LOG(-1, "=============UNLOCKER BL/FRP (KIRIN TESTPOINT)=============");
-                        if (String.IsNullOrEmpty(HISIbootloaders.Text))
-                        {
-                            LOG(1, "HISISelectCpu");
-                            Tab.Enabled = true;
-                            return;
-                        }
-                        device = HISIbootloaders.Text.ToUpper();
-                        if (!Directory.Exists("UnlockFiles\\" + device))
-                        {
-                            Progress(1);
-                            LOG(0, "DownloadFor", device);
-                            LOG(0, "URL: " + source[device]);
-                            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                            WebClient client = new WebClient();
-                            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressBar);
-                            Temp = HISIbootloaders.Text.ToUpper();
-                            client.DownloadFileCompleted += new AsyncCompletedEventHandler(Downloaded);
-                            client.DownloadFileAsync(new Uri(source[device]), device + ".zip");
-                            UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD");
-                            return;
-                        }
-                        Path = "UnlockFiles\\" + device + "\\manifest.xml";
-                        DeviceInfo = new IDentifyDev();
-                        LOG(0, "CheckCon");
-                        DeviceInfo.Port = GETPORT("huawei usb com", PORTBOX.Text);
-                        DeviceInfo.CPUName = UNLOCKHISI.Text;
-                        DeviceInfo.loadedhose = false;
-                        if (DeviceInfo.Port.ComName != "NaN")
-                        {
-                            CurTask = Task.Run(() =>
-                            {
-                                HISI.StartUnlockPRCS(FRPchk.Checked, RbCheck.Checked, BLkeyHI.Text, Bootloader.ParseBootloader(Path), DeviceInfo.Port.ComName);
-                            });
-                            await CurTask;
-                            if (HISI.AVER != HISI.BSN) DeviceInfo.loadedhose = true;
-                            BuildIdTxt.Text = HISI.AVER;
-                            ModelIdTxt.Text = HISI.MODEL;
-                            VersionIdTxt.Text = HISI.BNUM;
-                            FblockStateTxt.Text = HISI.FBLOCKSTATE;
-                            BLKEYTXT.Text = HISI.BLKEY;
-                        }
-                        else { Tab.Enabled = true; LOG(2, "DeviceNotCon"); }
+                        BLKEYTXT.Text = HISI.WriteKEY(BLkeyHI.Text.ToUpper());
+                        if (RbCheck.Checked) HISI.Reboot();
+                        HISI.Disconnect();
                     }
-                    else
-                    {
-                        if (!FRPchk.Checked)
-                        {
-                            LOG(-1, "=============REWRITE KEY (FASTBOOT)=============");
-                            LOG(-1, "=============> KEY: " + BLkeyHI.Text + " <=============");
-                            LOG(-1, "=============> LENGHT: " + BLkeyHI.Text + " <=============");
-                        }
-                        else
-                            LOG(-1, "=============UNLOCK FRP (FASTBOOT)=============");
-                        LOG(-1, "=============Only for unlocked bootloader=============");
-
-                        if (HISI.ReadInfo())
-                        {
-                            BuildIdTxt.Text = HISI.AVER;
-                            ModelIdTxt.Text = HISI.MODEL;
-                            VersionIdTxt.Text = HISI.BNUM;
-                            FblockStateTxt.Text = HISI.FBLOCKSTATE;
-                            BLKEYTXT.Text = BLkeyHI.Text;
-                            if (!FRPchk.Checked)
-                                HISI.WriteBOOTLOADERKEY(BLkeyHI.Text);
-                            else
-                                HISI.UnlockFRP();
-                        }
-                        else LOG(-1, "DeviceNotCon");
-                    }
+                    else LOG(2, isVCOM.Checked? "[HUAWEI COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
                 }
                 else
                     LOG(2, "KeyLenghtERR");
@@ -712,6 +615,7 @@ namespace HuaweiUnlocker
                     LOG(2, se.Message);
             }
             Tab.Enabled = true;
+            LOG(0, "Done");
         }
 
         private void HISIbootloaders_SelectedIndexChanged(object sender, EventArgs e)
@@ -832,9 +736,10 @@ namespace HuaweiUnlocker
                 WHAT2.Enabled = WHAT2.Visible = WHAT.Enabled = WHAT.Visible = false;
                 HISI.BSN = HISI.AVER = HISI.BNUM = HISI.MODEL = "NaN";
                 Tab.Enabled = true;
+                if (!HISI.fb.device.IsOpen)
+                    DeviceInfo.loadedhose = false;
             }
-            PORTBOX.SelectedText = a;
-            PORTBOX.SelectedItem = a;
+            PORTBOX.SelectedItem = PORTBOX.SelectedText = a;
         }
 
         private void CrtGptBTN2_Click(object sender, EventArgs e)
@@ -1024,13 +929,30 @@ namespace HuaweiUnlocker
 
         private void FrpHISIUnlock_Click(object sender, EventArgs e)
         {
+            Tab.Enabled = false;
             FRPchk.Checked = true;
-            UNLOCKHISI_Click(sender, e);
+            ConnectKirin();
+            if (DeviceInfo.loadedhose || !isVCOM.Checked & HISI.IsDeviceConnected())
+                HISI.UnlockFRP();
+            else
+            {
+                LOG(2, isVCOM.Checked ? "[HUAWEI COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
+                LOG(2, "FailFrp");
+            }
+            Tab.Enabled = true;
+            LOG(0, "Done");
         }
 
         private void RebootFB_Click(object sender, EventArgs e)
         {
-            HISI.Reboot();
+            ConnectKirin();
+            if (DeviceInfo.loadedhose || !isVCOM.Checked & HISI.IsDeviceConnected())
+                HISI.Reboot();
+            else
+            {
+                LOG(2, isVCOM.Checked ? "[HUAWEI COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
+                LOG(2, "FailFrp");
+            }
         }
 
         private void HomeeBTN_Click(object sender, EventArgs e)
@@ -1053,17 +975,16 @@ namespace HuaweiUnlocker
             Tab.SelectTab(3);
         }
 
-        private async void ConnectKIRINBTN_Click(object sender, EventArgs e)
+        private async void ConnectKirin()
         {
             Tab.Enabled = false;
-            LOG(-1, "=============BOOTLOADER (KIRIN TESTPOINT->FASTBOOT)=============");
-            if (String.IsNullOrEmpty(HISIbootloaders2.Text))
+            if (String.IsNullOrEmpty(HISIbootloaders.Text.ToUpper()))
             {
                 LOG(1, "HISISelectCpu");
                 Tab.Enabled = true;
                 return;
             }
-            device = HISIbootloaders2.Text.ToUpper();
+            device = HISIbootloaders.Text.ToUpper();
             if (!Directory.Exists("UnlockFiles\\" + device))
             {
                 Progress(1);
@@ -1072,12 +993,12 @@ namespace HuaweiUnlocker
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 WebClient client = new WebClient();
                 client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressBar);
-                Temp = HISIbootloaders2.Text.ToUpper();
+                Temp = device;
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(Downloaded2);
                 client.DownloadFileAsync(new Uri(source[device]), device + ".zip");
-                ConnectKIRINBTN.Text = Language.Get("HISIWriteKirinBLD");
                 return;
             }
+            LOG(-1, "=============BOOTLOADER (KIRIN TESTPOINT->FASTBOOT)=============");
             Path = "UnlockFiles\\" + device + "\\manifest.xml";
             DeviceInfo = new IDentifyDev();
             LOG(0, "CheckCon");
@@ -1086,31 +1007,43 @@ namespace HuaweiUnlocker
             {
                 CurTask = Task.Run(() =>
                 {
-                    HISI.WriteKirinBootloader(Bootloader.ParseBootloader(Path), DeviceInfo.Port.ComName);
+                    HISI.FlashBootloader(Bootloader.ParseBootloader(Path), DeviceInfo.Port.ComName);
                 });
                 await CurTask;
-                if (DeviceInfo.loadedhose = HISI.FBLOCK)
-                    LOG(0, "Ready to flash firmware");
-                else
-                    LOG(0, "Not ready for flash");
+                LOG(0, "[Fastboot] ", "CheckCon");
+                if (HISI.IsDeviceConnected(100))
+                {
+                    HISI.ReadInfo();
+                    DeviceInfo.loadedhose = true;
+                    HISI.UnlockFBLOCK();
+                    BuildIdTxt.Text = HISI.AVER;
+                    ModelIdTxt.Text = HISI.MODEL;
+                    VersionIdTxt.Text = HISI.BNUM;
+                    FblockStateTxt.Text = HISI.FBLOCKSTATE;
+                    BLKEYTXT.Text = HISI.BLKEY;
+                }
+                else { Tab.Enabled = true; LOG(2, "[Fastboot] ", "DeviceNotCon"); }
             }
-            else
+            else if (HISI.IsDeviceConnected())
             {
                 LOG(0, "[Fastboot] ", "CheckCon");
-                if (HISI.ReadInfo())
-                    if (DeviceInfo.loadedhose = HISI.FBLOCK)
-                        LOG(0, "Ready to flash firmware");
-                    else
-                        LOG(0, "Not ready for flash");
-                else
-                    LOG(2, "DeviceNotCon");
+                HISI.ReadInfo();
+                DeviceInfo.loadedhose = true;
+                HISI.UnlockFBLOCK();
+                BuildIdTxt.Text = HISI.AVER;
+                ModelIdTxt.Text = HISI.MODEL;
+                VersionIdTxt.Text = HISI.BNUM;
+                FblockStateTxt.Text = HISI.FBLOCKSTATE;
+                BLKEYTXT.Text = HISI.BLKEY;
             }
-            Tab.Enabled = true;
+            else
+                LOG(2, "[Fastboot|COM1.0] ", "DeviceNotCon");
+            if (HISI.AVER != HISI.BSN) DeviceInfo.loadedhose = true;
         }
 
         private void FlashUKIRINBtn_Click(object sender, EventArgs e)
         {
-            ConnectKIRINBTN_Click(sender, e);
+            ConnectKirin();
             if (HISI.FBLOCK)
             {
                 LOG(2, "HISIInfoS");
@@ -1125,10 +1058,15 @@ namespace HuaweiUnlocker
             {
                 if (HISI.fb.Connect(10))
                 {
+                    if (File.Exists("UnlockFiles/UpdateAPP/hisiufs_gpt.img"))
+                    {
+                        HISI.fb.UploadData("UnlockFiles/UpdateAPP/hisiufs_gpt.img", "partition");
+                        HISI.fb.UploadData("UnlockFiles/UpdateAPP/hisiufs_gpt.img", "ptable");
+                    }
                     foreach (var a in DeviceInfo.Partitions)
                     {
                         LOG(0, "Writer", a.Key);
-                        HISI.fb.UploadData("UnlockFiles/UpdateAPP/" + a.Key + ".img");
+                        HISI.fb.UploadData("UnlockFiles/UpdateAPP/" + a.Key + ".img", a.Key);
                     }
                     LOG(0, "Done");
                 }
@@ -1183,13 +1121,6 @@ namespace HuaweiUnlocker
             }
 
         }
-
-        private void HISIbootloaders2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Path = "UnlockFiles\\" + HISIbootloaders2.Text.ToUpper();
-            if (!Directory.Exists(Path)) ConnectKIRINBTN.Text = Language.Get("HISIWriteKirinBLD") + " & " + Language.Get("HISIInitFB"); else ConnectKIRINBTN.Text = Language.Get("HISIInitFB");
-        }
-
         private void WritePA2_Click(object sender, EventArgs e)
         {
             OpenFileDialog file = new OpenFileDialog();
@@ -1198,15 +1129,39 @@ namespace HuaweiUnlocker
                 if (!HISI.IsDeviceConnected()) HISI.fb.Connect(10);
                 if (!HISI.IsDeviceConnected()) return;
                 LOG(0, "Writer", file.FileName);
-                HISI.fb.UploadData(file.FileName);
+                HISI.fb.UploadData(file.FileName, file.FileName.Split('\\').Last().Split('.')[0]);
+                LOG(0, "Done");
             }
         }
 
         private void ErasePA2_Click(object sender, EventArgs e)
         {
             LOG(0, "Eraser", Temp);
-            var data = HISI.fb.Command("erase:" + Temp);
-            LOG(0, "DEBUG: ", data.RawData);
+            HISI.fb.Command("erase:" + Temp);
+            LOG(0, "Done");
+        }
+
+        private void TryUNLHisiFBBtn_Click(object sender, EventArgs e)
+        {
+            Tab.Enabled = false;
+            ConnectKirin();
+            if (DeviceInfo.loadedhose || !isVCOM.Checked & HISI.IsDeviceConnected())
+                HISI.TryUnlock(HISI.ReadFactoryKey().Trim());
+            else LOG(2, isVCOM.Checked ? "[HUAWEI COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
+            Tab.Enabled = true;
+            LOG(0, "Done");
+        }
+
+        private void WriteFactoryBL_Click(object sender, EventArgs e)
+        {
+            ConnectKirin();
+            if (DeviceInfo.loadedhose)
+                LOG(0, "Done");
+            else
+            {
+                Tab.Enabled = true;
+                LOG(2, "[HUAWEI COM 1.0] ", "DeviceNotCon");
+            }
         }
     }
 }

@@ -137,6 +137,7 @@ namespace HuaweiUnlocker.TOOLS
                     WriteGPT_TO_XML(pathxml, gpttable, false);
                     WriteGPT_TO_XML(pathxmlE, gpttable, true);
                 }
+                Progress(100, 100);
             }
         }
     }

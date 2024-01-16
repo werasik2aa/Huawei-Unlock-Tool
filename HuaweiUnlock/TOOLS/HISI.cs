@@ -62,8 +62,9 @@ namespace HuaweiUnlocker.TOOLS
         }
         public static bool ReadInfo()
         {
-            if (!IsDeviceConnected()) fb.Connect(); //try to connect
-            if (!IsDeviceConnected()) return false; //if timeout and no device
+            if (!IsDeviceConnected(100)) {
+                LOG(1, "NoDEVICEAnsw", " [HISI] Maybe hisi Loaders Wont boot"); return false;
+            } //if timeout and no device
             GetASerial();
             GetModelProduct();
             GetModelBSN();
@@ -89,7 +90,6 @@ namespace HuaweiUnlocker.TOOLS
         }
         public static string GetModelProduct()
         {
-            if (!IsDeviceConnected()) fb.Connect(10); //try to connect
             if (!IsDeviceConnected()) return ""; //if timeout and no device
             Fastboot.Response model = fb.Command("oem get-product-model");
             LOG(0, "ModelTag", model.Payload);
@@ -97,7 +97,6 @@ namespace HuaweiUnlocker.TOOLS
         }
         public static string GetBuildID()
         {
-            if (!IsDeviceConnected()) fb.Connect(10); //try to connect
             if (!IsDeviceConnected()) return ""; //if timeout and no device
             Fastboot.Response build = fb.Command("oem get-build-number");
             LOG(0, "BuildIdTag", build.Payload.Replace(":", ""));
@@ -105,7 +104,6 @@ namespace HuaweiUnlocker.TOOLS
         }
         public static bool GetFBLockState()
         {
-            if (!IsDeviceConnected()) fb.Connect(10); //try to connect
             if (!IsDeviceConnected()) return true; //if timeout and no device
             Fastboot.Response fblock = fb.Command("oem lock-state info");
             bool state = Regex.IsMatch(fblock.Payload, @"FB[\w: ]{1,}UNLOCKED");
@@ -120,7 +118,6 @@ namespace HuaweiUnlocker.TOOLS
         }
         public static void UnlockFRP()
         {
-            if (!IsDeviceConnected()) fb.Connect(10); //try to connect
             if (!IsDeviceConnected()) return; //if timeout and no device
             LOG(0, "Unlocker", "FRP (BETA)");
             fb.Command("oem erase frp");
@@ -129,8 +126,8 @@ namespace HuaweiUnlocker.TOOLS
             fb.Command("oem frp-erase");
             fb.Command("oem frp-unlock");
             fb.Command("oem format cache");
-            fb.UploadData("Tools\\frpUnlocked.img");
-            fb.UploadData("Tools\\frpPartition.img");
+            fb.UploadData("Tools\\frpUnlocked.img", "devinfo");
+            fb.UploadData("Tools\\frpPartition.img", "frp");
         }
         public static void SetNVMEProp(string prop, byte[] value)
         {
@@ -158,7 +155,6 @@ namespace HuaweiUnlocker.TOOLS
 
         public static void SetHWDogState(byte state)
         {
-            if (!IsDeviceConnected()) fb.Connect(10); //try to connect
             if (!IsDeviceConnected()) return; //if timeout and no device
             foreach (var command in new[] { "hwdog certify set", "backdoor set" })
             {
@@ -176,7 +172,6 @@ namespace HuaweiUnlocker.TOOLS
         }
         public static void ReadAllMethods()
         {
-            if (!IsDeviceConnected()) fb.Connect(10); //try to connect
             if (!IsDeviceConnected()) return; //if timeout and no device
             if ((BLKEY = ReadFactoryKey()).Length >= 8)
                 LOG(0, "HISIOldKey", " Method1-> " + BLKEY);
@@ -236,7 +231,7 @@ namespace HuaweiUnlocker.TOOLS
                 SetHWDogState(fblockState);
             }
         }
-        public static string WriteBOOTLOADERKEY(string key)
+        public static string WriteKEY(string key)
         {
             try
             {
@@ -251,43 +246,17 @@ namespace HuaweiUnlocker.TOOLS
             }
             return "NaN";
         }
-        public static string WriteBOOTLOADERKEY_METHOD2(string key)
+        public static bool IsDeviceConnected(int time=10)
         {
-            if (!IsDeviceConnected()) return "NaN";
-            try
-            {
-                SetNVMEProp("WVLOCK", Encoding.ASCII.GetBytes(key));
-                SetNVMEProp("USRKEY", Encoding.ASCII.GetBytes(key));
-                return key;
-            }
-            catch (Exception ex)
-            {
-                LOG(2, "Failed to set the key.");
-                if (debug) LOG(2, ex.Message);
-            }
-            return "NaN";
-        }
-        public static bool IsDeviceConnected()
-        {
+            if (fb.device == null) fb.Connect(time);
             return fb.device != null;
         }
-        public static string Reboot()
+        public static string Reboot(string state = "")
         {
             if (!IsDeviceConnected()) return "NaN";
-            var res = fb.Command("reboot");
+            var res = fb.Command("reboot" +state);
             LOG(0, res.Payload);
             return res.Payload;
-        }
-        public static void WriteKirinBootloader(Bootloader d, string port)
-        {
-            FlashBootloader(d, port);
-            LOG(0, "Unlocker", "[KIRIN FBLOCK]");
-            if (fb.Connect())
-            {
-                DeviceInfo.loadedhose = true;
-                UnlockFBLOCK();
-                ReadInfo();
-            }
         }
         public static void StartUnlockPRCS(bool frp, bool rb, string key, Bootloader d, string port)
         {
@@ -303,7 +272,7 @@ namespace HuaweiUnlocker.TOOLS
                     {
                         UnlockFBLOCK();
                         ReadInfo();
-                        LOG(0, "HISINewKey", BLKEY = WriteBOOTLOADERKEY(key));
+                        LOG(0, "HISINewKey", BLKEY = WriteKEY(key));
                     }
                     else
                     {
