@@ -1014,8 +1014,8 @@ namespace HuaweiUnlocker
                 if (HISI.IsDeviceConnected(100))
                 {
                     HISI.ReadInfo();
-                    DeviceInfo.loadedhose = true;
                     HISI.UnlockFBLOCK();
+                    DeviceInfo.loadedhose = true;
                     BuildIdTxt.Text = HISI.AVER;
                     ModelIdTxt.Text = HISI.MODEL;
                     VersionIdTxt.Text = HISI.BNUM;
@@ -1044,7 +1044,7 @@ namespace HuaweiUnlocker
         private void FlashUKIRINBtn_Click(object sender, EventArgs e)
         {
             ConnectKirin();
-            if (HISI.FBLOCK)
+            if (!HISI.FBLOCK)
             {
                 LOG(2, "HISIInfoS");
                 LOG(0, "Trying to continue");
