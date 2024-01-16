@@ -930,7 +930,6 @@ namespace HuaweiUnlocker
         private void FrpHISIUnlock_Click(object sender, EventArgs e)
         {
             Tab.Enabled = false;
-            FRPchk.Checked = true;
             ConnectKirin();
             if (DeviceInfo.loadedhose || !isVCOM.Checked & HISI.IsDeviceConnected())
                 HISI.UnlockFRP();
