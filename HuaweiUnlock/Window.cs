@@ -158,7 +158,10 @@ namespace HuaweiUnlocker
                 TUTR2.Text = Language.Get("Tutr2");
                 groupBox16.Text = groupBox13.Text = groupBox3.Text = ACTBOX.Text = Language.Get("Action");
                 //HISI TEXT
-
+                WriteFactoryBL.Text = Language.Get("HISIWriteKirinBLD2");
+                UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD");
+                FrpHISIUnlock.Text = Language.Get("UnlockBTN");
+                RebootFBBTN.Text = Language.Get("RbBTN");
 
                 Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
                 if (!Directory.Exists(Path)) BoardU.Text = Language.Get("DdBtn"); else BoardU.Text = Language.Get("DdBtnE");
@@ -621,7 +624,16 @@ namespace HuaweiUnlocker
         private void HISIbootloaders_SelectedIndexChanged(object sender, EventArgs e)
         {
             Path = "UnlockFiles\\" + HISIbootloaders.Text.ToUpper();
-            if (!Directory.Exists(Path)) UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD"); else UNLOCKHISI.Text = Language.Get("HISIWriteKirinBL");
+            if (!Directory.Exists(Path))
+            {
+                WriteFactoryBL.Text = Language.Get("HISIWriteKirinBLD2");
+                UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD");
+            }
+            else
+            {
+                UNLOCKHISI.Text = Language.Get("HISIWriteKirinBL");
+                WriteFactoryBL.Text = Language.Get("HISIInitFB");
+            }
         }
 
 

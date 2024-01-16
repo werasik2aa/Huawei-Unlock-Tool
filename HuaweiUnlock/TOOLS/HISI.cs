@@ -131,7 +131,7 @@ namespace HuaweiUnlocker.TOOLS
         }
         public static void SetNVMEProp(string prop, byte[] value)
         {
-            LOG(0, $"Writing {prop}...");
+            LOG(0, "WritingPropTAG", prop);
 
             var cmd = new List<byte>();
 
