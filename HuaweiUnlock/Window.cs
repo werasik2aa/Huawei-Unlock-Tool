@@ -162,6 +162,7 @@ namespace HuaweiUnlocker
                 UNLOCKHISI.Text = Language.Get("HISIWriteKirinBLD");
                 FrpHISIUnlock.Text = Language.Get("UnlockBTN");
                 RebootFBBTN.Text = Language.Get("RbBTN");
+                TryUNLHisiFBBtn.Text = Language.Get("DdBtnE");
 
                 Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
                 if (!Directory.Exists(Path)) BoardU.Text = Language.Get("DdBtn"); else BoardU.Text = Language.Get("DdBtnE");
