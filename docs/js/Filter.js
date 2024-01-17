@@ -1,11 +1,14 @@
 var MYCONT=document.getElementById("DATA");
+var isListDev = GetQueryValue("ListDev");
+var DataQr = GetQueryValue("SearchIT");
+var DataDw = GetQueryValue("Download");
 function GetQueryValue(name) {
 	name = name.replace(/[\[\]]/g, '\\$&');
 	results = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)').exec(window.location.href);
 	if (!results || !results[2]) return '';
 	return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-function SearchIt(data) {
+function SearchIT(data) {
 	filter = data.toUpperCase();
 	var ARRA = document.getElementsByClassName("card");
 	for (i=0; i < ARRA.length; i++)
@@ -17,27 +20,29 @@ function SearchIt(data) {
 	}
 	console.log("Len: " + ARRA.length);
 }
-window.onload = function()
-{
-	var isListDev = GetQueryValue("ListDev");
-	if(isListDev == 'true')
-		ClientDataOut();
-	else
-		BrowserDataOut();
-};
 	
 function ClientDataOut()
 {
-	document.documentElement.innerHTML = '';
 	for (i=0; i < Devices.length; i++)
 	{
 		var part = Devices[i].split("'");
-		document.documentElement.innerHTML += '\n' + part[0] + "'" + part[1];
+		MYCONT.innerHTML += GetTemplate("UBootloaderTAG", "img/DefULBL.png", part[0], part[1]);
 	}
-	return document.documentElement.innerHTML;
 }
-	
-function BrowserDataOut()
+function BrowserLinksOut()
+{
+	for (i=0; i < Tutorials.length; i++)
+	{
+		var part = Tutorials[i].split("'");
+		MYCONT.innerHTML += GetTemplate("", "img/DefULBL.png", part[0], part[1]).replace(">Download<", ">Read<");
+	}
+	for (i=0; i < TutorialsV.length; i++)
+	{
+		var part = TutorialsV[i].split("'");
+		MYCONT.innerHTML += GetTemplate("", "img/YTIMG.png", part[0], part[1]).replace(">Download<", ">Watch<");
+	}
+}	
+function BrowserDownloadableDataOut()
 {
 	for (i=0; i < Devices.length; i++)
 	{
@@ -64,6 +69,11 @@ function BrowserDataOut()
 		var part = Firmwares[i].split("'");
 		MYCONT.innerHTML += GetTemplate("UFirmwareTAG", "img/DefFirm.png", part[0], part[1]);
 	}
+	for (i=0; i < MISC.length; i++)
+	{
+		var part = MISC[i].split("'");
+		MYCONT.innerHTML += GetTemplate("UMiscTAG", "img/DefULFile.png", part[0], part[1]);
+	}
 	for (i=0; i < GPTS.length; i++)
 	{
 		var part = GPTS[i].split("'");
@@ -74,7 +84,8 @@ function BrowserDataOut()
 		var part = MTKDAS[i].split("'");
 		MYCONT.innerHTML += GetTemplate("UMtkTAG", "img/DefFWMTK.png", part[0], part[1]);
 	}
-	LoadFuckingText();
+	if(DataQr.length > 0)
+		SearchIT(DataQr);
 }
 function GetTemplate(tag, urlimg, name, url)
 {
@@ -89,6 +100,5 @@ function GetTemplate(tag, urlimg, name, url)
 		</div>
 	</div>
 	`
-
 	return data.replace("{0}", tag).replace("{1}", name).replace("{2}", url).replace("{3}", urlimg);
 }

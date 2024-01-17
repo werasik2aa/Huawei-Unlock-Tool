@@ -16,13 +16,13 @@
 					<li class="nav-item">
 						<a class="nav-link" href="index.html">Home</a>
 					</li>
-					<li class="nav-item active">
+					<li class="nav-item">
 						<a class="nav-link" href="DownloadCenter.html">Firmwares, Drivers & Softwares</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="DevStatus.html">Broken Device Status</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item active">
 						<a class="nav-link" href="Tutorials.html">Tutorials & Guides</a>
 					</li>
 					<li class="nav-item">
@@ -32,16 +32,6 @@
 						<a class="nav-link" href="https://t.me/+TztmQ7N2xz9lN2Uy">Contact</a>
 					</li>
 				</ul>
-		
-			<button class="btn" onclick="SearchIT('')">ALL</button>
-			<button class="btn" onclick="SearchIT('UBootloaderTAG')">Unlocked Bootloaders</button>
-			<button class="btn" onclick="SearchIT('UFirmwareTAG')">Board Firmwares</button>
-			<button class="btn" onclick="SearchIT('ULoaderTAG')">Firehose loaders</button>
-			<button class="btn" onclick="SearchIT('UMiscTAG')">Unlock/Misc files</button>
-			<button class="btn" onclick="SearchIT('UGptTAG')">GPT + rawprogram0.xml</button>
-			<button class="btn" onclick="SearchIT('UMtkTAG')">MTK_DA + scatter.txt</button>
-			<button class="btn" onclick="SearchIT('UToolTAG')">Tools</button>
-			<button class="btn" onclick="SearchIT('UDriverTAG')">Drivers</button>
 		</nav>
 		<input  class="form-control" type="search" type="text"  oninput="SearchIT(this.value)" placeholder="Search for files" /></input>
 		<div class="card-title">Found content</div>
@@ -53,10 +43,7 @@
 		<script>
 		window.onload = function()
 		{
-			if(isListDev == 'true')
-				ClientDataOut();
-			else
-				BrowserDownloadableDataOut();
+			BrowserLinksOut();
 		};
 		</script>
 	</body>
