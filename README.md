@@ -29,12 +29,12 @@ Can support 620|620(CAM)|65x_a|65x_b|710|810|925|935|950|955|960|970 . in theory
 
 So much editions in code base for allow to work with phone in this tool. ALL in ONE Tool! Multi Language...
 For peoples who need like dongle box tool... But without dongle...
-
-<a href="https://ibb.co/BnNjFM0"><img src="https://i.ibb.co/BnNjFM0/image.png" alt="image" border="0"></a>
-<a href="https://ibb.co/FgxpgdW"><img src="https://i.ibb.co/FgxpgdW/image.png" alt="image" border="0"></a>
-<a href="https://ibb.co/M9ngr0C"><img src="https://i.ibb.co/M9ngr0C/image.png" alt="image" border="0"></a>
-<a href="https://ibb.co/6FJsWvc"><img src="https://i.ibb.co/6FJsWvc/image.png" alt="image" border="0"></a>
-<a href="https://ibb.co/n3JQBsK"><img src="https://i.ibb.co/n3JQBsK/image.png" alt="image" border="0"></a>
+<a href="https://ibb.co/BnNjFM0"><img src="https://werasik2aa.github.io/Huawei-Unlock-Tool/img/SC1.png" alt="image" border="0"></a>
+<a href="https://ibb.co/FgxpgdW"><img src="https://werasik2aa.github.io/Huawei-Unlock-Tool/img/SC2.png" alt="image" border="0"></a>
+<a href="https://ibb.co/M9ngr0C"><img src="https://werasik2aa.github.io/Huawei-Unlock-Tool/img/SC3.png" alt="image" border="0"></a>
+<a href="https://ibb.co/6FJsWvc"><img src="https://werasik2aa.github.io/Huawei-Unlock-Tool/img/SC4.png" alt="image" border="0"></a>
+<a href="https://ibb.co/n3JQBsK"><img src="https://werasik2aa.github.io/Huawei-Unlock-Tool/img/SC5.png" alt="image" border="0"></a>
+<a href="https://ibb.co/n3JQBsK"><img src="https://werasik2aa.github.io/Huawei-Unlock-Tool/img/SC6.png" alt="image" border="0"></a>
 
 # QCOM UNLOCKER
 Copyright (C) 2018-2023 Moongamer on 4PDA
