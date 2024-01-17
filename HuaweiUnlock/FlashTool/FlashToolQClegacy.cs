@@ -207,7 +207,7 @@ namespace HuaweiUnlocker.FlashTool
         {
             Progress(2);
             string command = "Tools\\fh_loader.exe";
-            string subcommandr = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --reset --showpercentagecomplete --zlpawarehost=1 --noprompt --noprompt";
+            string subcommandr = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --reset --showpercentagecomplete --zlpawarehost=1 --noprompt --noprompt" + (wndw.UFSChk.Checked ? " --memoryname=ufs" : " --memoryname=emmc"); ;
             //final set active
             LOG(0, "MarkUpGPT");
             if (!SyncRUN(command, subcommandr))
@@ -222,8 +222,8 @@ namespace HuaweiUnlocker.FlashTool
                 Progress(2);
                 string command = "Tools\\fh_loader.exe";
                 string subcommandr = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --reset";
-                string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --sendxml=" + '"' + rawxml + '"' + " --search_path=" + '"' + path + '"';
-                string subcommandp = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --sendxml=" + '"' + patchxml + '"' + " --search_path=" + '"' + path + '"';
+                string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --sendxml=" + '"' + rawxml + '"' + " --search_path=" + '"' + path + '"' + (wndw.UFSChk.Checked ? " --memoryname=ufs" : " --memoryname=emmc"); ;
+                string subcommandp = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --sendxml=" + '"' + patchxml + '"' + " --search_path=" + '"' + path + '"' + (wndw.UFSChk.Checked ? " --memoryname=ufs" : " --memoryname=emmc"); ;
                 string subcommandf = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --showpercentagecomplete --zlpawarehost=1 --noprompt --setactivepartition=0";
                 if (debug) LOG(-1, "===Flash Partitions XML===" + newline + newline);
                 if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); CurTask.Dispose(); }
@@ -260,7 +260,7 @@ namespace HuaweiUnlocker.FlashTool
         public static bool EraseMemory(string loader)
         {
             string command = "Tools\\fh_loader.exe";
-            string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --erase=0 --noprompt --showpercentagecomplete --zlpawarehost=1 --memoryname=emmc";
+            string subcommand = "--port=\\\\.\\" + DeviceInfo.Port.ComName + " --erase=0 --noprompt --showpercentagecomplete --zlpawarehost=1" + (wndw.UFSChk.Checked ? " --memoryname=ufs" : " --memoryname=emmc");
             if (debug) LOG(-1, "===Flash Partitions XML===" + newline + newline);
             if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); return false; }
             try
@@ -281,7 +281,7 @@ namespace HuaweiUnlocker.FlashTool
             {
                 Progress(2);
                 string command = "Tools\\fh_loader.exe";
-                string subcommand = " --port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendimage=" + '"' + file + '"' + " --showpercentagecomplete --zlpawarehost=1 --noprompt --memoryname=eMMC";
+                string subcommand = " --port=\\\\.\\" + DeviceInfo.Port.ComName + " --sendimage=" + '"' + file + '"' + " --showpercentagecomplete --zlpawarehost=1 --noprompt" + (wndw.UFSChk.Checked ? " --memoryname=ufs" : " --memoryname=emmc");
                 if (debug) LOG(-1, "===Flash Partitions RAW===" + newline + newline);
                 if (!LoadLoader(loader)) { DeviceInfo.loadedhose = false; LOG(2, "Fail"); CurTask.Dispose(); }
                 try
