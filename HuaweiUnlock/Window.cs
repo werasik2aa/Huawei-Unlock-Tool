@@ -2,6 +2,7 @@
 using HuaweiUnlocker.TOOLS;
 using HuaweiUnlocker.UI;
 using Ionic.Zip;
+using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -1118,6 +1119,27 @@ namespace HuaweiUnlocker
                 LOG(2, isVCOM.Checked ? "[Huawei USB COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
             Tab.Enabled = true;
             LOG(0, "Done", DateTime.Now);
+        }
+
+        private async void IndexiesOEMdata_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string item = IndexiesOEMdata.Text;
+            CurTask = Task.Run(() =>
+            {
+                if (!string.IsNullOrEmpty(item) && OemInfoTool.data.Count > 0)
+                {
+                    LOG(0, "Reading: " + item);
+                    var a = File.ReadAllBytes("UnlockFiles/OemInfoData/" + item);
+                    if (TrimOrNCHK.Checked)
+                        a = CRC.HexStringToBytes(CRC.BytesToHexString(a).Replace("FF", ""));
+                    Action da = () => { ContantOemText.Text = CRC.HexDump(a); };
+                    if (ContantOemText.InvokeRequired)
+                        ContantOemText.Invoke(da);
+                    else
+                        da();
+                }
+            }, token);
+            await CurTask;
         }
     }
 }

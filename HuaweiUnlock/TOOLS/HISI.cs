@@ -1,6 +1,7 @@
 ﻿using HuaweiUnlocker.DIAGNOS;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -52,12 +53,13 @@ namespace HuaweiUnlocker.TOOLS
 
                 flasher.Write(image.Path, (int)image.Address, x =>
                 {
-                    Progress(dsize, asize);
+                    Progress(x, size);
                 });
 
                 dsize += size;
+                LOG(0, "Percent", dsize + " | " + asize);
             }
-
+            Progress(100, 100);
             flasher.Close();
         }
         public static bool ReadInfo()
