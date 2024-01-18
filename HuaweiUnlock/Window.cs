@@ -27,6 +27,7 @@ namespace HuaweiUnlocker
         private Dictionary<string, string> source = new Dictionary<string, string>();
         private Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\4PDA_HUAWEI_UNLOCK", true);
         private static string Temp;
+        private static bool DumbTempState = false;
         public Window()
         {
             InitializeComponent();
@@ -97,7 +98,7 @@ namespace HuaweiUnlocker
                 string folderDEV = a.Split('\\').Last();
                 if (folderDEV.StartsWith("KIRIN") & !HISIbootloaders.Items.Contains(folderDEV))
                     HISIbootloaders.Items.Add(folderDEV);
-                else if (!DEVICER.Items.Contains(folderDEV))
+                else if (!folderDEV.StartsWith("KIRIN") & !DEVICER.Items.Contains(folderDEV))
                     DEVICER.Items.Add(folderDEV);
             }
             Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
@@ -423,7 +424,7 @@ namespace HuaweiUnlocker
             }
             LOG(0, "Downloaded", Temp + ".zip");
             UnZip(Temp + ".zip", "UnlockFiles\\" + Temp);
-            ConnectKirin();
+            DumbTempState = true;
         }
         private void ProgressBar(object sender, DownloadProgressChangedEventArgs e)
         {
@@ -806,11 +807,6 @@ namespace HuaweiUnlocker
             }
         }
 
-        private void BypAuBTN_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void IdentifyBTN_Click(object sender, EventArgs e)
         {
             LOG(0, "CheckCon", " [HISI]");
@@ -951,7 +947,8 @@ namespace HuaweiUnlocker
                 return;
             }
             device = HISIbootloaders.Text.ToUpper();
-            if (!Directory.Exists("UnlockFiles\\" + device))
+            DumbTempState = Directory.Exists("UnlockFiles\\" + device);
+            if (!DumbTempState)
             {
                 Progress(1);
                 LOG(0, "DownloadFor", device);
@@ -962,7 +959,7 @@ namespace HuaweiUnlocker
                 Temp = device;
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(Downloaded2);
                 client.DownloadFileAsync(new Uri(source[device]), device + ".zip");
-                while (!Directory.Exists("UnlockFiles\\" + device))
+                while (!DumbTempState)
                     Application.DoEvents();
             }
             Path = "UnlockFiles\\" + device + "\\manifest.xml";
