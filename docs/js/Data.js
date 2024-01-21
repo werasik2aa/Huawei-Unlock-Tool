@@ -59,14 +59,13 @@ const Devices = [
 	"Y635-TL00(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/Y635-TL00.zip",
 	"KIRIN620 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi620.zip",
 	"KIRIN620(CAM) UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi620c.zip",
-	"KIRIN650(A) UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi65x_a.zip",
-	"KIRIN650(B) UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi65x_b.zip",
+	"KIRIN65X(A) UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi65x_a.zip",
+	"KIRIN65X(B) UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi65x_b.zip",
 	"KIRIN710 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710.zip",
 	"KIRIN710_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710_V2.zip",
-	"KIRIN710F_V1 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710F_V1.zip",
+	"KIRIN710F UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710F.zip",
 	"KIRIN710F_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710F_V2.zip",
 	"KIRIN710F_V3 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710F_V3.zip",
-	"KIRIN710F_V4 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi710F_V4.zip",
 	"KIRIN810 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi810.zip",
 	"KIRIN925 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi925.zip",
 	"KIRIN930 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi930.zip",
@@ -75,8 +74,7 @@ const Devices = [
 	"KIRIN955 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi955.zip",
 	"KIRIN960 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi960.zip",
 	"KIRIN970 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi970.zip",
-	"KIRIN980_V1_NOTESTED UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980_V1.zip",
-	"KIRIN980_V2_NOTESTED UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980_V2.zip"
+	"KIRIN970_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi970_V2.zip",
 ];
 const Tools = [
 	"Exclusive Huawei QDCFG'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/Exclusive+Huawei+QDCFG.zip",
