@@ -1,11 +1,12 @@
 var MYCONT=document.getElementById("DATA");
 var isListDev = GetQueryValue("ListDev");
 var DataQr = GetQueryValue("SearchIT");
-var DataDw = GetQueryValue("Download");
+var DataDwQr = GetQueryValue("Download");
 function GetQueryValue(name) {
 	name = name.replace(/[\[\]]/g, '\\$&');
 	results = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)').exec(window.location.href);
-	if (!results || !results[2]) return '';
+	if (!results) return null;
+	if (!results[2]) return '';
 	return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 function SearchIT(data) {
@@ -84,8 +85,13 @@ function BrowserDownloadableDataOut()
 		var part = MTKDAS[i].split("'");
 		MYCONT.innerHTML += GetTemplate("UMtkTAG", "img/DefFWMTK.png", part[0], part[1]);
 	}
-	if(DataQr.length > 0)
+	if(DataQr != null & DataQr.length > 0) {
 		SearchIT(DataQr);
+		if(DataDwQr != null) {
+			var get = document.getElementById(DataQr);
+			location.replace(get.href);
+		}
+	}
 }
 function GetTemplate(tag, urlimg, name, url)
 {
@@ -96,9 +102,9 @@ function GetTemplate(tag, urlimg, name, url)
 			<img class="card-img" src={3}></img>
 			<br>
 			<h5 class=\"card-title\">{1}</h5>
-			<a tag='{0}' href='{2}' class='btn2'>Download</div></a>
+			<a id='{4}' tag='{0}' href='{2}' class='btn2'>Download</div></a>
 		</div>
 	</div>
 	`
-	return data.replace("{0}", tag).replace("{1}", name).replace("{2}", url).replace("{3}", urlimg);
+	return data.replace("{0}", tag).replace("{1}", name).replace("{2}", url).replace("{3}", urlimg).replace("{4}", name);
 }
