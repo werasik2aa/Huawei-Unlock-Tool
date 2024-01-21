@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -65,13 +66,12 @@ namespace HuaweiUnlocker.TOOLS
         public static bool ReadInfo()
         {
             if (!IsDeviceConnected(5)) {
-                LOG(1, "NoDEVICEAnsw", " [HISI] Maybe hisi Loaders Wont boot"); return false;
+                LOG(1, "NoDEVICEAnsw", " [HISI] Maybe fastboot drivers not installed"); return false;
             } //if timeout and no device
             GetASerial();
             GetModelProduct();
             GetModelBSN();
             GetBuildID();
-            ReadAllMethods();
             return GetFBLockState();
         }
         public static string GetASerial()
@@ -292,15 +292,11 @@ namespace HuaweiUnlocker.TOOLS
                 if (debug) LOG(2, ex.StackTrace);
             }
         }
-        public static bool TryUnlock(string key)
+        public static bool TryUnlock(string cpupth)
         {
             if (!IsDeviceConnected()) return false;
-            if (fb.Command("oem unlock " + key.Trim()).Status == Fastboot.FastbootStatus.Ok)
-                return true;
-            else if (fb.Command("oem sec_unlock " + key.Trim()).Status == Fastboot.FastbootStatus.Ok)
-                return true;
-            else if (fb.Command("oem unlock-go " + key.Trim()).Status == Fastboot.FastbootStatus.Ok)
-                return true;
+            if (!fb.UploadData(cpupth, "fastboot"))
+                LOG(2, "Unknown", "[NC] MAYBE YOUR DEVICE DOESN'T ACCEPT THAT FASTBOOT.IMG!");
             return false;
         }
         public static string GetPartitionList()

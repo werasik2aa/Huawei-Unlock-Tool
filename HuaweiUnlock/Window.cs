@@ -555,10 +555,11 @@ namespace HuaweiUnlocker
                 if (BLkeyHI.Text.Length == 16)
                 {
                     ConnectKirin();
-                    LOG(-1, "=============UNLOCKER BL/FRP (KIRIN TESTPOINT)=============");
                     if(DeviceInfo.loadedhose)
                     {
+                        LOG(-1, "=============UNLOCKER BL/FRP (KIRIN TESTPOINT)=============");
                         BLKEYTXT.Text = HISI.WriteKEY(BLkeyHI.Text.ToUpper());
+                        HISI.ReadAllMethods();
                         if (RbCheck.Checked) HISI.Reboot();
                         HISI.Disconnect();
                     }
@@ -979,7 +980,7 @@ namespace HuaweiUnlocker
                     await CurTask;
                 }
             }
-            DeviceInfo.loadedhose = HISI.IsDeviceConnected(3);
+            DeviceInfo.loadedhose = !isVCOM.Checked || DeviceInfo.Port.ComName != "NaN" ? HISI.IsDeviceConnected(3) : false;
             if (DeviceInfo.loadedhose)
             {
                 LOG(0, "[Fastboot] ", "CheckCon");
@@ -1099,10 +1100,16 @@ namespace HuaweiUnlocker
         private void TryUNLHisiFBBtn_Click(object sender, EventArgs e)
         {
             Tab.Enabled = false;
-            ConnectKirin();
-            if (DeviceInfo.loadedhose)
-                HISI.TryUnlock(HISI.ReadFactoryKey().Trim());
-            else LOG(2, isVCOM.Checked ? "[Huawei USB COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
+            DialogResult dialogResult = MessageBox.Show(Language.Get("HISITryUnlock"), Language.Get("HISITryULTag"), MessageBoxButtons.YesNo);
+            if (dialogResult != DialogResult.Yes) return;
+            if (!DeviceInfo.loadedhose)
+            {
+                LOG(2, isVCOM.Checked ? "[Huawei USB COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
+                return;
+            }
+            var file = "UnlockFiles\\" + device + "\\fastboot.img";
+            if (File.Exists(file))
+                HISI.TryUnlock(file);
             Tab.Enabled = true;
             LOG(0, "Done", DateTime.Now);
         }

@@ -217,6 +217,12 @@ namespace HuaweiUnlocker.TOOLS
                     }
                 }
             }
+            else
+            {
+                stream.Close();
+                stream.Dispose();
+                return false;
+            }
             stream.Close();
             stream.Dispose();
             return true;
