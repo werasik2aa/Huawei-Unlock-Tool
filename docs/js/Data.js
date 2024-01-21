@@ -123,7 +123,7 @@ const Loaders = [
 	"FDR firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/FDR/Qualcomm MSM8939.mbn",
 	"G7 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/G7/Qualcomm MSM8916.mbn",
 	"G620S firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/G620S/Qualcomm MSM8916.mbn",
-	"G630 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/G630/Qualcomm MSM8X10.mbn",
+	"G630 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/G630/Qualcomm MSM8212.mbn",
 	"H1611 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/H1611/Qualcomm MSM8939.mbn",
 	"H1711 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/H1711/Qualcomm MSM8940.mbn",
 	"KII firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/KII/Qualcomm MSM8939.mbn",
