@@ -75,6 +75,8 @@ const Devices = [
 	"KIRIN960 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi960.zip",
 	"KIRIN970 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi970.zip",
 	"KIRIN970_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi970_V2.zip",
+	"KIRIN980 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980.zip",
+	"KIRIN980_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980_V2.zip",
 ];
 const Tools = [
 	"Exclusive Huawei QDCFG'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/Exclusive+Huawei+QDCFG.zip",
