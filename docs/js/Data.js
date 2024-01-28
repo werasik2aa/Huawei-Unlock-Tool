@@ -155,7 +155,7 @@ const Loaders = [
 	"Y560 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/Y560/Qualcomm MSM8909.mbn",
 	"Y635 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/Y635/Qualcomm MSM8916.mbn",
 	"Y625 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/Y625/Qualcomm MSM8x10.mbn",
-	"Qualcomm's firehose.mbn pack ANY model'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/QualcommsMBNPKG.7z"
+	"Qualcomm firehose loader pack ANY model'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/QualcommsMBNPKG.7z"
 ];
 
 const Firmwares = [
