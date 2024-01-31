@@ -687,7 +687,7 @@ namespace HuaweiUnlocker
                 PORTBOX.Items.Add(i.FullName);
             if (DeviceInfo.loadedhose)
             {
-                if (!PORTBOX.Items.Contains(DeviceInfo.Port.FullName))
+                if (!PORTBOX.Items.Contains(DeviceInfo.Port.FullName) & !DeviceInfo.loadedhose)
                 {
                     LOG(0, "DPort", DeviceInfo.Port.FullName);
                     PORTBOX.Items.Remove(DeviceInfo.Port.FullName);
@@ -874,7 +874,7 @@ namespace HuaweiUnlocker
             LOG(0, "Compiling oeminfo.img");
             CurTask = Task.Run(() =>
             {
-                OemInfoTool.Compile("UnlockFiles/OemInfoData", "UnlockFiles/oeminfo-unsigned-unhashed.img");
+                OemInfoTool.Compile("UnlockFiles\\OemInfoData\\", "UnlockFiles/oeminfo-unsigned-unhashed.img");
             }, token);
             await CurTask;
             LOG(0, "Done", DateTime.Now);
