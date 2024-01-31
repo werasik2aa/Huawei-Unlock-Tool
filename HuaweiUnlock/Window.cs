@@ -701,8 +701,6 @@ namespace HuaweiUnlocker
                     PARTLIST.Update();
                     KirinFiles.Rows.Clear();
                     KirinFiles.Update();
-                    RdGPT.Visible = RdGPT.Enabled = true;
-                    WHAT2.Enabled = WHAT2.Visible = WHAT.Enabled = WHAT.Visible = false;
                 }
                 if (!HISI.fb.device.IsOpen)
                 {
