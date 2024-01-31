@@ -903,10 +903,7 @@ namespace HuaweiUnlocker
             if (DeviceInfo.loadedhose)
                 HISI.UnlockFRP();
             else
-            {
-                LOG(2, isVCOM.Checked ? "[Huawei USB COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
                 LOG(2, "FailFrp");
-            }
             Tab.Enabled = true;
             LOG(0, "Done", DateTime.Now);
         }
@@ -916,8 +913,6 @@ namespace HuaweiUnlocker
             ConnectKirin();
             if (DeviceInfo.loadedhose)
                 HISI.Reboot();
-            else
-                LOG(2, isVCOM.Checked ? "[Huawei USB COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
         }
 
         private void HomeeBTN_Click(object sender, EventArgs e)
