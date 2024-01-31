@@ -2,7 +2,6 @@
 using HuaweiUnlocker.TOOLS;
 using HuaweiUnlocker.UI;
 using Ionic.Zip;
-using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,10 +27,12 @@ namespace HuaweiUnlocker
         private Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\4PDA_HUAWEI_UNLOCK", true);
         private static string Temp;
         private static bool DumbTempState = false;
+        private static string DateOpen;
         public Window()
         {
             InitializeComponent();
             wndw = this;
+            DateOpen = DateTime.Now.ToString();
             foreach (var process in Process.GetProcesses())
                 if (process.ProcessName.Contains("emmcdl.exe"))
                     process.Kill();
@@ -43,14 +44,13 @@ namespace HuaweiUnlocker
             if (!Directory.Exists("LOGS")) Directory.CreateDirectory("LOGS");
             if (!Directory.Exists("Languages")) Directory.CreateDirectory("Languages");
             if (!Directory.Exists("Tools")) Directory.CreateDirectory("Tools");
-
+            se = new StreamWriter("LOGS\\" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "=LOG.txt");
             //Extract languages if not exist
             if (!File.Exists("Languages\\Russian.ini")) SaveResources("Russian.ini", "Languages");
             if (!File.Exists("Languages\\English.ini")) SaveResources("English.ini", "Languages");
 
             foreach (string i in Directory.GetFiles("Languages", "*.ini"))
                 LBOX.Items.Add(i.Split('\\').Last().Replace(".ini", ""));
-
             if (key == null)
             {
                 key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\4PDA_HUAWEI_UNLOCK");
@@ -166,7 +166,6 @@ namespace HuaweiUnlocker
                 RebootFBBTN.Text = Language.Get("RbBTN");
                 TryUNLHisiFBBtn.Text = Language.Get("DdBtnE");
                 CpuHISIBox.Text = Language.Get("HISISelectCpu");
-
                 Path = "UnlockFiles\\" + DEVICER.Text.ToUpper();
                 if (!Directory.Exists(Path)) BoardU.Text = Language.Get("DdBtn"); else BoardU.Text = Language.Get("DdBtnE");
                 DBB.Text = Language.Get("DebugLbl");
@@ -509,8 +508,7 @@ namespace HuaweiUnlocker
                 ct = new CancellationTokenSource();
                 token = ct.Token;
             }
-            if (!File.Exists("log.txt")) return;
-            File.Copy("log.txt", "LOGS\\" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + "=LOG.txt", true);
+            se.Close();
         }
         private void DebugE_ch(object sender, EventArgs e)
         {
@@ -555,7 +553,7 @@ namespace HuaweiUnlocker
                 if (BLkeyHI.Text.Length == 16)
                 {
                     ConnectKirin();
-                    if(DeviceInfo.loadedhose)
+                    if (DeviceInfo.loadedhose)
                     {
                         LOG(-1, "=============UNLOCKER BL/FRP (KIRIN TESTPOINT)=============");
                         BLKEYTXT.Text = HISI.WriteKEY(BLkeyHI.Text.ToUpper());
@@ -563,7 +561,7 @@ namespace HuaweiUnlocker
                         if (RbCheck.Checked) HISI.Reboot();
                         HISI.Disconnect();
                     }
-                    else LOG(2, isVCOM.Checked? "[Huawei USB COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
+                    else LOG(2, isVCOM.Checked ? "[Huawei USB COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
                 }
                 else
                     LOG(2, "KeyLenghtERR");
@@ -650,6 +648,7 @@ namespace HuaweiUnlocker
                 ct = new CancellationTokenSource();
                 token = ct.Token;
             }
+            LOGGBOX.Text = "";
             DeviceInfo = new IDentifyDev();
             PARTLIST.Rows.Clear();
             PARTLIST.Update();
@@ -704,7 +703,6 @@ namespace HuaweiUnlocker
                     KirinFiles.Update();
                     RdGPT.Visible = RdGPT.Enabled = true;
                     WHAT2.Enabled = WHAT2.Visible = WHAT.Enabled = WHAT.Visible = false;
-                    Tab.Enabled = true;
                 }
                 if (!HISI.fb.device.IsOpen)
                 {
@@ -811,9 +809,9 @@ namespace HuaweiUnlocker
         private void IdentifyBTN_Click(object sender, EventArgs e)
         {
             LOG(0, "CheckCon", " [HISI]");
-            var portQC = DeviceInfo.Port = GETPORT("huawei usb com", PORTBOX.Text);
+            var portHISI = DeviceInfo.Port = GETPORT("huawei usb com", PORTBOX.Text);
             LOG(0, "CheckCon", " [QCOM]");
-            var portHISI = DeviceInfo.Port = GETPORT("qdloader 9008", PORTBOX.Text);
+            var portQC = DeviceInfo.Port = GETPORT("qdloader 9008", PORTBOX.Text);
             if (!portHISI.ComName.Equals("NaN"))
                 LOG(0, "CPort", "[HISI] " + DeviceInfo.Port.FullName);
             if (!portQC.ComName.Equals("NaN"))
@@ -840,6 +838,9 @@ namespace HuaweiUnlocker
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 IndexiesOEMdata.Items.Clear();
+                OemInfoTool.data.Clear();
+                OemInfoTool.Offsets.Clear();
+                OemInfoTool.DevStats.Clear();
                 CurTask = Task.Run(() =>
                 {
                     OemInfoTool.Decompile(openFileDialog.FileName);
@@ -941,6 +942,7 @@ namespace HuaweiUnlocker
         private async void ConnectKirin()
         {
             Tab.Enabled = false;
+            DumbTempState = false;
             if (String.IsNullOrEmpty(HISIbootloaders.Text.ToUpper()))
             {
                 LOG(1, "HISISelectCpu");
@@ -969,18 +971,18 @@ namespace HuaweiUnlocker
             LOG(0, "CheckCon");
             DeviceInfo.Port = GETPORT("huawei usb com", PORTBOX.Text);
             LOG(-1, "=============BOOTLOADER (KIRIN TESTPOINT<->FASTBOOT)=============");
-            if (isVCOM.Checked)
+            if (isVCOM.Checked & DeviceInfo.Port.ComName != "NaN")
             {
-                if (DeviceInfo.Port.ComName != "NaN")
+                CurTask = Task.Run(() =>
                 {
-                    CurTask = Task.Run(() =>
-                    {
-                        HISI.FlashBootloader(Bootloader.ParseBootloader(Path), DeviceInfo.Port.ComName);
-                    });
-                    await CurTask;
-                }
+                    HISI.FlashBootloader(Bootloader.ParseBootloader(Path), DeviceInfo.Port.ComName);
+                });
+                await CurTask;
             }
-            DeviceInfo.loadedhose = !isVCOM.Checked || DeviceInfo.Port.ComName != "NaN" ? HISI.IsDeviceConnected(3) : false;
+            if (!isVCOM.Checked)
+                DeviceInfo.loadedhose = HISI.IsDeviceConnected(3);
+            else
+                DeviceInfo.loadedhose = DeviceInfo.Port.ComName != "NaN" ? HISI.IsDeviceConnected(10) : false;
             if (DeviceInfo.loadedhose)
             {
                 LOG(0, "[Fastboot] ", "CheckCon");
@@ -1119,8 +1121,6 @@ namespace HuaweiUnlocker
             ConnectKirin();
             if (DeviceInfo.loadedhose)
                 LOG(0, "CPort", "[Fastboot]" + DeviceInfo.CPUName);
-            else 
-                LOG(2, isVCOM.Checked ? "[Huawei USB COM 1.0] " : "[FASTBOOT] ", "DeviceNotCon");
             Tab.Enabled = true;
             LOG(0, "Done", DateTime.Now);
         }
@@ -1144,6 +1144,37 @@ namespace HuaweiUnlocker
                 }
             }, token);
             await CurTask;
+        }
+        string FindPassword = "4641494C436F6D6D616E64206E6F7420616C6C6F7765640000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+        private string was = "";
+        private IEnumerable<string> GetCombinations(char[] Chars, int MaximumLength)
+        {
+            if (MaximumLength < 1)
+                yield break;
+
+            foreach (var a in Chars)
+            {
+                yield return a.ToString();
+                foreach (var b in GetCombinations(Chars, MaximumLength - 1))
+                    yield return a + b;
+            }
+        }
+        public string charset = "abcdefghijklmnopqrstuvwxyz0123456789";
+        private async void label4_Click(object sender, EventArgs e)
+        {
+            /*CurTask = Task.Run(() =>
+            {
+                LOG(0, "Brootforce start");
+                foreach (var Password in GetCombinations(charset.ToArray(), 16))
+                {
+                    LOG(0, "Test:", Password.ToUpper());
+                    if (HISI.CompareSHA(FindPassword, Password))
+                    {
+                        LOG(0, "target found:", Password.ToUpper());
+                        return;
+                    }
+                }
+            }, token);*/
         }
     }
 }

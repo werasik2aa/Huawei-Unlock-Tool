@@ -25,8 +25,8 @@ namespace HuaweiUnlocker.TOOLS
                 BaudRate = BAUDRATE,
                 DtrEnable = true,
                 RtsEnable = true,
-                ReadTimeout = 10000,
-                WriteTimeout = 10000
+                ReadTimeout = 99999999,
+                WriteTimeout = 99999999
             };
             port.Open();
         }

@@ -18,10 +18,10 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "31F";
+        public const string APP_VERSION = "32F";
         public static TextBox LOGGBOX;
         public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
-        private static StreamWriter se = new StreamWriter("log.txt");
+        public static StreamWriter se;
         public static NProgressBar PRG;
         public static TabControl Tab;
         private static Action action;
@@ -182,12 +182,13 @@ namespace HuaweiUnlocker
             {
 
             }
-            action = () => LOGGBOX.AppendText((newline + state + i + sepa + j.ToString()).Replace("/n", newline).Replace("\n", newline));
-            if (LOGGBOX.InvokeRequired)
+            string line = (newline + state + i + sepa + j).Replace("/n", newline).Replace("\n", newline);
+            action = () => LOGGBOX.AppendText(line);
+                if (LOGGBOX.InvokeRequired)
                 LOGGBOX.Invoke(action);
             else
                 action();
-            se.WriteLine(newline + state + i + sepa + j.ToString());
+            se.WriteLine(line);
             return true;
         }
         //GET PORTS
@@ -200,7 +201,7 @@ namespace HuaweiUnlocker
                 try
                 {
                     foreach (ManagementObject queryObj in new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity WHERE ClassGuid=\"{4d36e978-e325-11ce-bfc1-08002be10318}\"").Get())
-                        if (queryObj["Name"].ToString().ToLower().Contains(name))
+                        if (queryObj["Name"].ToString().ToLower().Contains(name.ToLower()))
                         {
                             string DEVICEname = queryObj["Name"].ToString();
                             req.ComName = DEVICEname.Split(' ').Last().Replace("(", "").Replace(")", "");

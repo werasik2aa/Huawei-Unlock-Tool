@@ -19,9 +19,9 @@ namespace HuaweiUnlocker.TOOLS
 
         public int DefaultRWTimeout = 500000;
         public int DefaultTimeoutWait = 100;
-        public UsbDevice device;
-        UsbEndpointWriter WriteEp;
-        UsbEndpointReader ReadEp;
+        public UsbDevice device = null;
+        UsbEndpointWriter WriteEp = null;
+        UsbEndpointReader ReadEp = null;
 
         public enum FastbootStatus
         {
@@ -105,7 +105,8 @@ namespace HuaweiUnlocker.TOOLS
         }
         public void Disconnect()
         {
-            device.Close();
+            if(device != null)
+                device.Close();
         }
         public string GetSerialNumber()
         {

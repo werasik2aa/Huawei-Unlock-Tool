@@ -1,4 +1,6 @@
-﻿namespace HuaweiUnlocker.DIAGNOS
+﻿using System;
+
+namespace HuaweiUnlocker.DIAGNOS
 {
     public class DataS
     {
@@ -17,6 +19,17 @@
                 Length = length;
                 ValueString = value;
             }
+        }
+        public struct OemInfoHdr
+        {
+            public byte[] Magic;
+            public int Offset;
+            public long DataLenPage;
+            public UInt32 Version;
+            public UInt32 ID;
+            public UInt32 Type;
+            public UInt32 DataLenOem;
+            public UInt32 Age;
         }
         public static string IdentifyCPUbyID(string id)
         {

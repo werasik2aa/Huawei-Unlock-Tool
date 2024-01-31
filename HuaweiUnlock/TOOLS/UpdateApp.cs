@@ -19,7 +19,16 @@ namespace HuaweiUnlocker.TOOLS
             Tab.Enabled = false;
             var i = 0;
             if (!Directory.Exists("/UnlockFiles/UpdateAPP/")) Directory.CreateDirectory("UnlockFiles/UpdateAPP");
-            UpdateFile UpdFile = UpdateFile.Open(path, false);
+            UpdateFile UpdFile = null;
+            try
+            {
+                UpdFile = UpdateFile.Open(path, false);
+            }
+            catch
+            {
+                LOG(0, "WRONG FILE");
+                return;
+            }
             if (state > 0)
             {
                 CurTask = Task.Run(() =>

@@ -1,8 +1,6 @@
 ﻿using HuaweiUnlocker.DIAGNOS;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -22,6 +20,16 @@ namespace HuaweiUnlocker.TOOLS
         public static void Disconnect()
         {
             fb.Disconnect();
+        }
+        public static bool CompareSHA(string encpass, string pass)
+        {
+            bool state = encpass.Contains(CRC.BytesToHexString(GetSHA256(pass.ToUpper())));
+            if (state)
+                return LOG(0, "SHA256: " + pass);
+            state = encpass.Contains(CRC.BytesToHexString(GetSHA512(pass.ToUpper())));
+            if (state)
+                return LOG(0, "SHA512: " + pass);
+            return false;
         }
         public static void FlashBootloader(Bootloader bootloader, string port)
         {
@@ -65,7 +73,8 @@ namespace HuaweiUnlocker.TOOLS
         }
         public static bool ReadInfo()
         {
-            if (!IsDeviceConnected(5)) {
+            if (!IsDeviceConnected(5))
+            {
                 LOG(1, "NoDEVICEAnsw", " [HISI] Maybe fastboot drivers not installed"); return false;
             } //if timeout and no device
             GetASerial();
@@ -154,6 +163,10 @@ namespace HuaweiUnlocker.TOOLS
         {
             return SHA256.Create().ComputeHash(Encoding.ASCII.GetBytes(str));
         }
+        public static byte[] GetSHA512(string str)
+        {
+            return SHA512.Create().ComputeHash(Encoding.ASCII.GetBytes(str));
+        }
 
         public static void SetHWDogState(byte state)
         {
@@ -178,7 +191,7 @@ namespace HuaweiUnlocker.TOOLS
             if ((BLKEY = ReadFactoryKey()).Length >= 8)
                 LOG(0, "HISIOldKey", " Method1-> " + BLKEY);
             if ((BLKEY = ReadFactoryKeyMethod2()).Length >= 8)
-                LOG(0, "HISIOldKey", " Method2(SHA256)-> " + BLKEY);
+                LOG(0, "HISIOldKey", " Method2(SHA256/512)-> " + BLKEY);
             if ((BLKEY = ReadIndentifier()).Length >= 8)
                 LOG(0, "HISIOldKey", " Method3-> " + BLKEY);
         }
@@ -248,7 +261,7 @@ namespace HuaweiUnlocker.TOOLS
             }
             return "NaN";
         }
-        public static bool IsDeviceConnected(int time=10)
+        public static bool IsDeviceConnected(int time = 10)
         {
             if (fb.device == null) fb.Connect(time);
             return fb.device != null;
@@ -256,7 +269,7 @@ namespace HuaweiUnlocker.TOOLS
         public static string Reboot(string state = "")
         {
             if (!IsDeviceConnected()) return "NaN";
-            var res = fb.Command("reboot" +state);
+            var res = fb.Command("reboot" + state);
             LOG(0, res.Payload);
             return res.Payload;
         }
