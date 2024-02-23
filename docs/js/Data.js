@@ -21,6 +21,7 @@ const Devices = [
 	"CPN-L09(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/CPN-L09.zip",
 	"DLI-XXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/DLI-XXX.zip",
 	"DUB-LXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/DUB-LXX.zip",
+	"DUB-LX1-LX2-LX3(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/DUB-LX123.zip",
 	"FDR-AXXL(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/FDR-AXXL.zip",
 	"G6-C00(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G6-C00.zip",
 	"G6-L11(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/G6-L11.zip",
