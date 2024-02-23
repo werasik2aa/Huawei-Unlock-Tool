@@ -171,6 +171,7 @@ const Firmwares = [
 	"[Board Software] Huawei Honor 7c LND'https://drive.google.com/file/d/1aFHRGXS9ltyCr1TZYXxmeOArU7VTlOiG/view?usp=drivesdk",
 	"[Board Software] Huawei GR5 KII-L21'https://drive.google.com/file/d/1BgYa9FjDGV27GD_wBHDyEvFXXTn62AYz/view?usp=drivesdk",
 	"[Board Software] Huawei Y7 Prime 2018 LDN-LXX'https://androidhost.ru/X7d",
+	"[Board Software] Huawei Y7 Prime 2018 DUB-LX1-LX2-LX3'https://androidhost.ru/1lsQ",
 	"[Board Software] Huawei P8 Lite ALE-LXX'https://androidhost.ru/1PK2",
 	"[Board Software] Huawei Honor 8X Max ARE-L21'https://drive.google.com/file/d/1KTuoDzdhvoKvgN5wx3JRJVC6qpzWblrF/view",
 	"[Board Software] Huawei Honor 7i ATH-TLXX'https://drive.google.com/file/d/1vpWzHM62W1lAa8th6KrS2wuwWN5fjE7q/view",
@@ -267,6 +268,7 @@ const MTKDAS = [
 const MISC = [
 	"Qualcomm FRP.img unlocked V1'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Misc/frpPartition.img",
 	"Qualcomm DEVINFO.img unlocked for V1'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Misc/frpUnlocked.img",
+	"HISI-KIRIN loaders for IDT tool'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Misc/HISI_Loaders_For_IDT.7z",
 ];
 
 const Tutorials = [
