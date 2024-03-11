@@ -57,6 +57,7 @@ const Devices = [
 	"TOR-A1(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/TOR-A1.zip",
 	"TRT-XXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/TRT-XXX.zip",
 	"Y330-C00(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/Y330-C00.zip",
+	"Y635-L01(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/Y635-L01.zip",
 	"Y635-L02(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/Y635-L02.zip",
 	"Y635-TL00(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/Y635-TL00.zip",
 	"KIRIN620 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi620.zip",
