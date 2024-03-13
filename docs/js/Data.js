@@ -44,6 +44,7 @@ const Devices = [
 	"KII-LXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KII-LXX.zip",
 	"KIW-ALXX(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KIW-ALXX.zip",
 	"KOB-WXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KOB-WXX.zip",
+	"KOB-LXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KOB-LXX.zip",
 	"LDN-XXX(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/LDN-XXX.zip",
 	"LND-XXX(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/LND-XXX.zip",
 	"MT2-L03(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/MT2-L03.zip",
