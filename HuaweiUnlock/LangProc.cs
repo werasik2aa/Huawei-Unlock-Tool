@@ -18,9 +18,9 @@ namespace HuaweiUnlocker
 {
     public static class LangProc
     {
-        public const string APP_VERSION = "32F";
+        public const string APP_VERSION = "33F";
         public static TextBox LOGGBOX;
-        public static string log, loge, newline = Environment.NewLine, PrevFolder = "c:\\";
+        public static string log, loge, newline = Environment.NewLine, PrevFolder = "UnlockFiles";
         public static StreamWriter se;
         public static NProgressBar PRG;
         public static TabControl Tab;
@@ -175,14 +175,14 @@ namespace HuaweiUnlocker
 
             try
             {
-                i = string.Join("", Regex.Split((string)i, @"(?:\r\n|\n|\r)"));
-                j = string.Join("", Regex.Split((string)j, @"(?:\r\n|\n|\r)"));
+                i = string.Join(newline, Regex.Split((string)i, @"(?:\r\n|\n|\r)"));
+                j = string.Join(newline, Regex.Split((string)j, @"(?:\r\n|\n|\r)"));
             }
             catch
             {
 
             }
-            string line = (newline + state + i + sepa + j).Replace("/n", newline).Replace("\n", newline);
+            string line = (newline + state + i + sepa + j);
             action = () => LOGGBOX.AppendText(line);
                 if (LOGGBOX.InvokeRequired)
                 LOGGBOX.Invoke(action);
@@ -234,6 +234,7 @@ namespace HuaweiUnlocker
                     reqq.ComName = DEVICEname.Split(' ').Last().Replace("(", "").Replace(")", "");
                     reqq.FullName = DEVICEname;
                     req.Add(reqq);
+                    Thread.Sleep(10);
                 }
             }
             catch (Exception)

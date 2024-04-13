@@ -127,7 +127,8 @@ namespace HuaweiUnlocker.TOOLS
 
             if (_ack != 0xAA)
             {
-                throw new Exception(string.Format("ACK is invalid! ACK={0:X2}; Excepted={1:X2}", _ack, 0xAA));
+                LangProc.LOG(2, string.Format("ACK is invalid! ACK={0:X2}; Excepted={1:X2}", _ack, 0xAA), " :FAIL TO FLASH:");
+                return;
             }
         }
     }

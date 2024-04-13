@@ -43,16 +43,15 @@ namespace HuaweiUnlocker.TOOLS
             {
                 if (!image.IsValid)
                 {
-                    throw new Exception($"Image `{image.Role}` is not valid!");
+                    LOG(2, "Image " + image.Role + " is not valid!");
+                    return;
                 }
 
                 asize += image.Size;
             }
-
-            LOG(0, "CPort", port);
             flasher.Open(port);
 
-            LOG(0, "Writer", bootloader.Name);
+            LOG(0, "Writer", bootloader.Name.Replace("NVME", "NVE"));
 
             foreach (var image in bootloader.Images)
             {
@@ -216,7 +215,7 @@ namespace HuaweiUnlocker.TOOLS
             var res = fb.Command("oem get_identifier_token");
             var match = Regex.Match(res.Payload, @"[\w\d]{16}");
 
-            return match.Success ? match.Value : "NaN";
+            return match.Success ? match.Value : res.Payload;
         }
         public static void UnlockFBLOCK()
         {

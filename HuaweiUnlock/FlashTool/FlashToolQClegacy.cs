@@ -74,10 +74,8 @@ namespace HuaweiUnlocker.FlashTool
                     {
                         if (fileName.EndsWith(".xml")) continue;
                         string partname = fileName.Split('\\').Last().Split('.').First();
-                        LOG(0, "Writer", partname + newline);
                         subcommand = "-p " + DeviceInfo.Port.ComName + " -f " + '"' + loader + '"' + " -b " + partname + " " + '"' + fileName + '"';
-                        if (DeviceInfo.Partitions.ContainsKey(partname))
-                            CurPartLenght = int.Parse(DeviceInfo.Partitions[partname].BlockNumSectors);
+                        LOG(0, "Writer", partname + newline);
                         if (!SyncRUN(command, subcommand))
                             LOG(2, "FailUnl");
                         else Progress(50);

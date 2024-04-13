@@ -77,8 +77,8 @@ namespace HuaweiUnlocker.TOOLS
                     return false;
                 }
 
-                Thread.Sleep(500);
                 counter++;
+                Thread.Sleep(64);
                 Application.DoEvents();
             }
 

@@ -71,6 +71,7 @@ namespace HuaweiUnlocker.DIAGNOS
                     LOG(0, "DATA:", Encoding.ASCII.GetString(data));
                 }
             }
+            FileAll = null;
         }
         public static List<int> GetOffsets(byte[] file, string pattr)
         {
@@ -94,26 +95,21 @@ namespace HuaweiUnlocker.DIAGNOS
         public static void Compile(string intpath, string outpath)
         {
             //NOT WORK
-            FileStream outfile = new FileStream(outpath, FileMode.OpenOrCreate);
-            outfile.Seek(0, SeekOrigin.Begin);
 
             //ТУТ нужно было все файлы из папки в .img 
             //а я вот такую поеботу сделал 0_)
-            DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo("UnlockFiles/OemInfoData/");
+            DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo(intpath);
             FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*.header");
+            FileStream outfile = new FileStream(outpath, FileMode.OpenOrCreate);
             foreach (var dfile in filesInDir)
             {
-                byte[] filebts = File.ReadAllBytes(dfile.FullName);
+                outfile.Seek(0, SeekOrigin.Begin);
+                LOG(0, "Adding: " + dfile.Name);
+                byte[] filebts = File.ReadAllBytes(intpath + dfile.Name);
                 outfile.Write(filebts, 0, filebts.Length);
-                foreach (var aoffset in Offsets)
-                {
-                    LOG(0, "Adding: OEM_INFO_" + aoffset + ".header");
-                    filebts = File.ReadAllBytes(intpath + "/OEM_INFO_" + aoffset + ".header");
-                    outfile.Write(filebts, 0, filebts.Length);
-                }
-                outfile.Close();
-                outfile.Dispose();
             }
+            outfile.Close();
+            outfile.Dispose();
         }
     }
 }
