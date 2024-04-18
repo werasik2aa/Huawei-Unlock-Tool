@@ -43,7 +43,6 @@ const Devices = [
 	"H30-C00(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/H30-C00.zip",
 	"KII-LXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KII-LXX.zip",
 	"KIW-ALXX(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KIW-ALXX.zip",
-	"KIW-L21(NO_TESTED)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KIW-L21.zip",
 	"KOB-WXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KOB-WXX.zip",
 	"KOB-LXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/KOB-LXX.zip",
 	"LDN-XXX(FULL)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/LDN-XXX.zip",
