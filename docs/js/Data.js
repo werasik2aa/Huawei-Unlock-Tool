@@ -84,6 +84,7 @@ const Devices = [
 	"KIRIN970_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi970_V2.zip",
 	"KIRIN980 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980.zip",
 	"KIRIN980_V2 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi980_V2.zip",
+	"KIRIN990 UnlockFile for PotatoNV/HUT'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/hisi990.zip",
 ];
 const Tools = [
 	"Exclusive Huawei QDCFG'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Tools/Exclusive+Huawei+QDCFG.zip",
@@ -139,6 +140,7 @@ const Loaders = [
 	"KIW firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/KIW/Qualcomm MSM8939.mbn",
 	"KOB firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/KOB/Qualcomm MSM8917.mbn",
 	"LDN firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/LDN/Qualcomm MSM8937.mbn",
+	"LDN_V2 firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/LDN/Qualcomm MSM8937_V2.mbn",
 	"LND firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/LND/Qualcomm Snapdragon 450.mbn",
 	"NAM firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/NAM/Qualcomm Snapdragon 778G.mbn",
 	"NIN firehose.MBN'https://raw.githubusercontent.com/werasik2aa/Huawei-Unlock-Tool/HUT/Loaders/NIN/Qualcomm MSM8994.mbn",
