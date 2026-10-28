@@ -1,6 +1,6 @@
 const Devices = [
 	"AGS-LXX(FB_ONLY)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/AGS-LXX.zip",
-	"AGS-WXX(FB_ONLY_BROKEN)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/AGS-WXX.zip",
+	"AGS-WXX(FB_ONLY)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/AGS-WXX.zip",
 	"ALE-CLXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ALE-CLXX.zip",
 	"ARE-AL10BD(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ARE-AL10BD.zip",
 	"ATH-TLXX(FB_NOTEST)'https://raw.githubusercontent.com/werasik2aa/UnlockedHuaweiBootloader/main/ATH-TLXX.zip",
